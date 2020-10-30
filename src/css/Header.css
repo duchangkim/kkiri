@@ -1,0 +1,108 @@
+.Krikri-Select {
+  width: 90%;
+  height: 50px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  border: 3px solid rgba(255, 170, 177, 1);
+  border-radius: 30px;
+  margin-right: 28px;
+}
+
+/* 검색 부분 */
+.Search {
+  height: 50px;
+  display: flex;
+}
+/* 검색 버튼 부분 */
+.Img-Button {
+  width: 50px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  outline: none;
+  background-color: white;
+  border-radius: 30px 0px 0px 30px / 30px 0px 0px 30px;
+}
+.Img-Button:focus {
+  outline: none !important;
+}
+/* 검색 이미지 사이즈 부분 */
+.Img-Button img {
+  width: 25px;
+  height: 25px;
+}
+/* 검색 이미지 hover 부분 */
+.Img-Button img:hover {
+  cursor: pointer;
+}
+/* 검색 input 부분 */
+.Search-Keyword {
+  width: 95%;
+  height: 44px;
+  font-size: 16px;
+  border: none;
+  vertical-align: middle;
+  border-radius: 0px 30px 30px 0px / 30px 30px 30px 30px;
+}
+/* 검색 input:focus 부분 */
+.Search-Keyword:focus {
+  outline: none;
+}
+.Krikri-Header {
+  margin-left: 28px;
+  height: 70px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.Krikri-Name {
+  position: relative;
+  top: 25%;
+  transform: translateY(-25%);
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.Krikri-Date {
+  margin-top: 8px;
+  font-size: 18px;
+  color: rgba(181, 181, 183, 1);
+}
+
+.Krikri-Header-Alram {
+  /* width: 35px;
+  height: 35px; */
+  width: 5%;
+  height: 50%;
+  position: relative;
+  top: -80%;
+  right: -80%;
+}
+
+.Krikri-Header-Profile {
+  /* width: 35px;
+  height: 35px; */
+  width: 5%;
+  height: 50%;
+  position: relative;
+  top: -80%;
+  right: -83%;
+}
+.Krikri-Header-Alram:hover,
+.Krikri-Header-Profile:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .Krikri-Name {
+    font-size: 100%;
+  }
+  .Krikri-Header-Alram,
+  .Krikri-Header-Profile {
+    position: relative;
+    top: -60%;
+  }
+}

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <script>
+    window.onload = () => {
+      // 검색
+      const Searching = Search.prototype;
+      function Search(){
+          this.keyword = document.querySelector('input[name = "search"]');
+          this.button = document.querySelector('.img-button');
+          this.form = document.querySelector('.Search');
+          this.Engine();
+      }
+      Searching.Engine = function(){
+          this.form.addEventListener('submit', e => {
+              e.preventDefault();
+              let keyword = this.keyword.value;
+              window.open('https:///www.google.co.kr/search?q=' + keyword);
+          });
+      }
+      new Search();
+    }
+
+       // 날씨 api
+    // 날씨
+    const weather = document.querySelector(".Show-Weather");
+    const API_KEY = "7281a145274b52a5338769d114cc3464";
+    const COORDS = "coords";
+
+    function getWeather(lat, lng) {
+    // 호출 6번
+    // fetch() 메서드를 이용하는 것으로 비동기 네트워크 통신을 알기쉽게 기술할 수 있습니다.
+    /*
+        Fetch API를 이용하면 Request나 Response와 같은 HTTP의 파이프라인을 구성하는 요소를 조작하는것이 가능하다. 이 파이프라인이라는 표현은 MDN에서 사용한 것인데 좀 마음에 든다.
+    또한 fetch() 메서드를 이용하는 것으로 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.
+    fetch()로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject하지 않는다. Code가 404나 500을 반환하더라도 상태가 false인 resolve가 반환되며, 네트워크 장애나 요청이 완료되지 못한 상태에는 reject가 반환된다.
+    */
+    console.dir(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY}`
+    );
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY}`
+    )
+        .then((response) => {
+        console.dir(response); // Response객체임
+        return response.json();
+        })
+        .then((json) => {
+        // 실제 api 링크에서 받아온 데이터(객체형식으로 받아와지는듯) console에 Object라고 찍힘
+        // 여기서 이제 얻고자 하는 정보를 어디어디.어디어디.정보  또는  어디어디.정보  이런식으로 찾아서 저장해주면 될듯
+        /*
+            실제 api 주소에 있는 정보중 일부 
+            ...
+            "weather": [
+            {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10n"
+            }
+            ],
+            ...
+
+        main에 접근하고 싶으면
+        json.weather[0].main   >>  Rain
+        이런식으로 접근 가능
+        console.dir(json); 이것을 잘 활용하면 원하는 정보를 쉽게 찾을 수 있음 브라우저 콘솔에 찍혀있는 그대로 타고들어가서 정보를 얻어낼 수 있음
+        */
+        console.dir(json);
+        const temperature = json.main.temp + 'ºC';
+        const place = json.name;
+        const description = json.weather[0].description;
+        const icon = json.weather[0].icon;
+        const img = document.createElement("img");
+        img.src = `http://openweathermap.org/img/wn/${icon}.png`;
+        img.style.width = '100px';
+        img.style.height = '50px';
+        
+        // 날씨 이미지가 하나밖에 안보여 추가로 만듬
+        const icon2 = json.weather[0].icon;
+        const img2 = document.createElement("img");
+        img2.src = `http://openweathermap.org/img/wn/${icon2}.png`;
+        // 날씨 이미지 사이즈
+        img2.style.width = '100px';
+        img2.style.height = '50px';
+        // 좌측 날씨 부분입니다.
+        // 지역
+        let Local = document.getElementById('Local');
+        Local.append(place);
+        // 이미지
+        let weatherImg = document.getElementById('weatherImage');
+        weatherImg.append(img);
+        // 날씨
+        let weatehrText = document.getElementById('description');
+        weatehrText.append(description);
+        // 온도
+        let tempe = document.getElementById('tempe');
+        tempe.append(temperature);
+        // 우측 날씨 부분입니다.
+        // 지역
+        let Local2 = document.getElementById('Local2');
+        Local2.append(place);
+        // 이미지
+        let weatherImg2 = document.getElementById('weatherImage2');
+        weatherImg2.append(img2);
+        // 날씨
+        let weatehrText2 = document.getElementById('description2');
+        weatehrText2.append(description);
+        // 온도
+        let tempe2 = document.getElementById('tempe2');
+        tempe2.append(temperature);
+        });
+    }
+
+    function saveCoords(coordsObj) {
+    //호출 5번
+    //로컬스토리지에 저장해주는 함수
+    localStorage.setItem(COORDS, JSON.stringify(coordsObj));
+    }
+
+    function handleGeoSucces(position) {
+    // 호출 4번 (API콜 성공시)
+    //position 요거는 GeolocationPosition 요 객체
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    //위도경도 불러오기
+    const coordsObj = {
+        latitude, //latitude: latitude, 와 같은 뜻
+        longitude,
+    };
+    saveCoords(coordsObj); //로컬스토리지에 저장해주는 함수
+    getWeather(latitude, longitude); // 뽑아낸 위도 경도를 파라미터로 받는 getWeather() 호출
+    }
+    function handleGeoErr() {
+    console.log(`Can't access geo location`);
+    }
+
+    function askForCoords() {
+    // 호출 3번
+    navigator.geolocation.getCurrentPosition(handleGeoSucces, handleGeoErr); //성공시 함수, 에러시 함수
+    //handleGeoSucces()는 GeolocationPosition 객체를 유일한 매개변수로 받는 콜백 함수. >> function handleGeoSucces(position) {} 이런식으로 되어있는 함수
+    //window.navigator >> 윈도우 생략 가능
+    //navigator.geolocation.getCurrentPosition() 현재위치 가져오는 메소드
+    }
+
+    function loadCoords() {
+    // 호출 2번
+    // 날씨와 상관 없는 로컬스토리지(브라우저 자체 저장소)에서 정보 불러오기
+    const loadedCoords = localStorage.getItem(COORDS);
+
+    if (loadedCoords === null) {
+        askForCoords();
+        // 저장되어있는 정보가 없으면 askForCoords()호출
+    } else {
+        //get Weather
+        const parseCoords = JSON.parse(loadedCoords);
+        console.log(parseCoords);
+        getWeather(parseCoords.latitude, parseCoords.longitude);
+    }
+    }
+
+    function init() {
+    loadCoords();
+    // 호출 1번
+    // 초기화 함수를 실행 시 loadCoords() 호출
+    }
+
+    init(); // init호출
+
+  </script>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <script>
+    window.onload = () => {
+      // 검색
+      const Searching = Search.prototype;
+      function Search() {
+        this.keyword = document.querySelector('input[name = "search"]');
+        this.button = document.querySelector(".img-button");
+        this.form = document.querySelector(".Search");
+        this.Engine();
+      }
+      Searching.Engine = function () {
+        this.form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          let keyword = this.keyword.value;
+          window.open("https:///www.google.co.kr/search?q=" + keyword);
+        });
+      };
+      new Search();
+    };
+
+    // 날씨 api
+    // 날씨
+    const weather = document.querySelector(".Show-Weather");
+    const API_KEY = "7281a145274b52a5338769d114cc3464";
+    const COORDS = "coords";
+
+    function getWeather(lat, lng) {
+      // 호출 6번
+      // fetch() 메서드를 이용하는 것으로 비동기 네트워크 통신을 알기쉽게 기술할 수 있습니다.
+      /*
+        Fetch API를 이용하면 Request나 Response와 같은 HTTP의 파이프라인을 구성하는 요소를 조작하는것이 가능하다. 이 파이프라인이라는 표현은 MDN에서 사용한 것인데 좀 마음에 든다.
+    또한 fetch() 메서드를 이용하는 것으로 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.
+    fetch()로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject하지 않는다. Code가 404나 500을 반환하더라도 상태가 false인 resolve가 반환되며, 네트워크 장애나 요청이 완료되지 못한 상태에는 reject가 반환된다.
+    */
+      console.dir(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY}`
+      );
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY}`
+      )
+        .then((response) => {
+          console.dir(response); // Response객체임
+          return response.json();
+        })
+        .then((json) => {
+          // 실제 api 링크에서 받아온 데이터(객체형식으로 받아와지는듯) console에 Object라고 찍힘
+          // 여기서 이제 얻고자 하는 정보를 어디어디.어디어디.정보  또는  어디어디.정보  이런식으로 찾아서 저장해주면 될듯
+          /*
+            실제 api 주소에 있는 정보중 일부 
+            ...
+            "weather": [
+            {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10n"
+            }
+            ],
+            ...
+
+        main에 접근하고 싶으면
+        json.weather[0].main   >>  Rain
+        이런식으로 접근 가능
+        console.dir(json); 이것을 잘 활용하면 원하는 정보를 쉽게 찾을 수 있음 브라우저 콘솔에 찍혀있는 그대로 타고들어가서 정보를 얻어낼 수 있음
+        */
+          console.dir(json);
+          const temperature = json.main.temp + "ºC";
+          const place = json.name;
+          const description = json.weather[0].description;
+          const icon = json.weather[0].icon;
+          const img = document.createElement("img");
+          img.src = `http://openweathermap.org/img/wn/${icon}.png`;
+          img.style.width = "100px";
+          img.style.height = "50px";
+
+          // 날씨 이미지가 하나밖에 안보여 추가로 만듬
+          const icon2 = json.weather[0].icon;
+          const img2 = document.createElement("img");
+          img2.src = `http://openweathermap.org/img/wn/${icon2}.png`;
+          // 날씨 이미지 사이즈
+          img2.style.width = "100px";
+          img2.style.height = "50px";
+          // 좌측 날씨 부분입니다.
+          // 지역
+          let Local = document.getElementById("Local");
+          Local.append(place);
+          // 이미지
+          let weatherImg = document.getElementById("weatherImage");
+          weatherImg.append(img);
+          // 날씨
+          let weatehrText = document.getElementById("description");
+          weatehrText.append(description);
+          // 온도
+          let tempe = document.getElementById("tempe");
+          tempe.append(temperature);
+          // 우측 날씨 부분입니다.
+          // 지역
+          let Local2 = document.getElementById("Local2");
+          Local2.append(place);
+          // 이미지
+          let weatherImg2 = document.getElementById("weatherImage2");
+          weatherImg2.append(img2);
+          // 날씨
+          let weatehrText2 = document.getElementById("description2");
+          weatehrText2.append(description);
+          // 온도
+          let tempe2 = document.getElementById("tempe2");
+          tempe2.append(temperature);
+        });
+    }
+
+    function saveCoords(coordsObj) {
+      //호출 5번
+      //로컬스토리지에 저장해주는 함수
+      localStorage.setItem(COORDS, JSON.stringify(coordsObj));
+    }
+
+    function handleGeoSucces(position) {
+      // 호출 4번 (API콜 성공시)
+      //position 요거는 GeolocationPosition 요 객체
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      //위도경도 불러오기
+      const coordsObj = {
+        latitude, //latitude: latitude, 와 같은 뜻
+        longitude,
+      };
+      saveCoords(coordsObj); //로컬스토리지에 저장해주는 함수
+      getWeather(latitude, longitude); // 뽑아낸 위도 경도를 파라미터로 받는 getWeather() 호출
+    }
+    function handleGeoErr() {
+      console.log(`Can't access geo location`);
+    }
+
+    function askForCoords() {
+      // 호출 3번
+      navigator.geolocation.getCurrentPosition(handleGeoSucces, handleGeoErr); //성공시 함수, 에러시 함수
+      //handleGeoSucces()는 GeolocationPosition 객체를 유일한 매개변수로 받는 콜백 함수. >> function handleGeoSucces(position) {} 이런식으로 되어있는 함수
+      //window.navigator >> 윈도우 생략 가능
+      //navigator.geolocation.getCurrentPosition() 현재위치 가져오는 메소드
+    }
+
+    function loadCoords() {
+      // 호출 2번
+      // 날씨와 상관 없는 로컬스토리지(브라우저 자체 저장소)에서 정보 불러오기
+      const loadedCoords = localStorage.getItem(COORDS);
+
+      if (loadedCoords === null) {
+        askForCoords();
+        // 저장되어있는 정보가 없으면 askForCoords()호출
+      } else {
+        //get Weather
+        const parseCoords = JSON.parse(loadedCoords);
+        console.log(parseCoords);
+        getWeather(parseCoords.latitude, parseCoords.longitude);
+      }
+    }
+
+    function init() {
+      loadCoords();
+      // 호출 1번
+      // 초기화 함수를 실행 시 loadCoords() 호출
+    }
+
+    init(); // init호출
+  </script>
+</html>

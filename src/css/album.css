@@ -1,0 +1,396 @@
+/* ------------------------------------------ 채팅방 ---------------------------------------------------- */
+/* 채팅방 사이즈 부분 */
+.Chat {
+  width: 70vw;
+  height: 100vh;
+  background-color: white;
+  display: none;
+  border-left: 3px solid rgba(255, 176, 182, 1);
+}
+/* 채팅방 사이드 부분 */
+.Chat-Side {
+  width: 3vw;
+  height: 100vh;
+}
+/* 채팅방 사이드 이미지 부분 */
+.Chat-Side img {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: rotate(180deg);
+  cursor: pointer;
+}
+/* 채팅방 메인 부분 */
+.Chat-Total {
+  display: flex;
+}
+/* 채팅방 메인 부분 */
+.Chat-Main {
+  width: 100%;
+  height: 100vh;
+}
+/* 채팅방 메인 Header부분 */
+.Chat-Header {
+  width: 90%;
+  height: 100px;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0 auto;
+  border-bottom: 3px solid black;
+}
+/* 채팅방 메인 Header 좌측 부분 */
+.Chat-Left {
+  width: 65%;
+  height: 100%;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+/* 채팅방 메인 Header 글자 부분 */
+.Chat-Left span {
+  position: relative;
+  top: 52%;
+}
+/* 채팅방 메인 Header 우측 부분 */
+.Chat-Right {
+  width: 35%;
+}
+/* 채팅방 메인 Header 우측 버튼 부분 */
+.Chat-Right button {
+  position: relative;
+  top: 40%;
+  left: 49%;
+  width: 100px;
+  height: 50px;
+  background: transparent;
+  outline: 0;
+  border: 3px solid rgba(255, 141, 150, 1);
+  color: rgba(255, 141, 150, 1);
+  font-weight: bold;
+}
+/* 채팅방 메인 Header 우측 버튼 hover */
+.Chat-Right button:hover {
+  cursor: pointer;
+}
+/* 채팅방 메인 Header 우측 전체화면 끝내기 감춤 */
+.Chat-Right button:last-child {
+  display: none;
+}
+/* 채팅방 글자 보이는 곳 */
+.Chat-Chatting {
+  width: 90%;
+  height: 71%;
+  margin: 0 auto;
+  margin-top: 4%;
+  background-color: wheat;
+}
+/* 채팅방 하단 메세지 사이즈 부분 */
+.Chat-Message {
+  width: 90%;
+  height: 12.6%;
+  display: flex;
+  margin: 0 auto;
+}
+/* 채팅방 하단 메세지 좌측 부분 */
+.Message {
+  width: 80%;
+  height: 100%;
+}
+/* 채팅방 하단 메세지 좌측 부분 */
+.Msg {
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 25px 25px 25px 25px / 25px 25px 25px 25px;
+  border: 3px solid rgba(255, 131, 141, 1);
+}
+/* 채팅방 하단 메세지 좌측 이미지 부분 */
+.Msg img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  margin-left: 5px;
+  border: 3px solid rgba(255, 131, 141, 1);
+  border-radius: 50%;
+}
+/* 채팅방 하단 메세지 좌측 이미지 hover 부분 */
+.Msg img:hover {
+  cursor: pointer;
+}
+/* 채팅방 하단 메세지 좌측 input 부분 */
+.Msg input {
+  position: relative;
+  top: 25%;
+  transform: translateY(-50%);
+  width: 85%;
+  height: 85%;
+  border-radius: 0px 25px 25px 0px / 0px 25px 25px 0px;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+}
+/* 채팅방 우측 사이즈 부분 */
+.Message-Send {
+  width: 20%;
+  height: 100%;
+}
+/* 채팅방 우측 버튼 부분 */
+.Message-Send button {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 50px;
+  background: transparent;
+  outline: 0;
+  border: 0;
+  background-color: rgba(255, 131, 141, 1);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 25px 25px 25px 25px / 25px 25px 25px 25px;
+  margin-left: 25%;
+}
+/* 채팅방 우측 버튼 hover 부분 */
+.Message-Send button:hover {
+  cursor: pointer;
+}
+/* ------------------------------------------------ 채팅 버튼 누르면 기능 먹히는 것들 ----------------------------------------- */
+.Krikri-Love2 {
+  width: 20%;
+  height: 107%;
+  display: none;
+  margin-right: 18px;
+  border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
+}
+.Krikri-Love2 img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
+}
+.Date-Love2 {
+  text-align: center;
+  position: relative;
+  top: -85%;
+}
+/* 우리함께한지 부분 */
+.Love-Text2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+/* 커플 사진 하트 부분 */
+.Date-Love2 img {
+  position: relative;
+  top: -65%;
+  width: 50px;
+  height: 50px;
+  margin-top: 25px;
+}
+/* 몇일 사귄 날짜 */
+.Date2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* 앨범시작~ */
+.album-title {
+  width: 90%;
+  height: 250px;
+  margin: 70px auto 0;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.album-title .title-p1 {
+  font-weight: bold;
+  font-size: 25px;
+}
+.album-title .title-p2 {
+  font-weight: 900;
+  font-size: 60px;
+  color: rgba(255, 131, 141, 1);
+}
+.album-title .title-p3 img {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  border: 3px solid pink;
+  border-radius: 50%;
+}
+
+.album-header {
+  margin: 0 auto 5px;
+  display: flex;
+  width: 90%;
+}
+.album-header div {
+  border-bottom: 5px solid rgba(244, 245, 249, 1);
+  width: 25%;
+  height: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.album-header div:hover {
+  cursor: pointer;
+  color: rgba(255, 131, 141, 1);
+}
+
+.album-itembox {
+  width: 90%;
+  /* height: 600px; */
+  /* background-color: rgba(244, 245, 249, 1); */
+  margin: 10px auto 0;
+  padding: 15px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.album-itembox li {
+  float: left;
+  width: 23%;
+  margin: 0 0.9%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.album.itembox li:nth-child(4n + 1) {
+  clear: both;
+}
+
+.album-itembox li .img_place {
+  display: block;
+  width: 100%;
+}
+
+/* 앨범추가 팝업 */
+.album-popup {
+  width: 400px;
+  height: 450px;
+  border: none;
+  display: none;
+  position: absolute;
+  border-radius: 10px;
+}
+.album-popup .pop-title {
+  width: 100%;
+  height: 15%;
+  background-color: rgba(255, 131, 141, 1);
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  display: flex;
+  padding-top: 18px;
+  box-sizing: border-box;
+}
+.album-popup .pop-title .pt1 {
+  width: 84%;
+  padding-left: 60px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 20px;
+}
+.album-popup .pop-title .pt2 {
+  width: 16%;
+}
+.album-popup .pop-title .pt2 img {
+  width: 30px;
+  cursor: pointer;
+}
+.album-popup .pop-add {
+  height: 57%;
+  background-color: #fff;
+}
+.album-popup .pop-txt {
+  height: 15%;
+  background-color: #fff;
+}
+.album-popup .pop-txt input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.album-popup .pop-btn {
+  height: 11%;
+  text-align: center;
+  padding-top: 10px;
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+}
+
+.album-popup .pop-btn button {
+  border: none;
+  color: white;
+  background-color: rgba(255, 131, 141, 1);
+  width: 120px;
+  height: 35px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.popup-mask {
+  /* 팝업 배경 css */
+  position: fixed;
+  width: 100%;
+  height: 1000px;
+  top: 0px;
+  left: 0px;
+  display: none;
+  background-color: #000;
+  opacity: 0.8;
+}
+/* 사진 클릭시 팝업 */
+.pic-popup {
+  width: 800px;
+  height: 750px;
+  border: none;
+  display: none;
+  position: absolute;
+  border-radius: 10px;
+}
+
+.pic-popup .pic-header {
+  width: 100%;
+  height: 10%;
+  background-color: rgba(255, 131, 141, 1);
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  display: flex;
+  padding-top: 22px;
+  box-sizing: border-box;
+}
+.pic-popup .pic-header .pic-d1 {
+  width: 77%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.pic-popup .pic-header .pic-d2 {
+  width: 22%;
+  padding-top: 3px;
+}
+.pic-popup .pic-header .pic-d2 img {
+  width: 24px;
+  height: 24px;
+  margin-left: 15px;
+}
+
+.pic-popup .pic-main {
+  width: 100%;
+  height: 90%;
+  background-color: white;
+}
+
+.pic-header .pic-d2 img:hover {
+  cursor: pointer;
+}

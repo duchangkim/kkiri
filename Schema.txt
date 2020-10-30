@@ -1,0 +1,149 @@
+// 회원정보 스키마
+User = {
+  _id,
+  email: String,
+  hashedPassword: String,
+  birthday: Date,
+  publishedDate: {
+      type: Date,
+      default: Date.now,
+  },
+  updated_at: Date,
+  couple: String, //연인 아이디(_id)
+  chattingRoomId: String, // 채팅 시작시 주어지는 방 번호 (커플 고유)
+  calendarId: String, // 커플 고유의 공유 달력 아이디
+  albumId: String, // 커플 고유의 공유 앨범 아이디
+
+  mainSetting: { // 회원별 메인화면 설정
+    couplebackground: String, // 메인 배경화면
+    couple1: String, // 커플1 사진
+    couple2: String // 커플 2 사진
+  }
+  // 간편로그인 회원정보
+  kakao: {},
+  google: {},
+  facebook: {},
+  naver: {},
+}
+
+// 채팅 스키마  - 방법1 -
+Message = {
+  _id,
+  sender: {
+    _id  // (보낸사람 회원 아이디)
+    email
+    username
+  },
+  text: String,
+  timestamp: Date
+}
+
+Rooms
+_id (회원들에게 주어지는 채팅방 고유 아이디 - 방)
+onwer: [{user1}, {user2}] // 채팅방을 가지고있는 커플 검증용
+chattingData: [Message._id, Message._id, Message._id, ...]
+
+=============================================================
+- 방법 2 -
+Rooms
+_id //(회원들에게 주어지는 채팅방 고유 아이디 - 방)
+onwer: [{user1},{user2}] // 채팅방을 가지고있는 커플 검증용
+chattingData: [
+  {
+    // 보낸 message
+    _id,
+  sender: {
+    _id (보낸사람 회원 아이디),
+    email,
+    username,
+  },
+  text: String,
+  timestamp: Date,
+  },
+  {
+    _id,
+  sender: {
+    _id (보낸사람 회원 아이디),
+    email,
+    username,
+  },
+  text: String,
+  timestamp: Date,
+  },
+  ...
+]
+
+// 캘린더 스키마
+Calendars = {
+  _id //(회원들에게 주어지는 공유 캘린더 아이디 - 캘린더 1개)
+  owner: [{user1}, {user2}],
+  calendarData: {
+    calendars: [
+      {
+        id: Number // 캘린더 아이디
+        name: String, // 캘린더 이름
+        color: String, // 글씨 색상
+        bgColor: String, // 배경 색상
+        dragBgColor: String, // 드래그 색상
+        borderColor: String, // 테두리 색상
+      },
+      // 아래는 예시입니다.
+      {
+        id: "1",
+        name: "기념일",
+        color: "#ffffff",
+        bgColor: "#ff838d",
+        dragBgColor: "#ff838d",
+        borderColor: "#ff838d",
+      },
+    ],
+    schedules: [
+      {
+        id: Number, // 일정 아이디
+        calendarId: Number, // 캘린더 아이디(여행, 기념일 인지)
+        title: String, // 일정 제목
+        body: String, // 일정 내용
+        isAllDay: Boolean, // 하루종일 여부
+        start: Date, // 시작일
+        end: Date, // 마감일
+        location: String, // 위치
+      }
+    ],
+    dDay: [
+      {
+        id: Number, //d-day 아이디
+        title: String, // 디데이 제목
+        body: String, // 디데이 내용(설명)
+        start: Date, // 시작일
+        isStartZero: Boolean, //시작일을 0일로 할건지 여부
+      }
+    ],
+  }
+}
+
+// 앨범 스키마
+Album = {
+  _id, //(회원들에게 주어지는 공유 앨범 아이디 - 앨범 1개)
+  owner: [{user1}, {user2}],
+  albumData: [ // 사진, 동영상들을 담을 배열
+    {
+      type: String, // photo, video
+      filePath: String, // 경로
+      group: [String], // 그룹
+      likes: Boolean, // 좋아요 여부
+      createDate: Date // 사진 찍은 날짜
+    }
+  ],
+}
+
+필요한 api 목록 정의(많음)
+
+입력부터 (insert)
+차례대로 죽죽-
+
+
+
+
+3일에 한번 api 진행상황 토의
+1명이 포스트맨 고고
+
