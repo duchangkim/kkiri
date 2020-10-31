@@ -52,9 +52,21 @@ CalendarSchema.methods.changeCalendars = async function (newCalendars) {
   this.calendarData.calendars = newCalendars;
 };
 
-CalendarSchema.methods.createSchedules = async function (newSchedules) {
-  console.log(Array.isArray(this.calendarData.schedules));
-  await this.calendarData.schedules.push(newSchedules);
+// schedules methods
+CalendarSchema.methods.createSchedules = async function (newSchedule) {
+  // console.log(Array.isArray(this.calendarData.schedules));
+  await this.calendarData.schedules.push(newSchedule);
+};
+
+// common methods
+CalendarSchema.methods.deleteCalendarData = async function (
+  calendarData,
+  scheduleId
+) {
+  this.calendarData[calendarData] = this.calendarData[calendarData].filter(
+    (item) => item.id !== scheduleId
+  );
+  return this.calendarData[calendarData];
 };
 
 const Calendar = mongoose.model("Calendar", CalendarSchema);

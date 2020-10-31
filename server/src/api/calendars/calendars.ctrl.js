@@ -80,17 +80,14 @@ export const deleteCalendars = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const calendars = calendar.calendarData.calendars;
-    // console.log(typeof calendars[1].id); //number
-    // console.log(typeof calendarsId); //string
-    const newCalendars = calendars.filter(
-      (item) => item.id !== numberCalendarsId
+    const result = await calendar.deleteCalendarData(
+      "calendars",
+      numberCalendarsId
     );
 
-    await calendar.changeCalendars(newCalendars);
     await calendar.save();
 
-    ctx.body = newCalendars;
+    ctx.body = result;
   } catch (e) {
     ctx.throw(500, e);
   }
