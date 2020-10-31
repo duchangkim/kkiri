@@ -52,6 +52,11 @@ CalendarSchema.methods.changeCalendars = async function (newCalendars) {
   this.calendarData.calendars = newCalendars;
 };
 
+CalendarSchema.methods.createSchedules = async function (newSchedules) {
+  console.log(Array.isArray(this.calendarData.schedules));
+  await this.calendarData.schedules.push(newSchedules);
+};
+
 const Calendar = mongoose.model("Calendar", CalendarSchema);
 
 export default Calendar;

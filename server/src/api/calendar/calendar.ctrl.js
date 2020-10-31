@@ -1,3 +1,4 @@
+import Joi from "joi";
 import Calendar from "../../models/calendar";
 
 // 캘린더(필터) CRUD
@@ -138,3 +139,58 @@ export const modifyCalendars = async (ctx) => {
 //   start,
 //   end,
 // },
+
+export const createSchedules = async (ctx) => {
+  const { coupleShareCode } = ctx.state.member;
+
+  const validateSchedule = Joi.object().keys({
+    category: Joi.string(),
+    isVisible: Joi.boolean().required(),
+    title: Joi.string().required(),
+    calendarId: Joi.number().required(),
+    body: Joi.string().required(),
+    location: Joi.string(),
+    start: Joi.date().required(),
+    end: Joi.date().required(),
+  });
+  const result = validateSchedule.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
+  const {
+    calendarId,
+    category,
+    isVisible,
+    title,
+    body,
+    location,
+    start,
+    end,
+  } = ctx.request.body;
+
+  try {
+    const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
+    const newSchedules = {
+      calendarId,
+      id:
+        calendar.calendarData.schedules[
+          calendar.calendarData.schedules.length - 1
+        ].id + 1 || 0,
+      category,
+      isVisible,
+      title,
+      body,
+      location,
+      start,
+      end,
+    };
+    await calendar.createSchedules(newSchedules);
+    await calendar.save();
+    ctx.body = calendar.calendarData.schedules;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};

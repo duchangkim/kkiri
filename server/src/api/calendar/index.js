@@ -19,7 +19,7 @@ calendars.put("/:calendarsId", checkLoggedIn, calendarCtrl.modifyCalendars);
 
 const schedules = new Router();
 // 스케쥴 생성
-// schedules.post("/", checkLoggedIn, calendarCtrl.createSchedules);
+schedules.post("/", checkLoggedIn, calendarCtrl.createSchedules);
 // 스케쥴 리스트 조회
 // 스케쥴 조회
 // 스케쥴 삭제
