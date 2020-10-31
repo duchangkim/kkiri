@@ -18,18 +18,21 @@ export const createCalendars = async (ctx) => {
     dragBgColor: backgroundColor,
     borderColor: backgroundColor,
   };
-  calendars.push(newCalendars); //기존의 캘린더배열에 추가
+
+  await calendars.push(newCalendars); //기존의 캘린더배열에 추가
   // console.log(calendars);
-  calendar.save(); //저⭐장
-  // ctx.body = calendar;
-  ctx.body = { message: "success" };
+  await calendar.save(); //저⭐장
+
+  ctx.body = calendars;
 };
 
 export const getCalendarsList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
+
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const calendars = calendar.calendarData.calendars;
+
     ctx.body = calendars;
   } catch (e) {
     ctx.throw(500, e);
@@ -39,22 +42,25 @@ export const getCalendarsList = async (ctx) => {
 export const getCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
-  const numberCalendarsId = Number(calendarsId);
-  // console.log(isNaN(Number(calendarsId)));
+  const numberCalendarsId = parseInt(calendarsId);
+
   if (isNaN(numberCalendarsId)) {
     console.log("숫자를 달라..");
     ctx.status = 409;
     return;
   }
+
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const calendars = calendar.calendarData.calendars;
     const findResult = calendars.find((item) => item.id === numberCalendarsId);
     // console.log(findResult); //없으면 undefined
+
     if (!findResult) {
       ctx.status = 409;
       return;
     }
+
     ctx.body = findResult;
   } catch (e) {
     ctx.throw(500, e);
@@ -65,11 +71,13 @@ export const deleteCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
   const numberCalendarsId = Number(calendarsId);
+
   if (isNaN(numberCalendarsId)) {
     console.log("숫자를 달라..");
     ctx.status = 409;
     return;
   }
+
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const calendars = calendar.calendarData.calendars;
@@ -81,6 +89,7 @@ export const deleteCalendars = async (ctx) => {
 
     await calendar.changeCalendars(newCalendars);
     await calendar.save();
+
     ctx.body = newCalendars;
   } catch (e) {
     ctx.throw(500, e);
@@ -93,20 +102,24 @@ export const modifyCalendars = async (ctx) => {
 
   const { calendarsId } = ctx.params;
   const numberCalendarsId = Number(calendarsId);
+
   if (isNaN(numberCalendarsId)) {
     console.log("숫자를 달라..");
     ctx.status = 409;
     return;
   }
+
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const calendars = calendar.calendarData.calendars;
     const findResult = calendars.find((item) => item.id === numberCalendarsId);
     // console.log(findResult); //없으면 undefined
+
     if (!findResult) {
       ctx.status = 409;
       return;
     }
+
     const modifyCalendars = {
       id: findResult.id,
       name: name ? name : findResult.name,
@@ -122,74 +135,8 @@ export const modifyCalendars = async (ctx) => {
 
     await calendar.changeCalendars(newCalendar);
     await calendar.save();
+
     ctx.body = newCalendar;
-  } catch (e) {
-    ctx.throw(500, e);
-  }
-};
-
-// 스케쥴 CRUD
-// {
-//   calendarId: "1",
-//   category: "time",
-//   isVisible: true,
-//   title: "Study",
-//   id: "1",
-//   body: "Test",
-//   start,
-//   end,
-// },
-
-export const createSchedules = async (ctx) => {
-  const { coupleShareCode } = ctx.state.member;
-
-  const validateSchedule = Joi.object().keys({
-    category: Joi.string(),
-    isVisible: Joi.boolean().required(),
-    title: Joi.string().required(),
-    calendarId: Joi.number().required(),
-    body: Joi.string().required(),
-    location: Joi.string(),
-    start: Joi.date().required(),
-    end: Joi.date().required(),
-  });
-  const result = validateSchedule.validate(ctx.request.body);
-  if (result.error) {
-    ctx.status = 400;
-    ctx.body = result.error;
-    return;
-  }
-
-  const {
-    calendarId,
-    category,
-    isVisible,
-    title,
-    body,
-    location,
-    start,
-    end,
-  } = ctx.request.body;
-
-  try {
-    const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const newSchedules = {
-      calendarId,
-      id:
-        calendar.calendarData.schedules[
-          calendar.calendarData.schedules.length - 1
-        ].id + 1 || 0,
-      category,
-      isVisible,
-      title,
-      body,
-      location,
-      start,
-      end,
-    };
-    await calendar.createSchedules(newSchedules);
-    await calendar.save();
-    ctx.body = calendar.calendarData.schedules;
   } catch (e) {
     ctx.throw(500, e);
   }

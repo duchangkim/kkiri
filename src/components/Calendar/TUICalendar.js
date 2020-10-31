@@ -129,7 +129,7 @@ export default () => {
     console.dir(`clicked schedule`);
     const { calendarId, id } = e.schedule;
     const el = cal.current.calendarInst.getElement(id, calendarId);
-    console.dir(cal.current.calendarInst);
+    console.dir(cal.current);
 
     console.log(e, el.getBoundingClientRect());
   }, []);
