@@ -35,12 +35,9 @@ export const createSchedule = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const newSchedule = {
+
+    const result = await calendar.createCalendarData("schedules", {
       calendarId,
-      id:
-        calendar.calendarData.schedules[
-          calendar.calendarData.schedules.length - 1
-        ].id + 1 || 0,
       category,
       isVisible,
       title,
@@ -48,12 +45,11 @@ export const createSchedule = async (ctx) => {
       location,
       start,
       end,
-    };
+    });
 
-    await calendar.createSchedules(newSchedule);
     await calendar.save();
 
-    ctx.body = calendar.calendarData.schedules;
+    ctx.body = result;
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -86,9 +82,9 @@ export const getSchdule = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const schedules = calendar.calendarData.schedules;
-    const result = schedules.find(
-      (schedule) => schedule.id === numberScheduleId
+    const result = await calendar.getCaledarDataByTargetId(
+      "schedules",
+      numberScheduleId
     );
 
     if (!result) {
@@ -132,6 +128,13 @@ export const modifySchedule = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
   const numberScheduleId = parseInt(scheduleId);
+
+  if (isNaN(numberScheduleId)) {
+    console.log("숫자만 써라;;");
+    ctx.status = 409;
+    return;
+  }
+
   const {
     calendarId,
     category,
@@ -142,17 +145,17 @@ export const modifySchedule = async (ctx) => {
     end,
   } = ctx.request.body;
 
-  if (isNaN(numberScheduleId)) {
-    console.log("숫자만 써라;;");
-    ctx.status = 409;
-    return;
-  }
-
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const currentSchedule = await calendar.calendarData.schedules.find(
       (schedule) => schedule.id === numberScheduleId
     );
+
+    if (!currentSchedule) {
+      ctx.status = 409;
+      return;
+    }
+
     const modifiedSchedule = {
       id: currentSchedule.id,
       calendarId: calendarId ? calendarId : currentSchedule.calendarId,
