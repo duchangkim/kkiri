@@ -80,7 +80,7 @@ export const deleteCalendars = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const result = await calendar.deleteCalendarData(
+    const result = await calendar.deleteCalendarDataByTargetId(
       "calendars",
       numberCalendarsId
     );
@@ -117,7 +117,7 @@ export const modifyCalendars = async (ctx) => {
       return;
     }
 
-    const modifyCalendars = {
+    const modifiedCalendars = {
       id: findResult.id,
       name: name ? name : findResult.name,
       color: textColor ? textColor : findResult.color,
@@ -127,7 +127,7 @@ export const modifyCalendars = async (ctx) => {
     };
     // console.log(findResult);
     const newCalendar = calendars.map((item) =>
-      item.id === numberCalendarsId ? modifyCalendars : item
+      item.id === numberCalendarsId ? modifiedCalendars : item
     );
 
     await calendar.changeCalendars(newCalendar);

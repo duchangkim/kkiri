@@ -12,5 +12,6 @@ schedules.get("/:scheduleId", checkLoggedIn, schedulesCtrl.getSchdule);
 // 스케쥴 삭제
 schedules.del("/:scheduleId", checkLoggedIn, schedulesCtrl.deleteSchedule);
 // 스케쥴 수정
+schedules.put("/:scheduleId", checkLoggedIn, schedulesCtrl.modifySchedule);
 
 export default schedules;

@@ -87,16 +87,16 @@ export const getSchdule = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const schedules = calendar.calendarData.schedules;
-    const findResult = schedules.find(
+    const result = schedules.find(
       (schedule) => schedule.id === numberScheduleId
     );
 
-    if (!findResult) {
+    if (!result) {
       ctx.status = 409;
       return;
     }
 
-    ctx.body = findResult;
+    ctx.body = result;
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -115,9 +115,58 @@ export const deleteSchedule = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const result = await calendar.deleteCalendarData(
+    const result = await calendar.deleteCalendarDataByTargetId(
       "schedules",
       numberScheduleId
+    );
+
+    await calendar.save();
+
+    ctx.body = result;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const modifySchedule = async (ctx) => {
+  const { coupleShareCode } = ctx.state.member;
+  const { scheduleId } = ctx.params;
+  const numberScheduleId = parseInt(scheduleId);
+  const {
+    calendarId,
+    category,
+    isVisible,
+    title,
+    body,
+    start,
+    end,
+  } = ctx.request.body;
+
+  if (isNaN(numberScheduleId)) {
+    console.log("숫자만 써라;;");
+    ctx.status = 409;
+    return;
+  }
+
+  try {
+    const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
+    const currentSchedule = await calendar.calendarData.schedules.find(
+      (schedule) => schedule.id === numberScheduleId
+    );
+    const modifiedSchedule = {
+      id: currentSchedule.id,
+      calendarId: calendarId ? calendarId : currentSchedule.calendarId,
+      category: category ? category : currentSchedule.category,
+      isVisible: isVisible ? isVisible : currentSchedule.isVisible,
+      title: title ? title : currentSchedule.title,
+      body: body ? body : currentSchedule.body,
+      start: start ? start : currentSchedule.start,
+      end: end ? end : currentSchedule.end,
+    };
+    const result = await calendar.modifyCalendarDataByTargetId(
+      "schedules",
+      numberScheduleId,
+      modifiedSchedule
     );
 
     await calendar.save();
