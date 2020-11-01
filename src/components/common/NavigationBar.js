@@ -32,7 +32,7 @@ const Styles = styled.div`
     box-shadow: none;
   }
 `;
-const NavigationBar = ({ windowMatches }) => {
+const NavigationBar = ({ windowMatches, onLogout }) => {
   return (
     <Styles>
       <SideMenu
@@ -41,7 +41,7 @@ const NavigationBar = ({ windowMatches }) => {
           <>
             <KkiriLogo />
             <Navigation />
-            <Link to="/auth/logout" className="btn btn-link">
+            <Link onClick={onLogout} to="" className="btn btn-link">
               Logout
             </Link>
           </>

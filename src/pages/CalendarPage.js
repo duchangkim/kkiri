@@ -1,15 +1,15 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import TUICalendar from "./TUICalendar";
+import CalendarContainer from "../containers/calendar/CalendarContainer";
 
-const Calendar = () => {
+const CalendarPage = () => {
   return (
     <Row className="main-contents m-0 p-0">
       <Col className="h-100 m-0">
-        <TUICalendar />
+        <CalendarContainer />
       </Col>
     </Row>
   );
 };
 
-export default React.memo(Calendar);
+export default React.memo(CalendarPage);

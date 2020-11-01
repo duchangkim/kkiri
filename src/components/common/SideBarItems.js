@@ -67,7 +67,6 @@ export const Navigation = () => {
   return (
     <Styles>
       <Navbar expand="lg">
-        {/* <Link to="#" className=""> */}
         <NavLink
           to="/kkiri/home"
           className="navbar-brand"

@@ -1,72 +1,14 @@
 import React, { useCallback, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  moveToNextRange,
-  moveToPrevRange,
-  moveToToday,
-} from "../../modules/calendar";
-import {
-  MdKeyboardArrowLeft,
-  MdKeyboardArrowRight,
-  MdAdd,
-} from "react-icons/md";
-
 import TUICalendar from "@toast-ui/react-calendar";
 import "tui-calendar/dist/tui-calendar.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 import styled from "styled-components";
+import CalendarHeaderContainer from "./CalendarHeaderContainer";
 
 const Styles = styled.div`
   width: 100%;
   height: 100%;
-
-  button {
-    display: flex;
-    align-items: center;
-    outline: none;
-    border: none;
-    background: #ffffff;
-    font-size: 2rem;
-    color: #999;
-    &:hover {
-      color: #ff838da0;
-    }
-  }
-  .btn-today {
-    margin: 5px 0;
-    border-radius: 10px;
-    font-size: 1.4rem;
-    color: ${(props) => (props.isToday ? "#ff838d" : "#919191")};
-    &:hover {
-      background: #ff838da0;
-      color: #fff;
-    }
-  }
-  .btn-add {
-    color: #ff838d;
-  }
-  .calendar-nav {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    width: 100%;
-    height: 5%;
-  }
-  .current-range {
-    width: 200px;
-    margin: 0;
-    text-align: center;
-    font-size: 1.8rem;
-    cursor: context-menu;
-    color: ${(props) => (props.isToday ? "#ff838d" : "#919191")};
-  }
-  .schedule-btn-wapper {
-    display: flex;
-    flex-direction: row-reverse;
-    width: 75%;
-    height: 100%;
-  }
 `;
 
 const start = new Date();
@@ -122,7 +64,8 @@ const calendars = [
     borderColor: "#00a9ff",
   },
 ];
-export default () => {
+
+const CalendarContainer = () => {
   const cal = useRef(null);
 
   const onClickSchedule = useCallback((e) => {
@@ -135,6 +78,7 @@ export default () => {
   }, []);
 
   const onBeforeCreateSchedule = useCallback((scheduleData) => {
+    console.log("스케쥴 만들거임 버튼 클릭");
     console.dir(scheduleData);
 
     const schedule = {
@@ -210,42 +154,9 @@ export default () => {
     },
   };
 
-  // calendar nav button handler
-  const calendarRange = useSelector((state) => state.calendar);
-  console.dir(calendarRange);
-  const dispatch = useDispatch();
-
-  const onMoveToNextRange = () => {
-    dispatch(moveToNextRange(cal.current));
-  };
-  const onMoveToPrevRange = () => {
-    dispatch(moveToPrevRange(cal.current));
-  };
-  const onMoveToToday = () => {
-    dispatch(moveToToday(cal.current));
-  };
-
   return (
-    <Styles isToday={calendarRange.isToday}>
-      <div className="calendar-nav">
-        <button className="btn-prev" onClick={onMoveToPrevRange}>
-          <MdKeyboardArrowLeft />
-        </button>
-        <h2 className="current-range">
-          {calendarRange.year}년 {calendarRange.month}월
-        </h2>
-        <button className="btn-next" onClick={onMoveToNextRange}>
-          <MdKeyboardArrowRight />
-        </button>
-        <button className="btn-today" onClick={onMoveToToday}>
-          Today
-        </button>
-        <div className="schedule-btn-wapper">
-          <button className="btn-add">
-            <MdAdd />
-          </button>
-        </div>
-      </div>
+    <Styles>
+      <CalendarHeaderContainer cal={cal} />
       <TUICalendar
         ref={cal}
         height="93%"
@@ -263,3 +174,5 @@ export default () => {
     </Styles>
   );
 };
+
+export default CalendarContainer;
