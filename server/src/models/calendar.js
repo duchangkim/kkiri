@@ -38,9 +38,11 @@ const CalendarSchema = new Schema({
           id: 0,
           calendarId: 1,
           category: "allDay",
-          isVisible: true,
+          raw: {
+            class: "public",
+          },
           title: "끼리 첫 시작!",
-          body: "우리, 끼리 시작한날",
+          location: "너 마음속🤍",
           start: Date.now(),
           end: Date.now(),
         },

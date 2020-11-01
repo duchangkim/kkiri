@@ -5,18 +5,20 @@ import Calendar from "../../models/calendar";
 export const createSchedule = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const validateSchedule = Joi.object().keys({
-    category: Joi.string(),
-    isVisible: Joi.boolean().required(),
-    title: Joi.string().required(),
     calendarId: Joi.number().required(),
-    body: Joi.string().required(),
+    category: Joi.string(),
+    raw: Joi.object().required(),
+    title: Joi.string().required(),
     location: Joi.string(),
-    start: Joi.date().required(),
-    end: Joi.date().required(),
+    isAllDay: Joi.boolean(),
+    state: Joi.string(),
+    start: Joi.required(),
+    end: Joi.required(),
   });
   const result = validateSchedule.validate(ctx.request.body);
 
   if (result.error) {
+    console.log(result.error);
     ctx.status = 400;
     ctx.body = result.error;
     return;
@@ -25,9 +27,8 @@ export const createSchedule = async (ctx) => {
   const {
     calendarId,
     category,
-    isVisible,
+    raw,
     title,
-    body,
     location,
     start,
     end,
@@ -39,9 +40,8 @@ export const createSchedule = async (ctx) => {
     const result = await calendar.createCalendarData("schedules", {
       calendarId,
       category,
-      isVisible,
+      raw,
       title,
-      body,
       location,
       start,
       end,

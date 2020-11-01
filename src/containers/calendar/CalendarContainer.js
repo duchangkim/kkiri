@@ -1,4 +1,8 @@
-import React, { useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getScheduleList, createSchedule } from "../../modules/schedule";
+import serializeSchedule from "../../lib/serializeSchedule";
+
 import TUICalendar from "@toast-ui/react-calendar";
 import "tui-calendar/dist/tui-calendar.css";
 import "tui-date-picker/dist/tui-date-picker.css";
@@ -14,38 +18,38 @@ const Styles = styled.div`
 const start = new Date();
 const end = new Date(new Date().setMinutes(start.getMinutes() + 30));
 console.log(`start: ${start} end: ${end}`);
-const schedules = [
-  {
-    calendarId: "1",
-    category: "time",
-    isVisible: true,
-    title: "Study",
-    id: "1",
-    body: "Test",
-    start,
-    end,
-  },
-  {
-    calendarId: "2",
-    category: "time",
-    isVisible: true,
-    title: "Meeting",
-    id: "2",
-    body: "Description",
-    start: new Date(),
-    end: new Date(new Date().setDate(start.getDate() + 1)),
-  },
-  {
-    calendarId: "1",
-    category: "allday",
-    isVisible: true,
-    title: "테스트 일정 3",
-    id: "3",
-    body: "Description",
-    start: new Date(new Date().setDate(start.getDate() + 5)),
-    end: new Date(new Date().setDate(start.getDate() + 7)),
-  },
-];
+// const schedules = [
+//   {
+//     calendarId: "1",
+//     category: "time",
+//     isVisible: true,
+//     title: "Study",
+//     id: "1",
+//     body: "Test",
+//     start,
+//     end,
+//   },
+//   {
+//     calendarId: "2",
+//     category: "time",
+//     isVisible: true,
+//     title: "Meeting",
+//     id: "2",
+//     body: "Description",
+//     start: new Date(),
+//     end: new Date(new Date().setDate(start.getDate() + 1)),
+//   },
+//   {
+//     calendarId: "1",
+//     category: "allday",
+//     isVisible: true,
+//     title: "테스트 일정 3",
+//     id: "3",
+//     body: "Description",
+//     start: new Date(new Date().setDate(start.getDate() + 5)),
+//     end: new Date(new Date().setDate(start.getDate() + 7)),
+//   },
+// ];
 const calendars = [
   {
     id: "1",
@@ -66,6 +70,15 @@ const calendars = [
 ];
 
 const CalendarContainer = () => {
+  const dispatch = useDispatch();
+  const { schedules, scheduleError } = useSelector(({ schedule }) => {
+    console.log(schedule);
+    return {
+      schedules: schedule.schedules,
+      scheduleError: schedule.scheduleError,
+    };
+  });
+
   const cal = useRef(null);
 
   const onClickSchedule = useCallback((e) => {
@@ -77,26 +90,18 @@ const CalendarContainer = () => {
     console.log(e, el.getBoundingClientRect());
   }, []);
 
-  const onBeforeCreateSchedule = useCallback((scheduleData) => {
-    console.log("스케쥴 만들거임 버튼 클릭");
-    console.dir(scheduleData);
+  const onBeforeCreateSchedule = useCallback(
+    (scheduleData) => {
+      console.log("스케쥴 만들거임 버튼 클릭");
+      // 스케쥴 직렬화
+      const schedule = serializeSchedule(scheduleData);
+      dispatch(createSchedule(schedule)); //db에 저장
 
-    const schedule = {
-      id: scheduleData.calendarId,
-      title: scheduleData.title,
-      isAllDay: scheduleData.isAllDay,
-      start: scheduleData.start,
-      end: scheduleData.end,
-      category: scheduleData.isAllDay ? "allday" : "time",
-      dueDateClass: "",
-      location: scheduleData.location,
-      raw: {
-        class: scheduleData.raw["class"],
-      },
-      state: scheduleData.state,
-    };
-    cal.current.calendarInst.createSchedules([schedule]);
-  }, []);
+      cal.current.calendarInst.createSchedules([schedule]);
+      // console.log(schedule);
+    },
+    [dispatch]
+  );
 
   const onBeforeDeleteSchedule = useCallback((res) => {
     console.log(`call Delete  ${res}`);
@@ -109,6 +114,8 @@ const CalendarContainer = () => {
     console.log(`call Update  ${e}`);
     const { schedule, changes } = e;
 
+    console.log(schedule);
+    console.log(changes);
     cal.current.calendarInst.updateSchedule(
       schedule.id,
       schedule.calendarId,
@@ -119,8 +126,8 @@ const CalendarContainer = () => {
   const _getFormattedTime = (time) => {
     const date = new Date(time);
     const h = date.getHours();
-    const m = date.getMinutes();
-
+    const m =
+      date.getMinutes() / 10 < 1 ? `0${date.getMinutes()}` : date.getMinutes();
     return `${h}:${m}`;
   };
 
@@ -128,7 +135,11 @@ const CalendarContainer = () => {
     let html = [];
 
     if (!isAllday) {
-      html.push(`<strong>${_getFormattedTime(schedule.start)}</strong>`);
+      html.push(
+        `<strong>${_getFormattedTime(schedule.start)} ~ ${_getFormattedTime(
+          schedule.end
+        )}</strong>`
+      );
     }
     if (schedule.isPrivate) {
       html.push('<sapn class="calendar-font-icon ic-lock-b"></sapn>');
@@ -153,6 +164,14 @@ const CalendarContainer = () => {
       return _getTimeTemplate(schedule, false);
     },
   };
+
+  useEffect(() => {
+    dispatch(getScheduleList());
+  }, [dispatch]);
+
+  if (scheduleError) {
+    return <Styles> ERROR! </Styles>;
+  }
 
   return (
     <Styles>
