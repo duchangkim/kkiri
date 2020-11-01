@@ -1,4 +1,3 @@
-import Joi from "@hapi/joi";
 import Member from "../../models/member";
 import createRandomCode from "../../lib/createRandomCode";
 
@@ -42,6 +41,7 @@ export const register = async (ctx) => {
 export const login = async (ctx) => {
   const { email, password } = ctx.request.body;
 
+  console.log(`${email}, ${password}`);
   if (!email || !password) {
     //비인증 401(unauthenticated)
     ctx.status = 401;
