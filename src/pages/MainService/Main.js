@@ -2,10 +2,20 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
+import { FcLike } from "react-icons/fc";
+import { AiOutlinePlus } from "react-icons/ai";
+import { BsPeopleCircle, BsImageFill } from "react-icons/bs";
+import Popup from "./Popup";
 
 const LeftMainStyle = styled.div`
   width: 100%;
   height: 100%;
+  li {
+    list-style: none;
+  }
+  img {
+    object-fit: cover;
+  }
   /* 메인 */
   .Left-Main {
     width: 90%;
@@ -19,12 +29,21 @@ const LeftMainStyle = styled.div`
     height: 100%;
     position: relative;
     margin: 0 auto;
-    padding-top: 16px;
     margin-right: 28px;
     border-radius: 20px;
   }
-  /* 배경화면 설정 팝업창 */
-  .Background-Choice {
+  .Choice-Popup_Close {
+    position: relative;
+    transform: rotate(45deg);
+    left: 40%;
+    top: -22px;
+    width: 50px;
+    height: 40px;
+  }
+  .Choice-Popup_Close:hover {
+    cursor: pointer;
+  }
+  .Profile-Choice {
     position: absolute;
     z-index: 1000;
     top: 40%;
@@ -36,7 +55,7 @@ const LeftMainStyle = styled.div`
     border-radius: 10px;
     display: none;
   }
-  .Background-Choice-Title {
+  .Profile-Choice-Title {
     width: 100%;
     height: 15%;
     font-size: 1.4rem;
@@ -45,65 +64,125 @@ const LeftMainStyle = styled.div`
     color: white;
     border-radius: 10px 10px 0px 0px / 10px 10px 0px 0px;
   }
-  .Background-Choice-Title h4 {
+  .Profile-Choice-Title h4 {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
   }
-  .Background-Choice-Title .Choice-Title {
+  .Profile_Close {
     position: relative;
     transform: rotate(45deg);
     left: 40%;
-    top: -18px;
+    top: -22px;
     width: 50px;
-    height: 50px;
+    height: 40px;
   }
-  .Choice-Title:hover {
+  .Profile_Close:hover {
     cursor: pointer;
   }
-  .Background-Choice-Image {
+  .Profile-Weather {
     width: 100%;
-    height: 65%;
+    height: 30%;
+    display: flex;
+    border-bottom: 1px solid gray;
   }
-  .Background-Choice-Image h4 {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    color: rgba(132, 132, 132, 1);
-    text-align: center;
+  .Profile-Weather-Img {
+    width: 40%;
+    height: 100%;
+    border-right: 1px solid gray;
   }
-  .Background-Choice-Image-Size {
-    margin: 0 auto;
-    width: 50%;
-    height: 80%;
-    border: 1px solid rgba(132, 132, 132, 1);
-    background: url("../images/aaa.png") no-repeat center;
+  .Profile-Weather-Img img {
+    margin-top: 25%;
+    margin-left: 20%;
   }
-  .Background-Choice-Select {
+  .Profile-Weather-Content {
+    width: 60%;
+    height: 100%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    padding-left: 10%;
+    font-weight: bold;
+  }
+  .Profile-Weather-Local {
     width: 100%;
-    height: 19%;
+    height: 33%;
+    margin-top: 5%;
+  }
+  .Profile-Weather-Description {
+    width: 100%;
+    height: 33%;
+  }
+  .Profile-Weather-Temperature {
+    width: 100%;
+    height: 33%;
+  }
+  .MyProfile {
+    width: 100%;
+    height: 55%;
     border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
-    text-align: center;
   }
-  .Choice-Select-Text {
+  .ProfileIMG {
+    width: 120px;
+    height: 100px;
     position: relative;
-    top: 30%;
-    transform: translateY(-50%);
-    margin: 0 auto;
+    top: 10%;
+    left: 5%;
+    border-radius: 50%;
+  }
+  .ProfileIMG img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  .ProfileContent {
+    width: 70%;
+    height: 110px;
+    position: relative;
+    top: 11.5%;
+    display: flex;
+  }
+  .ProfileContent ul {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    padding-top: 10px;
+  }
+  .ProfileContent ul li:first-child {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    left: 10%;
+    letter-spacing: 5px;
+  }
+  .ProfileContent ul li:nth-child(2) {
+    position: relative;
+    left: 10%;
+    margin-top: 10px;
+    letter-spacing: 3px;
+  }
+  .ProfileContent ul li:last-child {
+    position: relative;
+    left: 10%;
+    color: gray;
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+  .ProfileSetting {
+    position: relative;
+    top: 2%;
+    left: 73%;
     width: 100px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: rgba(255, 131, 141, 1);
+    height: 25px;
+    text-align: center;
+    justify-content: center;
+    border: 1px solid gray;
+    align-content: center;
+    border-radius: 20px;
   }
-  .Choice-Select-Text h4 {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: white;
-  }
-  .Choice-Select-Text h4:hover {
+  .ProfileSetting:hover {
     cursor: pointer;
   }
+  /* --------------------------------- */
   #Background-Option {
     position: relative;
     top: -10px;
@@ -116,7 +195,7 @@ const LeftMainStyle = styled.div`
   }
 
   /* 커플 사진 이미지 사이즈 */
-  .Krikri-Love img {
+  .Krikri-Love .background-Img {
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -134,7 +213,7 @@ const LeftMainStyle = styled.div`
     font-weight: bold;
   }
   /* 커플 사진 하트 부분 */
-  .Date-Love img {
+  .Date-Love .Love {
     position: relative;
     top: -65%;
     width: 50px;
@@ -235,12 +314,191 @@ const LeftMainStyle = styled.div`
     width: 100%;
     height: 25%;
   }
+  .Love-Text2,
+  .Love2,
+  .Date2 {
+    display: none;
+  }
+  .LeftName,
+  .RightName {
+    display: none;
+  }
+  /* 10-23추가 */
+  .Link_To_SideBar {
+    width: 100%;
+    height: 7%;
+    position: relative;
+    top: -25%;
+    display: none;
+  }
+  .Link_To_SideBar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+  }
+  .Link_To_SideBar ul li {
+    width: 50px;
+    height: 100%;
+    border-radius: 50%;
+    margin: 0 15px;
+    background: white;
+  }
+  .Link_To_Img {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    left: 25%;
+  }
+  .Link_To_Img:hover {
+    color: pink;
+    cursor: pointer;
+  }
+  // ------------------------------------------- 좌측 반응형 -------------------------------------------------------
+  @media (max-width: 768px) {
+    .Left-Main {
+      width: 100%;
+      height: 100%;
+    }
+    #Background-Option {
+      display: none;
+    }
+    .Krikri-Love {
+      border-radius: 0px;
+    }
+    .Krikri-Love .background-Img {
+      border-radius: 0px;
+    }
+    .Choice-Title {
+      display: none;
+    }
+    .Love-Face {
+      width: 100%;
+      height: 10%;
+      position: relative;
+      top: -95%;
+      display: flex;
+    }
+    .Left-Face,
+    .Right-Face {
+      width: 50%;
+      height: 100%;
+      text-align: center;
+    }
+    /* 개인 사진 프로필 Div 부분 */
+    .L-Face {
+      position: relative;
+      left: -30%;
+      width: 30%;
+      height: 100%;
+      margin: 0 auto;
+    }
+    .R-Face {
+      position: relative;
+      right: -30%;
+      width: 30%;
+      height: 100%;
+      margin: 0 auto;
+    }
+    /* 프로필 부분 */
+    .Face {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+    }
+    /* 프로필 이미지 부분 */
+    .Face img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    /* 프로필 이름 부분 */
+    .Name {
+      width: 100%;
+      height: 30px;
+      font-size: 1.5rem;
+      margin-top: 5px;
+    }
+    .Love-Text,
+    .Love,
+    .Date {
+      display: none;
+    }
+    .Love-Text2,
+    .Love2,
+    .Date2 {
+      display: inline-block;
+    }
+    .Love-Text2 {
+      position: relative;
+      top: 0%;
+      width: 200px;
+      left: 11%;
+      margin: 0 auto;
+      font-weight: bold;
+    }
+    .Date2 {
+      position: relative;
+      top: 35%;
+      width: 200px;
+      left: -8%;
+      font-weight: bold;
+    }
+    .Love2 {
+      position: relative;
+      top: 75%;
+      width: 40px;
+      height: 40px;
+    }
+    .Name {
+      display: none;
+    }
+    .LeftName,
+    .RightName {
+      display: inline-block;
+    }
+    .LeftName {
+      position: relative;
+      left: 400%;
+      top: -23%;
+      width: 100%;
+      height: 30px;
+      font-size: 1.5rem;
+    }
+    .RightName {
+      position: relative;
+      right: 400%;
+      top: -23%;
+      width: 100%;
+      height: 30px;
+      font-size: 1.5rem;
+    }
+    .Krikri-Weather {
+      display: none;
+    }
+    .Link_To_SideBar {
+      display: block;
+    }
+    .Background-Choice {
+      top: 45%;
+      left: 20%;
+    }
+    .Profile-Choice {
+      top: 45%;
+      left: 20%;
+    }
+  }
 `;
 /* ------------------------------------우측 ------------------------------ */
 const RightMainStyle = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 16px;
+  img {
+    object-fit: cover;
+  }
   /* 우측 슬라이더, 캘린더, 앨범 전체 Div */
   .Right-Main {
     width: 100%;
@@ -260,6 +518,7 @@ const RightMainStyle = styled.div`
   /* 슬라이더 이름 부분 */
   .Left-Mall h4,
   .Right-Mall h4 {
+    margin-top: 7px;
     color: rgba(255, 131, 141, 1);
   }
   /* 좌측 클릭 슬라이더 사이즈 부분 */
@@ -490,6 +749,8 @@ const RightMainStyle = styled.div`
   }
   /* 캘린더 좌측 알림 표시 부분 */
   .Left-List ul {
+    margin: 0;
+    padding: 0;
     display: flex;
     font-size: 1.1rem;
   }
@@ -513,6 +774,7 @@ const RightMainStyle = styled.div`
   /* 캘린더 좌측 알림 표시 사이즈 부분 */
   .Left-List ul li:last-child {
     margin-left: 15px;
+    margin-right: 2px;
     width: 30%;
     text-align: center;
   }
@@ -527,6 +789,7 @@ const RightMainStyle = styled.div`
     display: flex;
     font-size: 1.1rem;
     margin-left: 28px;
+    padding: 0;
   }
   /* 캘린더 우측 알림 표시 부분 */
   .Right-List ul li {
@@ -602,67 +865,9 @@ const RightMainStyle = styled.div`
     font-size: 1.1rem;
   }
 
-  /* 채팅방 열었을 때 나오는 커플 사진쪽 */
-  .Krikri-Love2 {
-    width: 20%;
-    height: 107%;
-    display: none;
-    margin-right: 18px;
-    border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
-  }
-  .Krikri-Love2 img {
-    width: 100%;
-    height: 100%;
-    border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
-  }
-  .Date-Love2 {
-    text-align: center;
-    position: relative;
-    top: -85%;
-  }
-  /* 우리함께한지 부분 */
-  .Love-Text2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  /* 커플 사진 하트 부분 */
-  .Date-Love2 img {
-    position: relative;
-    top: -65%;
-    width: 50px;
-    height: 50px;
-    margin-top: 25px;
-  }
-  /* 몇일 사귄 날짜 */
-  .Date2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
   @media (max-width: 768px) {
-    .Left-Mall h4,
-    .Right-Mall h4 {
-      font-size: 18px;
-    }
-    .Krikri-Love {
-      width: 100%;
-    }
-    .Left-Main {
-      height: 100%;
-    }
-    #Background-Option {
-      width: 15px;
-    }
     .Right-Main {
       display: none;
-      height: 100%;
-    }
-    .Album-Add,
-    .Calender-Add {
-      position: relative;
-      top: -18%;
-      left: 88%;
     }
   }
 `;
@@ -671,38 +876,83 @@ function Popup_Open() {
   document.getElementById("Background-Choice").style.display = "block";
 }
 
-function Popup_Close() {
-  document.getElementById("Background-Choice").style.display = "none";
+function Profile_Open() {
+  document.getElementById("Profile-Choice").style.display = "block";
+}
+
+function Profile_Close() {
+  document.getElementById("Profile-Choice").style.display = "none";
 }
 
 function Main() {
+  const weathers = JSON.parse(localStorage.getItem("weather"));
+  const icon = weathers.icon;
+  const wethersImg = `http://openweathermap.org/img/wn/${icon}.png`;
+
   return (
     <Row className="main-contents m-0 p-0" md={2} sm={1}>
-      <Col xl={5} md={5} className="m-0 p-0">
+      <Col xl={5} md={5} className="h-100 m-0 p-0">
         <LeftMainStyle>
           <div className="Left-Main" id="Left-Main">
             <div className="Krikri-Love">
-              <div className="Background-Choice" id="Background-Choice">
-                <div className="Background-Choice-Title">
-                  <h4>배경 화면</h4>
-                  <img
-                    src={require("../../images/plus.png")}
-                    alt="배경화면"
-                    className="Choice-Title"
-                    onClick={Popup_Close}
+              {/* 배경화면 설정 팝업 */}
+              <Popup />
+              {/* 프로필 설정 팝업 */}
+              <div className="Profile-Choice" id="Profile-Choice">
+                <div className="Profile-Choice-Title">
+                  <h4>프로필 설정 화면</h4>
+                  <AiOutlinePlus
+                    className="Profile_Close"
+                    onClick={Profile_Close}
                   />
                 </div>
-                <div className="Background-Choice-Image">
-                  <h4>배경이미지</h4>
-                  <div className="Background-Choice-Image-Size"></div>
-                </div>
-                <div className="Background-Choice-Select">
-                  <div className="Choice-Select-Text">
-                    <h4>저장하기</h4>
+                <div className="Profile-Weather">
+                  <div className="Profile-Weather-Img" id="ProfileWeatherImg">
+                    <img src={wethersImg} width="100px" height="50px" />
+                  </div>
+                  <div className="Profile-Weather-Content">
+                    <div
+                      className="Profile-Weather-Local"
+                      id="ProfileWeatherLocal"
+                    >
+                      {weathers.place}
+                    </div>
+                    <div
+                      className="Profile-Weather-Description"
+                      id="ProfileWeatherDescription"
+                    >
+                      {weathers.description}
+                    </div>
+                    <div
+                      className="Profile-Weather-Temperature"
+                      id="ProfileWeatherTemperature"
+                    >
+                      {weathers.temperature}
+                    </div>
                   </div>
                 </div>
+                <div className="MyProfile">
+                  <div className="ProfileIMG">
+                    <img
+                      src={require("../../images/bgbgbg.png")}
+                      alt="프로필 사진"
+                    />
+                  </div>
+                  <div className="ProfileContent">
+                    <ul>
+                      <li>OOO</li>
+                      <li>2020년-10월-27일</li>
+                      <li>kkiri@kkiri.com</li>
+                    </ul>
+                  </div>
+                  <div className="ProfileSetting">프로필 편집</div>
+                </div>
               </div>
-              <img src={require("../../images/bgbg.png")} alt="배경화면" />
+              <img
+                src={require("../../images/bgbg.png")}
+                alt="배경화면"
+                className="background-Img"
+              />
               <div className="Date-Love">
                 <img
                   src={require("../../images/hamburger.png")}
@@ -711,7 +961,7 @@ function Main() {
                   onClick={Popup_Open}
                 />
                 <div className="Love-Text">우리 함께한지</div>
-                <img src={require("../../images/love.png")} alt="하트" />
+                <FcLike className="Love" alt="하트" />
                 <div className="Date">D - 000</div>
               </div>
               <div className="Love-Face">
@@ -724,8 +974,16 @@ function Main() {
                       />
                     </div>
                     <div className="Name">000</div>
+                    {/* 반응형 */}
+                    <div className="LeftName">000</div>
+                    {/* 끝 */}
                   </div>
                 </div>
+                {/* 반응형에서 보여질 것 */}
+                <div className="Love-Text2">우리 함께한지</div>
+                <FcLike className="Love2" alt="하트" />
+                <div className="Date2">D - 000</div>
+                {/* 끝 */}
                 <div className="Right-Face">
                   <div className="R-Face">
                     <div className="Face">
@@ -735,26 +993,58 @@ function Main() {
                       />
                     </div>
                     <div className="Name">000</div>
+                    {/* 반응형 */}
+                    <div className="RightName">000</div>
+                    {/* 끝 */}
                   </div>
                 </div>
               </div>
               <div className="Krikri-Weather">
                 <div className="Left-Weather">
                   <div className="Show-Weather">
-                    <div className="Local" id="Local"></div>
-                    <div className="Weather-Image" id="weatherImage"></div>
-                    <div className="description" id="description"></div>
-                    <div className="temperature" id="tempe"></div>
+                    <div className="Local" id="Local">
+                      {weathers.place}
+                    </div>
+                    <div className="Weather-Image" id="weatherImage">
+                      <img src={wethersImg} width="100px" height="50px" />
+                    </div>
+                    <div className="description" id="description">
+                      {weathers.description}
+                    </div>
+                    <div className="temperature" id="tempe">
+                      {weathers.temperature}
+                    </div>
                   </div>
                 </div>
                 <div className="Right-Weather">
                   <div className="Show-Weather">
-                    <div className="Local" id="Local2"></div>
-                    <div className="Weather-Image" id="weatherImage2"></div>
-                    <div className="description" id="description2"></div>
-                    <div className="temperature" id="tempe2"></div>
+                    <div className="Local" id="Local2">
+                      {weathers.place2}
+                    </div>
+                    <div className="Weather-Image" id="weatherImage2">
+                      <img src={wethersImg} width="100px" height="50px" />
+                    </div>
+                    <div className="description" id="description2">
+                      {weathers.description2}
+                    </div>
+                    <div className="temperature" id="tempe2">
+                      {weathers.temperature}
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div className="Link_To_SideBar">
+                <ul>
+                  <li>
+                    <BsImageFill className="Link_To_Img" onClick={Popup_Open} />
+                  </li>
+                  <li>
+                    <BsPeopleCircle
+                      className="Link_To_Img"
+                      onClick={Profile_Open}
+                    />
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -764,14 +1054,6 @@ function Main() {
         <RightMainStyle>
           <div className="Right-Main" id="Right-Main">
             <div className="Krikri-Mall">
-              <div className="Krikri-Love2" id="Krikri-Love2">
-                <img src={require("../../images/bgbg.png")} alt="배경화면" />
-                <div className="Date-Love2">
-                  <div className="Love-Text2">우리 함께한지</div>
-                  <div className="Date2">D - 000</div>
-                  <img src={require("../../images/love.png")} alt="하트" />
-                </div>
-              </div>
               <div className="Left-Mall">
                 <h4>새로운 이슈</h4>
                 <div className="New-Issue">
@@ -905,27 +1187,45 @@ function Main() {
               />
               <Row className="m-0 p-0 To-Album" md={1}>
                 <Col className="Show-Album" md={2} sm={1}>
-                  <img src={require("../../images/al2.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al2.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img src={require("../../images/al3.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al3.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img src={require("../../images/al4.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al4.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img src={require("../../images/al5.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al5.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img src={require("../../images/al6.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al6.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img src={require("../../images/al7.png")} alt="첫번째 앨범" />
+                  <img
+                    src={require("../../images/al7.png")}
+                    alt="첫번째 앨범"
+                  />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
               </Row>
