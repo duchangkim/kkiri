@@ -9,7 +9,7 @@ const NavigationBarContainer = ({ windowMatches, history }) => {
   const onLogout = async (e) => {
     e.preventDefault();
     await dispatch(logout());
-    history.push("/");
+    await history.push("/");
   };
 
   return <NavigationBar onLogout={onLogout} windowMatches={windowMatches} />;
