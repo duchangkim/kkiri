@@ -1,14 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const AlbumSchema = new Schema({
-  coupleShareCode: {
-    type: Number,
-  },
-  owner: {
-    type: Array,
-  },
+  owner: String,
+  fileImg : String,
+  txt: String,
+  publishedDate: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Album = mongoose.model("Album", AlbumSchema);
-
 export default Album;
