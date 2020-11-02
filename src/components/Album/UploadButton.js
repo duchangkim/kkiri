@@ -17,23 +17,22 @@ class UploadButton extends Component {
       txt: e.target.value
     })
   }
-  
-  
+
   handlePost = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('fileImg', this.state.fileImg);
     formData.append('txt', this.state.txt);
-    
+
     console.log(formData);
 
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
-    }
+    // const config = {
+    //   headers: {
+    //     "content-type": "multipart/form-data"
+    //   }
+    // }
     
-    axios.post('http://localhost:4000/api/album/fileupload', formData, config , {
+    axios.post('http://localhost:4000/api/album/fileupload', formData, {
       onUploadProgrees: ProgressEvent => {
         console.log('Upload Progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
       }

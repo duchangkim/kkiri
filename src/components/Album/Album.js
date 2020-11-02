@@ -18,7 +18,7 @@ function Album() {
         <div style={BUTTON_WRAPPER_STYLES}>
           <div className="album-title">
             <p className="title-p2">ALBUM</p>
-            <p className="title-p3"><img src={require("../../images/al4.png")} alt="사진추가" onClick={() => setIsOpen(true)}/></p>
+            <p className="title-p3"><img src={require("../../images/al5.png")} alt="사진추가" onClick={() => setIsOpen(true)}/></p>
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
             </Modal>
           </div>
@@ -26,10 +26,7 @@ function Album() {
         <div className="album-itembox">
           <ul className="a-items">
               <li>
-                <img src={require("../../images/al2.png")} className='img_place' alt="ex1"/>
-              </li>
-              <li>
-                <img src={require("../../images/al3.png")} className='img_place' alt="ex2"/>
+                <img src={require("../../images/al5.png")} className='img_place' alt="ex1"/>
               </li>
           </ul>
         </div>
