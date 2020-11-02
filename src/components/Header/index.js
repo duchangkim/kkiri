@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/Col";
 import styled from "styled-components";
+import { BsSearch } from "react-icons/bs";
 
 const HeaderLeft = styled.div`
   width: 100%;
@@ -25,21 +26,21 @@ const HeaderLeft = styled.div`
   }
   /* 검색 버튼 부분 */
   .Img-Button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     width: 50px;
     height: 44px;
     border: none;
     background: transparent;
     outline: none;
+    color: #555555;
     background-color: white;
     border-radius: 30px 0px 0px 30px / 30px 0px 0px 30px;
   }
   .Img-Button:focus {
     outline: none !important;
-  }
-  /* 검색 이미지 사이즈 부분 */
-  .Img-Button img {
-    width: 25px;
-    height: 25px;
   }
   /* 검색 이미지 hover 부분 */
   .Img-Button img:hover {
@@ -161,7 +162,9 @@ function Header() {
                 type="submit"
                 name="click"
                 value=""
-              ></button>
+              >
+                <BsSearch />
+              </button>
               <input
                 className="Search-Keyword"
                 type="text"
