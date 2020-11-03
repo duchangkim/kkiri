@@ -1,22 +1,8 @@
 import Router from "koa-router";
 import * as albumCtrl from './album.ctrl';
-import multer from 'multer';
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public');
-    },
-  filename: (req, file, cb) => {
-
-    cb(null, Data.now() + '-' + file.originalname)
-  }
-});
-
-let upload = multer({
-  storage: storage
-});
+import koaBody from 'koa-body'; // koa-body 불러오기
 
 const album = new Router();
-album.post('/fileupload', albumCtrl.fileupload, upload.single('fileImg'));
+album.post('/fileupload', koaBody({multipart: true}), albumCtrl.fileupload);
 
 export default album;
