@@ -3,12 +3,17 @@ import axios from 'axios';
 
 class UploadButton extends Component {
 
-  state = {
-    fileImg: null,
-    txt: null
+  constructor(props){
+    super(props);
+    this.state = {
+      files: '',
+      fileImg: null,
+      txt: null
+    }
   }
   handleChange = (e) => {
     this.setState({
+      files: e.target.files[0],
       fileImg: e.target.files[0].name
     })
   }
@@ -18,9 +23,9 @@ class UploadButton extends Component {
     })
   }
 
-  handlePost = (e) => {
-    e.preventDefault();
+  handlePost = async () => {
     const formData = new FormData();
+    formData.append('files', this.state.files);
     formData.append('fileImg', this.state.fileImg);
     formData.append('txt', this.state.txt);
 
@@ -31,18 +36,15 @@ class UploadButton extends Component {
     //     "content-type": "multipart/form-data"
     //   }
     // }
-    
-    axios.post('http://localhost:4000/api/album/fileupload', formData, {
-      onUploadProgrees: ProgressEvent => {
-        console.log('Upload Progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
-      }
-    }).then(res => {
+    const res = await axios.post("/api/album/fileupload", formData).then(res => {
       console.log(res);
-      alert('성공')
+      alert('성공');
+
     }).catch(err => {
-      console.log(err);
+      console.log('err : '+ err);
       alert('실패')
-    })
+    });
+    console.log(res);
   }
 
   render() {
@@ -54,13 +56,11 @@ class UploadButton extends Component {
           <div className="txt">
             <input type="text" placeholder="제목 입력하쇼" name="txt" onChange={this.handleChange2}/>
           </div>
-          <div className="btn">
-            
+          <div className="btn">            
               {this.state.fileImg === null ? (
                 <button disabled="disable" style={{backgroundColor:"#dee2e6"}}>저장하기</button> 
                 ) : ( <button type="submit" onClick={this.handlePost}>저장하기</button> )
-              }
-            
+              }            
           </div>
         </div>
       )
