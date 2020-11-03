@@ -3,13 +3,14 @@ import Calendar from "../../models/calendar";
 
 // 스케쥴 CRUD
 export const createSchedule = async (ctx) => {
+  console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const validateSchedule = Joi.object().keys({
     calendarId: Joi.number().required(),
     category: Joi.string(),
     raw: Joi.object().required(),
     title: Joi.string().required(),
-    location: Joi.string(),
+    location: Joi.string().allow(""),
     isAllDay: Joi.boolean(),
     state: Joi.string(),
     start: Joi.required(),
@@ -43,8 +44,8 @@ export const createSchedule = async (ctx) => {
       raw,
       title,
       location,
-      start,
-      end,
+      start: new Date(start),
+      end: new Date(end),
     });
 
     await calendar.save();
@@ -125,6 +126,7 @@ export const deleteSchedule = async (ctx) => {
 };
 
 export const modifySchedule = async (ctx) => {
+  console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
   const numberScheduleId = parseInt(scheduleId);
@@ -136,14 +138,21 @@ export const modifySchedule = async (ctx) => {
   }
 
   const {
+    id,
     calendarId,
     category,
-    isVisible,
+    raw,
     title,
-    body,
+    location,
     start,
     end,
+    isAllDay,
+    state,
   } = ctx.request.body;
+
+  console.log(
+    `${id},${calendarId}, ${category}, ${raw}, ${title}, ${location}, ${start}, ${end}, ${isAllDay}, ${state},`
+  );
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
@@ -160,9 +169,9 @@ export const modifySchedule = async (ctx) => {
       id: currentSchedule.id,
       calendarId: calendarId ? calendarId : currentSchedule.calendarId,
       category: category ? category : currentSchedule.category,
-      isVisible: isVisible ? isVisible : currentSchedule.isVisible,
+      raw: raw ? raw : currentSchedule.raw,
       title: title ? title : currentSchedule.title,
-      body: body ? body : currentSchedule.body,
+      location: location ? location : currentSchedule.location,
       start: start ? start : currentSchedule.start,
       end: end ? end : currentSchedule.end,
     };

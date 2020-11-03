@@ -79,3 +79,24 @@ API 리스트
 
 state에 로그인 정보를 initialState로 정한다음
 거기서 바뀌는 정보가 있으면 넘어가도록
+
+
+
+API 명세서
+
+회원
+
+회원가입
+localhost:4000/api/regist
+
+(post)
+
+(parameter)
+userid : 이름
+name : 이름
+password : 비밀번호 
+
+(return)
+200: 회원가입 성공
+401: 잘못될 호출
+...
