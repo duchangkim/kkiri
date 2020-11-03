@@ -54,6 +54,21 @@ const AddButtonBlock = styled.div`
 `;
 const AddButton = styled(Button)`
   color: #ff838d;
+
+  &:hover + div.msg {
+    display: flex;
+  }
+`;
+const Message = styled.div`
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  background: #ff838d;
+  border-radius: 5px;
 `;
 
 const CalendarHeader = ({
@@ -82,6 +97,7 @@ const CalendarHeader = ({
         <AddButton>
           <MdAdd />
         </AddButton>
+        <Message className="msg">캘린더 필터 추가</Message>
       </AddButtonBlock>
     </ButtonsBlock>
   );

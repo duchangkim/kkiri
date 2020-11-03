@@ -14,10 +14,18 @@ import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 import styled from "styled-components";
 import CalendarHeaderContainer from "./CalendarHeaderContainer";
+import CalenderSideContainer from "./CalendarSideContainer";
 
 const Styles = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
+  .left {
+    width: 85%;
+  }
+  .left + div {
+    width: 15%;
+  }
 `;
 
 const calendars = [
@@ -156,21 +164,24 @@ const CalendarContainer = () => {
 
   return (
     <Styles>
-      <CalendarHeaderContainer cal={cal} />
-      <TUICalendar
-        ref={cal}
-        height="93%"
-        view="month"
-        useCreationPopup={true}
-        useDetailPopup={true}
-        template={template}
-        calendars={calendars}
-        schedules={schedules}
-        onClickSchedule={onClickSchedule}
-        onBeforeCreateSchedule={onBeforeCreateSchedule}
-        onBeforeDeleteSchedule={onBeforeDeleteSchedule}
-        onBeforeUpdateSchedule={onBeforeUpdateSchedule}
-      />
+      <div className="left">
+        <CalendarHeaderContainer cal={cal} />
+        <TUICalendar
+          ref={cal}
+          height="93%"
+          view="month"
+          useCreationPopup={true}
+          useDetailPopup={true}
+          template={template}
+          calendars={calendars}
+          schedules={schedules}
+          onClickSchedule={onClickSchedule}
+          onBeforeCreateSchedule={onBeforeCreateSchedule}
+          onBeforeDeleteSchedule={onBeforeDeleteSchedule}
+          onBeforeUpdateSchedule={onBeforeUpdateSchedule}
+        />
+      </div>
+      <CalenderSideContainer />
     </Styles>
   );
 };

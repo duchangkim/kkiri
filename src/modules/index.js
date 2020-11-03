@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { all, put } from "redux-saga/effects";
+import { all } from "redux-saga/effects";
 import auth, { authSaga } from "./auth";
 import member, { memberSaga } from "./member";
 import tuiCalendar from "./tuiCalendar";
