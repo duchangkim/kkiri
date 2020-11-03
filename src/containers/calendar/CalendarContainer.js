@@ -116,6 +116,7 @@ const CalendarContainer = () => {
 
     console.log(schedule);
     console.log(changes);
+
     cal.current.calendarInst.updateSchedule(
       schedule.id,
       schedule.calendarId,
