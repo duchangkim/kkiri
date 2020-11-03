@@ -37,7 +37,7 @@ const CalendarSchema = new Schema({
         {
           id: 0,
           calendarId: 1,
-          category: "allDay",
+          category: "allday",
           raw: {
             class: "public",
           },

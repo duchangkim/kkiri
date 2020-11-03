@@ -1,6 +1,11 @@
 import React, { useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getScheduleList, createSchedule } from "../../modules/schedule";
+import {
+  getScheduleList,
+  createSchedule,
+  deleteSchedule,
+  modifySchedule,
+} from "../../modules/schedule";
 import serializeSchedule from "../../lib/serializeSchedule";
 
 import TUICalendar from "@toast-ui/react-calendar";
@@ -9,47 +14,24 @@ import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 import styled from "styled-components";
 import CalendarHeaderContainer from "./CalendarHeaderContainer";
+import CalenderSideContainer from "./CalendarSideContainer";
 
 const Styles = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
+  .left {
+    width: 87%;
+  }
+  .left + div {
+    min-width: 130px;
+    width: 13%;
+  }
+  .tui-full-calendar-popup-save {
+    background: #ff838d;
+  }
 `;
 
-const start = new Date();
-const end = new Date(new Date().setMinutes(start.getMinutes() + 30));
-console.log(`start: ${start} end: ${end}`);
-// const schedules = [
-//   {
-//     calendarId: "1",
-//     category: "time",
-//     isVisible: true,
-//     title: "Study",
-//     id: "1",
-//     body: "Test",
-//     start,
-//     end,
-//   },
-//   {
-//     calendarId: "2",
-//     category: "time",
-//     isVisible: true,
-//     title: "Meeting",
-//     id: "2",
-//     body: "Description",
-//     start: new Date(),
-//     end: new Date(new Date().setDate(start.getDate() + 1)),
-//   },
-//   {
-//     calendarId: "1",
-//     category: "allday",
-//     isVisible: true,
-//     title: "테스트 일정 3",
-//     id: "3",
-//     body: "Description",
-//     start: new Date(new Date().setDate(start.getDate() + 5)),
-//     end: new Date(new Date().setDate(start.getDate() + 7)),
-//   },
-// ];
 const calendars = [
   {
     id: "1",
@@ -85,7 +67,6 @@ const CalendarContainer = () => {
     console.dir(`clicked schedule`);
     const { calendarId, id } = e.schedule;
     const el = cal.current.calendarInst.getElement(id, calendarId);
-    console.dir(cal.current);
 
     console.log(e, el.getBoundingClientRect());
   }, []);
@@ -95,34 +76,43 @@ const CalendarContainer = () => {
       console.log("스케쥴 만들거임 버튼 클릭");
       // 스케쥴 직렬화
       const schedule = serializeSchedule(scheduleData);
+
+      // console.log(schedule.start instanceof Date);
+
       dispatch(createSchedule(schedule)); //db에 저장
 
       cal.current.calendarInst.createSchedules([schedule]);
-      // console.log(schedule);
     },
     [dispatch]
   );
 
-  const onBeforeDeleteSchedule = useCallback((res) => {
-    console.log(`call Delete  ${res}`);
-    const { id, calendarId } = res.schedule;
+  const onBeforeDeleteSchedule = useCallback(
+    (res) => {
+      console.log(`call Delete  ${res}`);
+      const { id, calendarId } = res.schedule;
 
-    cal.current.calendarInst.deleteSchedule(id, calendarId);
-  }, []);
+      dispatch(deleteSchedule(id));
+      cal.current.calendarInst.deleteSchedule(id, calendarId);
+    },
+    [dispatch]
+  );
+  const onBeforeUpdateSchedule = useCallback(
+    (e) => {
+      console.log(`call Update  ${e}`);
+      const { id, calendarId } = e.schedule;
+      const schedule = {
+        id,
+        ...e.changes,
+        start: e.changes.start ? e.changes.start.toDate() : null,
+        end: e.changes.end ? e.changes.end.toDate() : null,
+        category: e.changes.isAllDay ? "allDay" : "time",
+      };
 
-  const onBeforeUpdateSchedule = useCallback((e) => {
-    console.log(`call Update  ${e}`);
-    const { schedule, changes } = e;
-
-    console.log(schedule);
-    console.log(changes);
-
-    cal.current.calendarInst.updateSchedule(
-      schedule.id,
-      schedule.calendarId,
-      changes
-    );
-  }, []);
+      dispatch(modifySchedule(schedule, id));
+      cal.current.calendarInst.updateSchedule(id, calendarId, schedule);
+    },
+    [dispatch]
+  );
 
   const _getFormattedTime = (time) => {
     const date = new Date(time);
@@ -167,6 +157,7 @@ const CalendarContainer = () => {
   };
 
   useEffect(() => {
+    console.log("렌더");
     dispatch(getScheduleList());
   }, [dispatch]);
 
@@ -176,21 +167,24 @@ const CalendarContainer = () => {
 
   return (
     <Styles>
-      <CalendarHeaderContainer cal={cal} />
-      <TUICalendar
-        ref={cal}
-        height="93%"
-        view="month"
-        useCreationPopup={true}
-        useDetailPopup={true}
-        template={template}
-        calendars={calendars}
-        schedules={schedules}
-        onClickSchedule={onClickSchedule}
-        onBeforeCreateSchedule={onBeforeCreateSchedule}
-        onBeforeDeleteSchedule={onBeforeDeleteSchedule}
-        onBeforeUpdateSchedule={onBeforeUpdateSchedule}
-      />
+      <div className="left">
+        <CalendarHeaderContainer cal={cal} />
+        <TUICalendar
+          ref={cal}
+          height="93%"
+          view="month"
+          useCreationPopup={true}
+          useDetailPopup={true}
+          template={template}
+          calendars={calendars}
+          schedules={schedules}
+          onClickSchedule={onClickSchedule}
+          onBeforeCreateSchedule={onBeforeCreateSchedule}
+          onBeforeDeleteSchedule={onBeforeDeleteSchedule}
+          onBeforeUpdateSchedule={onBeforeUpdateSchedule}
+        />
+      </div>
+      <CalenderSideContainer calendars={calendars} />
     </Styles>
   );
 };

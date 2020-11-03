@@ -66,7 +66,7 @@ export const KkiriLogo = () => {
 export const Navigation = () => {
   return (
     <Styles>
-      <Navbar expand="lg">
+      <Navbar expand="sm">
         <NavLink
           to="/kkiri/home"
           className="navbar-brand"
