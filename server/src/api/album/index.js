@@ -1,8 +1,10 @@
 import Router from "koa-router";
 import * as albumCtrl from './album.ctrl';
-import koaBody from 'koa-body'; // koa-body 불러오기
+import checkLoggedIn from "../../lib/checkLoggedIn";
 
 const album = new Router();
-album.post('/fileupload', koaBody({multipart: true}), albumCtrl.fileupload);
+
+album.post('/fileupload', checkLoggedIn, albumCtrl.fileupload);
+album.delete('/filedel/:id', checkLoggedIn, albumCtrl.filedel);
 
 export default album;

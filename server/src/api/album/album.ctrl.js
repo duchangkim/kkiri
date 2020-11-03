@@ -1,58 +1,64 @@
 import Album from '../../models/album';
 import Joi from '@hapi/joi';
-import multer from 'koa-multer';
+import fs from 'fs';
+import promisePipe from 'promisepipe';
+import path from 'path';
 
+// 파일 업로드
 export const fileupload = async ctx => {
-  // console.log('~~~~~~upload')
   const schema = Joi.object().keys({
-    txt: Joi.string().required(),
-    fileImg: Joi.string(),
+    filename: Joi.string(),
   });
 
   const result = schema.validate(ctx.request.body);
   if(result.error){
-    console.log('!!!!!!!!?')
+    console.log('errer : ' + result.error)
     ctx.status = 400;
     ctx.body = result.error;
     return;
   }
+  
+  try {
+    const uploadfile = ctx.request.files.files;
+    const savefile = `${Date.now()}#${uploadfile.name}`;
+    const readStream = fs.createReadStream(uploadfile.path);
+    const writeStream = fs.createWriteStream(path.join('./server/src/api/album/uploads/', savefile));
 
-  const storage = multer.diskStorage({
-    
-    destination: function(req, file, cb) {
-        cb(null, 'public');
-    },
-    filename: function(req, file, cb) {
-        cb(null, '1103' + file.originalname);
-        console.log("WErwrewrewrwer@")   
+    await promisePipe (
+      readStream .on (' err' , () => {
+        throw new Error ({
+          error : "File Read Error"
+        });
+      }),
+      writeStream .on (' err ', () => {
+        throw new Error ({
+          error : "Write Error"
+        });
+      })
+    )
+
+    ctx.body = {
+      message: "file upload success"
     }
-  })
-
-  const upload = multer({ storage: storage});
-
-  const { txt } = ctx.request.body;
-  const file = ctx.request.files;
-  const fileImg = ctx.request.body.fileImg;
-  console.log('file : ' + ctx.request.files);
-  let files = [];
-  for (let i = 0; i < file.length; i++) {
-      files.push(fs.readFileSync(file[i].path));
-      console.log("~~!!!~~~~~~~~ : " + file[i].path)
-  }
-  const album = new Album({
-    txt,
-    fileImg,
-  });
-      
-      console.log('du기~~~~');
-    try {
-      await album.save(upload);
-      console.log(album);
-        ctx.body = {
-          message: "success upload!"
-        }
-    }catch(e){
-    ctx.throw(500, e);
+    const filename = uploadfile.name;
+    const album = new Album({
+      filename,
+    });
+    await album.save();
+    console.log(album);
+  }catch(e){
+    ctx.throw(500, e)
   }
 }
 
+// 파일 삭제
+export const filedel = async ctx => {
+  const {id} = ctx.params;
+  try{
+    console.log('삭제ㅇㅇㅇㅇㅇㅇ')
+    await Album.findByIdAndRemove(id).exec();
+    ctx.status = 204;
+  }catch(e){
+    ctx.throw(500, e);
+  }
+}

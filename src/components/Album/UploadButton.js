@@ -2,67 +2,51 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class UploadButton extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      files: '',
-      fileImg: null,
-      txt: null
-    }
+  state = {
+    files: null,
+    value: '',
   }
-  handleChange = (e) => {
+  
+  handleChange = event => {
     this.setState({
-      files: e.target.files[0],
-      fileImg: e.target.files[0].name
-    })
-  }
-  handleChange2 = (e) => {
-    this.setState({
-      txt: e.target.value
+      files: event.target.files[0],
+      value: event.target.files[0].name,
     })
   }
 
-  handlePost = async () => {
+  handlePost = () => {
+    console.log(this.state.files);
     const formData = new FormData();
-    formData.append('files', this.state.files);
-    formData.append('fileImg', this.state.fileImg);
-    formData.append('txt', this.state.txt);
-
+    formData.append('files', this.state.files, this.state.files.name);
     console.log(formData);
 
-    // const config = {
-    //   headers: {
-    //     "content-type": "multipart/form-data"
-    //   }
-    // }
-    const res = await axios.post("/api/album/fileupload", formData).then(res => {
+    axios.post("/api/album/fileupload", formData, {
+      onUploadProgress: progressEvent => {
+        console.log('Upload Progress: ' + (Math.round(progressEvent.loaded / progressEvent.total) * 100) + '%')
+      }
+    }).then(res => {
       console.log(res);
-      alert('성공');
-
     }).catch(err => {
-      console.log('err : '+ err);
-      alert('실패')
+      console.log(err);
     });
-    console.log(res);
   }
 
   render() {
       return(
-        <div className="middle">
-          <input className="upload" disabled="disabled" value={this.state.fileImg}/>
-          <label for="add_file">업로드</label>
-          <input type="file" id="add_file" class="upload" name="files" onChange={this.handleChange}/>
-          <div className="txt">
-            <input type="text" placeholder="제목 입력하쇼" name="txt" onChange={this.handleChange2}/>
+        <form onSubmit={this.handlePost} encType="multipart/form-data">
+          <div className="middle">
+            <input className="upload" disabled="disabled" value={this.state.value}/>
+            <label for="files">업로드</label>
+            <input type="file" id="files" class="upload" name="files" onChange={this.handleChange}/>
+            <div className="txt"/>
+            <div className="btn" style={{paddingBottom: "15px"}}>            
+                {this.state.files === null ? (
+                  <button disabled="disable" style={{backgroundColor:"#dee2e6"}}>저장하기</button> 
+                  ) : ( <button type="submit">저장하기</button> )
+                }            
+            </div>
           </div>
-          <div className="btn">            
-              {this.state.fileImg === null ? (
-                <button disabled="disable" style={{backgroundColor:"#dee2e6"}}>저장하기</button> 
-                ) : ( <button type="submit" onClick={this.handlePost}>저장하기</button> )
-              }            
-          </div>
-        </div>
+        </form>
       )
   }
 }
