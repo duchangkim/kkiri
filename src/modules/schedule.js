@@ -47,6 +47,7 @@ const getScheduleListSaga = createRequestSaga(
   GET_SCHEDULE_LIST,
   scheduleAPI.getScheduleList
 );
+// getScheduleListSaga는 제네레이터 함수를 리턴받음
 const createScheduleSaga = createRequestSaga(
   CREATE_SCHEDULE,
   scheduleAPI.createSchedule
@@ -63,6 +64,7 @@ export function* scheduleSaga() {
   // takeLatest > 같은 종류의 액션이 여러번 요청되어도 마지막 액션 요청에 대해서만 동작을 실행한다(두번세번 들어가는거 방지) -dispatch한다-
   yield all([
     takeLatest(GET_SCHEDULE_LIST, getScheduleListSaga),
+    // getScheduleListSaga.next(GET_SCHEDULE_LIST)
     takeLatest(CREATE_SCHEDULE, createScheduleSaga),
     takeLatest(DELETE_SCHEDULE, deleteScheduleSaga),
     takeLatest(MODIFY_SCHEDULE, modifyScheduleSaga),

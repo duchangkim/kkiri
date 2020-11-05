@@ -11,6 +11,7 @@ export const createRequestActionTypes = (type) => {
 
 // type은 액션타입 request는 api호출 함수 (axios)
 export default function createRequestSaga(type, request) {
+  console.log("tlqkf!!@#!@#!@#!@#!@#!@#!@#");
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 

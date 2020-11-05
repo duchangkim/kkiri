@@ -53,6 +53,7 @@ const calendars = [
 
 const CalendarContainer = () => {
   const dispatch = useDispatch();
+
   const { schedules, scheduleError } = useSelector(({ schedule }) => {
     console.log(schedule);
     return {
@@ -160,6 +161,17 @@ const CalendarContainer = () => {
     console.log("렌더");
     dispatch(getScheduleList());
   }, [dispatch]);
+  // useEffect(() => {
+  //   console.log("sdf");
+  //   axios
+  //     .get("http://localhost:4000/api/schedules")
+  //     .then((json) => {
+  //       console.log(json);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, []);
 
   if (scheduleError) {
     return <Styles> ERROR! </Styles>;
