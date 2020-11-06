@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Album from "../../components/Album/Album";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { listAlbums } from '../../modules/albums';
+import Album from '../../components/Album/Album'
+import qs from 'qs';
 
-function AlbumContainer() {
-  const initalState = {
-    files: {},
-    error: null,
-  };
-  const [files, setFiles] = useState(initalState);
+const AlbumContainer = ({ location }) => {
+  const dispatch = useDispatch();
+  const { albums, error } = useSelector((state) => {
+    console.log(state)
+    return({
+    albums: state.albums.albums,
+    error: state.albums.error,
+  })})
+  console.log("ASDASDASD" + albums);
 
   useEffect(() => {
-    console.log("sdf");
-    axios
-      .get("http://localhost:4000/api/schedules")
-      .then((json) => {
-        console.log(json);
-        setFiles(json);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+    const { filename, publishedDate } = qs.parse(location.search, {
+      ignoreQueryPrefix: true,
+    });
+    dispatch(listAlbums({ filename, publishedDate }));
+  }, [dispatch, location.search])
 
-  return <Album files={files} />;
-}
+  return <Album 
+            albums={albums} 
+            error={error}
+          />;
+};
 
-export default AlbumContainer;
+export default withRouter(AlbumContainer);
