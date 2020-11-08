@@ -6,7 +6,7 @@ import NavigationBarContainer from "../../containers/common/NavigationBarContain
 import Header from "../../components/Header";
 import { Route } from "react-router";
 import Main from "./Main";
-import Album from "../../components/Album/Album";
+import AlbumContainer from "../../containers/album/AlbumContainer";
 import Chatting from "./chatting";
 import UnNavigationBar from "../../components/UnNavigationBar";
 import CalendarPage from "../CalendarPage";
@@ -61,7 +61,7 @@ const MainService = () => {
             ) : null}
             <Route path="/kkiri/home" component={Main} />
             <Route path="/kkiri/calendar" component={CalendarPage} />
-            <Route path="/kkiri/album" component={Album} />
+            <Route path="/kkiri/album" component={AlbumContainer} />
             <Route path="/kkiri/chatting" component={Chatting} />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
