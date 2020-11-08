@@ -78,6 +78,7 @@ const CalendarHeader = ({
   isToday,
   year,
   month,
+  openForm,
 }) => {
   return (
     <ButtonsBlock>
@@ -94,7 +95,7 @@ const CalendarHeader = ({
         Today
       </TodayButton>
       <AddButtonBlock>
-        <AddButton>
+        <AddButton onClick={openForm}>
           <MdAdd />
         </AddButton>
         <Message className="msg">캘린더 필터 추가</Message>

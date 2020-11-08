@@ -1,9 +1,11 @@
 import client from "./client";
 
 export const createSchedule = (schedule) => {
-  console.log(schedule);
+  // console.log(client.post("/api/schedules", schedule));
+
   return client.post("/api/schedules", schedule);
 };
+console.log(typeof createSchedule);
 
 export const getScheduleList = () => client.get("/api/schedules");
 

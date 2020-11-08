@@ -1,13 +1,26 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const AlbumSchema = new Schema({
-  owner: String,
-  filename : String,
-  publishedDate: {
-    type: Date,
-    default: Date.now,
-  }
+  coupleShareCode: {
+    type: Number,
+  },
+  owner: Array,
+  fileData: {
+    filename: Array,
+    like: {
+      type: Boolean,
+      default: false,
+    },
+    publishedDate: {
+      type: Date,
+      default: Date.now,
+    },
+  },
 });
 
-const Album = mongoose.model("Album", AlbumSchema);
+AlbumSchema.statics.findByCoupleShareCode = async function (coupleShareCode) {
+  return await this.findOne({ coupleShareCode });
+};
+
+const Album = mongoose.model('Album', AlbumSchema);
 export default Album;

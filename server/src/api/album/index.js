@@ -1,10 +1,16 @@
 import Router from "koa-router";
-import * as albumCtrl from './album.ctrl';
+import * as albumCtrl from "./album.ctrl";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 
+const albums = new Router();
+albums.get('/', albumCtrl.list);
+albums.post("/fileupload", albumCtrl.fileupload);
+
 const album = new Router();
+album.get('/', albumCtrl.read);
+album.delete('/', checkLoggedIn, albumCtrl.remove);
+album.patch('/', albumCtrl.update);
 
-album.post('/fileupload', checkLoggedIn, albumCtrl.fileupload);
-album.delete('/filedel/:id', checkLoggedIn, albumCtrl.filedel);
+albums.use('/:id', albumCtrl.checkObjectId, album.routes());
 
-export default album;
+export default albums;
