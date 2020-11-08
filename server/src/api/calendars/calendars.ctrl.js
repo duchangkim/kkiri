@@ -1,5 +1,5 @@
-import Joi from "joi";
-import Calendar from "../../models/calendar";
+import Joi from 'joi';
+import Calendar from '../../models/calendar';
 
 // 캘린더(필터) CRUD
 export const createCalendars = async (ctx) => {
@@ -21,7 +21,7 @@ export const createCalendars = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const result = await calendar.createCalendarData("calendars", {
+    const result = await calendar.createCalendarData('calendars', {
       name,
       color: textColor,
       bgColor: backgroundColor,
@@ -44,7 +44,17 @@ export const getCalendarsList = async (ctx) => {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const calendars = calendar.calendarData.calendars;
 
-    ctx.body = calendars;
+    console.log('``````````````요기가 캘린더리스트');
+    console.log(
+      calendars.map((calendar) => ({
+        ...calendar,
+        id: calendar.id.toString(),
+      }))
+    );
+    ctx.body = calendars.map((calendar) => ({
+      ...calendar,
+      id: calendar.id.toString(),
+    }));
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -56,7 +66,7 @@ export const getCalendars = async (ctx) => {
   const numberCalendarsId = parseInt(calendarsId);
 
   if (isNaN(numberCalendarsId)) {
-    console.log("숫자를 달라..");
+    console.log('숫자를 달라..');
     ctx.status = 409;
     return;
   }
@@ -64,7 +74,7 @@ export const getCalendars = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const findResult = await calendar.getCaledarDataByTargetId(
-      "calendars",
+      'calendars',
       numberCalendarsId
     );
 
@@ -85,7 +95,7 @@ export const deleteCalendars = async (ctx) => {
   const numberCalendarsId = Number(calendarsId);
 
   if (isNaN(numberCalendarsId)) {
-    console.log("숫자를 달라..");
+    console.log('숫자를 달라..');
     ctx.status = 409;
     return;
   }
@@ -93,7 +103,7 @@ export const deleteCalendars = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
-      "calendars",
+      'calendars',
       numberCalendarsId
     );
 
@@ -112,7 +122,7 @@ export const modifyCalendars = async (ctx) => {
   const numberCalendarsId = Number(calendarsId);
 
   if (isNaN(numberCalendarsId)) {
-    console.log("숫자를 달라..");
+    console.log('숫자를 달라..');
     ctx.status = 409;
     return;
   }
@@ -156,7 +166,7 @@ export const modifyCalendars = async (ctx) => {
     };
 
     const result = await calendar.modifyCalendarDataByTargetId(
-      "calendars",
+      'calendars',
       numberCalendarsId,
       modifiedCalendars
     );
