@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FiTrash2 } from 'react-icons/fi';
 import { MdRefresh } from 'react-icons/md';
 
 const CalendarSideBlock = styled.div`
@@ -57,7 +56,7 @@ const CalendarTitle = styled.div`
     color: ${(props) => props.bgColor};
   }
 `;
-const DeleteButton = styled.div`
+const DeleteButtonBlock = styled.div`
   width: 30%;
   text-align: right;
   font-size: 1.2rem;
@@ -69,6 +68,9 @@ const DeleteButton = styled.div`
     color: #aeaeae;
     &:hover {
       color: #f16b6f;
+    }
+    & svg {
+      z-index: -10;
     }
   }
 `;
@@ -124,7 +126,7 @@ const RefreshButton = styled.div`
   }
 `;
 
-const CalendarSide = ({ calendars, error, onDelete }) => {
+const CalendarSide = ({ calendars, error, onDelete, onModify }) => {
   return (
     <CalendarSideBlock>
       {error ? (
@@ -141,14 +143,18 @@ const CalendarSide = ({ calendars, error, onDelete }) => {
           {calendars.map((calendar) => (
             <CalendarBlock key={calendar.id}>
               <CalendarColorCircle bgColor={calendar.bgColor} />
-              <CalendarTitle bgColor={calendar.bgColor}>
+              <CalendarTitle
+                id={calendar.id}
+                bgColor={calendar.bgColor}
+                onClick={onModify}
+              >
                 {calendar.name}
               </CalendarTitle>
-              <DeleteButton value={calendar.id} onClick={onDelete}>
-                <button>
-                  <FiTrash2 />
+              <DeleteButtonBlock>
+                <button value={calendar.id} onClick={onDelete}>
+                  X
                 </button>
-              </DeleteButton>
+              </DeleteButtonBlock>
             </CalendarBlock>
           ))}
         </ListBlock>

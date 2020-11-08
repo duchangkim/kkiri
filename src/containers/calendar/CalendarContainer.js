@@ -1,24 +1,23 @@
-import React, { useEffect, useCallback, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getScheduleList,
   createSchedule,
   deleteSchedule,
   modifySchedule,
-} from "../../modules/schedule";
-import { getCalendarList } from "../../modules/calendar";
+} from '../../modules/schedule';
+import { getCalendarList } from '../../modules/calendar';
 
-import serializeSchedule from "../../lib/serializeSchedule";
+import serializeSchedule from '../../lib/serializeSchedule';
 
-import TUICalendar from "@toast-ui/react-calendar";
-import "tui-calendar/dist/tui-calendar.css";
-import "tui-date-picker/dist/tui-date-picker.css";
-import "tui-time-picker/dist/tui-time-picker.css";
-import styled from "styled-components";
-import CalendarHeaderContainer from "./CalendarHeaderContainer";
-import CalenderSideContainer from "./CalendarSideContainer";
-
-import CalendarFormPopup from "../../components/Calendar/CalendarFormPopup";
+import TUICalendar from '@toast-ui/react-calendar';
+import 'tui-calendar/dist/tui-calendar.css';
+import 'tui-date-picker/dist/tui-date-picker.css';
+import 'tui-time-picker/dist/tui-time-picker.css';
+import styled from 'styled-components';
+import CalendarHeaderContainer from './CalendarHeaderContainer';
+import CalenderSideContainer from './CalendarSideContainer';
+import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
 
 const Styles = styled.div`
   display: flex;
@@ -67,11 +66,12 @@ const CalendarContainer = () => {
     (scheduleData) => {
       // console.log(scheduleData);
 
-      console.log("스케쥴 만들거임 버튼 클릭");
+      console.log('스케쥴 만들거임 버튼 클릭');
       // console.log(scheduleData);
       // 스케쥴 직렬화
       const schedule = serializeSchedule(scheduleData);
 
+      console.log(schedule.calendarId);
       // console.log(schedule.start instanceof Date);
 
       dispatch(createSchedule(schedule)); //db에 저장
@@ -97,6 +97,7 @@ const CalendarContainer = () => {
       console.log(`call Update`);
       const { id, calendarId } = e.schedule;
 
+      console.log(calendarId);
       if (!e.changes) {
         return;
       }
@@ -133,7 +134,7 @@ const CalendarContainer = () => {
     }
     if (schedule.isPrivate) {
       html.push('<sapn class="calendar-font-icon ic-lock-b"></sapn>');
-      html.push(" Private");
+      html.push(' Private');
     } else {
       if (schedule.isReadOnly) {
         html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
@@ -144,9 +145,9 @@ const CalendarContainer = () => {
       } else if (schedule.location) {
         html.push('<span class="calendar-font-icon ic-location-b"></span>');
       }
-      html.push(" " + schedule.title);
+      html.push(' ' + schedule.title);
     }
-    return html.join("");
+    return html.join('');
   };
 
   const template = {
@@ -156,7 +157,7 @@ const CalendarContainer = () => {
   };
 
   useEffect(() => {
-    console.log("렌더");
+    console.log('렌더');
     dispatch(getScheduleList());
   }, [dispatch]);
 
@@ -172,7 +173,7 @@ const CalendarContainer = () => {
     <Styles>
       <div className="left">
         <CalendarHeaderContainer cal={cal} />
-        <CalendarFormPopup />
+        <CalendarFormPopupContainer />
         <TUICalendar
           ref={cal}
           height="93%"

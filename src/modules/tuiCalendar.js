@@ -1,9 +1,28 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 
-const MOVE_TO_NEXT_RANGE = "MOVE_TO_NEXT_RANGE";
-const MOVE_TO_PREV_RANGE = "MOVE_TO_PREV_RANGE";
-const MOVE_TO_TODAY = "MOVE_TO_TODAY";
+const start = new Date();
 
+// 상태 초기값
+const initialState = {
+  currentRange: {
+    year: start.getFullYear(),
+    month: start.getMonth() + 1, //월은 0부터 시작한다...
+    isToday: true,
+  },
+  calendarDataFormPopup: {
+    type: '',
+    isOpen: false,
+  },
+};
+
+// 액션타입 정의
+const MOVE_TO_NEXT_RANGE = 'tuiCalendar/MOVE_TO_NEXT_RANGE';
+const MOVE_TO_PREV_RANGE = 'tuiCalendar/MOVE_TO_PREV_RANGE';
+const MOVE_TO_TODAY = 'tuiCalendar/MOVE_TO_TODAY';
+const TOGGLE_POPUP = 'tuiCalendar/TOGGLE_POPUP';
+const CHANGE_TYPE = 'tuiCalendar/CHANGE_TYPE';
+
+// 액션 생성함수
 export const moveToNextRange = createAction(
   MOVE_TO_NEXT_RANGE,
   (currentCalendar) => currentCalendar
@@ -21,14 +40,9 @@ export const moveToToday = createAction(
   MOVE_TO_TODAY,
   (currentCalendar) => currentCalendar
 );
-
-const start = new Date();
-const initialState = {
-  year: start.getFullYear(),
-  month: start.getMonth() + 1, //월은 0부터 시작한다...
-  isToday: true,
-};
-
+export const togglePopup = createAction(TOGGLE_POPUP);
+export const changeType = createAction(CHANGE_TYPE, (type) => type);
+// 리듀서
 const calendar = handleActions(
   {
     [MOVE_TO_NEXT_RANGE]: (state, { payload: currentCalendar }) => {
@@ -41,13 +55,15 @@ const calendar = handleActions(
       console.dir(nextDate);
       return {
         ...state,
-        year: nextDate.getFullYear(),
-        month: nextDate.getMonth() + 1,
-        isToday:
-          start.getFullYear() === nextDate.getFullYear() &&
-          start.getMonth() === nextDate.getMonth()
-            ? true
-            : false,
+        currentRange: {
+          year: nextDate.getFullYear(),
+          month: nextDate.getMonth() + 1,
+          isToday:
+            start.getFullYear() === nextDate.getFullYear() &&
+            start.getMonth() === nextDate.getMonth()
+              ? true
+              : false,
+        },
       };
     },
     [MOVE_TO_PREV_RANGE]: (state, { payload: currentCalendar }) => {
@@ -55,22 +71,43 @@ const calendar = handleActions(
       const prevDate = currentCalendar.calendarInst.getDate()._date;
       return {
         ...state,
-        year: prevDate.getFullYear(),
-        month: prevDate.getMonth() + 1,
-        isToday:
-          start.getFullYear() === prevDate.getFullYear() &&
-          start.getMonth() === prevDate.getMonth()
-            ? true
-            : false,
+        currentRange: {
+          year: prevDate.getFullYear(),
+          month: prevDate.getMonth() + 1,
+          isToday:
+            start.getFullYear() === prevDate.getFullYear() &&
+            start.getMonth() === prevDate.getMonth()
+              ? true
+              : false,
+        },
       };
     },
     [MOVE_TO_TODAY]: (state, { payload: currentCalendar }) => {
       currentCalendar.calendarInst.today();
       return {
         ...state,
-        year: start.getFullYear(),
-        month: start.getMonth() + 1,
-        isToday: true,
+        currentRange: {
+          year: start.getFullYear(),
+          month: start.getMonth() + 1,
+          isToday: true,
+        },
+      };
+    },
+    [TOGGLE_POPUP]: (state) => ({
+      ...state,
+      calendarDataFormPopup: {
+        ...state.calendarDataFormPopup,
+        isOpen: !state.calendarDataFormPopup.isOpen,
+      },
+    }),
+    [CHANGE_TYPE]: (state, { payload: type }) => {
+      console.log(type);
+      return {
+        ...state,
+        calendarDataFormPopup: {
+          ...state.calendarDataFormPopup,
+          type: type,
+        },
       };
     },
   },
