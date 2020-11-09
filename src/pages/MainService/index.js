@@ -61,7 +61,7 @@ const MainService = () => {
             ) : null}
             <Route path="/kkiri/home" component={Main} />
             <Route path="/kkiri/calendar" component={CalendarPage} />
-            <Route path="/kkiri/album" component={AlbumContainer} />
+            <Route path="/kkiri/albums" component={AlbumContainer} />
             <Route path="/kkiri/chatting" component={Chatting} />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">

@@ -6,21 +6,22 @@ const AlbumSchema = new Schema({
   },
   owner: Array,
   fileData: {
-    files: {
+    files: { 
       type: Array,
       default: [
         {
           idx: Number,
           filename: String,
-          like: Boolean,
-          default: false,
-          publishedDate: Date,
-          defaut: Date.now,
-        },
-      ],
-    },
-  },
+          like: Boolean, default: false,
+          publishedDate: Date, defaut: Date.now,
+        }
+      ]
+    }
+  }
+
 });
+
+
 
 AlbumSchema.statics.findByCoupleShareCode = async function (coupleShareCode) {
   return await this.findOne({ coupleShareCode });

@@ -2,25 +2,22 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { listAlbums } from '../../modules/albums';
-import Album from '../../components/Album/Album'
+import Album from '../../components/Album/Album';
 import qs from 'qs';
 
-const AlbumContainer = ({ location }) => {
+const AlbumContainer = () => {
   const dispatch = useDispatch();
-  const { albums, error } = useSelector((state) => {
-    console.log(state)
-    return({
-    albums: state.albums.albums,
-    error: state.albums.error,
-  })})
-  console.log("ASDASDASD" + albums);
+  const { albums, error, loading } = useSelector(({ albums, loading }) => ({
+    albums: albums.albums,
+    error: albums.error,
+    loading: loading['albums/ALBUM_LISTS']
+  }))
+  console.log("1111111tlqkf!!" + albums);
 
   useEffect(() => {
-    const { filename, publishedDate } = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    dispatch(listAlbums({ filename, publishedDate }));
-  }, [dispatch, location.search])
+    console.log('리스트 불러옴!!!!!!!!!!!tlqkf')
+    dispatch(listAlbums());
+  }, [dispatch])
 
   return <Album 
             albums={albums} 

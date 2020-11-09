@@ -68,13 +68,12 @@ export const fileupload = async ctx => {
     ctx.body = {
       message: "file upload success"
     }
-
     const like = false;
     const today = new Date();
     const publishedDate = today.toLocaleString();
     const filename = uploadfile.name;
-    const coupleShareCode = ctx.state.member.userCode; //로그인 정보에서 가져옴
-    const idx = 0;
+    const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
+    console.log('mememmmmmmmmmmm'+ctx.state.member.coupleShareCode);
     const check = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
     if(check !== null) {
       let idx = check.fileData.files.length;
@@ -91,24 +90,25 @@ export const fileupload = async ctx => {
         publishedDate
       })
       check.save();
-    }else {
-      console.log('checkkkkkkkkk' + check);
-      const album = new Album({
-        coupleShareCode,
-        fileData : {
-          files : {
-            idx,
-            filename,
-            like,
-            publishedDate
-          },
-        }
-      });
-      console.log("filefefefbname" + filename);
-      await album.save();
-      console.log('새로운 album 추가');
-      console.log(album);
     }
+    // else {
+    //   console.log('checkkkkkkkkk' + check);
+    //   const album = new Album({
+    //     coupleShareCode,
+    //     fileData : {
+    //       files : {
+    //         idx,
+    //         filename,
+    //         like,
+    //         publishedDate
+    //       },
+    //     }
+    //   });
+    //   console.log("filefefefbname" + filename);
+    //   await album.save();
+    //   console.log('새로운 album 추가');
+    //   console.log(album);
+    // }
   }catch(e){
     ctx.throw(500, e)
   }
@@ -118,15 +118,14 @@ export const fileupload = async ctx => {
 // localhost:4000/api/albums/
 export const list = async ctx => {
   const {member} = ctx.state
-  const coupleShareCode = member.userCode;
+  const coupleShareCode = member.coupleShareCode;
   console.dir(member);
-  console.log(member.userCode)
-  console.log("파일조회323232323" + coupleShareCode)
   console.log(coupleShareCode);
 
   try{
     const albums = await Album.findOne({ coupleShareCode: `${coupleShareCode }`}).sort({_id: -1}).exec();
     ctx.body = albums;
+    console.log(albums);
   }catch(e) {
     ctx.throw(500, e);
   }
