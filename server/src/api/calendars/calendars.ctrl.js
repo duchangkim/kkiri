@@ -65,6 +65,7 @@ export const getCalendarsList = async (ctx) => {
   }
 };
 
+// ---------------------------------------
 export const getCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
