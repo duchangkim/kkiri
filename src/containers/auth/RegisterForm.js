@@ -10,9 +10,6 @@ const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, member } = useSelector(({ auth, member }) => {
-    console.log("~~~~~~~~~~~");
-    // auth.register.email = auth.registeremail.email;
-    console.log(auth);
     getEmail.current = auth.registeremail.email;
     return {
       form: auth.register,
@@ -100,7 +97,7 @@ const RegisterForm = ({ history }) => {
     if (member) {
       console.log("check API 성공");
       console.log(member);
-      history.push("/");
+      history.push("/registercouple");
       try {
         localStorage.setItem("member", JSON.stringify(member));
       } catch (e) {

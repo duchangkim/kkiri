@@ -7,6 +7,7 @@ import checkMatchedCouple from "../../lib/checkMatchedCouple";
 const code = new Router();
 
 // code.get("/", codeCtrl.list);
+
 code.get("/:code", checkLoggedIn, codeCtrl.checkCode);
 code.post(
   "/create",

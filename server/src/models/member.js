@@ -31,9 +31,7 @@ const MemberSchema = new Schema({
     type: String,
     default: "",
   },
-  userCode: {
-    type: Number,
-  },
+  userCode: {},
   coupleShareCode: {
     type: Number,
   },

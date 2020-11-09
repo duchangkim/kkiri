@@ -7,7 +7,7 @@ import { takeLatest } from 'redux-saga/effects';
 
 // 초기 상태 정의
 const initialState = {
-  dDay: [],
+  dDays: [],
   dDayError: null,
 };
 
@@ -24,14 +24,14 @@ export const getDdayList = createAction(GET_DDAY_LIST);
 // 리듀서 (액션을 발생시키는 함수)
 const dDay = handleActions(
   {
-    [GET_DDAY_LIST_SUCCESS]: (state, { payload: dDday }) => ({
+    [GET_DDAY_LIST_SUCCESS]: (state, { payload: dDdays }) => ({
       ...state,
-      dDay,
+      dDdays,
       dDayError: null,
     }),
     [GET_DDAY_LIST_FAILURE]: (state, { payload: dDayError }) => ({
       ...state,
-      dDay: null,
+      dDays: null,
       dDayError,
     }),
   },

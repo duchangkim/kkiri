@@ -27,6 +27,16 @@ const [
   REGISTEREMAIl_SUCCESS,
   REGISTEREMAIl_FAILURE,
 ] = createRequestActionTypes("auth/REGISTEREMAIl");
+const [
+  REGISTERCOUPLE,
+  REGISTERCOUPLE_SUCCESS,
+  REGISTERCOUPLE_FAILURE,
+] = createRequestActionTypes("auth/REGISTERCOUPLE");
+const [
+  CREATECOUPLESET,
+  CREATECOUPLESET_SUCCESS,
+  CREATECOUPLESET_FAILURE,
+] = createRequestActionTypes("auth/CREATECOUPLESET");
 
 // 액션 생성함수
 export const changeField = createAction(
@@ -64,21 +74,18 @@ export const register = createAction(
     hp,
   })
 );
-export const registercode = createAction(REGISTERCODE, ({ emailcode }) => ({
+export const registercode = createAction(REGISTERCODE, (emailcode) => ({
   emailcode,
 }));
 export const registeremail = createAction(REGISTEREMAIl, (email) => ({
   email,
 }));
-/*
-  {
-    type: "auth/REGISTEREMAIl",
-    payload: {
-      email,
-    }
-  }
-*/
-
+//커플 코드 입력 페이지
+export const registercouple = createAction(
+  REGISTERCOUPLE,
+  (couplecode) => couplecode
+);
+export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => _id);
 // saga함수
 const loginSaga = createRequestSaga(LOGIN, authAPI.localLogin);
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
@@ -87,11 +94,21 @@ const registerEmailSaga = createRequestSaga(
   REGISTEREMAIl,
   authAPI.registeremail
 );
+const registercoupleSaga = createRequestSaga(
+  REGISTERCOUPLE,
+  authAPI.registercouple
+);
+const createCoupleSetSaga = createRequestSaga(
+  CREATECOUPLESET,
+  authAPI.createCoupleSet
+);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(REGISTERCODE, registerCodeSaga);
   yield takeLatest(REGISTEREMAIl, registerEmailSaga);
+  yield takeLatest(REGISTERCOUPLE, registercoupleSaga);
+  yield takeLatest(CREATECOUPLESET, createCoupleSetSaga);
   yield takeLatest(LOGIN, loginSaga);
 }
 
@@ -113,10 +130,17 @@ const initialState = {
   registercode: {
     isSuccess: false,
   },
-
+  registercouple: {
+    isSuccess: false,
+    couplecode: "",
+    error: null,
+  },
   login: {
     email: "",
     password: "",
+  },
+  createCoupleSet: {
+    id: "",
   },
 };
 
@@ -178,6 +202,30 @@ const auth = handleActions(
       },
     }),
     [REGISTERCODE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [REGISTERCOUPLE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [REGISTERCOUPLE_SUCCESS]: (state, { payload: otherMember }) => {
+      console.log(otherMember);
+      return {
+        ...state,
+        authError: null,
+        registercouple: {
+          otherMember,
+          isSuccess: true,
+        },
+      };
+    },
+    [CREATECOUPLESET_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    [CREATECOUPLESET_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
     }),

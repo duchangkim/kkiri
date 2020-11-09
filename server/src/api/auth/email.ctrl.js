@@ -47,7 +47,6 @@ const contents = () => {
 };
 
 export const registeremail = async (ctx) => {
-  console.log("???????");
   const schema = Joi.object().keys({
     email: Joi.string().email().min(3).max(20).required(),
   });

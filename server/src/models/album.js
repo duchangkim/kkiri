@@ -6,14 +6,18 @@ const AlbumSchema = new Schema({
   },
   owner: Array,
   fileData: {
-    filename: Array,
-    like: {
-      type: Boolean,
-      default: false,
-    },
-    publishedDate: {
-      type: Date,
-      default: Date.now,
+    files: {
+      type: Array,
+      default: [
+        {
+          idx: Number,
+          filename: String,
+          like: Boolean,
+          default: false,
+          publishedDate: Date,
+          defaut: Date.now,
+        },
+      ],
     },
   },
 });

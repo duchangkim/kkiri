@@ -9,7 +9,7 @@ export const checkCode = async (ctx) => {
   // console.log(code);
 
   try {
-    const result = await Member.findUserCode(code);
+    const result = await Member.findUserCode(parseInt(code, 10));
     ctx.body = result.serialize();
   } catch (e) {
     // 상대방을 코드로 찾을 수 없음
@@ -20,10 +20,14 @@ export const checkCode = async (ctx) => {
 
 //CoupleSet === chattingRoom, calendar, album
 export const createCoupleSet = async (ctx) => {
+  console.log("call create couple set");
+  console.log("dsasdadsasdsadssdaadsadsadsads");
+  console.log(ctx.body);
   // 코드 등록을 시도한 사용자의 id와 member (커플1)firstMember
   const firstMemberId = ctx.state.member._id;
   // 코드 등록을 당한 사용자의 id와 member (커플2)secondMember
   const secondMemberId = ctx.request.body._id;
+  console.log(`1: ${firstMemberId}, 2: ${secondMemberId}`);
   if (!firstMemberId || !secondMemberId) {
     ctx.status = 401;
     return;

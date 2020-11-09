@@ -1,13 +1,17 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteCalendar, setField } from '../../modules/calendar';
 
 import CalendarSide from '../../components/Calendar/CalendarSide';
 import { changeType, togglePopup } from '../../modules/tuiCalendar';
+import { getDdayList } from '../../modules/dDay';
 
 const CalenderSideContainer = ({ calendars, calendarsError }) => {
-  // console.log(dDay);
   const dispatch = useDispatch();
+  const { dDays, dDayError } = useSelector(({ dDay }) => ({
+    dDays: dDay.dDays,
+    dDayError: dDay.dDayError,
+  }));
   const handleDeleteButtonClick = (e) => {
     console.dir(e.target);
     console.log(e.target.value);
@@ -29,12 +33,18 @@ const CalenderSideContainer = ({ calendars, calendarsError }) => {
     dispatch(setField(currentCalendar));
   };
 
+  useEffect(() => {
+    dispatch(getDdayList());
+  }, [dispatch]);
+
   return (
     <CalendarSide
       calendars={calendars}
       error={calendarsError}
       onDelete={handleDeleteButtonClick}
       onModify={handleCalendarFilterClick}
+      dDays={dDays}
+      dDayError={dDayError}
     />
   );
 };

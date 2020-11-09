@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, registeremail } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
@@ -10,7 +10,6 @@ const RegisterEmailForm = ({ history }) => {
   const dispatch = useDispatch();
   const { form, auth, authError, isSuccess } = useSelector(
     ({ auth, member }) => {
-      console.log(auth);
       return {
         form: auth.register,
         auth: auth.auth,
