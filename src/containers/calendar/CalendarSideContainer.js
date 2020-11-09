@@ -6,6 +6,7 @@ import CalendarSide from '../../components/Calendar/CalendarSide';
 import { changeType, togglePopup } from '../../modules/tuiCalendar';
 
 const CalenderSideContainer = ({ calendars, calendarsError }) => {
+  // console.log(dDay);
   const dispatch = useDispatch();
   const handleDeleteButtonClick = (e) => {
     console.dir(e.target);

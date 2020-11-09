@@ -1,5 +1,21 @@
 export default (scheduleData) => {
-  const schedule = {
+  if (scheduleData.calendarId === 'dday') {
+    return {
+      calendarId: scheduleData.calendarId,
+      title: scheduleData.title,
+      isAllDay: true,
+      start: scheduleData.start.toDate(),
+      end: scheduleData.end.toDate(),
+      category: 'allday',
+      location: scheduleData.location,
+      raw: {
+        class: scheduleData.raw['class'],
+      },
+      state: scheduleData.state,
+    };
+  }
+
+  return {
     calendarId: scheduleData.calendarId,
     title: scheduleData.title,
     isAllDay: scheduleData.isAllDay,
@@ -12,8 +28,6 @@ export default (scheduleData) => {
     },
     state: scheduleData.state,
   };
-
-  return schedule;
 };
 
 // const schedule = {

@@ -8,7 +8,6 @@ const CalendarSideBlock = styled.div`
   width: 100%;
   height: 100%;
 `;
-
 const ListBlock = styled.div`
   width: 100%;
   height: 50%;
@@ -39,9 +38,9 @@ const CalendarBlock = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const CalendarColorCircle = styled.div`
-  width: 20px;
-  height: 20px;
+const ColorCircle = styled.div`
+  width: ${(props) => (props.small ? `12px` : `17px`)};
+  height: ${(props) => (props.small ? `12px` : `17px`)};
   border-radius: 50%;
   background: ${(props) => props.bgColor};
 `;
@@ -55,6 +54,30 @@ const CalendarTitle = styled.div`
     font-weight: bold;
     color: ${(props) => props.bgColor};
   }
+`;
+const DdayBlock = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  div.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+const DdayTitle = styled.div`
+  width: 80%;
+  font-size: 0.9rem;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+`;
+const Dday = styled.div`
+  font-weight: bold;
 `;
 const DeleteButtonBlock = styled.div`
   width: 30%;
@@ -74,7 +97,6 @@ const DeleteButtonBlock = styled.div`
     }
   }
 `;
-
 const BlockHeader = styled.div`
   display: flex;
   align-items: center;
@@ -84,7 +106,6 @@ const BlockHeader = styled.div`
   border-bottom: 1px solid #dfdfdf;
   text-align: center;
 `;
-
 const ErrorBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -111,11 +132,9 @@ const ErrorBlock = styled.div`
     height: 0;
   }
 `;
-
 const ErrorMsg = styled.div`
   text-align: center;
 `;
-
 const RefreshButton = styled.div`
   font-size: 1.5rem;
   color: #777;
@@ -126,7 +145,7 @@ const RefreshButton = styled.div`
   }
 `;
 
-const CalendarSide = ({ calendars, error, onDelete, onModify }) => {
+const CalendarSide = ({ calendars, error, onDelete, onModify, dDay }) => {
   return (
     <CalendarSideBlock>
       {error ? (
@@ -142,11 +161,11 @@ const CalendarSide = ({ calendars, error, onDelete, onModify }) => {
           <BlockHeader>캘린더 필터</BlockHeader>
           {calendars.map((calendar) => {
             if (calendar.id === 'dday') {
-              return;
+              return null;
             }
             return (
               <CalendarBlock key={calendar.id}>
-                <CalendarColorCircle bgColor={calendar.bgColor} />
+                <ColorCircle bgColor={calendar.bgColor} />
                 <CalendarTitle
                   id={calendar.id}
                   bgColor={calendar.bgColor}
@@ -160,13 +179,20 @@ const CalendarSide = ({ calendars, error, onDelete, onModify }) => {
                   </button>
                 </DeleteButtonBlock>
               </CalendarBlock>
-            )
+            );
           })}
         </ListBlock>
       )}
 
       <ListBlock>
         <BlockHeader>디데이</BlockHeader>
+        <DdayBlock>
+          <div className="top">
+            <ColorCircle bgColor="#b291ff" small />
+            <DdayTitle>크리스마스</DdayTitle>
+          </div>
+          <Dday>D-17일</Dday>
+        </DdayBlock>
       </ListBlock>
     </CalendarSideBlock>
   );

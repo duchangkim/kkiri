@@ -14,7 +14,7 @@ const CalendarSchema = new Schema({
       type: Array,
       default: [
         {
-          id: "dday",
+          id: 'dday',
           name: 'D-Day',
           color: '#ffffff',
           bgColor: '#B291FF',
@@ -49,7 +49,11 @@ const CalendarSchema = new Schema({
     },
     dDay: {
       type: Array,
-      default: [{}],
+      default: [
+        {
+          id: 0,
+        },
+      ],
     },
   },
 });

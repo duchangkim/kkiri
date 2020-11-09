@@ -1,13 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
 const AlbumSchema = new Schema({
-<<<<<<< HEAD
-  owner: Array,
-  filename: String,
-  publishedDate: {
-    type: Date,
-    default: Date.now,
-=======
   coupleShareCode: {
     type: Number,
   },
@@ -22,7 +15,6 @@ const AlbumSchema = new Schema({
       type: Date,
       default: Date.now,
     },
->>>>>>> d1860e5fe5bf713f81a860751457df4ad40f8603
   },
 });
 

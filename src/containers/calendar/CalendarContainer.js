@@ -64,7 +64,7 @@ const CalendarContainer = () => {
 
   const onBeforeCreateSchedule = useCallback(
     (scheduleData) => {
-      // console.log(scheduleData);
+      console.log(scheduleData);
 
       console.log('스케쥴 만들거임 버튼 클릭');
       // console.log(scheduleData);
@@ -104,6 +104,8 @@ const CalendarContainer = () => {
       const schedule = {
         id,
         ...e.changes,
+        isAllDay: true,
+        category: 'allday',
         start: e.changes.start ? e.changes.start.toDate() : null,
         end: e.changes.end ? e.changes.end.toDate() : null,
       };

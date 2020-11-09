@@ -52,14 +52,6 @@ export const createSchedule = async (ctx) => {
       location,
       raw,
       state,
-      // calendarId:
-      //   typeof calendarId === "number" ? parseInt(calendarId) : calendarId,
-      // category,
-      // raw,
-      // title,
-      // location,
-      // start: new Date(start),
-      // end: new Date(end),
     });
 
     await calendar.save();
