@@ -11,7 +11,7 @@ export const createRequestActionTypes = (type) => {
 
 // type은 액션타입 request는 api호출 함수 (axios)
 export default function createRequestSaga(type, request) {
-  console.log("tlqkf!!@#!@#!@#!@#!@#!@#!@#");
+  // console.log("tlqkf!!@#!@#!@#!@#!@#!@#!@#");
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 
@@ -20,6 +20,9 @@ export default function createRequestSaga(type, request) {
 
     try {
       // request는 api 호출함수,
+      console.log("사가들어옴");
+      console.log(action.payload);
+      console.log("사가들어옴");
       const response = yield call(request, action.payload);
       console.log(response);
       yield put({

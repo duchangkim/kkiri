@@ -21,7 +21,7 @@ class UploadButton extends Component {
     console.log(formData);
 
     axios
-      .post("/api/album/fileupload", formData, {
+      .post("/api/albums/fileupload", formData, {
         onUploadProgress: (progressEvent) => {
           console.log(
             "Upload Progress: " +

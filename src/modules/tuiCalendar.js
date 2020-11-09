@@ -1,63 +1,117 @@
-const MOVE_TO_NEXT_RANGE = "MOVE_TO_NEXT_RANGE";
-const MOVE_TO_PREV_RANGE = "MOVE_TO_PREV_RANGE";
-const MOVE_TO_TODAY = "MOVE_TO_TODAY";
-
-export const moveToNextRange = (currentCalendar) => ({
-  type: MOVE_TO_NEXT_RANGE,
-  currentCalendar,
-});
-export const moveToPrevRange = (currentCalendar) => ({
-  type: MOVE_TO_PREV_RANGE,
-  currentCalendar,
-});
-export const moveToToday = (currentCalendar) => ({
-  type: MOVE_TO_TODAY,
-  currentCalendar,
-});
+import { createAction, handleActions } from 'redux-actions';
 
 const start = new Date();
+
+// 상태 초기값
 const initialState = {
-  year: start.getFullYear(),
-  month: start.getMonth() + 1, //월은 0부터 시작한다...
-  isToday: true,
+  currentRange: {
+    year: start.getFullYear(),
+    month: start.getMonth() + 1, //월은 0부터 시작한다...
+    isToday: true,
+  },
+  calendarDataFormPopup: {
+    type: '',
+    isOpen: false,
+  },
 };
 
-export default function calendar(state = initialState, action) {
-  switch (action.type) {
-    case MOVE_TO_NEXT_RANGE:
-      action.currentCalendar.calendarInst.next();
-      const nextDate = action.currentCalendar.calendarInst.getDate()._date;
+// 액션타입 정의
+const MOVE_TO_NEXT_RANGE = 'tuiCalendar/MOVE_TO_NEXT_RANGE';
+const MOVE_TO_PREV_RANGE = 'tuiCalendar/MOVE_TO_PREV_RANGE';
+const MOVE_TO_TODAY = 'tuiCalendar/MOVE_TO_TODAY';
+const TOGGLE_POPUP = 'tuiCalendar/TOGGLE_POPUP';
+const CHANGE_TYPE = 'tuiCalendar/CHANGE_TYPE';
+
+// 액션 생성함수
+export const moveToNextRange = createAction(
+  MOVE_TO_NEXT_RANGE,
+  (currentCalendar) => currentCalendar
+);
+// 이친구랑 같은 뜻
+// export const moveToNextRange = (currentCalendar) => ({
+//   type: MOVE_TO_NEXT_RANGE,
+//   payload: currentCalendar,
+// });
+export const moveToPrevRange = createAction(
+  MOVE_TO_PREV_RANGE,
+  (currentCalendar) => currentCalendar
+);
+export const moveToToday = createAction(
+  MOVE_TO_TODAY,
+  (currentCalendar) => currentCalendar
+);
+export const togglePopup = createAction(TOGGLE_POPUP);
+export const changeType = createAction(CHANGE_TYPE, (type) => type);
+// 리듀서
+const calendar = handleActions(
+  {
+    [MOVE_TO_NEXT_RANGE]: (state, { payload: currentCalendar }) => {
+      // console.log(state);
+      // console.log(currentCalendar);
+      // console.log("is in?");
+      currentCalendar.calendarInst.next();
+      const nextDate = currentCalendar.calendarInst.getDate()._date;
       console.dir(start);
       console.dir(nextDate);
       return {
-        year: nextDate.getFullYear(),
-        month: nextDate.getMonth() + 1,
-        isToday:
-          start.getFullYear() === nextDate.getFullYear() &&
-          start.getMonth() === nextDate.getMonth()
-            ? true
-            : false,
+        ...state,
+        currentRange: {
+          year: nextDate.getFullYear(),
+          month: nextDate.getMonth() + 1,
+          isToday:
+            start.getFullYear() === nextDate.getFullYear() &&
+            start.getMonth() === nextDate.getMonth()
+              ? true
+              : false,
+        },
       };
-    case MOVE_TO_PREV_RANGE:
-      action.currentCalendar.calendarInst.prev();
-      const prevDate = action.currentCalendar.calendarInst.getDate()._date;
+    },
+    [MOVE_TO_PREV_RANGE]: (state, { payload: currentCalendar }) => {
+      currentCalendar.calendarInst.prev();
+      const prevDate = currentCalendar.calendarInst.getDate()._date;
       return {
-        year: prevDate.getFullYear(),
-        month: prevDate.getMonth() + 1,
-        isToday:
-          start.getFullYear() === prevDate.getFullYear() &&
-          start.getMonth() === prevDate.getMonth()
-            ? true
-            : false,
+        ...state,
+        currentRange: {
+          year: prevDate.getFullYear(),
+          month: prevDate.getMonth() + 1,
+          isToday:
+            start.getFullYear() === prevDate.getFullYear() &&
+            start.getMonth() === prevDate.getMonth()
+              ? true
+              : false,
+        },
       };
-    case MOVE_TO_TODAY:
-      action.currentCalendar.calendarInst.today();
+    },
+    [MOVE_TO_TODAY]: (state, { payload: currentCalendar }) => {
+      currentCalendar.calendarInst.today();
       return {
-        year: start.getFullYear(),
-        month: start.getMonth() + 1,
-        isToday: true,
+        ...state,
+        currentRange: {
+          year: start.getFullYear(),
+          month: start.getMonth() + 1,
+          isToday: true,
+        },
       };
-    default:
-      return state;
-  }
-}
+    },
+    [TOGGLE_POPUP]: (state) => ({
+      ...state,
+      calendarDataFormPopup: {
+        ...state.calendarDataFormPopup,
+        isOpen: !state.calendarDataFormPopup.isOpen,
+      },
+    }),
+    [CHANGE_TYPE]: (state, { payload: type }) => {
+      console.log(type);
+      return {
+        ...state,
+        calendarDataFormPopup: {
+          ...state.calendarDataFormPopup,
+          type: type,
+        },
+      };
+    },
+  },
+  initialState
+);
+
+export default calendar;
