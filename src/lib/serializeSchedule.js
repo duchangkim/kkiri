@@ -4,7 +4,9 @@ export default (scheduleData) => {
       calendarId: scheduleData.calendarId,
       title: scheduleData.title,
       isAllDay: true,
-      start: scheduleData.start.toDate(),
+      start: new Date(
+        scheduleData.start.toDate().toString().substring(0, 15) + ' 00:00:00'
+      ),
       end: scheduleData.end.toDate(),
       category: 'allday',
       location: scheduleData.location,
@@ -30,17 +32,8 @@ export default (scheduleData) => {
   };
 };
 
-// const schedule = {
-//   id: String(Math.random()),
-//   title: scheduleData.title,
-//   isAllDay: scheduleData.isAllDay,
-//   start: scheduleData.start,
-//   end: scheduleData.end,
-//   category: scheduleData.isAllDay ? "allday" : "time",
-//   dueDateClass: "",
-//   location: scheduleData.location,
-//   raw: {
-//     class: scheduleData.raw["class"]
-//   },
-//   state: scheduleData.state
-// };
+// console.log(
+//   new Date(
+//     scheduleData.start.toDate().toString().substring(0, 15) + ' 00:00:00'
+//   )
+// );

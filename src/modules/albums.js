@@ -7,13 +7,13 @@ const [
     LIST_ALBUMS,
     LIST_ALBUMS_SUCCESS,
     LIST_ALBUMS_FAILURE,
-] = createRequestActionTypes('album/LIST_ALBUMS');
+] = createRequestActionTypes('albums/LIST_ALBUMS');
 
 export const listAlbums = createAction(
     LIST_ALBUMS,
-    ({ filename }) => ({ filename })
-);
-
+    );
+    
+    console.log("00000이고시다~");
 
 
 const listAlbumsSaga = createRequestSaga(LIST_ALBUMS, albumsAPI.listAlbums);
@@ -28,11 +28,11 @@ const initialState = {
 
 const albums = handleActions(
     {
-        [LIST_ALBUMS_SUCCESS]: (state, { payload: albums}) => ({
+        [LIST_ALBUMS_SUCCESS]: (state, { payload: albums }) => ({
             ...state,
             albums,
         }),
-        [LIST_ALBUMS_FAILURE]: (state, { payload: error}) => ({
+        [LIST_ALBUMS_FAILURE]: (state, { payload: error }) => ({
             ...state,
             error,
         }),

@@ -24,9 +24,9 @@ export const getDdayList = createAction(GET_DDAY_LIST);
 // 리듀서 (액션을 발생시키는 함수)
 const dDay = handleActions(
   {
-    [GET_DDAY_LIST_SUCCESS]: (state, { payload: dDdays }) => ({
+    [GET_DDAY_LIST_SUCCESS]: (state, { payload: dDays }) => ({
       ...state,
-      dDdays,
+      dDays,
       dDayError: null,
     }),
     [GET_DDAY_LIST_FAILURE]: (state, { payload: dDayError }) => ({

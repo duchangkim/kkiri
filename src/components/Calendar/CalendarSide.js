@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdRefresh } from 'react-icons/md';
+import calculateDday from '../../lib/calculateDday';
 
 const CalendarSideBlock = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const ListBlock = styled.div`
   height: 50%;
 
   padding: 0 10px;
+  padding-bottom: 20px;
   border-left: 1px solid #dfdfdf;
   overflow-y: scroll;
 
@@ -70,11 +72,17 @@ const DdayBlock = styled.div`
   }
 `;
 const DdayTitle = styled.div`
+  position: relative;
   width: 80%;
   font-size: 0.9rem;
-  text-align: center;
+  text-align: left;
   overflow: hidden;
   cursor: pointer;
+
+  &:hover {
+    color: #b291ff;
+    font-weight: bold;
+  }
 `;
 const Dday = styled.div`
   font-weight: bold;
@@ -145,7 +153,12 @@ const RefreshButton = styled.div`
   }
 `;
 
-const CalendarSide = ({ calendars, error, onDelete, onModify, dDay }) => {
+const CalendarSide = ({ calendars, error, onDelete, onModify, dDays }) => {
+  dDays.sort((a, b) => {
+    const aDate = new Date(a.start);
+    const bDate = new Date(b.start);
+    return aDate - bDate;
+  });
   return (
     <CalendarSideBlock>
       {error ? (
@@ -183,16 +196,18 @@ const CalendarSide = ({ calendars, error, onDelete, onModify, dDay }) => {
           })}
         </ListBlock>
       )}
-
       <ListBlock>
         <BlockHeader>디데이</BlockHeader>
-        <DdayBlock>
-          <div className="top">
-            <ColorCircle bgColor="#b291ff" small />
-            <DdayTitle>크리스마스</DdayTitle>
-          </div>
-          <Dday>D-17일</Dday>
-        </DdayBlock>
+        {dDays &&
+          dDays.map((dDay) => (
+            <DdayBlock key={dDay.id}>
+              <div className="top">
+                <ColorCircle bgColor="#b291ff" small />
+                <DdayTitle id={dDay.id}>{dDay.title}</DdayTitle>
+              </div>
+              <Dday>{calculateDday(dDay)}</Dday>
+            </DdayBlock>
+          ))}
       </ListBlock>
     </CalendarSideBlock>
   );

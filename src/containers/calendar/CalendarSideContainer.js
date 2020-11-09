@@ -8,11 +8,12 @@ import { getDdayList } from '../../modules/dDay';
 
 const CalenderSideContainer = ({ calendars, calendarsError }) => {
   const dispatch = useDispatch();
-  const { dDays, dDayError } = useSelector(({ dDay }) => {
+  const { dDays, dDayError, schedules } = useSelector(({ dDay, schedule }) => {
     console.log(dDay);
     return {
       dDays: dDay.dDays,
       dDayError: dDay.dDayError,
+      schedules: schedule.schedules,
     };
   });
 
@@ -39,7 +40,7 @@ const CalenderSideContainer = ({ calendars, calendarsError }) => {
 
   useEffect(() => {
     dispatch(getDdayList());
-  }, [dispatch]);
+  }, [dispatch, schedules]);
 
   return (
     <CalendarSide
