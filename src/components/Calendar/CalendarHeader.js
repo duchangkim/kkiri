@@ -53,7 +53,28 @@ const AddButtonBlock = styled.div`
   height: 100%;
 `;
 const AddButton = styled(Button)`
-  color: #ff838d;
+  background: transparent;
+  color: #999;
+
+  &:hover {
+    color: #ff838d;
+  }
+  &:hover + div.msg {
+    display: flex;
+  }
+  transition: ease 0.3s;
+  ${({ isOpen }) => (isOpen ? `transform: rotate(45deg);` : ``)};
+`;
+const Message = styled.div`
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  background: #ff838d;
+  border-radius: 5px;
 `;
 
 const CalendarHeader = ({
@@ -63,6 +84,8 @@ const CalendarHeader = ({
   isToday,
   year,
   month,
+  onOpenForm,
+  isOpen,
 }) => {
   return (
     <ButtonsBlock>
@@ -79,9 +102,10 @@ const CalendarHeader = ({
         Today
       </TodayButton>
       <AddButtonBlock>
-        <AddButton>
+        <AddButton onClick={onOpenForm} isOpen={isOpen}>
           <MdAdd />
         </AddButton>
+        <Message className="msg">캘린더 필터 추가</Message>
       </AddButtonBlock>
     </ButtonsBlock>
   );

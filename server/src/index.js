@@ -3,6 +3,8 @@ import Koa from "koa";
 import Router from "koa-router";
 import bodyparser from "koa-bodyparser";
 import mongoose from "mongoose";
+import cors from 'koa-cors';
+import koaBody from 'koa-body'; 
 
 import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
@@ -21,6 +23,8 @@ mongoose
   });
 
 const app = new Koa();
+app.use(koaBody({multipart: true}));
+app.use(cors());
 const router = new Router();
 
 router.use("/api", api.routes());

@@ -6,7 +6,9 @@ import NavigationBarContainer from "../../containers/common/NavigationBarContain
 import Header from "../../components/Header";
 import { Route } from "react-router";
 import Main from "./Main";
-import Album from "../../components/Album/Album";
+import AlbumContainer from "../../containers/album/AlbumContainer";
+import Chatting from "./chatting";
+import UnNavigationBar from "../../components/UnNavigationBar";
 import CalendarPage from "../CalendarPage";
 
 const CustomContainer = styled.div`
@@ -23,6 +25,22 @@ const CustomContainer = styled.div`
   .main-contents {
     height: 90%;
   }
+
+  // 10-22 반응형 메인 추가
+  @media (max-width: 768px) {
+    .header {
+      height: 10%;
+      /* display: none; */
+    }
+    .main-contents {
+      height: 90%;
+    }
+    .un_sidebar {
+      height: 10%;
+      position: fixed;
+      bottom: 0;
+    }
+  }
 `;
 
 const MainService = () => {
@@ -36,12 +54,22 @@ const MainService = () => {
             <NavigationBarContainer windowMatches={windowMatches} />
           </Col>
           <Col className="h-100 m-0 p-0">
-            <Row xs={2} className="header m-0 p-0">
-              <Header />
-            </Row>
+            {windowMatches ? (
+              <Row xs={2} sm={1} className="header m-0 p-0">
+                <Header />
+              </Row>
+            ) : null}
             <Route path="/kkiri/home" component={Main} />
             <Route path="/kkiri/calendar" component={CalendarPage} />
-            <Route path="/kkiri/album" component={Album} />>
+            <Route path="/kkiri/album" component={AlbumContainer} />
+            <Route path="/kkiri/chatting" component={Chatting} />
+            {!windowMatches ? (
+              <Row className="un_sidebar m-0 p-0">
+                <Col className="m-0 p-0" style={{ backgroundColor: "red" }}>
+                  <UnNavigationBar />
+                </Col>
+              </Row>
+            ) : null}
           </Col>
         </Row>
       </Container>

@@ -163,11 +163,6 @@ export const findid = async (ctx) => {
       ctx.status = 401;
       return;
     }
-    const valid = await member.checkPassword(password);
-    if (!valid) {
-      ctx.status = 401;
-      return;
-    }
 
     const serializedMember = member.serialize();
     // ctx.state.member = serializedMember;

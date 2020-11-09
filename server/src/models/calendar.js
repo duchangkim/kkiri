@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const CalendarSchema = new Schema({
   // 커플 연결 성공시 주어지는 코드 - 채팅방룸id 캘린더 앨범 아이디로 사용
@@ -15,19 +15,19 @@ const CalendarSchema = new Schema({
       default: [
         {
           id: 0,
-          name: "기념일",
-          color: "#ffffff",
-          bgColor: "#ff838d",
-          dragBgColor: "#ff838d",
-          borderColor: "#ff838d",
+          name: '기념일',
+          color: '#ffffff',
+          bgColor: '#ff838d',
+          dragBgColor: '#ff838d',
+          borderColor: '#ff838d',
         },
         {
           id: 1,
-          name: "데이트",
-          color: "#ffffff",
-          bgColor: "#00a9ff",
-          dragBgColor: "#00a9ff",
-          borderColor: "#00a9ff",
+          name: '데이트',
+          color: '#ffffff',
+          bgColor: '#00a9ff',
+          dragBgColor: '#00a9ff',
+          borderColor: '#00a9ff',
         },
       ],
     },
@@ -36,15 +36,6 @@ const CalendarSchema = new Schema({
       default: [
         {
           id: 0,
-          calendarId: 1,
-          category: "allDay",
-          raw: {
-            class: "public",
-          },
-          title: "끼리 첫 시작!",
-          location: "너 마음속🤍",
-          start: Date.now(),
-          end: Date.now(),
         },
       ],
     },
@@ -77,7 +68,7 @@ CalendarSchema.methods.createCalendarData = async function (
 ) {
   newData = {
     id:
-      parseInt(
+      Number(
         this.calendarData[calendarData][
           this.calendarData[calendarData].length - 1
         ].id
@@ -141,11 +132,11 @@ CalendarSchema.methods.modifyCalendarDataByTargetId = async function (
 ) {
   this.calendarData[calendarData] = await this.calendarData[
     calendarData
-  ].map((item) => (item.id === targetId ? modifiedData : item));
+  ].map((item) => (item.id === targetId ? { ...item, ...modifiedData } : item));
 
   return this.calendarData[calendarData];
 };
 
-const Calendar = mongoose.model("Calendar", CalendarSchema);
+const Calendar = mongoose.model('Calendar', CalendarSchema);
 
 export default Calendar;
