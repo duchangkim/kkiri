@@ -81,9 +81,8 @@ export const registeremail = async (ctx) => {
 export const registercode = async (ctx) => {
   // 코드
   const { emailcode } = ctx.request.body;
-  console.log(emailcode.emailcode);
+  console.log(emailcode);
   console.log(res_data.secret);
-  console.log(emailcode.emailcode !== res_data.secret);
   try {
     if (emailcode) {
       if (emailcode.emailcode !== res_data.secret) {

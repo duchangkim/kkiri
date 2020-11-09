@@ -27,4 +27,5 @@ AlbumSchema.statics.findByCoupleShareCode = async function (coupleShareCode) {
 };
 
 const Album = mongoose.model('Album', AlbumSchema);
+
 export default Album;

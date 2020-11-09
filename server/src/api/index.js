@@ -3,7 +3,6 @@ import calendars from './calendars';
 import auth from './auth';
 import code from './code';
 import schedules from './schedules';
-
 import albums from './album';
 import chat from './chat';
 import dDay from './dday';
