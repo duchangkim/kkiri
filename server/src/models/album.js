@@ -1,12 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 
 const AlbumSchema = new Schema({
-  owner: String,
-  filename : String,
+  owner: Array,
+  filename: String,
   publishedDate: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 const Album = mongoose.model("Album", AlbumSchema);

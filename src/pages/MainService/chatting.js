@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+import io from "socket.io-client";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -19,6 +20,9 @@ const ChattingBox = styled.div`
     overflow-y: auto;
     border-top: 3px solid #efefef;
     border-bottom: 3px solid #efefef;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
   .chatting-area p {
     padding-top: 10px;
@@ -45,6 +49,7 @@ const ChattingBox = styled.div`
     /* width: 25%; */
     max-width: 50%;
     min-height: 40px;
+    max-height: 600px;
     padding: 15px 20px;
     border-radius: 3px;
     background: blanchedalmond;
@@ -67,6 +72,8 @@ const ChattingBox = styled.div`
     z-index: -1;
     left: 25px;
     top: 30px;
+    word-break: keep-all;
+    word-break: break-all;
   }
   /* 본인 대화 */
   .message-wrpper.me {
@@ -87,6 +94,8 @@ const ChattingBox = styled.div`
     z-index: -1;
     right: 25px;
     top: 30px;
+    word-break: keep-all;
+    word-break: break-all;
   }
   .chatting-send {
     width: 100%;
@@ -150,78 +159,92 @@ const ChattingBox = styled.div`
   }
 `;
 
-const chatting = () => {
+const Chatting = () => {
+  const [yourID, setYourID] = useState();
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const socketRef = useRef();
+  console.log(socketRef);
+
+  useEffect(() => {
+    socketRef.current = io.connect("/");
+
+    socketRef.current.on("your id", (id) => {
+      setYourID(id);
+    });
+
+    socketRef.current.on("message", (message) => {
+      receivedMessage(message);
+    });
+  }, []);
+
+  const messagesRef = useRef();
+  // 메세지 스크롤 하단 고정
+  useEffect(() => {
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [messages]);
+
+  function receivedMessage(message) {
+    setMessages((oldMsgs) => [...oldMsgs, message]);
+  }
+
+  function sendMessage(e) {
+    e.preventDefault();
+    const messageObject = {
+      body: message,
+      id: yourID,
+    };
+    setMessage("");
+    socketRef.current.emit("send message", messageObject);
+  }
+
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage(e);
+    }
+  };
   return (
     <Row className="main-contents m-0 p-0">
       <Col className="m-0 p-0">
         <ChattingBox>
           <div className="chatting-wrapper">
-            <div className="chatting-area">
-              <p>2020년 10월 10일</p>
-              <div className="message-wrpper contact">
-                <div className="profile">
-                  <span>김끼리</span>
-                </div>
-                <p>끼리라는 웹이래~~</p>
-              </div>
-              <div className="message-wrpper me">
-                <div className="profile">
-                  <span>최냥냥</span>
-                </div>
-                <p>와 대박 좋아!</p>
-              </div>
-              <div className="message-wrpper me">
-                <div className="profile">
-                  <span>최냥냥</span>
-                </div>
-                <p>미안하다</p>
-              </div>
-              <div className="message-wrpper me">
-                <div className="profile">
-                  <span>최냥냥</span>
-                </div>
-                <p>이거 보여주려고</p>
-              </div>
-              <div className="message-wrpper me">
-                <div className="profile">
-                  <span>최냥냥</span>
-                </div>
-                <p>어그로 끌었다</p>
-              </div>
-              <div className="message-wrpper contact">
-                <div className="profile">
-                  <span>김끼리</span>
-                </div>
-                <p>그거이제 그만</p>
-              </div>
-              <div className="message-wrpper contact">
-                <div className="profile">
-                  <span>김끼리</span>
-                </div>
-                <p>하세여</p>
-              </div>
-              <div className="message-wrpper contact">
-                <div className="profile">
-                  <span>김끼리</span>
-                </div>
-                <p>D지기 싫으면</p>
-              </div>
-              <div className="message-wrpper contact">
-                <div className="profile">
-                  <span>김끼리</span>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                  ipsam tenetur necessitatibus quae et itaque, repellat ducimus?
-                  Nam esse, a voluptates architecto eius aperiam maxime illo
-                  excepturi officiis, et provident.
-                </p>
-              </div>
+            <div className="chatting-area" ref={messagesRef}>
+              <p>2020년 11월 08일</p>
+              {messages.map((message, index) => {
+                if (message.id === yourID) {
+                  return (
+                    <div className="message-wrpper me" key={index}>
+                      <div className="profile">
+                        <span>내꺼</span>
+                      </div>
+                      <p>{message.body}</p>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="message-wrpper contact" key={index}>
+                    <div className="profile">
+                      <span>상대방꺼</span>
+                    </div>
+                    <p>{message.body}</p>
+                  </div>
+                );
+              })}
             </div>
             <div className="chatting-send">
-              <form>
+              <form onSubmit={sendMessage}>
                 <button className="btn-plus">+</button>
-                <input type="text" />
+                <input
+                  type="text"
+                  value={message}
+                  onChange={handleChange}
+                  onKeyPress={handleKeyPress}
+                />
                 <button className="btn-send">send</button>
               </form>
             </div>
@@ -232,4 +255,4 @@ const chatting = () => {
   );
 };
 
-export default chatting;
+export default Chatting;
