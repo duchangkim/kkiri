@@ -33,7 +33,10 @@ export const createCalendars = async (ctx) => {
 
     await calendar.save(); //저⭐장
 
-    ctx.body = result;
+    ctx.body = result.map((calendar) => ({
+      ...calendar,
+      id: calendar.id.toString(),
+    }));
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -62,6 +65,7 @@ export const getCalendarsList = async (ctx) => {
   }
 };
 
+// ---------------------------------------
 export const getCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;

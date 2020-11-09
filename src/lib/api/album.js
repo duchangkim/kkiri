@@ -4,12 +4,8 @@ import qs from 'qs';
 export const uploadFile = ({ filename }) =>
     client.post('/api/albums', { filename });
 
-export const readFile = id => client.get(`/api/albums/${id}`);
+export const readFile = (id, idx) => client.get(`/api/albums/${id}/${idx}`);
 
-export const listAlbums = ({ filename }) => {
-    const queryString = qs.stringify({
-        filename
-    });
-   
-    return client.get(`/api/albums?${queryString}`);
+export const listAlbums = () => {
+    return client.get(`/api/albums`);
 }
