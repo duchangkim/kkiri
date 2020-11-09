@@ -31,7 +31,7 @@ const dDay = handleActions(
     }),
     [GET_DDAY_LIST_FAILURE]: (state, { payload: dDayError }) => ({
       ...state,
-      dDays: null,
+      dDays: [],
       dDayError,
     }),
   },

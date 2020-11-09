@@ -7,7 +7,8 @@ import schedule, { scheduleSaga } from './schedule';
 import calendar, { calendarSaga } from './calendar';
 import album, { albumSaga } from './album';
 import albums, { albumsSaga } from './albums';
-import loading from "./loading";
+import loading from './loading';
+import dDay, { dDaySaga } from './dDay';
 
 const rootReducer = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   calendar,
   album,
   albums,
+  dDay,
 });
 
 export function* rootSaga() {
@@ -28,6 +30,7 @@ export function* rootSaga() {
     calendarSaga(),
     albumSaga(),
     albumsSaga(),
+    dDaySaga(),
   ]);
 }
 

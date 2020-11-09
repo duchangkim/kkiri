@@ -8,10 +8,14 @@ import { getDdayList } from '../../modules/dDay';
 
 const CalenderSideContainer = ({ calendars, calendarsError }) => {
   const dispatch = useDispatch();
-  const { dDays, dDayError } = useSelector(({ dDay }) => ({
-    dDays: dDay.dDays,
-    dDayError: dDay.dDayError,
-  }));
+  const { dDays, dDayError } = useSelector(({ dDay }) => {
+    console.log(dDay);
+    return {
+      dDays: dDay.dDays,
+      dDayError: dDay.dDayError,
+    };
+  });
+
   const handleDeleteButtonClick = (e) => {
     console.dir(e.target);
     console.log(e.target.value);
