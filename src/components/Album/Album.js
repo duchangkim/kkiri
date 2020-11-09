@@ -20,8 +20,8 @@ function Album({ albums, loading, error }) {
     return <>오류 발생!</>
   }
 
-  const { filename } = albums;
-  console.log("@#@#@#@#@#@ "+ albums);
+  // const { filename } = albums;
+  // console.log("@#@#@#@#@#@ "+ albums);
   
   return (
     <Row className="main-album m-0 p-0" md={2} sm={1}>
@@ -45,7 +45,7 @@ function Album({ albums, loading, error }) {
               {albums.map(album => (
               <li>
                 <div>파일이름: {filename}</div>
-                <img src={require(`../../../server/src/api/album/uploads/${album.filename}`)} 
+                <img src={require(`./uploads/${album.filename}`)} 
                 className="img_place" alt={album.filename}/>
               </li>
               ))}
