@@ -82,7 +82,7 @@ export const Navigation = () => {
           <AiOutlineCalendar />
         </NavLink>
         <NavLink
-          to="/kkiri/album"
+          to="/kkiri/albums"
           className="navbar-brand"
           activeStyle={activeStyle}
         >

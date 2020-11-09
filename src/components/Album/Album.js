@@ -15,13 +15,14 @@ function Album({ albums, loading, error }) {
 
   if(error) {
     if(error.response && error.response.status === 404) {
-      return <>존재하지 않습니다</>
+      console.log(error);
+      return <>ERROR!</>
     }
     return <>오류 발생!</>
   }
 
-  // const { filename } = albums;
-  // console.log("@#@#@#@#@#@ "+ albums);
+  console.log(albums);
+
   
   return (
     <Row className="main-album m-0 p-0" md={2} sm={1}>
@@ -31,7 +32,8 @@ function Album({ albums, loading, error }) {
             <p className="title-p2">ALBUM</p>
             <p className="title-p3">
               <img
-                src={require("../../images/KakaoTalk_20200923_202130412.png")}
+                // src={require("../../images/KakaoTalk_20200923_202130412.png")}
+                src={require("./uploads/1604910093605#pic4.jpg")}
                 alt="사진추가"
                 onClick={() => setIsOpen(true)}
               />
@@ -44,9 +46,8 @@ function Album({ albums, loading, error }) {
           <ul className="a-items">
               {albums.map(album => (
               <li>
-                <div>파일이름: {filename}</div>
-                <img src={require(`./uploads/${album.filename}`)} 
-                className="img_place" alt={album.filename}/>
+                <img src={require(`./uploads/`)} 
+                className="img_place" alt="11"/>
               </li>
               ))}
           </ul>
