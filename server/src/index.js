@@ -3,9 +3,8 @@ import Koa from "koa";
 import Router from "koa-router";
 import bodyparser from "koa-bodyparser";
 import mongoose from "mongoose";
-import cors from 'koa-cors';
-import koaBody from 'koa-body'; 
-
+import cors from "koa-cors";
+import koaBody from "koa-body";
 import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
 
@@ -19,11 +18,13 @@ mongoose
     console.log(`Connected to MongoDB`);
   })
   .catch((e) => {
+    console.log("????????????~");
     console.error(e);
   });
 
 const app = new Koa();
-app.use(koaBody({multipart: true}));
+
+app.use(koaBody({ multipart: true }));
 app.use(cors());
 const router = new Router();
 
@@ -33,6 +34,7 @@ app.use(jwtMiddleware);
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+
 app.listen(SERVER_PORT, () => {
   console.log(`Server listening on port: ${SERVER_PORT}`);
 });
