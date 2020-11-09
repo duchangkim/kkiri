@@ -58,4 +58,3 @@ function Album({ albums, loading, error }) {
 }
 
 export default React.memo(Album);
-

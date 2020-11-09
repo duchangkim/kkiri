@@ -7,12 +7,14 @@ import schedule, { scheduleSaga } from './schedule';
 import calendar, { calendarSaga } from './calendar';
 import album, { albumSaga } from './album';
 import albums, { albumsSaga } from './albums';
+import loading from "./loading";
 
 const rootReducer = combineReducers({
   auth,
   member,
   tuiCalendar,
   schedule,
+  loading,
   calendar,
   album,
   albums,

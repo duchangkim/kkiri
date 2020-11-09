@@ -20,6 +20,9 @@ export default function createRequestSaga(type, request) {
 
     try {
       // request는 api 호출함수,
+      console.log("사가들어옴");
+      console.log(action.payload);
+      console.log("사가들어옴");
       const response = yield call(request, action.payload);
       console.log(response);
       yield put({

@@ -9,15 +9,15 @@ const MemberSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
   },
   hashedPassword: {
     type: String,
-    required: true,
   },
   birthday: {
     type: Date,
-    required: true,
+  },
+  hp: {
+    type: String,
   },
   publishedDate: {
     type: Date,
@@ -55,6 +55,15 @@ const MemberSchema = new Schema({
 
 MemberSchema.statics.findByEmail = function (email) {
   return this.findOne({ email });
+};
+MemberSchema.statics.findByName = function (name) {
+  return this.findOne({ name });
+};
+MemberSchema.statics.findByBirthday = function (birthday) {
+  return this.findOne({ birthday });
+};
+MemberSchema.statics.findByHp = function (hp) {
+  return this.findOne({ hp });
 };
 
 MemberSchema.statics.findUserCode = function (code) {

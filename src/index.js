@@ -11,6 +11,9 @@ import App from "./App";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
 const loadMember = () => {
   try {
     const member = localStorage.getItem("member");
@@ -25,18 +28,15 @@ const loadMember = () => {
   }
 };
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
 sagaMiddleware.run(rootSaga);
 loadMember();
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

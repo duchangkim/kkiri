@@ -140,23 +140,28 @@ const CalendarSide = ({ calendars, error, onDelete, onModify }) => {
       ) : (
         <ListBlock>
           <BlockHeader>캘린더 필터</BlockHeader>
-          {calendars.map((calendar) => (
-            <CalendarBlock key={calendar.id}>
-              <CalendarColorCircle bgColor={calendar.bgColor} />
-              <CalendarTitle
-                id={calendar.id}
-                bgColor={calendar.bgColor}
-                onClick={onModify}
-              >
-                {calendar.name}
-              </CalendarTitle>
-              <DeleteButtonBlock>
-                <button value={calendar.id} onClick={onDelete}>
-                  X
-                </button>
-              </DeleteButtonBlock>
-            </CalendarBlock>
-          ))}
+          {calendars.map((calendar) => {
+            if (calendar.id === 'dday') {
+              return;
+            }
+            return (
+              <CalendarBlock key={calendar.id}>
+                <CalendarColorCircle bgColor={calendar.bgColor} />
+                <CalendarTitle
+                  id={calendar.id}
+                  bgColor={calendar.bgColor}
+                  onClick={onModify}
+                >
+                  {calendar.name}
+                </CalendarTitle>
+                <DeleteButtonBlock>
+                  <button value={calendar.id} onClick={onDelete}>
+                    X
+                  </button>
+                </DeleteButtonBlock>
+              </CalendarBlock>
+            )
+          })}
         </ListBlock>
       )}
 
