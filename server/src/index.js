@@ -9,7 +9,7 @@ import jwtMiddleware from "./lib/jwtMiddleware";
 
 dotenv.config();
 
-const { PORT, MONGO_URI } = process.env;
+const { SERVER_PORT, MONGO_URI } = process.env;
 
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false })
@@ -29,6 +29,6 @@ app.use(jwtMiddleware);
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`);
+app.listen(SERVER_PORT, () => {
+  console.log(`Server listening on port: ${SERVER_PORT}`);
 });

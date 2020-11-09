@@ -41,7 +41,7 @@ const MainService = () => {
             </Row>
             <Route path="/kkiri/home" component={Main} />
             <Route path="/kkiri/calendar" component={CalendarPage} />
-            <Route path="/kkiri/album" component={Album} />
+            <Route path="/kkiri/album" component={Album} />>
           </Col>
         </Row>
       </Container>
