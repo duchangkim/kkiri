@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import palette from "../../lib/styles/palette";
-import Button from "../common/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Container, Row, Col, Image, Form } from "react-bootstrap";
-import { Input } from "reactstrap";
+import { Container, Row, Col, Image, Form } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 const AuthFormBlock = styled.div`
   h3 {
@@ -92,7 +92,7 @@ const Hrsect = styled.div`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -121,10 +121,10 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  login: "로그인",
-  register: "회원가입",
-  registercode: "코드 확인",
-  registeremail: "코드 보내기",
+  login: '로그인',
+  register: '회원가입',
+  registercode: '코드 확인',
+  registeremail: '코드 보내기',
 };
 
 const ErrorMessage = styled.div`
@@ -140,19 +140,19 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
     <AuthFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          {type === "login" && (
+          {type === 'login' && (
             <Hrsect>
               <span className="m-3">간편 로그인</span>
             </Hrsect>
           )}
-          {type === "login" && (
+          {type === 'login' && (
             <Row className="login_box">
               <Col xs={3} md={3}>
                 <div className="apidiv">
                   <p>
                     <a href="/auth/facebook">
                       <Image
-                        src={require("../images/fackbookicon.png")}
+                        src={require('../images/fackbookicon.png')}
                         className="api_img"
                       />
                     </a>
@@ -164,7 +164,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
                   <p>
                     <a href="/auth/naver">
                       <Image
-                        src={require("../images/navericon.png")}
+                        src={require('../images/navericon.png')}
                         className="api_img"
                       />
                     </a>
@@ -176,7 +176,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
                   <p>
                     <a href="/auth/google">
                       <Image
-                        src={require("../images/googleicon.png")}
+                        src={require('../images/googleicon.png')}
                         className="api_img"
                       />
                     </a>
@@ -186,19 +186,19 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <Col xs={3} md={3}>
                 <div className="apidiv">
                   <Image
-                    src={require("../images/kakaoicon.png")}
+                    src={require('../images/kakaoicon.png')}
                     className="api_img"
                   />
                 </div>
               </Col>
             </Row>
           )}
-          {type === "login" && (
+          {type === 'login' && (
             <Hrsect>
               <span className="m-3">이메일 로그인</span>
             </Hrsect>
           )}
-          {type === "registercode" ? null : (
+          {type === 'registercode' ? null : (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="email"
@@ -211,7 +211,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">아이디(이메일)</span>
             </Form.Group>
           )}
-          {type === "registercode" && (
+          {type === 'registercode' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="emailcode"
@@ -225,7 +225,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
             </Form.Group>
           )}
 
-          {type === "registercode" || type === "registeremail" ? null : (
+          {type === 'registercode' || type === 'registeremail' ? null : (
             <Form.Group controlId="formBasicPassword" className="login_form">
               <Input
                 autoComplate="new-password"
@@ -239,7 +239,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">비밀번호</span>
             </Form.Group>
           )}
-          {type === "register" && (
+          {type === 'register' && (
             <Form.Group controlId="formBasicPassword" className="login_form">
               <Input
                 autoComplate="new-password"
@@ -253,7 +253,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">비밀번호 확인</span>
             </Form.Group>
           )}
-          {type === "register" && (
+          {type === 'register' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="name"
@@ -266,7 +266,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">이름</span>
             </Form.Group>
           )}
-          {type === "register" && (
+          {type === 'register' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="birthday"
@@ -279,7 +279,7 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">생년 월 일</span>
             </Form.Group>
           )}
-          {type === "register" && (
+          {type === 'register' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="hp"
@@ -293,13 +293,13 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
             </Form.Group>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
+          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem ' }}>
             {text}
           </ButtonWithMarginTop>
         </form>
         <Footer>
-          {type === "login" && <Link to="/findpw">아이디 / 비밀번호 찾기</Link>}
-          {type === "login" ? (
+          {type === 'login' && <Link to="/findpw">아이디 / 비밀번호 찾기</Link>}
+          {type === 'login' ? (
             <Link to="/registeremail">
               <span className="ma_le">회원가입</span>
             </Link>

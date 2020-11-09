@@ -8215,10 +8215,10 @@ node-releases@^1.1.52, node-releases@^1.1.61:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.65.tgz#52d9579176bd60f23eba05c4438583f341944b81"
   integrity sha512-YpzJOe2WFIW0V4ZkJQd/DGR/zdVwc/pI4Nl1CZrBO19FdRcSTmsuhdttw9rsTzzJLrNcSloLiBbEYx1C4f6gpA==
 
-nodemailer@^6.4.14:
-  version "6.4.14"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.4.14.tgz#2ffb160b63ff0c15a979da75e1f82af85433d2a3"
-  integrity sha512-0AQHOOT+nRAOK6QnksNaK7+5vjviVvEBzmZytKU7XSA+Vze2NLykTx/05ti1uJgXFTWrMq08u3j3x4r4OE6PAA==
+nodemailer@^6.4.15:
+  version "6.4.15"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.4.15.tgz#da5dbb78b8376e34c232c6aa3d2d65cfe17440e9"
+  integrity sha512-2/z13dBTWdgTRlxVMAK6C13dCI22GEShET4+jFLlQsxpblxYhojnucfcTZO1QBu5CsHvABsBj2JCGO3vl0HSQA==
 
 nodemon@^2.0.6:
   version "2.0.6"
@@ -10204,10 +10204,10 @@ react@^16.13.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-reactstrap@^8.7.0:
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-8.7.0.tgz#6e9c3e7f6ed0c0e48f75722b904ace51cd1aaf48"
-  integrity sha512-1QqAH8u76AUyukUXVa9Mu9VbScCavOJPr2+h9lGBA4pDjbBPWr1Fc6gfmSbeiquXSIFkyc+Aay/LB9+K3hWPtg==
+reactstrap@^8.7.1:
+  version "8.7.1"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-8.7.1.tgz#9631db8460a83a4d40fbee61abdd577b4f1a7069"
+  integrity sha512-nZEUSxqqWJh0yGIvp4BgoHkXAcm2PqRLhpoOodMp5ce6njVpPd+GgUtbZscpu4jOi7GUFwpJ15tWZn59co4EQg==
   dependencies:
     "@babel/runtime" "^7.2.0"
     classnames "^2.2.3"
