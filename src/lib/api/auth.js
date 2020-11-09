@@ -24,6 +24,14 @@ export const findpw = ({ name, birthday, hp }) =>
 export const registercode = ({ emailcode }) =>
   client.post("/api/auth/registercode", { emailcode });
 
+export const registercouple = (couplecode) =>
+  client.get(`/api/code/${couplecode}`);
+
+export const createCoupleSet = (_id) => {
+  console.log(_id);
+  return client.post(`/api/code/create`, _id);
+};
+
 export const check = () => client.get("/api/auth/check");
 
 export const logout = () => client.get("/api/auth/logout");

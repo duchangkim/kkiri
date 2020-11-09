@@ -125,6 +125,7 @@ const textMap = {
   register: "회원가입",
   registercode: "코드 확인",
   registeremail: "코드 보내기",
+  registercouple: "커플 코드확인",
 };
 
 const ErrorMessage = styled.div`
@@ -134,7 +135,16 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({
+  member,
+  type,
+  form,
+  onChange,
+  onSubmit,
+  error,
+  myCode,
+}) => {
+  console.log(myCode);
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -198,7 +208,12 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               <span className="m-3">이메일 로그인</span>
             </Hrsect>
           )}
-          {type === "registercode" ? null : (
+          {member && (
+            <div className="right">
+              <Hrsect>{member.email}</Hrsect>
+            </div>
+          )}
+          {type === "registercode" || type === "registercouple" ? null : (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="email"
@@ -225,7 +240,9 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
             </Form.Group>
           )}
 
-          {type === "registercode" || type === "registeremail" ? null : (
+          {type === "registercode" ||
+          type === "registeremail" ||
+          type === "registercouple" ? null : (
             <Form.Group controlId="formBasicPassword" className="login_form">
               <Input
                 autoComplate="new-password"
@@ -291,6 +308,22 @@ const AuthForm = ({ member, type, form, onChange, onSubmit, error }) => {
               />
               <span className="content_name pl-1 pr-1">전화번호</span>
             </Form.Group>
+          )}
+          {type === "registercouple" && (
+            <>
+              <h1>{myCode}</h1>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="couplecode"
+                  name="couplecode"
+                  placeholder="커플 코드"
+                  onChange={onChange}
+                  value={form.couplecode}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">커플 코드</span>
+              </Form.Group>
+            </>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
