@@ -38,6 +38,10 @@ const [
   CREATECOUPLESET_FAILURE,
 ] = createRequestActionTypes("auth/CREATECOUPLESET");
 
+const [FINDID, FINDID_SUCCESS, FINDID_FAILURE] = createRequestActionTypes(
+  "auth/FINDID"
+);
+
 // 액션 생성함수
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -86,6 +90,13 @@ export const registercouple = createAction(
   (couplecode) => couplecode
 );
 export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => _id);
+
+export const findid = createAction(FINDID, ({ birthday, name, hp }) => ({
+  birthday,
+  name,
+  hp,
+}));
+
 // saga함수
 const loginSaga = createRequestSaga(LOGIN, authAPI.localLogin);
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
@@ -103,12 +114,15 @@ const createCoupleSetSaga = createRequestSaga(
   authAPI.createCoupleSet
 );
 
+const findidSaga = createRequestSaga(FINDID, authAPI.findid);
+
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(REGISTERCODE, registerCodeSaga);
   yield takeLatest(REGISTEREMAIl, registerEmailSaga);
   yield takeLatest(REGISTERCOUPLE, registercoupleSaga);
   yield takeLatest(CREATECOUPLESET, createCoupleSetSaga);
+  yield takeLatest(FINDID, findidSaga);
   yield takeLatest(LOGIN, loginSaga);
 }
 
@@ -141,6 +155,12 @@ const initialState = {
   },
   createCoupleSet: {
     id: "",
+  },
+  findid: {
+    birthday: "",
+    name: "",
+    hp: "",
+    isSuccess: false,
   },
 };
 
@@ -235,6 +255,15 @@ const auth = handleActions(
       auth,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [FINDID_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    [FINDID_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
     }),

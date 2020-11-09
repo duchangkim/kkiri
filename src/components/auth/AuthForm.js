@@ -144,7 +144,7 @@ const AuthForm = ({
   error,
   myCode,
 }) => {
-  console.log(myCode);
+  console.log(`myCode 커플코드페이지콘솔 값 : ${myCode}`);
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -331,7 +331,7 @@ const AuthForm = ({
           </ButtonWithMarginTop>
         </form>
         <Footer>
-          {type === "login" && <Link to="/findpw">아이디 / 비밀번호 찾기</Link>}
+          {type === "login" && <Link to="/findid">아이디 / 비밀번호 찾기</Link>}
           {type === "login" ? (
             <Link to="/registeremail">
               <span className="ma_le">회원가입</span>

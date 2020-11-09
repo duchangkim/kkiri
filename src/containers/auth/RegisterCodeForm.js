@@ -33,11 +33,11 @@ const RegisterCodeForm = ({ history }) => {
     e.preventDefault();
     const { emailcode } = form;
     console.log("submit", emailcode);
-    const regex = /[^0-9]/g;
+    const emailcode_check = /[^0-9]/g;
     if (emailcode === "") {
       setError("코드를 입력하세요.");
       return;
-    } else if (emailcode.match(regex)) {
+    } else if (emailcode.match(emailcode_check)) {
       console.log(emailcode.match);
       setError("숫자만 입력하세요.");
       return;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, registeremail } from "../../modules/auth";
-import AuthForm from "../../components/auth/AuthForm";
+import FindForm from "../../components/auth/FindForm";
 import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
 
@@ -75,8 +75,8 @@ const FindPwForm = ({ history }) => {
   }, [history, isSuccess]);
 
   return (
-    <AuthForm
-      type="registeremail"
+    <FindForm
+      type="findpw"
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}

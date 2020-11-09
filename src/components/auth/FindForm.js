@@ -83,36 +83,22 @@ const FindFormBlock = styled.div`
   }
 `;
 
-const Hrsect = styled.div`
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  font-size: 15px;
-  margin: 8px 0px;
-
-  &:before,
-  &:after {
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-  }
-`;
-
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
   a {
     color: ${palette.gray[6]};
-    text-decoration: underline;
     &:hover {
       color: ${palette.gray[9]};
     }
   }
+  .ma_ra {
+    float: left;
+    text-decoration: underline;
+  }
   .ma_le {
-    margin-left: 49.3%;
+    float: right;
+    text-decoration: underline;
   }
 `;
 
@@ -138,10 +124,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
     <FindFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          <Hrsect>
-            <span className="m-3">{text}</span>
-          </Hrsect>
-          {type === "findpw" ? null : (
+          {type === "findid" ? null : (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="email"
@@ -167,73 +150,42 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">이메일 인증 번호</span>
             </Form.Group>
           )}
-
-          {type === "registercode" || type === "registeremail" ? null : (
-            <Form.Group controlId="formBasicPassword" className="login_form">
-              <Input
-                autoComplate="new-password"
-                name="password"
-                placeholder="비밀번호"
-                type="password"
-                onChange={onChange}
-                value={form.password}
-                required
-              />
-              <span className="content_name pl-1 pr-1">비밀번호</span>
-            </Form.Group>
-          )}
-          {type === "register" && (
-            <Form.Group controlId="formBasicPassword" className="login_form">
-              <Input
-                autoComplate="new-password"
-                name="passwordConfirm"
-                placeholder="비밀번호 확인"
-                type="password"
-                onChange={onChange}
-                value={form.passwordConfirm}
-                required
-              />
-              <span className="content_name pl-1 pr-1">비밀번호 확인</span>
-            </Form.Group>
-          )}
-          {(type === "register" || type === "findid") && (
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="name"
-                name="name"
-                placeholder="이름"
-                onChange={onChange}
-                value={form.name}
-                required
-              />
-              <span className="content_name pl-1 pr-1">이름</span>
-            </Form.Group>
-          )}
-          {(type === "register" || type === "findid") && (
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="birthday"
-                name="birthday"
-                placeholder="년 월 일"
-                onChange={onChange}
-                value={form.birthday}
-                required
-              />
-              <span className="content_name pl-1 pr-1">생년 월 일</span>
-            </Form.Group>
-          )}
-          {(type === "register" || type === "findid") && (
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="hp"
-                name="hp"
-                placeholder="전화번호"
-                onChange={onChange}
-                value={form.hp}
-                required
-              />
-              <span className="content_name pl-1 pr-1">전화번호</span>
-            </Form.Group>
+          {type === "findid" && (
+            <>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="name"
+                  name="name"
+                  placeholder="이름"
+                  onChange={onChange}
+                  value={form.name}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">이름</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="birthday"
+                  name="birthday"
+                  placeholder="년 월 일"
+                  onChange={onChange}
+                  value={form.birthday}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">생년 월 일</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="hp"
+                  name="hp"
+                  placeholder="전화번호"
+                  onChange={onChange}
+                  value={form.hp}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">전화번호</span>
+              </Form.Group>
+            </>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
@@ -241,7 +193,18 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
           </ButtonWithMarginTop>
         </form>
         <Footer>
-          <Link to="/login">로그인</Link>
+          {type === "findid" ? (
+            <Link to="/findpw">
+              <span className="ma_ra">비밀번호 찾기</span>
+            </Link>
+          ) : (
+            <Link to="/findid">
+              <span className="ma_ra">아이디 찾기</span>
+            </Link>
+          )}
+          <Link to="/login">
+            <span className="ma_le">로그인</span>
+          </Link>
         </Footer>
       </Container>
     </FindFormBlock>

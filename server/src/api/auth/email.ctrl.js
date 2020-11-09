@@ -82,12 +82,12 @@ export const registercode = async (ctx) => {
   // 코드
   const { emailcode } = ctx.request.body;
   console.log(emailcode);
-  console.log(res_data);
+  console.log(res_data.secret);
   try {
     if (emailcode) {
-      if (emailcode !== res_data.secret) {
+      if (emailcode.emailcode !== res_data.secret) {
         console.log("코드 인증 실패");
-      } else if (emailcode === res_data.secret) {
+      } else if (emailcode.emailcode === res_data.secret) {
         console.log("코드 인증 성공");
         ctx.body = { message: "success" };
       }
