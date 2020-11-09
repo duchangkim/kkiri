@@ -14,6 +14,14 @@ const CalendarSchema = new Schema({
       type: Array,
       default: [
         {
+          id: "dday",
+          name: 'D-Day',
+          color: '#ffffff',
+          bgColor: '#B291FF',
+          dragBgColor: '#B291FF',
+          borderColor: '#B291FF',
+        },
+        {
           id: 0,
           name: '기념일',
           color: '#ffffff',
