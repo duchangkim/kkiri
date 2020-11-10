@@ -37,7 +37,7 @@ const RegisterForm = ({ history }) => {
     const password_check = /^[A-Za-z0-9]{6,12}$/;
     const name_check = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
     const birthday_check = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-    const hp_check = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+    const hp_check =  /^\d{2,3}-\d{3,4}-\d{4}$/;
 
     if ([email, password, passwordConfirm, birthday, name, hp].includes("")) {
       setError("빈 칸을 모두 입력하세요.");

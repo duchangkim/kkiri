@@ -51,17 +51,6 @@ export const changeField = createAction(
     value,
   })
 );
-/*
-  changeField
-  {
-    type: "auth/CHANGE_FIELD",
-    payload: {
-      form,
-      key,
-      value,
-    }
-  }
-*/
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
 export const login = createAction(LOGIN, ({ email, password }) => ({
@@ -161,6 +150,7 @@ const initialState = {
     name: "",
     hp: "",
     isSuccess: false,
+    findEmail:"",
   },
 };
 
@@ -258,10 +248,14 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [FINDID_SUCCESS]: (state, { payload: auth }) => ({
+    [FINDID_SUCCESS]: (state, { payload: result }) => ({
       ...state,
       authError: null,
       auth,
+      findid: {
+        isSuccess: true,
+        findEmail: result.findEmail,
+      },
     }),
     [FINDID_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -8,15 +8,13 @@ import { withRouter } from "react-router-dom";
 const FindIdForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, isSuccess } = useSelector(
+  const { form, auth, authError, findEmail } = useSelector(
     ({ auth, member }) => {
-      console.log(auth);
       return {
         form: auth.findid,
         auth: auth.auth,
         authError: auth.authError,
-        member: member.member,
-        isSuccess: auth.registeremail.isSuccess,
+        findEmail: auth.findid.findEmail,
       };
     }
   );
@@ -38,7 +36,7 @@ const FindIdForm = ({ history }) => {
 
     const name_check = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
     const birthday_check = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-    const hp_check = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+    const hp_check =  /^\d{2,3}-\d{3,4}-\d{4}$/;
 
     if ([birthday, name, hp].includes("")) {
       setError("빈 칸을 모두 입력하세요.");
@@ -60,27 +58,19 @@ const FindIdForm = ({ history }) => {
 
   useEffect(() => {
     if (authError) {
-      if (authError.response.status !== 409) {
-        setError("이미 존재하는 계정명입니다.");
-        return;
-      } else if (authError.response.status === 409) {
-        setError("존재하지 않는 계정명입니다.");
-        return;
-      }
+      console.log("오류 발생");
+      console.log(authError);
+      setError("없는 계정입니다.");
+      return;
     }
     if (auth) {
-      console.log("이메일 전송완료");
+      console.log(findEmail);
+      console.log("아이디 찾기 성공");
       dispatch(check());
+      history.push("/findresult");
     }
-  }, [auth, authError, dispatch, error]);
+  }, [auth, authError, dispatch]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("이메일 발송 성공");
-      alert("이메일을 발송 했습니다.");
-      history.push("/findpw");
-    }
-  }, [history, isSuccess]);
 
   return (
     <FindForm

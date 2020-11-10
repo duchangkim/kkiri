@@ -54,15 +54,10 @@ const MemberSchema = new Schema({
 MemberSchema.statics.findByEmail = function (email) {
   return this.findOne({ email });
 };
-MemberSchema.statics.findByName = function (name) {
-  return this.findOne({ name });
-};
-MemberSchema.statics.findByBirthday = function (birthday) {
-  return this.findOne({ birthday });
-};
-MemberSchema.statics.findByHp = function (hp) {
-  return this.findOne({ hp });
-};
+
+MemberSchema.statics.findByMemberInfo = function (birthday, name, hp){
+  return this.findOne({ birthday: new Date(birthday), name, hp});
+}
 
 MemberSchema.statics.findUserCode = function (code) {
   return this.findOne({ userCode: code });
@@ -117,6 +112,8 @@ MemberSchema.methods.generateToken = function () {
       _id: this.id,
       email: this.email,
       name: this.name,
+      hp : this.hp,
+      birthday : this.birthday,
       userCode: this.userCode,
       coupleId: this.coupleId,
       coupleShareCode: this.coupleShareCode,

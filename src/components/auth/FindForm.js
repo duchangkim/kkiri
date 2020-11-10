@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Container, Form } from "react-bootstrap";
 import { Input } from "reactstrap";
+import member from "../../modules/member";
 
 const FindFormBlock = styled.div`
   h3 {
@@ -15,19 +16,6 @@ const FindFormBlock = styled.div`
     margin-bottom: 1rem;
   }
 
-  // 간편 로그인 버튼
-  .login_box {
-    margin: 5% 0;
-  }
-  .api_img {
-    width: 80%;
-    border-radius: 6px;
-  }
-
-  .kep-login-facebook {
-    font-size: 0;
-    background-image: url(../images/fackbookicon.png) !important;
-  }
   .login_form {
     position: relative;
     display: flex;
@@ -61,25 +49,6 @@ const FindFormBlock = styled.div`
   }
   input:focus::-webkit-input-placeholder {
     color: transparent;
-  }
-  .emailbtn {
-    color: #f58cb4;
-    margin-bottom: 1rem;
-    width: 100%;
-    font-size: 1.125rem;
-    border: 1px solid #f58cb4;
-    background: #fff;
-    &:hover {
-      background: #f58cb49d;
-    }
-    &:focus {
-      outline: none;
-      border: 2px dotted #f58cb4;
-      border-radius: 4px;
-    }
-  }
-  p {
-    text-align: center;
   }
 `;
 
@@ -192,19 +161,31 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
             {text}
           </ButtonWithMarginTop>
         </form>
+
+        {type === "findresult" && (
+          <>
+          <h1></h1>
+          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
+            로그인 하러가기
+          </ButtonWithMarginTop>
+          </>
+        )}
         <Footer>
-          {type === "findid" ? (
+          {type === "findid" && (
             <Link to="/findpw">
               <span className="ma_ra">비밀번호 찾기</span>
             </Link>
-          ) : (
+          )}
+          { type === "findpw" &&(
             <Link to="/findid">
               <span className="ma_ra">아이디 찾기</span>
             </Link>
           )}
+          { type === "findresult" ? null : (          
           <Link to="/login">
             <span className="ma_le">로그인</span>
           </Link>
+          )}
         </Footer>
       </Container>
     </FindFormBlock>
