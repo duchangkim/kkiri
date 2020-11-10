@@ -74,8 +74,11 @@ const CoupleCodeForm = ({ history }) => {
     if (otherMember) {
       console.log(otherMember._id);
       dispatch(createCoupleSet(otherMember._id));
+    } else if (auth.coupleShareCode) {
+      history.push("/kkiri/home");
+      return;
     }
-  }, [dispatch, otherMember]);
+  }, [dispatch,auth, otherMember]);
   
   useEffect(() => {
     if (auth.coupleShareCode) {
