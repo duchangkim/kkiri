@@ -51,7 +51,13 @@ const LoginForm = ({ history }) => {
 
   useEffect(() => {
     if (member) {
-      history.push("/");
+      if (member.coupleShareCode) {
+        history.push("/kkiri/home");
+        return;
+      }else if (!member.coupleShareCode) {
+        history.push("/registercouple");
+        return;
+      }
       try {
         localStorage.setItem("member", JSON.stringify(member));
       } catch (e) {

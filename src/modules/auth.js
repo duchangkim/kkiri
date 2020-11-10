@@ -89,7 +89,7 @@ export const registercouple = createAction(
   REGISTERCOUPLE,
   (couplecode) => couplecode
 );
-export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => _id);
+export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => ({_id}));
 
 export const findid = createAction(FINDID, ({ birthday, name, hp }) => ({
   birthday,

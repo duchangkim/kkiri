@@ -12,6 +12,7 @@ export const register = ({ email, password, birthday, name, hp }) => {
     hp,
   });
 };
+//{ email } >> { email: email }
 export const registeremail = ({ email }) =>
   client.post("/api/auth/registeremail", { email });
 

@@ -106,13 +106,17 @@ const Footer = styled.div`
   text-align: right;
   a {
     color: ${palette.gray[6]};
-    text-decoration: underline;
     &:hover {
       color: ${palette.gray[9]};
     }
   }
+  .ma_ra {
+    float: left;
+    text-decoration: underline;
+  }
   .ma_le {
-    margin-left: 49.3%;
+    float: right;
+    text-decoration: underline;
   }
 `;
 
@@ -330,13 +334,13 @@ const AuthForm = ({
           </ButtonWithMarginTop>
         </form>
         <Footer>
-          {type === "login" && <Link to="/findid">아이디 / 비밀번호 찾기</Link>}
+          {type === "login" && <Link to="/findid"><span className="ma_ra">아이디 / 비밀번호 찾기</span></Link>}
           {type === "login" ? (
             <Link to="/registeremail">
               <span className="ma_le">회원가입</span>
             </Link>
-          ) : (
-            <Link to="/login">로그인</Link>
+          ) : type === "registercouple" ? null : (
+            <Link to="/login"><span className="ma_le">로그인</span></Link>
           )}
         </Footer>
       </Container>
