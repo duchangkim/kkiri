@@ -2,17 +2,31 @@ import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import { IoIosTrash } from 'react-icons/io'
+import { IoIosTrash, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 const ReadBlock = styled.div`
     width: 80%;
-    padding: 50px;
+    padding: 80px 50px 50px 50px;
     margin: 0 auto;
     height: 85%;
+    display: flex;
+    align-items: center;
 `;
+const ArrowBackBox = styled.div`
+    // width:10%;
+    height:100%
+    display: flex;
+    align-items: center;
+`
+const ArrowForwardBox = styled.div`
+    // width: 10%;
+    height:100%
+    display: flex;
+    align-items: center;
+`
 
 const ItemBox = styled.div`
-    width:100%;
+    width:90%;
     padding: 0;
     height: 100%;
     border: 1px solid #ccc;
@@ -31,6 +45,9 @@ const BoxBody = styled.div`
 function ReadAlbum({ }) {
     return (
       <ReadBlock>
+        <ArrowBackBox>
+            <IoIosArrowBack size="70" color="orange"/>
+        </ArrowBackBox>
         <ItemBox>
             <BoxHeader>
                 <IoIosTrash size="30"/>
@@ -39,6 +56,9 @@ function ReadAlbum({ }) {
                 
             </BoxBody>
         </ItemBox>
+        <ArrowForwardBox>
+            <IoIosArrowForward size="70" color="orange"/>
+        </ArrowForwardBox>
       </ReadBlock>
     );
 }
