@@ -1,0 +1,842 @@
+/* 메인 */
+.Left-Main {
+  width: 90%;
+  height: 88vh;
+  margin: 0 auto;
+  margin-right: 28px;
+}
+/* 커플 사진 이미지 Div */
+.Krikri-Love {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0 auto;
+  margin-right: 28px;
+  border-radius: 20px;
+}
+.Choice-Popup_Close {
+  position: relative;
+  transform: rotate(45deg);
+  left: 40%;
+  top: -22px;
+  width: 50px;
+  height: 40px;
+}
+.Choice-Popup_Close:hover {
+  cursor: pointer;
+}
+.Profile-Choice {
+  position: absolute;
+  z-index: 1000;
+  top: 40%;
+  left: 80%;
+  transform: translateY(-40%);
+  width: 400px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  display: none;
+}
+.Profile-Choice-Title {
+  width: 100%;
+  height: 15%;
+  font-size: 1.4rem;
+  text-align: center;
+  background-color: rgba(255, 131, 141, 1);
+  color: white;
+  border-radius: 10px 10px 0px 0px / 10px 10px 0px 0px;
+}
+.Profile-Choice-Title h4 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.Profile_Close {
+  position: relative;
+  transform: rotate(45deg);
+  left: 40%;
+  top: -22px;
+  width: 50px;
+  height: 40px;
+}
+.Profile_Close:hover {
+  cursor: pointer;
+}
+.Profile-Weather {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  border-bottom: 1px solid gray;
+}
+.Profile-Weather-Img {
+  width: 40%;
+  height: 100%;
+  border-right: 1px solid gray;
+}
+.Profile-Weather-Img img {
+  margin-top: 25%;
+  margin-left: 20%;
+}
+.Profile-Weather-Content {
+  width: 60%;
+  height: 100%;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  padding-left: 10%;
+  font-weight: bold;
+}
+.Profile-Weather-Local {
+  width: 100%;
+  height: 33%;
+  margin-top: 5%;
+}
+.Profile-Weather-Description {
+  width: 100%;
+  height: 33%;
+}
+.Profile-Weather-Temperature {
+  width: 100%;
+  height: 33%;
+}
+.MyProfile {
+  width: 100%;
+  height: 55%;
+  border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
+}
+.ProfileIMG {
+  width: 120px;
+  height: 100px;
+  position: relative;
+  top: 10%;
+  left: 5%;
+  border-radius: 50%;
+}
+.ProfileIMG img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.ProfileContent {
+  width: 70%;
+  height: 110px;
+  position: relative;
+  top: 11.5%;
+  display: flex;
+}
+.ProfileContent ul {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  padding-top: 10px;
+}
+.ProfileContent ul li:first-child {
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  left: 10%;
+  letter-spacing: 5px;
+}
+.ProfileContent ul li:nth-child(2) {
+  position: relative;
+  left: 10%;
+  margin-top: 10px;
+  letter-spacing: 3px;
+}
+.ProfileContent ul li:last-child {
+  position: relative;
+  left: 10%;
+  color: gray;
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+.ProfileSetting {
+  position: relative;
+  top: 2%;
+  left: 73%;
+  width: 100px;
+  height: 25px;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid gray;
+  align-content: center;
+  border-radius: 20px;
+}
+.ProfileSetting:hover {
+  cursor: pointer;
+}
+/* --------------------------------- */
+#Background-Option {
+  position: relative;
+  top: -10px;
+  left: 45%;
+  width: 80px;
+  height: 80px;
+}
+#Background-Option:hover {
+  cursor: pointer;
+}
+
+/* 커플 사진 이미지 사이즈 */
+.Krikri-Love .background-Img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+/* 커플 사진 텍스트 부분 */
+.Date-Love {
+  text-align: center;
+  position: relative;
+  top: -100%;
+}
+/* 우리함께한지 부분 */
+.Love-Text {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+/* 커플 사진 하트 부분 */
+.Date-Love .Love {
+  position: relative;
+  top: -65%;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0px;
+}
+/* 몇일 사귄 날짜 */
+.Date {
+  font-size: 2rem;
+  font-weight: bold;
+}
+/* 개인 사진 Div */
+.Love-Face {
+  width: 100%;
+  height: 120px;
+  position: relative;
+  top: -90%;
+  display: flex;
+}
+/* 개인 사진 프로필 Div 부분 */
+.Left-Face,
+.Right-Face {
+  width: 50%;
+  text-align: center;
+}
+/* 개인 사진 프로필 Div 부분 */
+.L-Face,
+.R-Face {
+  width: 50%;
+  margin: 0 auto;
+}
+/* 프로필 부분 */
+.Face {
+  width: 100%;
+  height: 130px;
+}
+/* 프로필 이미지 부분 */
+.Face img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #5a5a5a;
+}
+/* 프로필 이름 부분 */
+.Name {
+  width: 100%;
+  height: 30px;
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+/* 날씨 부분 */
+.Krikri-Weather {
+  width: 100%;
+  position: relative;
+  top: -80%;
+  height: 25%;
+  display: flex;
+}
+/* 좌측 날씨 */
+.Left-Weather {
+  width: 50%;
+  height: 100%;
+}
+/* 우측 날씨 */
+.Right-Weather {
+  width: 50%;
+  height: 100%;
+}
+/* 현재 날씨 정보 div */
+.Show-Weather {
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+  background-color: rgba(236, 226, 226, 0.4);
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+}
+/* 지역 */
+.Local {
+  width: 100%;
+  height: 22.5%;
+}
+/* 날씨 이미지 */
+.Weather-Image {
+  width: 100%;
+  height: 30%;
+}
+/* 날씨 텍스트 */
+.description {
+  width: 100%;
+  height: 22.5%;
+}
+/* 온도 */
+.temperature {
+  width: 100%;
+  height: 25%;
+}
+.Love-Text2,
+.Love2,
+.Date2 {
+  display: none;
+}
+.LeftName,
+.RightName {
+  display: none;
+}
+/* 10-23추가 */
+.Link_To_SideBar {
+  width: 100%;
+  height: 7%;
+  position: relative;
+  top: -25%;
+  display: none;
+}
+.Link_To_SideBar ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+}
+.Link_To_SideBar ul li {
+  width: 50px;
+  height: 100%;
+  border-radius: 50%;
+  margin: 0 15px;
+  background: white;
+}
+.Link_To_Img {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  left: 25%;
+}
+.Link_To_Img:hover {
+  color: pink;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .Left-Main {
+    width: 100%;
+    height: 100%;
+  }
+  #Background-Option {
+    display: none;
+  }
+  .Krikri-Love {
+    border-radius: 0px;
+  }
+  .Krikri-Love .background-Img {
+    border-radius: 0px;
+  }
+  .Choice-Title {
+    display: none;
+  }
+  .Love-Face {
+    width: 100%;
+    height: 10%;
+    position: relative;
+    top: -95%;
+    display: flex;
+  }
+  .Left-Face,
+  .Right-Face {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+  }
+  /* 개인 사진 프로필 Div 부분 */
+  .L-Face {
+    position: relative;
+    left: -30%;
+    width: 30%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .R-Face {
+    position: relative;
+    right: -30%;
+    width: 30%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  /* 프로필 부분 */
+  .Face {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  /* 프로필 이미지 부분 */
+  .Face img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  /* 프로필 이름 부분 */
+  .Name {
+    width: 100%;
+    height: 30px;
+    font-size: 1.5rem;
+    margin-top: 5px;
+  }
+  .Love-Text,
+  .Love,
+  .Date {
+    display: none;
+  }
+  .Love-Text2,
+  .Love2,
+  .Date2 {
+    display: inline-block;
+  }
+  .Love-Text2 {
+    position: relative;
+    top: 0%;
+    width: 200px;
+    left: 11%;
+    margin: 0 auto;
+    font-weight: bold;
+  }
+  .Date2 {
+    position: relative;
+    top: 35%;
+    width: 200px;
+    left: -8%;
+    font-weight: bold;
+  }
+  .Love2 {
+    position: relative;
+    top: 75%;
+    width: 40px;
+    height: 40px;
+  }
+  .Name {
+    display: none;
+  }
+  .LeftName,
+  .RightName {
+    display: inline-block;
+  }
+  .LeftName {
+    position: relative;
+    left: 400%;
+    top: -23%;
+    width: 100%;
+    height: 30px;
+    font-size: 1.5rem;
+  }
+  .RightName {
+    position: relative;
+    right: 400%;
+    top: -23%;
+    width: 100%;
+    height: 30px;
+    font-size: 1.5rem;
+  }
+  .Krikri-Weather {
+    display: none;
+  }
+  .Link_To_SideBar {
+    display: block;
+  }
+  .Background-Choice {
+    top: 45%;
+    left: 20%;
+  }
+  .Profile-Choice {
+    top: 45%;
+    left: 20%;
+  }
+}
+
+/* 우측 슬라이더, 캘린더, 앨범 전체 Div */
+.Right-Main {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(244, 245, 249, 1);
+}
+/* 우측 슬라이더 부분 */
+.Krikri-Mall {
+  width: 94%;
+  height: 27vh;
+  position: relative;
+  top: 0%;
+  margin: 0 auto;
+  display: flex;
+  /* margin-left: 28px; */
+}
+/* 슬라이더 이름 부분 */
+.Left-Mall h4,
+.Right-Mall h4 {
+  margin-top: 7px;
+  color: rgba(255, 131, 141, 1);
+}
+/* 좌측 클릭 슬라이더 사이즈 부분 */
+.Left-Mall {
+  width: 50%;
+  height: 107%;
+  overflow: hidden;
+}
+/* 좌측 클릭 슬라이더 부분 */
+.New-Issue {
+  width: 500%;
+  height: 90%;
+  margin-top: 10px;
+  display: flex;
+}
+/* 좌측 클릭 슬라이더 부분 */
+.New-Issue input {
+  display: none;
+}
+/* 좌측 클릭 슬라이더 부분 */
+.slide {
+  width: 20%;
+  transition: 2s;
+}
+/* 좌측 클릭 슬라이더 이미지 부분 */
+.slide img {
+  width: 100%;
+  height: 100%;
+}
+/* 좌측 클릭 슬라이더 부분 */
+.navigation-manual {
+  position: relative;
+  width: 100%;
+  margin-top: -40px;
+  display: flex;
+  justify-content: flex-end;
+}
+/* 좌측 클릭 슬라이더 버튼 부분 */
+.manual-btn {
+  border: 2px solid #fff;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+/* 좌측 클릭 슬라이더 버튼 부분 */
+.manual-btn:not(:last-child) {
+  margin-right: 10px;
+}
+/* 좌측 클릭 슬라이더 버튼 부분 */
+.manual-btn:last-child {
+  margin-right: 10px;
+}
+/* 좌측 클릭 슬라이더 버튼 hover 부분 */
+.manual-btn:hover {
+  background: #fff;
+}
+/* 좌측 클릭 슬라이더 버튼 체크 부분 */
+#radio1:checked ~ .first {
+  margin-left: 0;
+}
+#radio2:checked ~ .first {
+  margin-left: -20%;
+}
+#radio3:checked ~ .first {
+  margin-left: -40%;
+}
+#radio4:checked ~ .first {
+  margin-left: -60%;
+}
+/* 우측 자동 슬라이더 사이즈 부분 */
+.Right-Mall {
+  width: 50%;
+  height: 107%;
+  overflow: hidden;
+  margin-left: 18px;
+}
+/* 우측 자동 슬라이더 사이즈 부분 */
+.Date-Recommend {
+  width: 500%;
+  height: 90%;
+  margin-top: 10px;
+  display: flex;
+}
+/* 우측 자동 슬라이더 사이즈 부분 */
+.Date-Recommend input {
+  display: none;
+}
+/* 우측 자동 슬라이더 사이즈 부분 */
+.auto-slide {
+  width: 20%;
+  transition: 2s;
+}
+/* 우측 자동 슬라이더 이미지 부분 */
+.auto-slide img {
+  width: 100%;
+  height: 80%;
+  display: flex;
+}
+/* 슬라이더 이미지 내용 부분 */
+.auto-slide-text {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  padding-left: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: black;
+  color: rgba(255, 170, 177, 1);
+}
+/* 우측 자동 슬라이더 부분 */
+.auto-navigation-manual {
+  position: relative;
+  width: 100%;
+  margin-top: -40px;
+  display: flex;
+  justify-content: flex-end;
+}
+/* 우측 자동 슬라이더 버튼 부분 */
+.auto-manual-btn {
+  border: 2px solid #fff;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+  display: none;
+}
+/* 우측 자동 슬라이더 버튼 사이즈 부분 */
+.auto-manual-btn:not(:last-child) {
+  margin-right: 10px;
+}
+/* 우측 자동 슬라이더 버튼 사이즈 부분 */
+.auto-manual-btn:last-child {
+  margin-right: 10px;
+}
+/* 우측 자동 슬라이더 버튼 hover 부분 */
+.auto-manual-btn:hover {
+  background: #fff;
+}
+/* 우측 자동 슬라이더 버튼 체크 부분 */
+#auto-radio1:checked ~ .first2 {
+  margin-left: 0;
+}
+#auto-radio2:checked ~ .first2 {
+  margin-left: -20%;
+}
+#auto-radio3:checked ~ .first2 {
+  margin-left: -40%;
+}
+#auto-radio4:checked ~ .first2 {
+  margin-left: -60%;
+}
+/* 우측 자동 슬라이더 부분 */
+.A-navigation-auto {
+  position: absolute;
+  display: flex;
+  background: chartreuse;
+  justify-content: center;
+  margin-top: 100px;
+  display: none;
+}
+/* 우측 자동 슬라이더 부분 */
+.A-navigation-auto div {
+  border: 2px solid #fff;
+  padding: 5px;
+  border-radius: 10px;
+  transition: 1s;
+}
+/* 우측 자동 슬라이더 부분 */
+#auto-radio1:checked ~ .A-navigation-auto .A-auto-btn1 {
+  background: #fff;
+}
+#auto-radio2:checked ~ .A-navigation-auto .A-auto-btn2 {
+  background: #fff;
+}
+#auto-radio3:checked ~ .A-navigation-auto .A-auto-btn3 {
+  background: #fff;
+}
+#auto-radio4:checked ~ .A-navigation-auto .A-auto-btn4 {
+  background: #fff;
+}
+/* ------------------------------------------ 슬라이더 부분 끝 ------------------------------------------ */
+/* 캘린더 부분 */
+.Krikri-Calendar {
+  width: 94%;
+  height: 26vh;
+  position: relative;
+  top: 2%;
+  margin-left: 3%;
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
+}
+/* 캘린더 제목 부분 */
+.Krikri-Calendar h3 {
+  margin-left: 3%;
+  padding-top: 18px;
+  color: rgba(255, 131, 141, 1);
+}
+/* 캘린더 추가 버튼 */
+.Calender-Add {
+  position: relative;
+  top: -20%;
+  left: 95%;
+  transform: translateY(-15%);
+  width: 35px;
+  height: 35px;
+}
+.Calender-Add:hover {
+  cursor: pointer;
+}
+/* 캘린더 알림 표시 Div 부분 */
+.To-Calendar {
+  position: relative;
+  top: -17%;
+  width: 97%;
+  height: 70%;
+  margin-left: 3%;
+  display: flex;
+}
+/* 캘린더 좌측 알림 표시 부분 */
+.Left-List {
+  width: 50%;
+  height: 100%;
+  border-right: 3px solid rgba(115, 115, 115, 1);
+  overflow: hidden;
+}
+/* 캘린더 좌측 알림 표시 부분 */
+.Left-List ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-size: 1.1rem;
+}
+/* 캘린더 좌측 알림 표시 부분 */
+.Left-List ul li {
+  margin: 10px 0px 10px 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* 캘린더 좌측 알림 표시 사이즈 부분 */
+.Left-List ul li:first-child {
+  width: 30%;
+  margin-right: 15px;
+}
+/* 캘린더 좌측 알림 표시 사이즈 부분 */
+.Left-List ul li:nth-child(2) {
+  width: 40%;
+  text-align: center;
+}
+/* 캘린더 좌측 알림 표시 사이즈 부분 */
+.Left-List ul li:last-child {
+  margin-left: 15px;
+  margin-right: 2px;
+  width: 30%;
+  text-align: center;
+}
+/* 캘린더 우측 알림 표시 부분 */
+.Right-List {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+/* 캘린더 우측 알림 표시 부분 */
+.Right-List ul {
+  display: flex;
+  font-size: 1.1rem;
+  margin-left: 28px;
+  padding: 0;
+}
+/* 캘린더 우측 알림 표시 부분 */
+.Right-List ul li {
+  margin: 10px 0px 10px 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* 캘린더 우측 알림 표시 사이즈 부분 */
+.Right-List ul li:first-child {
+  width: 30%;
+  margin-right: 15%;
+}
+/* 캘린더 우측 알림 표시 사이즈 부분 */
+.Right-List ul li:last-child {
+  width: 30%;
+}
+
+/* ------------------------------------------ 캘린더 부분 끝 -------------------------------------------- */
+/* 앨범 Div 부분 */
+.Krikri-Album {
+  width: 94%;
+  height: 26vh;
+  background-color: rgba(255, 255, 255, 1);
+  position: relative;
+  top: 2%;
+  margin-top: 12px;
+  margin-left: 3%;
+  border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
+}
+/* 앨범 타이틀 표시 부분 */
+.Krikri-Album h3 {
+  margin-left: 3%;
+  padding-top: 18px;
+  color: rgba(255, 131, 141, 1);
+}
+/* 앨범 추가 버튼 */
+.Album-Add {
+  position: relative;
+  top: -20%;
+  left: 95%;
+  transform: translateY(-15%);
+  width: 35px;
+  height: 35px;
+}
+/* 앨범 추가 버튼 hover */
+.Album-Add:hover {
+  cursor: pointer;
+}
+
+/* 앨범 표시 부분 row col */
+.To-Album {
+  position: relative;
+  top: -17%;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
+
+.Show-Album {
+  width: 100%;
+  height: 80%;
+}
+.Show-Album img {
+  width: 100%;
+  height: 100%;
+}
+.Album-Date {
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .Right-Main {
+    display: none;
+  }
+}

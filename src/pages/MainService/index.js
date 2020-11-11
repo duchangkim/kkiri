@@ -1,23 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
-import { useWindowMatches } from "../../customHooks/hooks";
-import NavigationBarContainer from "../../containers/common/NavigationBarContainer";
-import Header from "../../components/Header";
-import { Route } from "react-router";
-import Main from "./Main";
-import AlbumContainer from "../../containers/album/AlbumContainer";
-import Chatting from "./chatting";
-import UnNavigationBar from "../../components/UnNavigationBar";
-import CalendarPage from "../CalendarPage";
-import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer'
+import React from 'react';
+import styled from 'styled-components';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useWindowMatches } from '../../customHooks/hooks';
+import NavigationBarContainer from '../../containers/common/NavigationBarContainer';
+import Header from '../../components/Header';
+import { Route } from 'react-router';
+// import Main from './Main';
+import MainPage from '../MainPage';
+import AlbumContainer from '../../containers/album/AlbumContainer';
+import Chatting from './chatting';
+import UnNavigationBar from '../../components/UnNavigationBar';
+import CalendarPage from '../CalendarPage';
+import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
 
 const CustomContainer = styled.div`
   width: 100%;
   height: 100%;
   .col-sidebar {
     min-width: 120px;
-    ${(props) => (props.windowMatches ? "" : "display: none;")}
+    ${(props) => (props.windowMatches ? '' : 'display: none;')}
   }
   .header {
     width: 100%;
@@ -60,14 +61,14 @@ const MainService = () => {
                 <Header />
               </Row>
             ) : null}
-            <Route path="/kkiri/home" component={Main} />
+            <Route path="/kkiri/home" component={MainPage} />
             <Route path="/kkiri/calendar" component={CalendarPage} />
             <Route path="/kkiri/albums" component={AlbumContainer} />
             <Route path="/kkiri/:id/:idx" component={ReadAlbumContainer} />
             <Route path="/kkiri/chatting" component={Chatting} />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
-                <Col className="m-0 p-0" style={{ backgroundColor: "red" }}>
+                <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
                   <UnNavigationBar />
                 </Col>
               </Row>
