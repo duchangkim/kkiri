@@ -53,8 +53,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:dev": "nodemon --watch server/src/ -r esm server/src/index.js",
-    "start:chat": "nodemon --watch server/chattingServer/ -r esm server/chattingServer/index.js"
+    "start:dev": "nodemon --watch server/src/ -r esm server/src/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"

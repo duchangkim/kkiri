@@ -7,9 +7,12 @@ import cors from "koa-cors";
 import koaBody from "koa-body";
 import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
+
 import serve from 'koa-static';
 import path from 'path';
 
+import socket from "socket.io";
+import http from "http";
 dotenv.config();
 
 const { SERVER_PORT, MONGO_URI } = process.env;
@@ -39,6 +42,15 @@ app.use(jwtMiddleware);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(SERVER_PORT, () => {
-  console.log(`Server listening on port: ${SERVER_PORT}`);
+const server = http.createServer(app.callback());
+const io = socket(server);
+io.on("connection", (socket) => {
+  socket.emit("your id", socket.id);
+  socket.on("send message", (body) => {
+    io.emit("message", body);
+  });
+});
+
+server.listen(SERVER_PORT, () => {
+  console.log(`server is running on port chat: ${SERVER_PORT}`);
 });
