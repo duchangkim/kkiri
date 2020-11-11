@@ -1,5 +1,4 @@
 import client from "./client";
-import qs from 'qs';
 
 export const uploadFile = ({ filename }) =>
     client.post('/api/albums', { filename });

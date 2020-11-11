@@ -34,8 +34,7 @@ export const fileupload = async ctx => {
     filename: Joi.array(),
   });
   // console.log("사진저장" + coupleShareCode)
-  console.dir(ctx.state.member)
-  // console.dir(ctx.state.member.userCode)
+  console.dir(ctx.state.member);
 
   const result = schema.validate(ctx.request.body);
   if(result.error){
@@ -47,10 +46,9 @@ export const fileupload = async ctx => {
   
   try {
     const uploadfile = ctx.request.files.files;
-    const savefile = `${Date.now()}#${uploadfile.name}`;
+    const savefile = `${uploadfile.name}`;
     const readStream = fs.createReadStream(uploadfile.path);
-    // const writeStream = fs.createWriteStream(path.join('./server/src/api/album/uploads/', savefile));
-    const writeStream = fs.createWriteStream(path.join('./src/components/Album/uploads/', savefile));
+    const writeStream = fs.createWriteStream(path.join('./public/uploads/', savefile));
 
     await promisePipe (
       readStream .on (' err' , () => {
@@ -91,24 +89,6 @@ export const fileupload = async ctx => {
       })
       check.save();
     }
-    // else {
-    //   console.log('checkkkkkkkkk' + check);
-    //   const album = new Album({
-    //     coupleShareCode,
-    //     fileData : {
-    //       files : {
-    //         idx,
-    //         filename,
-    //         like,
-    //         publishedDate
-    //       },
-    //     }
-    //   });
-    //   console.log("filefefefbname" + filename);
-    //   await album.save();
-    //   console.log('새로운 album 추가');
-    //   console.log(album);
-    // }
   }catch(e){
     ctx.throw(500, e)
   }

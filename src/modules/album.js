@@ -19,18 +19,20 @@ export function* albumSaga() {
 }
 
 const initialState = {
-    album: null,
+    albums: [],
     error: null,
 }
 
 const album = handleActions(
     {
-        [READ_ALBUM_SUCCESS]: (state, { payload: album}) => ({
+        [READ_ALBUM_SUCCESS]: (state, { payload: albums}) => ({
             ...state,
-            album,
+            albums,
+            error: null,
         }),
         [READ_ALBUM_FAILURE]: (state, { payload: error}) => ({
             ...state,
+            albums : [],
             error,
         }),
         [UNLOAD_ALBUM]: () => initialState,
