@@ -16,6 +16,7 @@ const initialState = {
 };
 
 // 액션타입 정의
+const RENDER_CALENDAR = 'tuiCalendar/RENDER_CALENDAR';
 const MOVE_TO_NEXT_RANGE = 'tuiCalendar/MOVE_TO_NEXT_RANGE';
 const MOVE_TO_PREV_RANGE = 'tuiCalendar/MOVE_TO_PREV_RANGE';
 const MOVE_TO_TODAY = 'tuiCalendar/MOVE_TO_TODAY';
@@ -23,6 +24,7 @@ const TOGGLE_POPUP = 'tuiCalendar/TOGGLE_POPUP';
 const CHANGE_TYPE = 'tuiCalendar/CHANGE_TYPE';
 
 // 액션 생성함수
+export const renderCalendar = createAction(RENDER_CALENDAR, (date) => date);
 export const moveToNextRange = createAction(
   MOVE_TO_NEXT_RANGE,
   (currentCalendar) => currentCalendar
@@ -45,6 +47,19 @@ export const changeType = createAction(CHANGE_TYPE, (type) => type);
 // 리듀서
 const calendar = handleActions(
   {
+    [RENDER_CALENDAR]: (state, { payload: date }) => ({
+      ...state,
+      currentRange: {
+        ...state.currentRange,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        isToday:
+          start.getFullYear() === date.getFullYear() &&
+          start.getMonth() === date.getMonth()
+            ? true
+            : false,
+      },
+    }),
     [MOVE_TO_NEXT_RANGE]: (state, { payload: currentCalendar }) => {
       // console.log(state);
       // console.log(currentCalendar);

@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCalendar, setField } from '../../modules/calendar';
-
 import CalendarSide from '../../components/Calendar/CalendarSide';
-import { changeType, togglePopup } from '../../modules/tuiCalendar';
+import {
+  changeType,
+  renderCalendar,
+  togglePopup,
+} from '../../modules/tuiCalendar';
 import { getDdayList } from '../../modules/dDay';
 
-const CalenderSideContainer = ({ calendars, calendarsError }) => {
+const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
   const dispatch = useDispatch();
   const { dDays, dDayError, schedules } = useSelector(({ dDay, schedule }) => {
     console.log(dDay);
@@ -38,6 +41,12 @@ const CalenderSideContainer = ({ calendars, calendarsError }) => {
     dispatch(setField(currentCalendar));
   };
 
+  const handleDdayTitleClick = (e) => {
+    const targetDate = new Date(e.target.id);
+    dispatch(renderCalendar(targetDate));
+    cal.current.calendarInst.setDate(targetDate);
+  };
+
   useEffect(() => {
     dispatch(getDdayList());
   }, [dispatch, schedules]);
@@ -50,6 +59,7 @@ const CalenderSideContainer = ({ calendars, calendarsError }) => {
       onModify={handleCalendarFilterClick}
       dDays={dDays}
       dDayError={dDayError}
+      onDdayClick={handleDdayTitleClick}
     />
   );
 };
