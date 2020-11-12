@@ -13,7 +13,8 @@ const AlbumContainer = () => {
     error: albums.error,
     loading: loading['albums/ALBUM_LISTS']
   })})
-  console.log("1111111tlqkf!!" + albums);
+  console.log('여긴 albumcontainer');
+  console.dir(albums);
 
   useEffect(() => {
     console.log('리스트 불러옴!!!!!!!!!!!')

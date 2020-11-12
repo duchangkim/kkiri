@@ -3,7 +3,9 @@ import client from "./client";
 export const uploadFile = ({ filename }) =>
     client.post('/api/albums', { filename });
 
-export const readFile = (id, idx) => client.get(`/api/albums/${id}/${idx}`);
+export const readFile = (idx) => client.get(`/api/albums/${idx}`);
+console.log('111111111api/album->readfile');
+console.log(readFile);
 
 
 export const listAlbums = () => {
