@@ -50,23 +50,18 @@ function Album({ albums, loading, error }) {
             {!loading && albums.fileData.files && (
               <ul className="a-items">
                 {albums.fileData.files.map((album) => (
-                  <Link to={`${albums._id}/${album.idx}`}>
-                    <li key={album.idx}>
-                      {album.filename ? (
-                        <img
-                          src={`http://localhost:3000/uploads/${album.filename}`}
-                          className="img_place"
-                          alt={album.idx}
-                        />
-                      ) : (
-                        <img
-                          src={`http://localhost:3000/uploads/error.jpg`}
-                          className="img_place"
-                          alt="error"
-                        />
-                      )}
-                    </li>
-                  </Link>
+                    album.filename && (
+                      <Link to={`albums/${albums._id}/${album.idx}`} key={album.idx}>
+                        <li>
+                          <img
+                            src={`http://localhost:3000/uploads/${album.filename}` ? 
+                            `http://localhost:3000/uploads/${album.filename}` : '../../images/error.jpg'}
+                            className="img_place"
+                            alt={album.idx}
+                          />                        
+                        </li>
+                      </Link>
+                    )
                 ))}
               </ul>
             )}

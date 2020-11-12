@@ -9,8 +9,8 @@ albums.post("/fileupload", albumCtrl.fileupload);
 const album = new Router();
 album.get('/:idx', albumCtrl.read);
 album.delete('/', checkLoggedIn, albumCtrl.remove);
-album.patch('/:idx', albumCtrl.update);
+album.patch('/:idx', albumCtrl.checkObjectId, albumCtrl.update);
 
-albums.use('/:id', albumCtrl.checkObjectId, album.routes());
+albums.use('/:id',album.routes());
 
 export default albums;
