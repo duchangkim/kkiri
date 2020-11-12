@@ -2,6 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -110,6 +111,13 @@ const ChattingBox = styled.div`
     color: #ffffff;
     font-size: 1.4rem;
   }
+  .emoji-picker-react {
+    width: 100%;
+    height: 160px;
+  }
+  .emoji-search {
+    display: none;
+  }
 
   @media (max-width: 768px) {
     .chatting-send form input {
@@ -217,6 +225,7 @@ const Chatting = () => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const socketRef = useRef();
   console.log(socketRef + "socketRef");
@@ -249,7 +258,8 @@ const Chatting = () => {
     e.preventDefault();
     const messageObject = {
       body: message,
-      id: yourID,
+      id: 2491378,
+      coupleShareCode: 6224893,
     };
     setMessage("");
     socketRef.current.emit("send message", messageObject);
@@ -263,6 +273,17 @@ const Chatting = () => {
     if (e.key === "Enter") {
       sendMessage(e);
     }
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  const addEmoji = (e) => {
+    let emoji = e.native;
+    this.setState({
+      message: this.state.message + emoji,
+    });
   };
 
   const date = new Date();
@@ -300,7 +321,6 @@ const Chatting = () => {
                       <div className="profile">
                         <div className="name">김사과</div>
                       </div>
-
                       <MyMessage className="MyMessage">{message.body}</MyMessage>
                       <div className="Time">{time}</div>
                     </MyRow>
@@ -317,6 +337,19 @@ const Chatting = () => {
                 );
               })}
             </Container>
+            <div>
+              {chosenEmoji ? (
+                <span>You chose: {chosenEmoji.emoji}</span>
+              ) : (
+                <span>No emoji Chosen</span>
+              )}
+              <Picker
+                onEmojiClick={onEmojiClick}
+                onSelect={addEmoji}
+                preload={true}
+                skinTone={SKIN_TONE_MEDIUM_DARK}
+              />
+            </div>
             <div className="chatting-send">
               <form onSubmit={sendMessage}>
                 <button className="btn-plus">+</button>

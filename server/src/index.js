@@ -9,6 +9,7 @@ import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
 import socket from "socket.io";
 import http from "http";
+import Room from "./models/room";
 dotenv.config();
 
 const { SERVER_PORT, MONGO_URI } = process.env;
@@ -40,8 +41,17 @@ const server = http.createServer(app.callback());
 const io = socket(server);
 io.on("connection", (socket) => {
   socket.emit("your id", socket.id);
-  socket.on("send message", (body) => {
+  socket.on("send message", async (body) => {
     io.emit("message", body);
+    console.log(body);
+    const msg = await Room.findCoupleCode(body.coupleShareCode);
+    console.log(msg + "메세지");
+    msg.chattingData.push({
+      sender: body.id,
+      text: body.body,
+      sendDate: new Date(),
+    });
+    msg.save();
   });
 });
 
