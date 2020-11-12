@@ -33,13 +33,14 @@ export const login = async (ctx) => {
   } catch (e) {
     ctx.throw(500, e);
   }
-  console.log("---------로그인-----------");
-  console.dir(ctx.state);
+  // console.log("---------로그인-----------");
+  // console.dir(ctx.state);
 };
 
 export const check = async (ctx) => {
-  console.log(ctx.state);
+  // console.log(ctx.state);
   // 로그인 상태 확인
+  console.log('check')
   const { member } = ctx.state;
   if (!member) {
     ctx.status = 401;

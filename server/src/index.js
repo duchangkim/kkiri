@@ -1,27 +1,33 @@
-import dotenv from "dotenv";
-import Koa from "koa";
-import Router from "koa-router";
-import bodyparser from "koa-bodyparser";
-import mongoose from "mongoose";
-import cors from "koa-cors";
-import koaBody from "koa-body";
-import api from "./api";
-import jwtMiddleware from "./lib/jwtMiddleware";
+import dotenv from 'dotenv';
+import Koa from 'koa';
+import Router from 'koa-router';
+import bodyparser from 'koa-bodyparser';
+import mongoose from 'mongoose';
+import cors from 'koa-cors';
+import koaBody from 'koa-body';
+import api from './api';
+import jwtMiddleware from './lib/jwtMiddleware';
 
-import socket from "socket.io";
-import http from "http";
-import Room from "./models/room";
+import socket from 'socket.io';
+import http from 'http';
+import Room from './models/room';
 dotenv.config();
 
 const { SERVER_PORT, MONGO_URI } = process.env;
-
+const { MONGODB_URI, MONGODB_USER, MONGODB_PASS } = process.env;
+const authData = {
+  user: MONGODB_USER,
+  pass: MONGODB_PASS,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+};
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false })
+  .connect(MONGODB_URI, authData)
   .then(() => {
     console.log(`Connected to MongoDB`);
   })
   .catch((e) => {
-    console.log("????????????~");
+    console.log('????????????~');
     console.error(e);
   });
 
@@ -33,7 +39,7 @@ app.use(koaBody({ multipart: true }));
 app.use(cors());
 const router = new Router();
 
-router.use("/api", api.routes());
+router.use('/api', api.routes());
 app.use(bodyparser());
 app.use(jwtMiddleware);
 
@@ -42,13 +48,13 @@ app.use(router.allowedMethods());
 
 const server = http.createServer(app.callback());
 const io = socket(server);
-io.on("connection", (socket) => {
-  socket.emit("your id", socket.id);
-  socket.on("send message", async (body) => {
-    io.emit("message", body);
+io.on('connection', (socket) => {
+  socket.emit('your id', socket.id);
+  socket.on('send message', async (body) => {
+    io.emit('message', body);
     console.log(body);
     const msg = await Room.findCoupleCode(body.coupleShareCode);
-    console.log(msg + "메세지");
+    console.log(msg + '메세지');
     msg.chattingData.push({
       sender: body.id,
       text: body.body,

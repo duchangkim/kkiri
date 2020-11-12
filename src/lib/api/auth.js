@@ -12,14 +12,15 @@ export const register = ({ email, password, birthday, name, hp }) => {
     hp,
   });
 };
+//{ email } >> { email: email }
 export const registeremail = ({ email }) =>
   client.post("/api/auth/registeremail", { email });
 
 export const findid = ({ name, birthday, hp }) =>
   client.post("/api/auth/findid", { name, birthday, hp });
 
-export const findpw = ({ name, birthday, hp }) =>
-  client.post("/api/auth/findpw", { name, birthday, hp });
+export const findpw = ({ email, birthday, hp }) =>
+  client.post("/api/auth/findpw", { email, birthday, hp });
 
 export const registercode = ({ emailcode }) =>
   client.post("/api/auth/registercode", { emailcode });
@@ -31,6 +32,8 @@ export const createCoupleSet = (_id) => {
   console.log(_id);
   return client.post(`/api/code/create`, _id);
 };
+
+export const findresult = () => client.get("/api/auth/findresult");
 
 export const check = () => client.get("/api/auth/check");
 

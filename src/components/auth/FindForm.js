@@ -1,33 +1,22 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import palette from "../../lib/styles/palette";
-import Button from "../common/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Container, Form } from "react-bootstrap";
-import { Input } from "reactstrap";
+import { Container, Form } from 'react-bootstrap';
+import { Input } from 'reactstrap';
+import member from '../../modules/member';
 
 const FindFormBlock = styled.div`
+  text-align: center;
   h3 {
     margin: 0;
     color: ${palette.gray[8]};
     margin-bottom: 1rem;
   }
 
-  // 간편 로그인 버튼
-  .login_box {
-    margin: 5% 0;
-  }
-  .api_img {
-    width: 80%;
-    border-radius: 6px;
-  }
-
-  .kep-login-facebook {
-    font-size: 0;
-    background-image: url(../images/fackbookicon.png) !important;
-  }
   .login_form {
     position: relative;
     display: flex;
@@ -62,25 +51,6 @@ const FindFormBlock = styled.div`
   input:focus::-webkit-input-placeholder {
     color: transparent;
   }
-  .emailbtn {
-    color: #f58cb4;
-    margin-bottom: 1rem;
-    width: 100%;
-    font-size: 1.125rem;
-    border: 1px solid #f58cb4;
-    background: #fff;
-    &:hover {
-      background: #f58cb49d;
-    }
-    &:focus {
-      outline: none;
-      border: 2px dotted #f58cb4;
-      border-radius: 4px;
-    }
-  }
-  p {
-    text-align: center;
-  }
 `;
 
 const Footer = styled.div`
@@ -107,8 +77,8 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  findid: "아이디 찾기",
-  findpw: "비밀번호 찾기",
+  findid: '아이디 찾기',
+  findpw: '비밀번호 찾기',
 };
 
 const ErrorMessage = styled.div`
@@ -118,26 +88,52 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const FindForm = ({ type, form, onChange, onSubmit, error }) => {
+const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
+  console.log('~~~~파인드 폼 이메일');
+  console.log(myEmail);
   const text = textMap[type];
   return (
     <FindFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          {type === "findid" ? null : (
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="email"
-                name="email"
-                placeholder="아이디(이메일)"
-                onChange={onChange}
-                value={form.email}
-                required
-              />
-              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
-            </Form.Group>
+          {type === 'findpw' && (
+            <>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="email"
+                  name="email"
+                  placeholder="아이디(이메일)"
+                  onChange={onChange}
+                  value={form.email}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="birthday"
+                  name="birthday"
+                  placeholder="년 월 일"
+                  onChange={onChange}
+                  value={form.birthday}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">생년 월 일</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="hp"
+                  name="hp"
+                  placeholder="전화번호"
+                  onChange={onChange}
+                  value={form.hp}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">전화번호</span>
+              </Form.Group>
+            </>
           )}
-          {type === "registercode" && (
+          {type === 'registercode' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="emailcode"
@@ -150,7 +146,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
               <span className="content_name pl-1 pr-1">이메일 인증 번호</span>
             </Form.Group>
           )}
-          {type === "findid" && (
+          {type === 'findid' && (
             <>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
@@ -188,23 +184,44 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
             </>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
-            {text}
-          </ButtonWithMarginTop>
+          {type === 'findresult' ? null : (
+            <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem ' }}>
+              {text}
+            </ButtonWithMarginTop>
+          )}
         </form>
+
+        {type === 'findresult' && (
+          <>
+            <p>회원님의 아이디는</p>
+            <h1>{myEmail}</h1>
+            <p>입니다.</p>
+            <Footer>
+              <Link to="/findpw">
+                <span className="ma_ra">비밀번호 찾기</span>
+              </Link>
+              <Link to="/login">
+                <span className="ma_le">로그인</span>
+              </Link>
+            </Footer>
+          </>
+        )}
         <Footer>
-          {type === "findid" ? (
+          {type === 'findid' && (
             <Link to="/findpw">
               <span className="ma_ra">비밀번호 찾기</span>
             </Link>
-          ) : (
+          )}
+          {type === 'findpw' && (
             <Link to="/findid">
               <span className="ma_ra">아이디 찾기</span>
             </Link>
           )}
-          <Link to="/login">
-            <span className="ma_le">로그인</span>
-          </Link>
+          {type === 'findresult' ? null : (
+            <Link to="/login">
+              <span className="ma_le">로그인</span>
+            </Link>
+          )}
         </Footer>
       </Container>
     </FindFormBlock>

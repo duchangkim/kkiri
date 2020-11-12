@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import * as authCtrl from "./auth.ctrl";
 import * as emailCtrl from "./email.ctrl";
+import * as findCtrl from "./find.ctrl";
 
 // localhost:4000/api/auth
 const auth = new Router();
@@ -14,6 +15,7 @@ auth.post("/registercode", emailCtrl.registercode);
 //인증 메일 보내기
 auth.post("/registeremail", emailCtrl.registeremail);
 //아이디 찾기
-auth.post("/findid", emailCtrl.findid);
+auth.post("/findid", findCtrl.findid);
+auth.post("/findpw", findCtrl.findpw);
 
 export default auth;
