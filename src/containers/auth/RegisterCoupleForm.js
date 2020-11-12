@@ -88,8 +88,9 @@ const CoupleCodeForm = ({ history }) => {
     }
   }, [history, auth]);
 
-  if (!auth.userCode) {
-    return <h1>꺼지게</h1>;
+  if (auth.coupleShareCode) {
+    history.push('/kkiri/home');
+    return;
   }
 
   return (
