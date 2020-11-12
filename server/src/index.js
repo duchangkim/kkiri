@@ -7,6 +7,10 @@ import cors from "koa-cors";
 import koaBody from "koa-body";
 import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
+
+import serve from 'koa-static';
+import path from 'path';
+
 import socket from "socket.io";
 import http from "http";
 dotenv.config();
@@ -25,6 +29,8 @@ mongoose
 
 const app = new Koa();
 
+// const dir1 = path.resolve( __dirname, '../../src/auploads/');
+// app.use(serve(dir1));
 app.use(koaBody({ multipart: true }));
 app.use(cors());
 const router = new Router();

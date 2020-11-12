@@ -72,7 +72,7 @@ const UnNavigationBar = () => {
         <NavLink to="/kkiri/chatting" className="unnavbar-brand">
           <BsFillChatDotsFill />
         </NavLink>
-        <NavLink to="/kkiri/album">
+        <NavLink to="/kkiri/albums">
           <BsImages />
           <span className="Imgname">앨범</span>
         </NavLink>

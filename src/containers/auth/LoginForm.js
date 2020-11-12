@@ -65,7 +65,9 @@ const LoginForm = ({ history }) => {
       }
     }
   }, [history, member]);
-
+  useEffect(() => {
+    dispatch(initializeForm('findid'));
+  },[dispatch]);
   return (
     <AuthForm
       type="login"

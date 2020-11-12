@@ -55,7 +55,9 @@ const FindPwForm = ({ history }) => {
   useEffect(() => {
     dispatch(initializeForm("findpw"));
   }, [dispatch]);
-
+  useEffect(() => {
+    dispatch(initializeForm('findid'));
+  },[dispatch]);
   useEffect(() => {
     if (authError) {
       console.log("오류 발생");
