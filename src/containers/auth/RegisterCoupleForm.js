@@ -13,15 +13,16 @@ import { withRouter } from "react-router-dom";
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, otherMember, isSuccess, member } = useSelector(
-    ({ auth, member }) => ({
+  const { form, auth, authError, otherMember, isSuccess } = useSelector(
+    ({ auth }) => {
+      console.log(auth)
+      return({
       form: auth.registercouple,
       auth: auth.auth,
       authError: auth.authError,
-      member: member.member,
       otherMember: auth.registercouple.otherMember,
       isSuccess: auth.registercouple.isSuccess,
-    })
+    })}
   );
 
   const onChange = (e) => {
@@ -38,8 +39,10 @@ const CoupleCodeForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { couplecode } = form;
-    if ([couplecode].includes("")) {
-      setError("빈 칸을 모두 입력하세요.");
+    console.log("casdfasfasdfadsfasdfadsfouplecode");
+    console.log(couplecode);
+    if (couplecode === "") {
+      setError("코드를 입력하세요.");
       return;
     }
     dispatch(registercouple(couplecode));
@@ -63,6 +66,7 @@ const CoupleCodeForm = ({ history }) => {
       console.log(auth);
       dispatch(check());
     }
+    setError("");
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
@@ -70,15 +74,22 @@ const CoupleCodeForm = ({ history }) => {
     if (otherMember) {
       console.log(otherMember._id);
       dispatch(createCoupleSet(otherMember._id));
-    }
-  }, [dispatch, otherMember]);
-
-  useEffect(() => {
-    if (member.coupleShareCode) {
+    } else if (auth.coupleShareCode) {
       history.push("/kkiri/home");
       return;
     }
-  }, [history, member]);
+  }, [dispatch,auth, otherMember]);
+  
+  useEffect(() => {
+    if (auth.coupleShareCode) {
+      history.push("/kkiri/home");
+      return;
+    }
+  }, [history, auth]);
+
+  if (!auth.userCode) {
+    return <h1>꺼지게</h1>
+  }
 
   return (
     <AuthForm
@@ -87,7 +98,7 @@ const CoupleCodeForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={member.userCode}
+      myCode={auth.userCode}
     />
   );
 };

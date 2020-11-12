@@ -41,6 +41,9 @@ const [
 const [FINDID, FINDID_SUCCESS, FINDID_FAILURE] = createRequestActionTypes(
   "auth/FINDID"
 );
+const [FINDPW, FINDPW_SUCCESS, FINDPW_FAILURE] = createRequestActionTypes(
+  "auth/FINDPW"
+);
 
 // 액션 생성함수
 export const changeField = createAction(
@@ -51,17 +54,6 @@ export const changeField = createAction(
     value,
   })
 );
-/*
-  changeField
-  {
-    type: "auth/CHANGE_FIELD",
-    payload: {
-      form,
-      key,
-      value,
-    }
-  }
-*/
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
 export const login = createAction(LOGIN, ({ email, password }) => ({
@@ -89,11 +81,16 @@ export const registercouple = createAction(
   REGISTERCOUPLE,
   (couplecode) => couplecode
 );
-export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => _id);
+export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => ({_id}));
 
 export const findid = createAction(FINDID, ({ birthday, name, hp }) => ({
   birthday,
   name,
+  hp,
+}));
+export const findpw = createAction(FINDPW, ({ birthday, email, hp }) => ({
+  birthday,
+  email,
   hp,
 }));
 
@@ -115,6 +112,7 @@ const createCoupleSetSaga = createRequestSaga(
 );
 
 const findidSaga = createRequestSaga(FINDID, authAPI.findid);
+const findpwSaga = createRequestSaga(FINDPW, authAPI.findpw);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
@@ -123,6 +121,7 @@ export function* authSaga() {
   yield takeLatest(REGISTERCOUPLE, registercoupleSaga);
   yield takeLatest(CREATECOUPLESET, createCoupleSetSaga);
   yield takeLatest(FINDID, findidSaga);
+  yield takeLatest(FINDPW, findpwSaga);
   yield takeLatest(LOGIN, loginSaga);
 }
 
@@ -159,6 +158,13 @@ const initialState = {
   findid: {
     birthday: "",
     name: "",
+    hp: "",
+    isSuccess: false,
+    findEmail:"",
+  },
+  findpw: {
+    birthday: "",
+    email: "",
     hp: "",
     isSuccess: false,
   },
@@ -258,12 +264,28 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [FINDID_SUCCESS]: (state, { payload: auth }) => ({
+    [FINDID_SUCCESS]: (state, { payload: result }) => ({
       ...state,
       authError: null,
       auth,
+      findid: {
+        isSuccess: true,
+        findEmail: result.findEmail,
+      },
     }),
     [FINDID_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [FINDPW_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+      findpw: {
+        isSuccess: true,
+      },
+    }),
+    [FINDPW_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
     }),

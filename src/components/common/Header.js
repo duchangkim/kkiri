@@ -40,7 +40,6 @@ const UserInfo = styled.div`
 `;
 
 const Header = ({ member, onLogout }) => {
-  console.log("__________________");
   return (
     <>
       <HeaderBlock>

@@ -146,35 +146,3 @@ export const register = async (ctx) => {
     ctx.throw(500, e);
   }
 };
-
-export const findid = async (ctx) => {
-  const { name, birthday, hp } = ctx.request.body;
-
-  console.log(`${name}, ${birthday}, ${hp}`);
-  if (!name || !birthday || !hp) {
-    //비인증 401(unauthenticated)
-    ctx.status = 401;
-    return;
-  }
-  try {
-    const member = await Member.findByEmail(name);
-    if (!member) {
-      ctx.status = 401;
-      return;
-    }
-
-    const serializedMember = member.serialize();
-    // ctx.state.member = serializedMember;
-
-    ctx.body = serializedMember;
-    const token = member.generateToken();
-    ctx.cookies.set('access_token', token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-    });
-  } catch (e) {
-    ctx.throw(500, e);
-  }
-  console.log('---------로그인-----------');
-  console.dir(ctx.state);
-};
