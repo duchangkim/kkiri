@@ -16,5 +16,6 @@ auth.post("/registercode", emailCtrl.registercode);
 auth.post("/registeremail", emailCtrl.registeremail);
 //아이디 찾기
 auth.post("/findid", findCtrl.findid);
+auth.post("/findpw", findCtrl.findpw);
 
 export default auth;

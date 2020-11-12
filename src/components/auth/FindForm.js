@@ -10,6 +10,7 @@ import { Input } from "reactstrap";
 import member from "../../modules/member";
 
 const FindFormBlock = styled.div`
+  text-align: center;
   h3 {
     margin: 0;
     color: ${palette.gray[8]};
@@ -87,13 +88,14 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const FindForm = ({ type, form, onChange, onSubmit, error }) => {
+const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
   const text = textMap[type];
   return (
     <FindFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          {type === "findid" ? null : (
+          {type === "findpw" && (
+            <>
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 autoComplate="email"
@@ -105,6 +107,29 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
               />
               <span className="content_name pl-1 pr-1">아이디(이메일)</span>
             </Form.Group>
+            <Form.Group controlId="formBasicEmail" className="login_form">
+            <Input
+              autoComplate="birthday"
+              name="birthday"
+              placeholder="년 월 일"
+              onChange={onChange}
+              value={form.birthday}
+              required
+            />
+            <span className="content_name pl-1 pr-1">생년 월 일</span>
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail" className="login_form">
+            <Input
+              autoComplate="hp"
+              name="hp"
+              placeholder="전화번호"
+              onChange={onChange}
+              value={form.hp}
+              required
+            />
+            <span className="content_name pl-1 pr-1">전화번호</span>
+          </Form.Group>
+          </>
           )}
           {type === "registercode" && (
             <Form.Group controlId="formBasicEmail" className="login_form">
@@ -157,18 +182,27 @@ const FindForm = ({ type, form, onChange, onSubmit, error }) => {
             </>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
+          {type === "findresult" ? null : (
           <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
             {text}
           </ButtonWithMarginTop>
+          )}
         </form>
 
         {type === "findresult" && (
-          <>
-          <h1></h1>
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
-            로그인 하러가기
-          </ButtonWithMarginTop>
-          </>
+            <>
+            <p>회원님의 아이디는</p>
+          <h1>{myEmail}</h1>
+          <p>입니다.</p>
+          <Footer>
+          <Link to="/findpw">
+              <span className="ma_ra">비밀번호 찾기</span>
+            </Link>
+          <Link to="/login">
+            <span className="ma_le">로그인</span>
+          </Link>
+          </Footer>
+            </>
         )}
         <Footer>
           {type === "findid" && (

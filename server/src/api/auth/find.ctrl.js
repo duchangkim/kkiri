@@ -23,3 +23,21 @@ export const findid = async (ctx) => {
     ctx.throw(500, e);
   }
 };
+
+export const findpw = async (ctx) => {
+  const { birthday, email, hp} = ctx.request.body;
+
+  console.log(`${birthday}, ${email}, ${hp}`);
+  if (!birthday || !email || !hp) {
+    ctx.status = 401;
+    return;
+  }
+  try {
+    const member = await Member.findByMemberInfo(birthday, email, hp);
+    console.log("---------비밀번호---------");
+    // ctx.state.member = serializedMember;
+    ctx.body = { message: 'success' };
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
