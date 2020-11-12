@@ -5,6 +5,7 @@ import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
 
 import ProfileSettingPopup from './ProfileSettingPopup';
 import BackgroundSettingPopup from './BackgroundSettingPopup';
+import calculateDday from '../../lib/calculateDday';
 
 const LeftMainBlock = styled.div`
   width: 100%;
@@ -17,10 +18,13 @@ const LeftMainBlock = styled.div`
   }
 `;
 
-const LeftMain = ({ weathers, weatherImage }) => {
+const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
   const handleBackgroundSettingOpenClick = () =>
     setbackgroundSettingOpen(!backgroundSettingOpen);
+
+  const myWeatherIconSrc = `http://openweathermap.org/img/wn/${myWeather.weather[0].icon}.png`;
+  const yourWeatherIconSrc = `http://openweathermap.org/img/wn/${yourWeather.weather[0].icon}.png`;
 
   return (
     <LeftMainBlock>
@@ -50,7 +54,11 @@ const LeftMain = ({ weathers, weatherImage }) => {
             />
             <div className="Love-Text">우리 함께한지</div>
             <FcLike className="Love" alt="하트" />
-            <div className="Date">D - 000</div>
+            <div className="Date">
+              {member.getTogetherDate
+                ? calculateDday(new Date(member.getTogetherDate))
+                : `만난 날짜를 입력하세요`}
+            </div>
           </div>
           <div className="Love-Face">
             <div className="Left-Face">
@@ -61,16 +69,20 @@ const LeftMain = ({ weathers, weatherImage }) => {
                     alt="좌측 프로필 사진"
                   />
                 </div>
-                <div className="Name">000</div>
+                <div className="Name">{member.name}</div>
                 {/* 반응형 */}
-                <div className="LeftName">000</div>
+                <div className="LeftName">{member.name}</div>
                 {/* 끝 */}
               </div>
             </div>
             {/* 반응형에서 보여질 것 */}
             <div className="Love-Text2">우리 함께한지</div>
             <FcLike className="Love2" alt="하트" />
-            <div className="Date2">D - 000</div>
+            <div className="Date2">
+              {member.getTogetherDate
+                ? calculateDday(new Date(member.getTogetherDate))
+                : `만난 날짜를 입력하세요`}
+            </div>
             {/* 끝 */}
             <div className="Right-Face">
               <div className="R-Face">
@@ -80,9 +92,9 @@ const LeftMain = ({ weathers, weatherImage }) => {
                     alt="우측 프로필 사진"
                   />
                 </div>
-                <div className="Name">000</div>
+                <div className="Name">{couple.name}</div>
                 {/* 반응형 */}
-                <div className="RightName">000</div>
+                <div className="RightName">{couple.name}</div>
                 {/* 끝 */}
               </div>
             </div>
@@ -91,42 +103,32 @@ const LeftMain = ({ weathers, weatherImage }) => {
             <div className="Left-Weather">
               <div className="Show-Weather">
                 <div className="Local" id="Local">
-                  {weathers.place}
+                  {myWeather.name}
                 </div>
                 <div className="Weather-Image" id="weatherImage">
-                  <img
-                    src={weatherImage}
-                    width="100px"
-                    height="50px"
-                    alt="weather icon"
-                  />
+                  <img src={myWeatherIconSrc} alt="weather icon" />
                 </div>
                 <div className="description" id="description">
-                  {weathers.description}
+                  {myWeather.weather[0].description}
                 </div>
                 <div className="temperature" id="tempe">
-                  {weathers.temperature}
+                  {`${Math.floor(myWeather.main.temp)}ºC`}
                 </div>
               </div>
             </div>
             <div className="Right-Weather">
               <div className="Show-Weather">
                 <div className="Local" id="Local2">
-                  {weathers.place2}
+                  {yourWeather.name}
                 </div>
                 <div className="Weather-Image" id="weatherImage2">
-                  <img
-                    src={weatherImage}
-                    width="100px"
-                    height="50px"
-                    alt="weather icon"
-                  />
+                  <img src={yourWeatherIconSrc} alt="weather icon" />
                 </div>
                 <div className="description" id="description2">
-                  {weathers.description2}
+                  {yourWeather.weather[0].description}
                 </div>
                 <div className="temperature" id="tempe2">
-                  {weathers.temperature}
+                  {`${Math.floor(yourWeather.main.temp)}ºC`}
                 </div>
               </div>
             </div>

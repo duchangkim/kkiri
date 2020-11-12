@@ -242,8 +242,10 @@
 .Name {
   width: 100%;
   height: 30px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   margin-top: 5px;
+  background: #cacaca77;
 }
 /* 날씨 부분 */
 .Krikri-Weather {
@@ -278,6 +280,7 @@
 .Local {
   width: 100%;
   height: 22.5%;
+  font-size: 0.9rem;
 }
 /* 날씨 이미지 */
 .Weather-Image {
@@ -302,6 +305,7 @@
 .LeftName,
 .RightName {
   display: none;
+  width: 10%;
 }
 /* 10-23추가 */
 .Link_To_SideBar {
@@ -364,7 +368,7 @@
   .Left-Face,
   .Right-Face {
     width: 50%;
-    height: 100%;
+    /* height: 100%; */
     text-align: center;
   }
   /* 개인 사진 프로필 Div 부분 */
@@ -391,7 +395,7 @@
   /* 프로필 이미지 부분 */
   .Face img {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     border-radius: 50%;
   }
   /* 프로필 이름 부분 */

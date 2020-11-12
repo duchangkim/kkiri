@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const MemberSchema = new Schema({
   email: {
@@ -25,23 +25,34 @@ const MemberSchema = new Schema({
   },
   updated_at: {
     type: Date,
-    default: "",
+    default: '',
   },
   coupleId: {
     type: String,
-    default: "",
+    default: '',
   },
   userCode: {},
   coupleShareCode: {
     type: Number,
   },
+  getTogetherDate: {
+    type: Date,
+    default: null,
+  },
+  position: {
+    type: Object,
+    default: {
+      latitude: '',
+      longitude: '',
+    },
+  },
   // 회원별 메인화면 설정
   mainSetting: {
     type: Object,
     default: {
-      coupleBackground: "",
-      coupleProfile1: "",
-      coupleProfile2: "",
+      coupleBackground: '',
+      coupleProfile1: '',
+      coupleProfile2: '',
     },
   },
   // 간편로그인 회원정보
@@ -120,6 +131,8 @@ MemberSchema.methods.generateToken = function () {
       userCode: this.userCode,
       coupleId: this.coupleId,
       coupleShareCode: this.coupleShareCode,
+      getTogetherDate: this.getTogetherDate,
+      position: this.position,
       mainSetting: this.mainSetting,
       kakao: this.kakao,
       google: this.google,
@@ -127,10 +140,14 @@ MemberSchema.methods.generateToken = function () {
       naver: this.naver,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: '7d' }
   );
   return token;
 };
-const Member = mongoose.model("Member", MemberSchema);
+
+MemberSchema.methods.insertPosition = function (position) {
+  this.position = position;
+};
+const Member = mongoose.model('Member', MemberSchema);
 
 export default Member;

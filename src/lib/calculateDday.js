@@ -1,6 +1,15 @@
 export default function calculateDday(dDayObj) {
+  let dDay;
+  // console.log(typeof dDayObj);
+  if (dDayObj instanceof Date) {
+    // console.log('아니여?');
+    dDay = new Date(dDayObj);
+  } else {
+    dDay = new Date(dDayObj.start);
+  }
+
+  // console.log(dDay);
   const now = new Date();
-  const dDay = new Date(dDayObj.start);
 
   // console.log(now);
   // console.log(dDay);

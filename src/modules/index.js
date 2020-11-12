@@ -9,6 +9,8 @@ import album, { albumSaga } from './album';
 import albums, { albumsSaga } from './albums';
 import loading from './loading';
 import dDay, { dDaySaga } from './dDay';
+import couple, { coupleSaga } from './couple';
+import weather, { weatherSaga } from './weather';
 
 const rootReducer = combineReducers({
   auth,
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   album,
   albums,
   dDay,
+  couple,
+  weather,
 });
 
 export function* rootSaga() {
@@ -31,6 +35,8 @@ export function* rootSaga() {
     albumSaga(),
     albumsSaga(),
     dDaySaga(),
+    coupleSaga(),
+    weatherSaga(),
   ]);
 }
 
