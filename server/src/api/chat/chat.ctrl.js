@@ -14,6 +14,8 @@ export const saveMessage = async (ctx) => {
       return;
     }
 
+    console.log(ctx.request.body);
+
     ctx.body = room.pushMessageData({
       sender: _id,
       text,
