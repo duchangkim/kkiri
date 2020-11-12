@@ -153,7 +153,14 @@ const RefreshButton = styled.div`
   }
 `;
 
-const CalendarSide = ({ calendars, error, onDelete, onModify, dDays }) => {
+const CalendarSide = ({
+  calendars,
+  error,
+  onDelete,
+  onModify,
+  dDays,
+  onDdayClick,
+}) => {
   dDays.sort((a, b) => {
     const aDate = new Date(a.start);
     const bDate = new Date(b.start);
@@ -187,7 +194,7 @@ const CalendarSide = ({ calendars, error, onDelete, onModify, dDays }) => {
                   {calendar.name}
                 </CalendarTitle>
                 <DeleteButtonBlock>
-                  <button value={calendar.id} onClick={onDelete}>
+                  <button value={calendar.start} onClick={onDelete}>
                     X
                   </button>
                 </DeleteButtonBlock>
@@ -203,7 +210,9 @@ const CalendarSide = ({ calendars, error, onDelete, onModify, dDays }) => {
             <DdayBlock key={dDay.id}>
               <div className="top">
                 <ColorCircle bgColor="#b291ff" small />
-                <DdayTitle id={dDay.id}>{dDay.title}</DdayTitle>
+                <DdayTitle id={dDay.start} onClick={onDdayClick}>
+                  {dDay.title}
+                </DdayTitle>
               </div>
               <Dday>{calculateDday(dDay)}</Dday>
             </DdayBlock>

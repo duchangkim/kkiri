@@ -10,8 +10,10 @@ const [
 ] = createRequestActionTypes('album/READ_ALBUM');
 const UNLOAD_ALBUM = 'album/UNLOAD_ALBUM';
 
-export const readAlbum = createAction(READ_ALBUM, id => id);
+export const readAlbum = createAction(READ_ALBUM, (id, idx) => (id, idx));
 export const unloadAlbum = createAction(UNLOAD_ALBUM);
+
+console.log("readreadreadreadreadread###");
 
 const readAlbumSaga = createRequestSaga(READ_ALBUM, albumsAPI.readFile);
 export function* albumSaga() {
@@ -28,6 +30,7 @@ const album = handleActions(
         [READ_ALBUM_SUCCESS]: (state, { payload: album}) => ({
             ...state,
             album,
+            error: null,
         }),
         [READ_ALBUM_FAILURE]: (state, { payload: error}) => ({
             ...state,

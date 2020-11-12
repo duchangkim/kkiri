@@ -191,7 +191,11 @@ const CalendarContainer = () => {
           onBeforeUpdateSchedule={onBeforeUpdateSchedule}
         />
       </div>
-      <CalenderSideContainer calendars={calendars} error={calendarsError} />
+      <CalenderSideContainer
+        cal={cal}
+        calendars={calendars}
+        error={calendarsError}
+      />
     </Styles>
   );
 };
