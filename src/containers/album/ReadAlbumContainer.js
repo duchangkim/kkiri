@@ -5,35 +5,33 @@ import { readAlbum, unloadAlbum } from '../../modules/album';
 import ReadAlbum from '../../components/Album/ReadAlbum';
 
 const ReadAlbumContainer = ({ match }) => {
-  const albumId  = match.params.id;
-  const albumIdx = match.params.idx;
-  console.log(match)
-  console.log("111111111 : " + albumId);
-  console.log("111111111 : " + albumIdx);
+  const albumIdx  = match.params.idx;
+  console.log(match);
+  console.log(albumIdx);
   const dispatch = useDispatch();
-  const { albums, error, loading } = useSelector(({ albums, loading }) => {
+  const { album, error, loading } = useSelector(({ album, loading }) => {
     return({
-      albums: albums.albums,
+      album: album.album,
+      error: album.error,
       loading: loading['album/READ_ALBUM']
     })
   });
-  console.log("!!!!!!!readalbum"+albums);
-  console.dir(albums);
+  console.log('44444444');
+  console.dir(album);
 
   useEffect(() => {
-    console.log('readalbum!!!!!!!!!!!')
-    dispatch(readAlbum(albumId, albumIdx));
+    console.log('readalbum girit~~')
+    dispatch(readAlbum(albumIdx));
     return () => {
       dispatch(unloadAlbum());
     }
-  }, [dispatch, albumId, albumIdx])
+  }, [dispatch, albumIdx])
 
   return (
     <ReadAlbum    
-      albums={albums}
+      album={album}
       loading={loading}
       error={error}
-      albumId={albumId}
       albumIdx={albumIdx}
     />
   );

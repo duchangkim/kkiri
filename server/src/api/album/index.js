@@ -5,9 +5,9 @@ import checkLoggedIn from "../../lib/checkLoggedIn";
 const albums = new Router();
 albums.get('/', albumCtrl.list);
 albums.post("/fileupload", albumCtrl.fileupload);
+albums.get('/:idx', albumCtrl.getAlbumById ,albumCtrl.read);
 
 const album = new Router();
-album.get('/:idx', albumCtrl.read);
 album.delete('/', checkLoggedIn, albumCtrl.remove);
 album.patch('/:idx', albumCtrl.checkObjectId, albumCtrl.update);
 

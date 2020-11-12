@@ -8,9 +8,6 @@ import koaBody from "koa-body";
 import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
 
-import serve from 'koa-static';
-import path from 'path';
-
 import socket from "socket.io";
 import http from "http";
 import Room from "./models/room";

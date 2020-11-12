@@ -29,7 +29,6 @@ function Album({ albums, loading, error }) {
     let i = fileData.files.length;
     console.log(albums);
     console.log(i);
-
     return (
       <Row className="main-album m-0 p-0" md={2} sm={1}>
         <Col xl={12} md={12} className="m-0 p-0">
@@ -49,9 +48,9 @@ function Album({ albums, loading, error }) {
           <div className="album-itembox">
             {!loading && albums.fileData.files && (
               <ul className="a-items">
-                {albums.fileData.files.map((album) => (
+                {albums.fileData.files.map((album, index) => (
                     album.filename && (
-                      <Link to={`albums/${albums._id}/${album.idx}`} key={album.idx}>
+                      <Link to={`albums/${index}`} key={album.idx}>
                         <li>
                           <img
                             src={`http://localhost:3000/uploads/${album.filename}` ? 

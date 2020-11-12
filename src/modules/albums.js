@@ -13,7 +13,7 @@ export const listAlbums = createAction(
     LIST_ALBUMS,
     );
     
-    console.log("00000이고시다~");
+    console.log("11111111module/albums 먼저들어오고");
 
 
 const listAlbumsSaga = createRequestSaga(LIST_ALBUMS, albumsAPI.listAlbums);

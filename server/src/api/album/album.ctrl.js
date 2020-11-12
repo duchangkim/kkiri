@@ -94,19 +94,16 @@ export const fileupload = async ctx => {
   }
 }
 
-export const getPostById = async (ctx, next) => {
-  const { id } = ctx.params;
-  if (!ObjectId.isValid(id)) {
-    ctx.status = 400;
-    return;
-  }
+export const getAlbumById = async (ctx, next) => {
+  console.log(ctx.params);
+  const coupleShareCode = ctx.state.member.coupleShareCode;
   try {
-    const post = await Post.findById(id);
-    if(!post){
+    const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
+    if(!album){
       ctx.status = 404;
       return;
     }
-    ctx.state.post = post;
+    ctx.state.album = album;
     console.log('124124124124124');
     return next()
   }catch(e){
@@ -134,21 +131,26 @@ export const list = async ctx => {
 
 // 특정 파일 조회
 // localhost:4000/api/albums/5fa8cddb476a282bc082996b/0
+// export const read = async ctx => {
+//   const { id } = ctx.params;
+//   const {member} = ctx.state
+//   const coupleShareCode = member.coupleShareCode;
+//   console.log('여기서에러???');
+//   try {
+//     const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
+//     if(!album) {
+//       ctx.status = 404;
+//       return;
+//     }
+//     ctx.body = album.fileData.files;
+//   }catch(e) {
+//     ctx.throw(500, e);
+//   }
+// }
 export const read = async ctx => {
-  const { id } = ctx.params;
-  const {member} = ctx.state
-  const coupleShareCode = member.coupleShareCode;
-  console.log('여기서에러???');
-  try {
-    const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
-    if(!album) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = album.fileData.files;
-  }catch(e) {
-    ctx.throw(500, e);
-  }
+  ctx.body = ctx.state.album;
+  console.log('readreadreadreadreadreadreadreadreadread');
+  console.log(ctx.state.album);
 }
 
 // 파일 업데이트(좋아요)

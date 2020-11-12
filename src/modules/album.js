@@ -11,9 +11,9 @@ const [
 const UNLOAD_ALBUM = 'album/UNLOAD_ALBUM';
 
 export const readAlbum = createAction(READ_ALBUM, (id, idx) => (id, idx));
+console.log("2222222module/album");
 export const unloadAlbum = createAction(UNLOAD_ALBUM);
 
-console.log("readreadreadreadreadread###");
 
 const readAlbumSaga = createRequestSaga(READ_ALBUM, albumsAPI.readFile);
 export function* albumSaga() {
