@@ -10,6 +10,7 @@ import RegisterCouplePage from "./pages/RegisterCouplePage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPwPage from "./pages/FindPwPage";
 import FindResultPage from "./pages/FindResultPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
       <Route component={FindIdPage} path="/findid" />
       <Route component={FindPwPage} path="/findpw" />
       <Route component={FindResultPage} path="/findresult" />
+      <Route component={ChangePasswordPage} path="/changepassword" />
       <Route path="/kkiri" component={MainService} />
     </>
   );
