@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FcLike } from 'react-icons/fc';
 import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
+import { withRouter } from 'react-router-dom';
 
 import ProfileSettingPopup from './ProfileSettingPopup';
 import BackgroundSettingPopup from './BackgroundSettingPopup';
@@ -18,8 +19,12 @@ const LeftMainBlock = styled.div`
   }
 `;
 
-const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
+const LeftMain = ({ myWeather, yourWeather, couple, member, history }) => {
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
+  if (!member) {
+    history.replace('/');
+    return;
+  }
   const handleBackgroundSettingOpenClick = () =>
     setbackgroundSettingOpen(!backgroundSettingOpen);
 
@@ -55,7 +60,7 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
             <div className="Love-Text">우리 함께한지</div>
             <FcLike className="Love" alt="하트" />
             <div className="Date">
-              {member.getTogetherDate
+              {member.getTogetherDate !== null
                 ? calculateDday(new Date(member.getTogetherDate))
                 : `만난 날짜를 입력하세요`}
             </div>
@@ -79,7 +84,7 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
             <div className="Love-Text2">우리 함께한지</div>
             <FcLike className="Love2" alt="하트" />
             <div className="Date2">
-              {member.getTogetherDate
+              {member.getTogetherDate !== null
                 ? calculateDday(new Date(member.getTogetherDate))
                 : `만난 날짜를 입력하세요`}
             </div>
@@ -149,4 +154,4 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
   );
 };
 
-export default LeftMain;
+export default withRouter(LeftMain);
