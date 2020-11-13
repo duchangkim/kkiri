@@ -4,16 +4,39 @@ import styled from "styled-components";
 import { IoIosTrash, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom';
 
+const UpdBlock = styled.div`
+    width: 70%;
+    padding-top: 40px;
+    text-align: center;
+    margin: 0 auto;
+`
+
+const Btn = styled.button`
+    border: none;
+    border-radius: 4px;
+    width: 47%;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.25rem 1rem;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    background: #ffb6c1;
+
+    &:hover {
+        background: #ff4d67;
+    }
+`
 
 const ReadBlock = styled.div`
     width: 70%;
-    padding: 120px 0 0 0;
+    padding: 50px 0 0 0;
     margin: 0 auto;
     height: 75%;
     display: flex;
     align-items: center;
-    @media(max-width: 1280px) {
-        width: 90%;
+    @media(max-width: 1080px) {
+        width: 70%;
     }
     @media(max-width: 768px) {
         width: 100%;
@@ -38,16 +61,6 @@ const ItemBox = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
-    // background-color: rgba(255, 131, 141, 0.1);
-    &:hover {
-        cursor: pointer;
-    }
-`
-
-const BoxHeader = styled.div`
-    width:100%;
-    height:10%;
-    display: none;
 `
 
 const BoxBody = styled.div`
@@ -56,12 +69,13 @@ const BoxBody = styled.div`
     display: flex;
     align-items: center;
     img {
+        z-index: -9999;
         margin: 0 auto;
-        @media(max-width: 1280px) {
-            width: 90%;
+        @media(max-width: 1080px) {
+            width: 100%;
         }
         @media(max-width: 768px) {
-            width: 100%;
+            width: 90%;
         }
     }
 `
@@ -75,28 +89,33 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
         }
         return <ReadBlock>오류 발생!</ReadBlock>
     }
-
+    
     if(loading || !album) {
         return null; // 그냥넘어가~
     }
-
+    
     const { fileData } = album;
     const filename = fileData.files[albumIdx].filename;
     const len = fileData.files.length;
-    console.log('len : ' + len);
+    
+    const delete1 = () => {
+        alert('정말 삭제하시겠습니까?');
+        window.location.href=`http://localhost:3000/kkiri/albums/${albumIdx > 0 ? parseInt(albumIdx)-1 : parseInt(albumIdx)+1}`;
+    }
     return (
+        <>
+        <UpdBlock>
+            <Btn><IoIosTrash size="25"/>즐겨찾기</Btn> <Btn onClick={delete1}>삭제<IoIosTrash size="25"/></Btn>
+        </UpdBlock>
         <ReadBlock>
             <ArrowBackBox>
                 {albumIdx > 0 && 
                 <Link to={`${parseInt(albumIdx)-1}`}>
-                    <IoIosArrowBack size="70" cursor="pointer" color="#faa2c1"/>
+                    <IoIosArrowBack size="70" cursor="pointer" color="#ffb6c1"/>
                 </Link>
                 }
             </ArrowBackBox>
             <ItemBox>
-                <BoxHeader>
-                    <IoIosTrash size="30"/>
-                </BoxHeader>
                 <BoxBody>
                 <img src={`http://localhost:3000/uploads/${filename}`} alt={filename}/>
                 </BoxBody>
@@ -104,11 +123,12 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
             <ArrowForwardBox>
                 {albumIdx < len-1 &&
                 <Link to={`${parseInt(albumIdx)+1}`}>
-                    <IoIosArrowForward size="70" cursor="pointer" color="#faa2c1"/>
+                    <IoIosArrowForward size="70" cursor="pointer" color="#ffb6c1"/>
                 </Link>
                 }   
             </ArrowForwardBox>
         </ReadBlock>
+        </>
     );
 }
 
