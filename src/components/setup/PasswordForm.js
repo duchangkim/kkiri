@@ -98,13 +98,13 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PasswordForm = ({ type, form, onChange, onSubmit, error }) => {
+const PasswordForm = ({ type, form, onChange, onSubmit, error}) => {
   const text = textMap[type];
   return (
     <SetUpFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          {/* <Form.Group controlId="formBasicPassword" className="login_form">
+          <Form.Group controlId="formBasicPassword" className="login_form">
             <Input
               autoComplate="new-password"
               name="password"
@@ -127,7 +127,7 @@ const PasswordForm = ({ type, form, onChange, onSubmit, error }) => {
               required
             />
             <span className="content_name pl-1 pr-1">비밀번호 확인</span>
-          </Form.Group> */}
+          </Form.Group>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem ' }}>
             {text}

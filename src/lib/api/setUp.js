@@ -1,4 +1,4 @@
 import client from "./client";
 
-export const changepassword = ({ password }) =>
-  client.post("/api/setup/changepassword", { password });
+export const changepassword = ({ password, findEmail }) =>
+  client.post("/api/setup/changepassword", { password, findEmail });

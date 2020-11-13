@@ -167,6 +167,7 @@ const initialState = {
     email: "",
     hp: "",
     isSuccess: false,
+    findEmail:"",
   },
 };
 
@@ -277,12 +278,13 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [FINDPW_SUCCESS]: (state, { payload: auth }) => ({
+    [FINDPW_SUCCESS]: (state, { payload: result }) => ({
       ...state,
       authError: null,
       auth,
       findpw: {
         isSuccess: true,
+        findEmail: result.findEmail,
       },
     }),
     [FINDPW_FAILURE]: (state, { payload: error }) => ({

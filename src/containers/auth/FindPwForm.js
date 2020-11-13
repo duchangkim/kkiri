@@ -8,13 +8,14 @@ import { withRouter } from "react-router-dom";
 const FindPwForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, isSuccess } = useSelector(
+  const { form, auth, authError, isSuccess,findEmail } = useSelector(
     ({ auth, member }) => {
       return {
         form: auth.findpw,
         auth: auth.auth,
         authError: auth.authError,
         isSuccess: auth.findpw.isSuccess,
+        findEmail: auth.findpw.findEmail,
       };
     }
   );
@@ -53,7 +54,7 @@ const FindPwForm = ({ history }) => {
   };
 
   useEffect(() => {
-    dispatch(initializeForm("findpw"));
+    dispatch(initializeForm("findpw")); 
   }, [dispatch]);
   useEffect(() => {
     dispatch(initializeForm('findid'));
@@ -63,7 +64,7 @@ const FindPwForm = ({ history }) => {
       console.log("오류 발생");
       console.log(authError);
       setError("없는 계정입니다.");
-      return;
+      return; 
     }
     if (auth) {
       console.log("비밀번호 찾기 성공"); 
@@ -72,11 +73,14 @@ const FindPwForm = ({ history }) => {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (findEmail) {
       console.log("비밀번호 찾기 성공");
+      console.log(findEmail);
       history.push("/changepassword");
     }
-  }, [history, isSuccess]);
+  }, [history, isSuccess,findEmail]);
+
+  console.log("afasfasfasfsafasasf"+findEmail);
 
   return (
     <FindForm
@@ -85,6 +89,7 @@ const FindPwForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
+      findEmail={findEmail}
     />
   );
 };

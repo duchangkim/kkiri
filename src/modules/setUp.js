@@ -7,14 +7,14 @@ import createRequestSaga, {
 import * as setUpAPI from '../lib/api/setUp';
 
 // 액션타입 정의
-const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+const CHANGE_FIELD = 'setup/CHANGE_FIELD';
+const INITIALIZE_FORM = 'setup/INITIALIZE_FORM';
 
 const [
   CHANGEPASSWORD,
   CHANGEPASSWORD_SUCCESS,
   CHANGEPASSWORD_FAILURE,
-] = createRequestActionTypes('auth/CHANGEPASSWORD');
+] = createRequestActionTypes('setup/CHANGEPASSWORD');
 
 // 액션 생성함수
 export const changeField = createAction(
@@ -29,15 +29,18 @@ export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
 export const changepassword = createAction(
   CHANGEPASSWORD,
-  (password) => password,
-);
-
+  ({ findEmail, password }) => {
+    console.log(findEmail)
+    return ({
+    findEmail,
+    password,
+  })});
 const changepasswordSaga = createRequestSaga(
   CHANGEPASSWORD,
   setUpAPI.changepassword
 );
 
-export function* authSaga() {
+export function* setupSaga() {
   yield takeLatest(CHANGEPASSWORD, changepasswordSaga);
 }
 
@@ -45,6 +48,7 @@ const initialState = {
   changepassword: {
     password: '',
     passwordConfirm: '',
+    findEmail:'',
     isSuccess: false,
   },
 };
@@ -61,12 +65,13 @@ const setUp = handleActions(
       [form]: initialState[form],
       authError: null,
     }),
-    [CHANGEPASSWORD_SUCCESS]: (state, { payload: auth }) => ({
+    [CHANGEPASSWORD_SUCCESS]: (state, { payload: result }) => ({
       ...state,
       authError: null,
-      auth,
+      setUp,
       changepassword: {
         isSuccess: true,
+        findEmail: result.findEmail,
       },
     }),
     [CHANGEPASSWORD_FAILURE]: (state, { payload: error }) => ({

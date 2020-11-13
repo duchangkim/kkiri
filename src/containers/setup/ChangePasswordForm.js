@@ -8,17 +8,20 @@ import { withRouter } from 'react-router-dom';
 const ChangePasswordForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, member } = useSelector(
-    ({ auth, member }) => {
+  const { form, setup, authError, member,findEmail } = useSelector(
+    ({ setup, member,auth }) => {
       return {
-        form: auth.changepassword,
-        auth: auth.auth,
-        authError: auth.authError,
+        form: setup.changepassword,
+        setup: setup.setup,
+        authError: setup.authError,
         member: member.member,
+        findEmail: auth.findpw.findEmail,
       };
     }
   );
 
+  console.log("findEmailfindEmail"+findEmail);
+  
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -33,7 +36,9 @@ const ChangePasswordForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = form;
+    const email1 = findEmail;
     console.log('여기 폼뷰뷴');
+    console.log(email1);
     console.log(form);
     const password_check = /^[A-Za-z0-9]{6,12}$/;
 
@@ -51,11 +56,8 @@ const ChangePasswordForm = ({ history }) => {
       );
       return;
     }
-    dispatch(changepassword({password}));
+    dispatch(changepassword({password, findEmail}));
   };
-  useEffect(() => {
-    dispatch(initializeForm('changepassword'));
-  }, [dispatch]);
 
   useEffect(() => {
     if (authError) {
@@ -68,13 +70,13 @@ const ChangePasswordForm = ({ history }) => {
       // setError("회원가입 실패");
       return;
     }
-    if (auth) {
+    if (setup) {
       console.log("성공");
-      console.log(auth);
+      console.log(setup);
       dispatch(check());
       return;
     }
-  }, [auth, authError, dispatch, error]);
+  }, [setup, authError, dispatch, error]);
 
   useEffect(() => {
     if (member) {
@@ -89,6 +91,12 @@ const ChangePasswordForm = ({ history }) => {
     }
   }, [member, history]);
 
+  useEffect(() => {
+    dispatch(initializeForm('changepassword'));
+    dispatch(initializeForm("findpw"));
+  }, [dispatch]);
+
+
   return (
     <PasswordForm
       type="changepassword"
@@ -96,6 +104,7 @@ const ChangePasswordForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
+      findEmail={findEmail}
     />
   );
 };

@@ -69,6 +69,9 @@ MemberSchema.statics.findByEmail = function (email) {
 MemberSchema.statics.findByMemberInfo = function (birthday, name, hp){
   return this.findOne({ birthday: new Date(birthday), name, hp});
 }
+MemberSchema.statics.findBypasswordInfo = function (birthday, email, hp){
+  return this.findOne({ birthday: new Date(birthday), email, hp});
+}
 
 MemberSchema.statics.findUserCode = function (code) {
   return this.findOne({ userCode: code });

@@ -11,6 +11,7 @@ import loading from './loading';
 import dDay, { dDaySaga } from './dDay';
 import couple, { coupleSaga } from './couple';
 import weather, { weatherSaga } from './weather';
+import setup, {setupSaga} from './setUp'
 
 const rootReducer = combineReducers({
   auth,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   dDay,
   couple,
   weather,
+  setup,
 });
 
 export function* rootSaga() {
@@ -37,6 +39,7 @@ export function* rootSaga() {
     dDaySaga(),
     coupleSaga(),
     weatherSaga(),
+    setupSaga(),
   ]);
 }
 
