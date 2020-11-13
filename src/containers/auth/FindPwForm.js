@@ -74,7 +74,7 @@ const FindPwForm = ({ history }) => {
   useEffect(() => {
     if (isSuccess) {
       console.log("비밀번호 찾기 성공");
-      history.push("/");
+      history.push("/changepassword");
     }
   }, [history, isSuccess]);
 

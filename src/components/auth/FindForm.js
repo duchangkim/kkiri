@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Container, Form } from 'react-bootstrap';
 import { Input } from 'reactstrap';
-import member from '../../modules/member';
 
 const FindFormBlock = styled.div`
   text-align: center;
