@@ -10,4 +10,6 @@ member.get('/', checkLoggedIn, memberCtrl.getMyCouple);
 
 member.put('/position', checkLoggedIn, memberCtrl.insertPosition);
 
+member.put('/togetherdate', checkLoggedIn, memberCtrl.insertGetTogetherDate);
+
 export default member;

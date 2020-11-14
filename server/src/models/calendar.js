@@ -149,6 +149,10 @@ CalendarSchema.methods.modifyCalendarDataByTargetId = async function (
   return this.calendarData[calendarData];
 };
 
+CalendarSchema.methods.insertGetTogetherDday = function (dDay) {
+  this.calendarData.schedules.push(dDay);
+};
+
 const Calendar = mongoose.model('Calendar', CalendarSchema);
 
 export default Calendar;

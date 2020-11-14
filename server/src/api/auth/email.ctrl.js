@@ -121,7 +121,7 @@ export const register = async (ctx) => {
     //회원 고유 code부여
     //await 하지 않으면 Promise를 리턴받음
     const userCode = await createRandomCode();
-
+    console.log(userCode);
     const member = new Member({
       email,
       password,

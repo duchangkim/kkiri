@@ -63,7 +63,7 @@ const RegisterCodeForm = ({ history }) => {
       console.log('코드인증 성공');
       console.log(auth);
       dispatch(check());
-      return this.setState({ change: true });
+      // return this.setState({ change: true });
     }
   }, [auth, authError, dispatch]);
 

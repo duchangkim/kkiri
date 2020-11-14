@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getCouple } from '../../modules/couple';
 import { getMyWeather, getYourWeather } from '../../modules/weather';
 import LeftMain from '../../components/Main/LeftMain';
 import getPosition from '../../lib/getPosition';
-import { insertPosition } from '../../modules/member';
+import { insertPosition, insertGetTogetherDate } from '../../modules/member';
+import { withRouter } from 'react-router-dom';
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,21 @@ const LeftMainContainer = () => {
     }),
     shallowEqual
   );
-  const { state } = useSelector((state) => ({
-    state: state,
-  }));
-  console.log(state);
+
+  const [dateInputValue, setDateInputValue] = useState('');
+  const handleGetTogetherDateChange = (e) => {
+    const { value } = e.target;
+    setDateInputValue(value);
+  };
+  const handleGetTogetherDateClick = (e) => {
+    e.preventDefault();
+    console.dir(dateInputValue);
+
+    dispatch(insertGetTogetherDate(dateInputValue));
+  };
 
   useEffect(() => {
+    console.log('ㅅㅂ마이웨더좀 불러와라');
     dispatch(getCouple());
     getPosition(dispatch, getMyWeather);
   }, [dispatch]);
@@ -68,8 +78,11 @@ const LeftMainContainer = () => {
       yourWeather={yourWeather}
       couple={couple}
       member={member}
+      onSaveButtonClick={handleGetTogetherDateClick}
+      onDateInputChange={handleGetTogetherDateChange}
+      dateInputValue={dateInputValue}
     />
   );
 };
 
-export default LeftMainContainer;
+export default withRouter(LeftMainContainer);
