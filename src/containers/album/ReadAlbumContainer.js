@@ -25,7 +25,7 @@ const ReadAlbumContainer = ({ match }) => {
     return () => {
       dispatch(unloadAlbum());
     }
-  }, [dispatch, albumIdx])
+  }, [dispatch, albumIdx]);
 
   return (
     <ReadAlbum    

@@ -129,24 +129,6 @@ export const list = async ctx => {
   }
 }
 
-// 특정 파일 조회
-// localhost:4000/api/albums/5fa8cddb476a282bc082996b/0
-// export const read = async ctx => {
-//   const { id } = ctx.params;
-//   const {member} = ctx.state
-//   const coupleShareCode = member.coupleShareCode;
-//   console.log('여기서에러???');
-//   try {
-//     const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
-//     if(!album) {
-//       ctx.status = 404;
-//       return;
-//     }
-//     ctx.body = album.fileData.files;
-//   }catch(e) {
-//     ctx.throw(500, e);
-//   }
-// }
 export const read = async ctx => {
   ctx.body = ctx.state.album;
   console.log('readreadreadreadreadreadreadreadreadread');
@@ -155,12 +137,12 @@ export const read = async ctx => {
 
 // 파일 업데이트(좋아요)
 export const update = async ctx => {
-  const {id} = ctx.params;
+  console.log('업데이트요청받음');
+  const idx = ctx.params.idx;
+  const {member} = ctx.state
+  const coupleShareCode = member.coupleShareCode;
   try {
-    const album = await Album.findByIdAndUpdate(id, ctx.request.body
-    , {
-      new: true,
-    }).exec();
+    const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`})
     if(!album) {
       ctx.status = 404;
       return;
@@ -174,10 +156,21 @@ export const update = async ctx => {
 
 // 파일 삭제
 export const remove = async ctx => {
-  const {id} = ctx.params;
+  console.log('삭제요청받음')
+  // console.log(ctx.params);
+  const idx = ctx.params.idx;
+  const {member} = ctx.state
+  const coupleShareCode = member.coupleShareCode;
+  const idxx = Number(idx);
+
   try{
-    console.log('삭제ㅇㅇㅇㅇㅇㅇ')
-    await Album.findByIdAndRemove(id).exec();
+    console.log('삭제ㅇㅇㅇㅇㅇㅇ');
+    const file = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
+    const result = file.deleteFile('files', idxx);
+    
+    await file.save();
+    ctx.body = result;
+    console.log(result);
     ctx.status = 204; // 성공했지만 응답할 데이터 없음
   }catch(e){
     ctx.throw(500, e);
