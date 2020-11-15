@@ -237,7 +237,10 @@ const auth = handleActions(
     }),
     [REGISTERCOUPLE_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error,
+      registercouple: {
+        ...state.registercouple,
+        error,
+      },
     }),
     [REGISTERCOUPLE_SUCCESS]: (state, { payload: otherMember }) => {
       console.log(otherMember);

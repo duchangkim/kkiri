@@ -43,7 +43,7 @@ const contents = () => {
     number += random;
   }
   res_data['secret'] = number;
-  return '인증 칸에 아래의 숫자를 입력해주세요. \n' + number;
+  return '인증 칸에 아래의 숫자를 입력해주세요. \n ' + number;
 };
 
 export const registeremail = async (ctx) => {
