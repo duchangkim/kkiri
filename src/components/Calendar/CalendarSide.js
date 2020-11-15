@@ -194,7 +194,7 @@ const CalendarSide = ({
                   {calendar.name}
                 </CalendarTitle>
                 <DeleteButtonBlock>
-                  <button value={calendar.start} onClick={onDelete}>
+                  <button value={calendar.id} onClick={onDelete}>
                     X
                   </button>
                 </DeleteButtonBlock>
