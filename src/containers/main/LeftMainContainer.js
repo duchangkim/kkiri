@@ -29,15 +29,15 @@ const LeftMainContainer = () => {
   };
   const handleGetTogetherDateClick = (e) => {
     e.preventDefault();
-    console.dir(dateInputValue);
+    // console.dir(dateInputValue);
 
     dispatch(insertGetTogetherDate(dateInputValue));
   };
 
   useEffect(() => {
     if (!myWeather) {
-      console.log('ㅅㅂ마이웨더좀 불러와라');
-      console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
+      // console.log('ㅅㅂ마이웨더좀 불러와라');
+      // console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
       dispatch(getCouple(member.coupleId));
       getPosition(dispatch, getMyWeather);
     }
@@ -45,7 +45,7 @@ const LeftMainContainer = () => {
 
   useEffect(() => {
     if (!yourWeather) {
-      console.log('느그 날씨좀 불러와랏 ㅂ');
+      // console.log('느그 날씨좀 불러와랏 ㅂ');
       if (couple) {
         const API_KEY = '8838396b78d2bd1ab29b19d58374f16c';
         dispatch(
