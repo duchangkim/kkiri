@@ -12,3 +12,9 @@ export const listAlbums = () => {
     console.log('api/albums 응답바ㅡㅇ듬');
     return client.get(`/api/albums`);   
 }
+
+export const removeFile = (idx) => client.delete(`/api/albums/${idx}`);
+console.log('111111111api/album->removefile');
+
+export const editFile = (idx) => client.patch(`/api/albums/${idx}`);
+console.log('업데이트 요청전송');

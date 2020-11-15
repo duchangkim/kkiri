@@ -52,11 +52,6 @@ const CoupleCodeForm = ({ history }) => {
   };
 
   useEffect(() => {
-    dispatch(initializeForm("registercouple"));
-    dispatch(initializeForm("registeremail"));
-  }, [dispatch]);
-
-  useEffect(() => {
     // 유저코드로 찾아온 멤버가 있으면 커플세트 만들어주는 api호출
     if (otherMember) {
       console.log("유저코드로 찾아왔는가?");

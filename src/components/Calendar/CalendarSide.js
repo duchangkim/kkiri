@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { MdRefresh } from 'react-icons/md';
 import calculateDday from '../../lib/calculateDday';
 
+//color picker적용
+//모바일 사이즈 사이드바 제작
+
 const CalendarSideBlock = styled.div`
   display: flex;
   flex-direction: column;

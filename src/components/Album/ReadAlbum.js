@@ -3,30 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import { IoIosTrash, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom';
-
-const UpdBlock = styled.div`
-    width: 70%;
-    padding-top: 40px;
-    text-align: center;
-    margin: 0 auto;
-`
-
-const Btn = styled.button`
-    border: none;
-    border-radius: 4px;
-    width: 47%;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.25rem 1rem;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    background: #ffb6c1;
-
-    &:hover {
-        background: #ff4d67;
-    }
-`
+import ActionButtons from './ActionButtons'
+import { removeFile, editFile } from '../../lib/api/album';
 
 const ReadBlock = styled.div`
     width: 70%;
@@ -36,21 +14,21 @@ const ReadBlock = styled.div`
     display: flex;
     align-items: center;
     @media(max-width: 1080px) {
-        width: 70%;
+        width: 80%;
     }
     @media(max-width: 768px) {
         width: 100%;
     }
 `;
 const ArrowBackBox = styled.div`
-    width: 70px;
-    height:100%;
+    width: 70px !important;
+    height: 100%;
     display: flex;
     align-items: center;
 `
 const ArrowForwardBox = styled.div`
     width: 70px;
-    height:100%;
+    height: 100%;
     display: flex;
     align-items: center;
 `
@@ -65,14 +43,17 @@ const ItemBox = styled.div`
 
 const BoxBody = styled.div`
     width:100%;
-    hegiht:90%;
+    // height:90%;
     display: flex;
     align-items: center;
     img {
         z-index: -9999;
         margin: 0 auto;
+        max-width: 700px;
+        max-height: 500px;
         @media(max-width: 1080px) {
             width: 100%;
+            // height: 500px;
         }
         @media(max-width: 768px) {
             width: 90%;
@@ -80,9 +61,9 @@ const BoxBody = styled.div`
     }
 `
 
-function ReadAlbum({ album, error, loading, albumIdx }) {
+function ReadAlbum({ album, error, loading, albumIdx}) {
     console.log('555555555');
-    console.log(albumIdx);
+    console.log(albumIdx)
     if(error) {
         if(error.response && error.response.status === 404) {
             return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>
@@ -96,17 +77,34 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
     
     const { fileData } = album;
     const filename = fileData.files[albumIdx].filename;
-    const len = fileData.files.length;
+    const len = fileData.files.length; 
     
-    const delete1 = () => {
-        alert('정말 삭제하시겠습니까?');
-        window.location.href=`http://localhost:3000/kkiri/albums/${albumIdx > 0 ? parseInt(albumIdx)-1 : parseInt(albumIdx)+1}`;
+    const onRemove = async () => {
+        try {
+            console.log(albumIdx)
+            await removeFile(albumIdx).then(res => {
+                console.log('삭제성공!');
+                window.location.href=`http://localhost:3000/kkiri/albums/${albumIdx > parseInt(len) ? albumIdx : albumIdx-1}`;
+            }).catch(err => {
+                console.log(err);
+            });
+            
+        }catch(e) {
+            console.log(e);
+        }
     }
+
+    const onEdit = async () => {
+        await editFile(albumIdx).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     return (
         <>
-        <UpdBlock>
-            <Btn><IoIosTrash size="25"/>즐겨찾기</Btn> <Btn onClick={delete1}>삭제<IoIosTrash size="25"/></Btn>
-        </UpdBlock>
+        <ActionButtons onEdit={onEdit} onRemove={onRemove}/>
         <ReadBlock>
             <ArrowBackBox>
                 {albumIdx > 0 && 

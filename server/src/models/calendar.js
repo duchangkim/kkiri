@@ -83,7 +83,13 @@ CalendarSchema.methods.createCalendarData = async function (
       Number(
         this.calendarData[calendarData][
           this.calendarData[calendarData].length - 1
-        ].id
+        ].id === 'l'
+          ? this.calendarData[calendarData][
+              this.calendarData[calendarData].length - 2
+            ].id
+          : this.calendarData[calendarData][
+              this.calendarData[calendarData].length - 1
+            ].id
       ) + 1,
     ...newData,
   };
