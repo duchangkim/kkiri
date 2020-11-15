@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeField,
-  initializeForm,
+  // initializeForm,
   registercouple,
   createCoupleSet,
 } from '../../modules/auth';
@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember, isSuccess } = useSelector(
+  const { form, auth, coupleCodeError, otherMember } = useSelector(
     ({ auth }) => {
       console.log(auth);
       return {
@@ -21,7 +21,6 @@ const CoupleCodeForm = ({ history }) => {
         auth: auth.auth,
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
-        isSuccess: auth.registercouple.isSuccess,
       };
     }
   );
