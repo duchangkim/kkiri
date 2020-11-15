@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled, { css } from "styled-components";
+import palette from "../../lib/styles/palette";
+import { Link } from "react-router-dom";
 
 const buttonStyle = css`
   border: none;
@@ -15,7 +15,8 @@ const buttonStyle = css`
 
   background: #f58cb4;
   &:hover {
-    background: ${palette.gray[6]};
+    background: #f58cb49d;
+    color: #fff;
   }
   &:focus {
     outline: none;
