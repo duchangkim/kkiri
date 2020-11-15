@@ -42,8 +42,8 @@ const MemberSchema = new Schema({
   position: {
     type: Object,
     default: {
-      latitude: '',
-      longitude: '',
+      latitude: 37.499771,
+      longitude: 127.035168,
     },
   },
   // 회원별 메인화면 설정

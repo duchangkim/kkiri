@@ -19,6 +19,8 @@ const LeftMainContainer = () => {
     }),
     shallowEqual
   );
+  const state = useSelector((state) => state);
+  console.log(state);
 
   const [dateInputValue, setDateInputValue] = useState('');
   const handleGetTogetherDateChange = (e) => {
@@ -33,23 +35,29 @@ const LeftMainContainer = () => {
   };
 
   useEffect(() => {
-    console.log('ㅅㅂ마이웨더좀 불러와라');
-    dispatch(getCouple());
-    getPosition(dispatch, getMyWeather);
-  }, [dispatch]);
+    if (!myWeather) {
+      console.log('ㅅㅂ마이웨더좀 불러와라');
+      console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
+      dispatch(getCouple(member.coupleId));
+      getPosition(dispatch, getMyWeather);
+    }
+  }, [dispatch, member, myWeather]);
 
   useEffect(() => {
-    if (couple) {
-      const API_KEY = '8838396b78d2bd1ab29b19d58374f16c';
-      dispatch(
-        getYourWeather({
-          latitude: couple.position.latitude,
-          longitude: couple.position.longitude,
-          API_KEY,
-        })
-      );
+    if (!yourWeather) {
+      console.log('느그 날씨좀 불러와랏 ㅂ');
+      if (couple) {
+        const API_KEY = '8838396b78d2bd1ab29b19d58374f16c';
+        dispatch(
+          getYourWeather({
+            latitude: couple.position.latitude,
+            longitude: couple.position.longitude,
+            API_KEY,
+          })
+        );
+      }
     }
-  }, [dispatch, couple]);
+  }, [dispatch, couple, member, yourWeather]);
 
   useEffect(() => {
     if (myWeather) {

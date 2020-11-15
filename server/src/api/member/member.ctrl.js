@@ -2,15 +2,15 @@ import Member from '../../models/member';
 import Calendar from '../../models/calendar';
 
 export const getMyCouple = async (ctx) => {
-  const { coupleId } = ctx.state.member;
+  const { coupleId } = ctx.params;
 
-  console.log(ctx.state.member);
+  console.log('여기 이거밑에꺼가 커플아이디여');
   console.log(coupleId);
 
   try {
     const member = await Member.findById({ _id: coupleId });
 
-    ctx.body = member.serialize();
+    ctx.body = await member.serialize();
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -73,7 +73,7 @@ export const insertGetTogetherDate = async (ctx) => {
 
     await calendar.save();
 
-    ctx.body = member.serialize();
+    ctx.body = await member.serialize();
   } catch (e) {
     ctx.throw(500, e);
   }

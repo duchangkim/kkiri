@@ -1,6 +1,7 @@
 import client from './client';
 
-export const getMyCouple = () => client.get('/api/member');
+export const getMyCouple = ({ coupleId }) =>
+  client.get(`/api/member/${coupleId}`);
 
 export const insertPosition = (_position) => {
   console.log(_position);

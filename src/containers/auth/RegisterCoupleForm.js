@@ -25,6 +25,8 @@ const CoupleCodeForm = ({ history }) => {
       };
     }
   );
+  const { member } = useSelector(({ member }) => member);
+  console.dir(member);
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -75,22 +77,20 @@ const CoupleCodeForm = ({ history }) => {
     if (otherMember) {
       console.log(otherMember._id);
       dispatch(createCoupleSet(otherMember._id));
-    } else if (auth.coupleShareCode) {
       history.push('/kkiri/home');
       return;
     }
-  }, [dispatch, auth, otherMember, history]);
+  }, [dispatch, otherMember, history]);
 
   useEffect(() => {
-    if (auth.coupleShareCode) {
+    if (member.coupleShareCode) {
       history.push('/kkiri/home');
       return;
     }
-  }, [history, auth]);
+  }, [history, member]);
 
-  if (auth.coupleShareCode) {
+  if (!member.userCode) {
     history.push('/kkiri/home');
-    return;
   }
 
   return (
@@ -100,7 +100,7 @@ const CoupleCodeForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={auth.userCode}
+      myCode={member.userCode}
     />
   );
 };
