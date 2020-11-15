@@ -11,6 +11,11 @@ const MainPage = ({ history }) => {
 
   if (!member) {
     history.push('/');
+    return <h1>No Contents</h1>;
+  }
+  if (!member.coupleShareCode) {
+    history.push('/registercouple');
+    return <h1>No Contents</h1>;
   }
 
   return (

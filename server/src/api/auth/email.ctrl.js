@@ -43,7 +43,7 @@ const contents = () => {
     number += random;
   }
   res_data['secret'] = number;
-  return '인증 칸에 아래의 숫자를 입력해주세요. \n' + number;
+  return '인증 칸에 아래의 숫자를 입력해주세요. \n ' + number;
 };
 
 export const registeremail = async (ctx) => {
@@ -121,7 +121,7 @@ export const register = async (ctx) => {
     //회원 고유 code부여
     //await 하지 않으면 Promise를 리턴받음
     const userCode = await createRandomCode();
-
+    console.log(userCode);
     const member = new Member({
       email,
       password,

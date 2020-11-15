@@ -17,6 +17,11 @@ const [
   INSERT_POSITION_SUCCESS,
   INSERT_POSITION_FAILURE,
 ] = createRequestActionTypes('member/INSERT_POSITION');
+const [
+  INSERT_TOGETHERDATE,
+  INSERT_TOGETHERDATE_SUCCESS,
+  INSERT_TOGETHERDATE_FAILURE,
+] = createRequestActionTypes('member/INSERT_TOGETHERDATE');
 
 // 액션 생성함수
 export const tempSetMember = createAction(TEMP_SET_MEMBER, (member) => member);
@@ -25,6 +30,10 @@ export const logout = createAction(LOGOUT);
 export const insertPosition = createAction(
   INSERT_POSITION,
   (postition) => postition
+);
+export const insertGetTogetherDate = createAction(
+  INSERT_TOGETHERDATE,
+  (getTogetherDate) => ({ getTogetherDate })
 );
 
 // saga
@@ -40,6 +49,11 @@ const insertPositionSaga = createRequestSaga(
   INSERT_POSITION,
   memberAPI.insertPosition
 );
+const insertGetTogetherDateSaga = createRequestSaga(
+  INSERT_TOGETHERDATE,
+  memberAPI.insertGetTogetherDate
+);
+
 function* logoutSaga() {
   try {
     yield call(authAPI.logout);
@@ -54,6 +68,7 @@ export function* memberSaga() {
     takeLatest(CHECK_FAILURE, checkFailureSaga),
     takeLatest(LOGOUT, logoutSaga),
     takeLatest(INSERT_POSITION, insertPositionSaga),
+    takeLatest(INSERT_TOGETHERDATE, insertGetTogetherDateSaga),
   ]);
 }
 
@@ -90,6 +105,16 @@ const member = handleActions(
     }),
     [INSERT_POSITION_FAILURE]: (state) => ({
       ...state,
+    }),
+    [INSERT_TOGETHERDATE_SUCCESS]: (state, { payload: member }) => ({
+      ...state,
+      member,
+      checkError: null,
+    }),
+    [INSERT_TOGETHERDATE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      member: null,
+      checkError: error,
     }),
   },
   initialState
