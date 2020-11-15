@@ -38,6 +38,11 @@ const DdayItem = styled.li`
 
 const RightMain = ({ schedules, dDays }) => {
   console.log(dDays);
+
+  if (!schedules || !dDays) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <RightMainBlock>
       <div className="Right-Main" id="Right-Main">
