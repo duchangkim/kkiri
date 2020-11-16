@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getChatList } from "../../modules/chat";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -223,6 +224,7 @@ const PartnerMessage = styled.div`
 `;
 
 const Chatting = () => {
+  const dispatch = useDispatch();
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -230,8 +232,15 @@ const Chatting = () => {
 
   console.log(messages);
 
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
+
   const { member } = useSelector(({ member }) => ({
     member: member.member,
+  }));
+  const { messageList, messageListError } = useSelector(({ chat }) => ({
+    messageList: chat.messageList,
+    messageListError: chat.messageListError,
   }));
 
   // api 만들고
@@ -261,6 +270,58 @@ const Chatting = () => {
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages]);
+
+  // 로컬스토리지에 저장하는 함수
+  // useEffect(() => {
+  //   if (message) {
+  //     console.log(message + "useEffect에 찍히는 콘솔");
+  //     try {
+  //       localStorage.setItem("message", JSON.stringify(message));
+  //     } catch (e) {
+  //       console.log("localStorage error");
+  //     }
+  //   }
+  // });
+
+  // 로컬스토리지에서 화면에 보여주는 함수
+  // useEffect(() => {
+  //   let arr = [];
+  //   for (var i = 0; i < localStorage.length; i++) {
+  //     let obj = {
+  //       message: localStorage.text.key(i),
+  //     };
+  //     arr[i] = obj;
+  //   }
+  //   console.log(arr);
+  // });
+
+  // useEffect(() => {
+  //   try {
+  //     localStorage.setItem("messages", JSON.stringify(messages));
+  //   } catch (e) {
+  //     console.log("localStorage error!");
+  //   }
+  // }, [messages]);
+
+  useEffect(() => {
+    console.log("컴포넌트 렌더링됨");
+    // 디비에서 메시지 리스트 받아와서 로컬스토리지에 넣어주기
+    dispatch(getChatList(1));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (messageList) {
+      try {
+        localStorage.setItem("messages", JSON.stringify(messageList));
+      } catch (e) {
+        console.log("localStorage error!");
+      }
+      return () => {
+        console.log("컴포넌트 언마운트됨 디비에 저장");
+        //messages에 있는 배열집어넣기 (디비에)
+      };
+    }
+  }, [messageList]);
 
   function receivedMessage(message) {
     setMessages((oldMsgs) => [...oldMsgs, message]);
@@ -303,45 +364,6 @@ const Chatting = () => {
     });
   };
 
-  // const messageO = [
-  //   {
-  //     sender: "5fade54567f84b05d4f2d8f8",
-  //     name: "이메론",
-  //     text: "안녕",
-  //     sendDate: new Date("2020-11-12T13:06:42.119Z"),
-  //   },
-  //   {
-  //     sender: "5fade50d67f84b05d4f2d8f7",
-  //     name: "김사과",
-  //     text: "하세요ㅕ",
-  //     sendDate: new Date("2020-11-12T13:06:42.415Z"),
-  //   },
-  //   {
-  //     sender: "5fade50d67f84b05d4f2d8f7",
-  //     name: "김사과",
-  //     text: "123123",
-  //     sendDate: new Date("2020-11-12T13:06:53.675Z"),
-  //   },
-  //   {
-  //     sender: "5fade50d67f84b05d4f2d8f7",
-  //     name: "김사과",
-  //     text: "123",
-  //     sendDate: new Date("2020-11-12T13:11:07.118Z"),
-  //   },
-  //   {
-  //     sender: "5fade54567f84b05d4f2d8f8",
-  //     name: "이메론",
-  //     text: "12기기기기기3",
-  //     sendDate: new Date("2020-11-12T13:25:33.934Z"),
-  //   },
-  //   {
-  //     sender: "5fade50d67f84b05d4f2d8f7",
-  //     name: "김사과",
-  //     text: "1거고고ㅓ고23",
-  //     sendDate: new Date("2020-11-12T13:25:37.934Z"),
-  //   },
-  // ];
-
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -373,7 +395,7 @@ const Chatting = () => {
       <Col className="m-0 p-0">
         <ChattingBox>
           <div className="chatting-wrapper">
-            <Container ref={messagesRef}>
+            <Container ref={messagesRef} messages={messages}>
               <p className="chattingDate">{today}</p>
               {messages.map((message, index) => {
                 if (message.sender === member._id) {

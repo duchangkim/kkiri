@@ -45,6 +45,7 @@ export const getMessageList = async (ctx) => {
 };
 
 // 보이는 개수 제한
+// chat.get("/list/:limit", chatCtrl.messageList);
 export const messageList = async (ctx) => {
   const { member } = ctx.state;
   const { limit } = ctx.params;
@@ -59,7 +60,7 @@ export const messageList = async (ctx) => {
     console.log("asdfasdfasdfasdfad");
     // console.log(messageList);
 
-    ctx.body = messageList;
+    ctx.body = await messageList;
   } catch (e) {
     ctx.throw(500, e);
   }
