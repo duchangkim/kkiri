@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import CalendarHeaderContainer from './CalendarHeaderContainer';
 import CalenderSideContainer from './CalendarSideContainer';
 import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
+import LoadingPage from '../../pages/LoadingPage';
 
 const Styles = styled.div`
   display: flex;
@@ -169,6 +170,10 @@ const CalendarContainer = () => {
 
   if (scheduleError) {
     return <Styles> ERROR! </Styles>;
+  }
+
+  if (!calendars || !schedules) {
+    return <LoadingPage />;
   }
 
   return (
