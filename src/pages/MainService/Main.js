@@ -1,11 +1,11 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
-import { FcLike } from 'react-icons/fc';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
-import Popup from './Popup';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styled from "styled-components";
+import { FcLike } from "react-icons/fc";
+import { AiOutlinePlus } from "react-icons/ai";
+import { BsPeopleCircle, BsImageFill } from "react-icons/bs";
+import Popup from "./Popup";
 
 const LeftMainStyle = styled.div`
   width: 100%;
@@ -495,7 +495,7 @@ const LeftMainStyle = styled.div`
 /* ------------------------------------우측 ------------------------------ */
 const RightMainStyle = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   img {
     object-fit: cover;
   }
@@ -873,19 +873,19 @@ const RightMainStyle = styled.div`
 `;
 
 function Popup_Open() {
-  document.getElementById('Background-Choice').style.display = 'block';
+  document.getElementById("Background-Choice").style.display = "block";
 }
 
 function Profile_Open() {
-  document.getElementById('Profile-Choice').style.display = 'block';
+  document.getElementById("Profile-Choice").style.display = "block";
 }
 
 function Profile_Close() {
-  document.getElementById('Profile-Choice').style.display = 'none';
+  document.getElementById("Profile-Choice").style.display = "none";
 }
 
 function Main() {
-  const weathers = JSON.parse(localStorage.getItem('weather'));
+  const weathers = JSON.parse(localStorage.getItem("weather"));
   const icon = weathers.icon;
   const wethersImg = `http://openweathermap.org/img/wn/${icon}.png`;
 
@@ -901,42 +901,27 @@ function Main() {
               <div className="Profile-Choice" id="Profile-Choice">
                 <div className="Profile-Choice-Title">
                   <h4>프로필 설정 화면</h4>
-                  <AiOutlinePlus
-                    className="Profile_Close"
-                    onClick={Profile_Close}
-                  />
+                  <AiOutlinePlus className="Profile_Close" onClick={Profile_Close} />
                 </div>
                 <div className="Profile-Weather">
                   <div className="Profile-Weather-Img" id="ProfileWeatherImg">
                     <img src={wethersImg} width="100px" height="50px" />
                   </div>
                   <div className="Profile-Weather-Content">
-                    <div
-                      className="Profile-Weather-Local"
-                      id="ProfileWeatherLocal"
-                    >
+                    <div className="Profile-Weather-Local" id="ProfileWeatherLocal">
                       {weathers.place}
                     </div>
-                    <div
-                      className="Profile-Weather-Description"
-                      id="ProfileWeatherDescription"
-                    >
+                    <div className="Profile-Weather-Description" id="ProfileWeatherDescription">
                       {weathers.description}
                     </div>
-                    <div
-                      className="Profile-Weather-Temperature"
-                      id="ProfileWeatherTemperature"
-                    >
+                    <div className="Profile-Weather-Temperature" id="ProfileWeatherTemperature">
                       {weathers.temperature}
                     </div>
                   </div>
                 </div>
                 <div className="MyProfile">
                   <div className="ProfileIMG">
-                    <img
-                      src={require('../../images/bgbgbg.png')}
-                      alt="프로필 사진"
-                    />
+                    <img src={require("../../images/bgbgbg.png")} alt="프로필 사진" />
                   </div>
                   <div className="ProfileContent">
                     <ul>
@@ -949,13 +934,13 @@ function Main() {
                 </div>
               </div>
               <img
-                src={require('../../images/bgbg.png')}
+                src={require("../../images/bgbg.png")}
                 alt="배경화면"
                 className="background-Img"
               />
               <div className="Date-Love">
                 <img
-                  src={require('../../images/hamburger.png')}
+                  src={require("../../images/hamburger.png")}
                   alt="배경화면 설정"
                   id="Background-Option"
                   onClick={Popup_Open}
@@ -968,10 +953,7 @@ function Main() {
                 <div className="Left-Face">
                   <div className="L-Face">
                     <div className="Face">
-                      <img
-                        src={require('../../images/bgbgbg.png')}
-                        alt="좌측 프로필 사진"
-                      />
+                      <img src={require("../../images/bgbgbg.png")} alt="좌측 프로필 사진" />
                     </div>
                     <div className="Name">000</div>
                     {/* 반응형 */}
@@ -987,10 +969,7 @@ function Main() {
                 <div className="Right-Face">
                   <div className="R-Face">
                     <div className="Face">
-                      <img
-                        src={require('../../images/bgbgbg.png')}
-                        alt="우측 프로필 사진"
-                      />
+                      <img src={require("../../images/bgbgbg.png")} alt="우측 프로필 사진" />
                     </div>
                     <div className="Name">000</div>
                     {/* 반응형 */}
@@ -1039,10 +1018,7 @@ function Main() {
                     <BsImageFill className="Link_To_Img" onClick={Popup_Open} />
                   </li>
                   <li>
-                    <BsPeopleCircle
-                      className="Link_To_Img"
-                      onClick={Profile_Open}
-                    />
+                    <BsPeopleCircle className="Link_To_Img" onClick={Profile_Open} />
                   </li>
                 </ul>
               </div>
@@ -1050,7 +1026,7 @@ function Main() {
           </div>
         </LeftMainStyle>
       </Col>
-      <Col xl={7} md={7} className="m-0 p-0">
+      <Col xl={7} md={7} className="h-100 m-0 p-0">
         <RightMainStyle>
           <div className="Right-Main" id="Right-Main">
             <div className="Krikri-Mall">
@@ -1063,25 +1039,25 @@ function Main() {
                   <input type="radio" name="radio-btn" id="radio4" />
                   <div className="slide first">
                     <img
-                      src={require('../../images/issue1.jfif')}
+                      src={require("../../images/issue1.jfif")}
                       alt="새로운 이슈 첫번째 슬라이드"
                     />
                   </div>
                   <div className="slide">
                     <img
-                      src={require('../../images/date1.jfif')}
+                      src={require("../../images/date1.jfif")}
                       alt="새로운 이슈 두번째 슬라이드"
                     />
                   </div>
                   <div className="slide">
                     <img
-                      src={require('../../images/date2.jfif')}
+                      src={require("../../images/date2.jfif")}
                       alt="새로운 이슈 세번째 슬라이드"
                     />
                   </div>
                   <div className="slide">
                     <img
-                      src={require('../../images/date3.jfif')}
+                      src={require("../../images/date3.jfif")}
                       alt="새로운 이슈 네번째 슬라이드"
                     />
                   </div>
@@ -1101,31 +1077,19 @@ function Main() {
                   <input type="radio" name="auto-radio-btn" id="auto-radio3" />
                   <input type="radio" name="auto-radio-btn" id="auto-radio4" />
                   <div className="auto-slide first2">
-                    <img
-                      src={require('../../images/al8.png')}
-                      alt="데이트 추천장소 첫번째"
-                    />
+                    <img src={require("../../images/al8.png")} alt="데이트 추천장소 첫번째" />
                     <div className="auto-slide-text">자동 슬라이드1</div>
                   </div>
                   <div className="auto-slide">
-                    <img
-                      src={require('../../images/al7.png')}
-                      alt="데이트 추천장소 두번째"
-                    />
+                    <img src={require("../../images/al7.png")} alt="데이트 추천장소 두번째" />
                     <div className="auto-slide-text">자동 슬라이드2</div>
                   </div>
                   <div className="auto-slide">
-                    <img
-                      src={require('../../images/al6.png')}
-                      alt="데이트 추천장소 세번째"
-                    />
+                    <img src={require("../../images/al6.png")} alt="데이트 추천장소 세번째" />
                     <div className="auto-slide-text">자동 슬라이드3</div>
                   </div>
                   <div className="auto-slide">
-                    <img
-                      src={require('../../images/al5.png')}
-                      alt="데이트 추천장소 네번째"
-                    />
+                    <img src={require("../../images/al5.png")} alt="데이트 추천장소 네번째" />
                     <div className="auto-slide-text">자동 슬라이드4</div>
                   </div>
                   <div className="A-navigation-auto">
@@ -1136,29 +1100,17 @@ function Main() {
                   </div>
                 </div>
                 <div className="auto-navigation-manual">
-                  <label
-                    htmlFor="auto-radio1"
-                    className="auto-manual-btn"
-                  ></label>
-                  <label
-                    htmlFor="auto-radio2"
-                    className="auto-manual-btn"
-                  ></label>
-                  <label
-                    htmlFor="auto-radio3"
-                    className="auto-manual-btn"
-                  ></label>
-                  <label
-                    htmlFor="auto-radio4"
-                    className="auto-manual-btn"
-                  ></label>
+                  <label htmlFor="auto-radio1" className="auto-manual-btn"></label>
+                  <label htmlFor="auto-radio2" className="auto-manual-btn"></label>
+                  <label htmlFor="auto-radio3" className="auto-manual-btn"></label>
+                  <label htmlFor="auto-radio4" className="auto-manual-btn"></label>
                 </div>
               </div>
             </div>
             <div className="Krikri-Calendar">
               <h3>Calendar</h3>
               <img
-                src={require('../../images/plus.png')}
+                src={require("../../images/plus.png")}
                 className="Calender-Add"
                 alt="캘린더 설정"
               />
@@ -1180,52 +1132,30 @@ function Main() {
             </div>
             <div className="Krikri-Album">
               <h3>Album</h3>
-              <img
-                src={require('../../images/plus.png')}
-                className="Album-Add"
-                alt="앨범 설정"
-              />
+              <img src={require("../../images/plus.png")} className="Album-Add" alt="앨범 설정" />
               <Row className="m-0 p-0 To-Album" md={1}>
                 <Col className="Show-Album" md={2} sm={1}>
-                  <img
-                    src={require('../../images/al2.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al2.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img
-                    src={require('../../images/al3.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al3.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img
-                    src={require('../../images/al4.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al4.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img
-                    src={require('../../images/al5.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al5.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img
-                    src={require('../../images/al6.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al6.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
                 <Col className="Show-Album" md={2}>
-                  <img
-                    src={require('../../images/al7.png')}
-                    alt="첫번째 앨범"
-                  />
+                  <img src={require("../../images/al7.png")} alt="첫번째 앨범" />
                   <div className="Album-Date">2020-00-00</div>
                 </Col>
               </Row>

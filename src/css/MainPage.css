@@ -259,14 +259,14 @@
   height: 30px;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 5px;
+  margin-top: 25%;
   background: #cacaca77;
 }
 /* 날씨 부분 */
 .Krikri-Weather {
   width: 100%;
   position: relative;
-  top: -80%;
+  top: -75%;
   height: 25%;
   display: flex;
 }
@@ -357,6 +357,27 @@
 .Link_To_Img:hover {
   color: pink;
   cursor: pointer;
+}
+@media (max-width: 1000px) {
+  .Left-Face,
+  .Right-Face {
+    width: 10%;
+    text-align: center;
+  }
+  .L-Face {
+    position: relative;
+    left: -30%;
+    width: 10%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .R-Face {
+    position: relative;
+    right: -30%;
+    width: 10%;
+    height: 100%;
+    margin: 0 auto;
+  }
 }
 @media (max-width: 768px) {
   .Left-Main {
@@ -700,7 +721,7 @@
   width: 94%;
   height: 26vh;
   position: relative;
-  top: 2%;
+  top: 3%;
   margin-left: 3%;
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 1);
@@ -711,18 +732,6 @@
   margin-left: 3%;
   padding-top: 18px;
   color: rgba(255, 131, 141, 1);
-}
-/* 캘린더 추가 버튼 */
-.Calender-Add {
-  position: relative;
-  top: -20%;
-  left: 95%;
-  transform: translateY(-15%);
-  width: 35px;
-  height: 35px;
-}
-.Calender-Add:hover {
-  cursor: pointer;
 }
 /* 캘린더 알림 표시 Div 부분 */
 .To-Calendar {
@@ -762,7 +771,7 @@
   height: 26vh;
   background-color: rgba(255, 255, 255, 1);
   position: relative;
-  top: 2%;
+  top: 5%;
   margin-top: 12px;
   margin-left: 3%;
   border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
@@ -773,24 +782,10 @@
   padding-top: 18px;
   color: rgba(255, 131, 141, 1);
 }
-/* 앨범 추가 버튼 */
-.Album-Add {
-  position: relative;
-  top: -20%;
-  left: 95%;
-  transform: translateY(-15%);
-  width: 35px;
-  height: 35px;
-}
-/* 앨범 추가 버튼 hover */
-.Album-Add:hover {
-  cursor: pointer;
-}
-
 /* 앨범 표시 부분 row col */
 .To-Album {
   position: relative;
-  top: -17%;
+  top: 0%;
   width: 100%;
   height: 70%;
   overflow: hidden;
@@ -806,6 +801,7 @@
 }
 .Album-Date {
   width: 100%;
+  padding-top: 5%;
   text-align: left;
   font-size: 1.1rem;
 }
