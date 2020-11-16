@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 const RegisterCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, isSuccess } = useSelector(
+  const { form, auth, authError, isSuccess, member } = useSelector(
     ({ auth, member }) => ({
       form: auth.registercode,
       auth: auth.auth,
@@ -63,21 +63,23 @@ const RegisterCodeForm = ({ history }) => {
       console.log("코드인증 성공");
       console.log(auth);
       dispatch(check());
-      return this.setState({ change: true });
+      // return this.setState({ change: true });
     }
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
+    try {
+      localStorage.setItem("member", JSON.stringify(member));
+    } catch (e) {
+      console.log("localStorage error");
+    }
+
     if (isSuccess) {
       console.log("check API 성공");
       console.log(isSuccess);
       history.push("/register");
     }
-  }, [history, isSuccess]);
-
-  useEffect(() => {
-    dispatch(initializeForm("registercode"));
-  }, [dispatch]);
+  }, [history, isSuccess, member]);
 
   return (
     <AuthForm

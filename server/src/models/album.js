@@ -8,21 +8,31 @@ const AlbumSchema = new Schema({
   fileData: {
     files: {
       type: Array,
-      // default: [
-      //   {
-      //     idx: Number,
-      //     filename: String,
-      //     like: Boolean,
-      //     publishedDate: Date,
-      //     defaut: Date.now,
-      //   },
-      // ],
     },
   },
 });
 
 AlbumSchema.statics.findByCoupleShareCode = async function (coupleShareCode) {
   return await this.findOne({ coupleShareCode });
+};
+
+AlbumSchema.methods.deleteFile = async function (
+  fileData,
+  idx
+) {
+  console.log(this.fileData.files);
+  console.log(this.fileData[fileData]);
+  this.fileData[fileData] = await this.fileData[
+    fileData
+  ].filter(
+    (x, index, item) => index !== idx
+    );
+
+  console.log('여기드러옴?');
+  console.log(idx);
+
+
+  return this.fileData[fileData];
 };
 
 const Album = mongoose.model('Album', AlbumSchema);

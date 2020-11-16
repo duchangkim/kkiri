@@ -21,14 +21,13 @@ function Album({ albums, loading, error }) {
     return <>오류 발생!</>;
   }
   console.log('componenttttttttttt');
-  console.log(albums);
   console.dir(albums);
 
   if (albums) {
-    const { fileData } = albums;
-    let i = fileData.files.length;
-    console.log(albums);
-    console.log(i);
+    // const { fileData } = albums;
+    // let i = fileData.files.length;
+    // console.log(albums);
+    // console.log(i);
     return (
       <Row className="main-album m-0 p-0" md={2} sm={1}>
         <Col xl={12} md={12} className="m-0 p-0">
@@ -50,7 +49,7 @@ function Album({ albums, loading, error }) {
               <ul className="a-items">
                 {albums.fileData.files.map((album, index) => (
                     album.filename && (
-                      <Link to={`albums/${index}`} key={album.idx}>
+                      <Link to={`albums/${index}`} key={index}>
                         <li>
                           <img
                             src={`http://localhost:3000/uploads/${album.filename}` ? 

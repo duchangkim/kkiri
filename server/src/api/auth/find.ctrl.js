@@ -33,10 +33,14 @@ export const findpw = async (ctx) => {
     return;
   }
   try {
-    const member = await Member.findByMemberInfo(birthday, email, hp);
+    const member = await Member.findBypasswordInfo(birthday, email, hp);
+    const serializedMember = member.serialize();
+    ctx.body = serializedMember;
     console.log("---------비밀번호---------");
-    // ctx.state.member = serializedMember;
-    ctx.body = { message: 'success' };
+
+
+    const findEmail = ctx.body.email;
+    ctx.body = { message: 'success' ,findEmail};
   } catch (e) {
     ctx.throw(500, e);
   }

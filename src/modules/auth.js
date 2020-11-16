@@ -1,48 +1,48 @@
-import { createAction, handleActions } from "redux-actions";
-import { takeLatest } from "redux-saga/effects";
-import produce from "immer";
+import { createAction, handleActions } from 'redux-actions';
+import { takeLatest } from 'redux-saga/effects';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as authAPI from "../lib/api/auth";
+} from '../lib/createRequestSaga';
+import * as authAPI from '../lib/api/auth';
 
 // 액션타입 정의
-const CHANGE_FIELD = "auth/CHANGE_FIELD";
-const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  "auth/LOGIN"
+  'auth/LOGIN'
 );
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
-  "auth/REGISTER"
+  'auth/REGISTER'
 );
 const [
   REGISTERCODE,
   REGISTERCODE_SUCCESS,
   REGISTERCODE_FAILURE,
-] = createRequestActionTypes("auth/REGISTERCODE");
+] = createRequestActionTypes('auth/REGISTERCODE');
 const [
   REGISTEREMAIl,
   REGISTEREMAIl_SUCCESS,
   REGISTEREMAIl_FAILURE,
-] = createRequestActionTypes("auth/REGISTEREMAIl");
+] = createRequestActionTypes('auth/REGISTEREMAIl');
 const [
   REGISTERCOUPLE,
   REGISTERCOUPLE_SUCCESS,
   REGISTERCOUPLE_FAILURE,
-] = createRequestActionTypes("auth/REGISTERCOUPLE");
+] = createRequestActionTypes('auth/REGISTERCOUPLE');
 const [
   CREATECOUPLESET,
   CREATECOUPLESET_SUCCESS,
   CREATECOUPLESET_FAILURE,
-] = createRequestActionTypes("auth/CREATECOUPLESET");
+] = createRequestActionTypes('auth/CREATECOUPLESET');
 
 const [FINDID, FINDID_SUCCESS, FINDID_FAILURE] = createRequestActionTypes(
-  "auth/FINDID"
+  'auth/FINDID'
 );
 const [FINDPW, FINDPW_SUCCESS, FINDPW_FAILURE] = createRequestActionTypes(
-  "auth/FINDPW"
+  'auth/FINDPW'
 );
 
 // 액션 생성함수
@@ -81,7 +81,9 @@ export const registercouple = createAction(
   REGISTERCOUPLE,
   (couplecode) => couplecode
 );
-export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => ({_id}));
+export const createCoupleSet = createAction(CREATECOUPLESET, (_id) => ({
+  _id,
+}));
 
 export const findid = createAction(FINDID, ({ birthday, name, hp }) => ({
   birthday,
@@ -128,45 +130,47 @@ export function* authSaga() {
 // 초기값
 const initialState = {
   register: {
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    birthday: "",
-    name: "",
-    hp: "",
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    birthday: '',
+    name: '',
+    hp: '',
     isSuccess: false,
   },
   registeremail: {
     isSuccess: false,
-    email: "",
+    email: '',
   },
   registercode: {
     isSuccess: false,
   },
   registercouple: {
+    otherMember: null,
     isSuccess: false,
-    couplecode: "",
+    couplecode: '',
     error: null,
   },
   login: {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   },
   createCoupleSet: {
-    id: "",
+    id: '',
   },
   findid: {
-    birthday: "",
-    name: "",
-    hp: "",
+    birthday: '',
+    name: '',
+    hp: '',
     isSuccess: false,
-    findEmail:"",
+    findEmail: '',
   },
   findpw: {
-    birthday: "",
-    email: "",
-    hp: "",
+    birthday: '',
+    email: '',
+    hp: '',
     isSuccess: false,
+    findEmail: '',
   },
 };
 
@@ -195,9 +199,9 @@ const auth = handleActions(
       authError: error,
     }),
     [REGISTEREMAIl_SUCCESS]: (state, { payload: auth }) => {
-      console.log("~~~~~~~~~~~~~~!@#!@#!@#!#!@#");
+      console.log('~~~~~~~~~~~~~~!@#!@#!@#!#!@#');
       console.log(auth);
-      console.log("~~~~~~~~~~~~~~!@#!@#!@#!#!@#");
+      console.log('~~~~~~~~~~~~~~!@#!@#!@#!#!@#');
       return {
         ...state,
         authError: null,
@@ -207,11 +211,11 @@ const auth = handleActions(
         },
         register: {
           email: auth.email,
-          password: "",
-          passwordConfirm: "",
-          birthday: "",
-          name: "",
-          hp: "",
+          password: '',
+          passwordConfirm: '',
+          birthday: '',
+          name: '',
+          hp: '',
           isSuccess: true,
         },
       };
@@ -220,7 +224,7 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [REGISTERCODE_SUCCESS]: (state, { payload: auth }) => ({
+    [REGISTERCODE_SUCCESS]: (state) => ({
       ...state,
       authError: null,
       registercode: {
@@ -233,7 +237,10 @@ const auth = handleActions(
     }),
     [REGISTERCOUPLE_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error,
+      registercouple: {
+        ...state.registercouple,
+        error,
+      },
     }),
     [REGISTERCOUPLE_SUCCESS]: (state, { payload: otherMember }) => {
       console.log(otherMember);
@@ -277,12 +284,13 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [FINDPW_SUCCESS]: (state, { payload: auth }) => ({
+    [FINDPW_SUCCESS]: (state, { payload: result }) => ({
       ...state,
       authError: null,
       auth,
       findpw: {
         isSuccess: true,
+        findEmail: result.findEmail,
       },
     }),
     [FINDPW_FAILURE]: (state, { payload: error }) => ({

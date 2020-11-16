@@ -19,7 +19,8 @@ const [
 ] = createRequestActionTypes('couple/GET_COUPLE');
 
 // 액션 생성함수
-export const getCouple = createAction(GET_COUPLE);
+export const getCouple = createAction(GET_COUPLE, (coupleId) => ({ coupleId }));
+// console.log(getCouple(12312312));
 
 // 리듀서
 const couple = handleActions(

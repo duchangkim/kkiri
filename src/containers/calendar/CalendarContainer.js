@@ -45,7 +45,7 @@ const CalendarContainer = () => {
     };
   });
   const { calendars, calendarsError } = useSelector(({ calendar }) => {
-    // console.log(calendar);
+    console.log(calendar);
     return {
       calendars: calendar.calendars,
       calendarsError: calendar.calendarsError,

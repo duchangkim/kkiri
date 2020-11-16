@@ -42,8 +42,8 @@ const MemberSchema = new Schema({
   position: {
     type: Object,
     default: {
-      latitude: '',
-      longitude: '',
+      latitude: 37.499771,
+      longitude: 127.035168,
     },
   },
   // 회원별 메인화면 설정
@@ -66,15 +66,24 @@ MemberSchema.statics.findByEmail = function (email) {
   return this.findOne({ email });
 };
 
-MemberSchema.statics.findByMemberInfo = function (birthday, name, hp){
-  return this.findOne({ birthday: new Date(birthday), name, hp});
-}
+MemberSchema.statics.findByMemberInfo = function (birthday, name, hp) {
+  return this.findOne({ birthday: new Date(birthday), name, hp });
+};
+MemberSchema.statics.findBypasswordInfo = function (birthday, email, hp) {
+  return this.findOne({ birthday: new Date(birthday), email, hp });
+};
 
 MemberSchema.statics.findUserCode = function (code) {
   return this.findOne({ userCode: code });
 };
 
 MemberSchema.statics.findCoupleCode = function (code) {
+  return this.findOne({
+    coupleShareCode: code,
+  });
+};
+
+MemberSchema.statics.findByCoupleShareCode = function (code) {
   return this.findOne({
     coupleShareCode: code,
   });
@@ -123,8 +132,8 @@ MemberSchema.methods.generateToken = function () {
       _id: this.id,
       email: this.email,
       name: this.name,
-      hp : this.hp,
-      birthday : this.birthday,
+      hp: this.hp,
+      birthday: this.birthday,
       userCode: this.userCode,
       coupleId: this.coupleId,
       coupleShareCode: this.coupleShareCode,
@@ -145,6 +154,15 @@ MemberSchema.methods.generateToken = function () {
 MemberSchema.methods.insertPosition = function (position) {
   this.position = position;
 };
+
+MemberSchema.methods.insertGetTogetherDate = function (getTogetherDate) {
+  if (!getTogetherDate instanceof Date) {
+    this.getTogetherDate = new Date(getTogetherDate);
+    return;
+  }
+  this.getTogetherDate = getTogetherDate;
+};
+
 const Member = mongoose.model('Member', MemberSchema);
 
 export default Member;

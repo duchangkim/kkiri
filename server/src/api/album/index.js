@@ -6,11 +6,11 @@ const albums = new Router();
 albums.get('/', albumCtrl.list);
 albums.post("/fileupload", albumCtrl.fileupload);
 albums.get('/:idx', albumCtrl.getAlbumById ,albumCtrl.read);
+albums.delete('/:idx', checkLoggedIn, albumCtrl.remove);
+albums.patch('/:idx', albumCtrl.checkObjectId, albumCtrl.update);
 
-const album = new Router();
-album.delete('/', checkLoggedIn, albumCtrl.remove);
-album.patch('/:idx', albumCtrl.checkObjectId, albumCtrl.update);
+// const album = new Router();
 
-albums.use('/:id',album.routes());
+// albums.use('/:id',album.routes());
 
 export default albums;

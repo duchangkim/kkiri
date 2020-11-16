@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FcLike } from 'react-icons/fc';
 import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
+import { withRouter } from 'react-router-dom';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
 import ProfileSettingPopup from './ProfileSettingPopup';
 import BackgroundSettingPopup from './BackgroundSettingPopup';
@@ -18,13 +20,36 @@ const LeftMainBlock = styled.div`
   }
 `;
 
-const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
+const LeftMain = ({
+  myWeather,
+  yourWeather,
+  couple,
+  member,
+  onSaveButtonClick,
+  onDateInputChange,
+  dateInputValue,
+}) => {
+  const isLoad = [
+    myWeather,
+    yourWeather,
+    couple,
+    member,
+    onSaveButtonClick,
+    onDateInputChange,
+    dateInputValue,
+  ];
+
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
+
   const handleBackgroundSettingOpenClick = () =>
     setbackgroundSettingOpen(!backgroundSettingOpen);
 
   const myWeatherIconSrc = `http://openweathermap.org/img/wn/${myWeather.weather[0].icon}.png`;
   const yourWeatherIconSrc = `http://openweathermap.org/img/wn/${yourWeather.weather[0].icon}.png`;
+
+  if (isLoad.includes(null)) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <LeftMainBlock>
@@ -55,9 +80,27 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
             <div className="Love-Text">우리 함께한지</div>
             <FcLike className="Love" alt="하트" />
             <div className="Date">
-              {member.getTogetherDate
-                ? calculateDday(new Date(member.getTogetherDate))
-                : `만난 날짜를 입력하세요`}
+              {member.getTogetherDate !== null ? (
+                calculateDday(new Date(member.getTogetherDate))
+              ) : (
+                <InputGroup>
+                  <FormControl
+                    onChange={onDateInputChange}
+                    name="getTogetherDate"
+                    value={dateInputValue}
+                    type="date"
+                    placeholder="사귄 날짜를 입력해주세요"
+                  />
+                  <InputGroup.Append>
+                    <Button
+                      onClick={onSaveButtonClick}
+                      variant="outline-secondary"
+                    >
+                      저장
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              )}
             </div>
           </div>
           <div className="Love-Face">
@@ -79,9 +122,27 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
             <div className="Love-Text2">우리 함께한지</div>
             <FcLike className="Love2" alt="하트" />
             <div className="Date2">
-              {member.getTogetherDate
-                ? calculateDday(new Date(member.getTogetherDate))
-                : `만난 날짜를 입력하세요`}
+              {member.getTogetherDate !== null ? (
+                calculateDday(new Date(member.getTogetherDate))
+              ) : (
+                <InputGroup>
+                  <FormControl
+                    onChange={onDateInputChange}
+                    name="getTogetherDate"
+                    value={dateInputValue}
+                    type="date"
+                    placeholder="사귄 날짜를 입력해주세요"
+                  />
+                  <InputGroup.Append>
+                    <Button
+                      onClick={onSaveButtonClick}
+                      variant="outline-secondary"
+                    >
+                      저장
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              )}
             </div>
             {/* 끝 */}
             <div className="Right-Face">
@@ -149,4 +210,4 @@ const LeftMain = ({ myWeather, yourWeather, couple, member }) => {
   );
 };
 
-export default LeftMain;
+export default withRouter(LeftMain);

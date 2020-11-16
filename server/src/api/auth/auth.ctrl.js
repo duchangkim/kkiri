@@ -1,4 +1,4 @@
-import Member from "../../models/member";
+import Member from '../../models/member';
 
 export const login = async (ctx) => {
   const { email, password } = ctx.request.body;
@@ -26,7 +26,7 @@ export const login = async (ctx) => {
 
     ctx.body = serializedMember;
     const token = member.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -40,17 +40,19 @@ export const login = async (ctx) => {
 export const check = async (ctx) => {
   // console.log(ctx.state);
   // 로그인 상태 확인
-  console.log('check')
+  console.log('check');
   const { member } = ctx.state;
-  if (!member) {
+  console.log(member);
+  const fromDBMember = await Member.findById({ _id: member._id });
+  if (!fromDBMember) {
     ctx.status = 401;
     return;
   }
-  ctx.body = member;
+  ctx.body = await fromDBMember.serialize();
 };
 
 export const logout = async (ctx) => {
-  ctx.cookies.set("access_token");
+  ctx.cookies.set('access_token');
   ctx.status = 204;
 };
 

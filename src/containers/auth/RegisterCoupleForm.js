@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   changeField,
   initializeForm,
   registercouple,
   createCoupleSet,
-} from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
-import { check } from '../../modules/member';
-import { withRouter } from 'react-router-dom';
+} from "../../modules/auth";
+import AuthForm from "../../components/auth/AuthForm";
+import { check } from "../../modules/member";
+import { withRouter } from "react-router-dom";
 
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, otherMember, isSuccess } = useSelector(
+  const { form, auth, coupleCodeError, otherMember, isSuccess } = useSelector(
     ({ auth }) => {
       console.log(auth);
       return {
         form: auth.registercouple,
         auth: auth.auth,
-        authError: auth.authError,
+        coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
       };
     }
   );
+  const { member } = useSelector(({ member }) => member);
+  console.dir(member);
 
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: 'registercouple',
+        form: "registercouple",
         key: name,
         value,
       })
@@ -40,56 +42,49 @@ const CoupleCodeForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { couplecode } = form;
-    console.log('casdfasfasdfadsfasdfadsfouplecode');
+    console.log("casdfasfasdfadsfasdfadsfouplecode");
     console.log(couplecode);
-    if (couplecode === '') {
-      setError('코드를 입력하세요.');
+    if (couplecode === "") {
+      setError("코드를 입력하세요.");
       return;
     }
     dispatch(registercouple(couplecode));
   };
 
   useEffect(() => {
-    dispatch(initializeForm('registercouple'));
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (authError) {
-      if (authError.response.status === 409) {
-        setError('이미 존재하는 계정입니다.');
-        return;
-      }
-      setError('커플 인증 실패');
-      return;
-    }
-    if (auth) {
-      console.log('커플 인증 성공');
-      console.log(auth);
-      dispatch(check());
-    }
-    setError('');
-  }, [auth, authError, dispatch]);
-
-  useEffect(() => {
-    console.log(otherMember);
+    // 유저코드로 찾아온 멤버가 있으면 커플세트 만들어주는 api호출
     if (otherMember) {
-      console.log(otherMember._id);
+      console.log("유저코드로 찾아왔는가?");
       dispatch(createCoupleSet(otherMember._id));
-    } else if (auth.coupleShareCode) {
-      history.push('/kkiri/home');
       return;
     }
-  }, [dispatch, auth, otherMember, history]);
+  }, [otherMember, dispatch]);
 
   useEffect(() => {
-    if (auth.coupleShareCode) {
-      history.push('/kkiri/home');
+    // 유저코드로 상대방을 찾아오지 못했을 때
+    if (coupleCodeError) {
+      setError("상대방을 찾을 수 없습니다.");
       return;
     }
-  }, [history, auth]);
+  }, [coupleCodeError]);
 
-  if (!auth.userCode) {
-    return <h1>꺼지게</h1>;
+  useEffect(() => {
+    // 커플세트 만들어줬을 때 디비에서 멤버 체크 한번더
+    if (auth) {
+      dispatch(check());
+      return;
+    }
+  }, [auth, dispatch]);
+
+  useEffect(() => {
+    if (member.coupleShareCode) {
+      history.push("/kkiri/home");
+      return;
+    }
+  }, [history, member]);
+
+  if (!member.userCode) {
+    history.push("/kkiri/home");
   }
 
   return (
@@ -99,7 +94,7 @@ const CoupleCodeForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={auth.userCode}
+      myCode={member.userCode}
     />
   );
 };

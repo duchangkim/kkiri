@@ -93,6 +93,7 @@
 .Profile-Weather-Description {
   width: 100%;
   height: 33%;
+  font-size: 0.9rem;
 }
 .Profile-Weather-Temperature {
   width: 100%;
@@ -204,8 +205,22 @@
 }
 /* 몇일 사귄 날짜 */
 .Date {
+  margin: 10px;
   font-size: 2rem;
   font-weight: bold;
+}
+.Date button {
+  border: none;
+  background-color: #ff838d;
+  color: #ffffff;
+}
+.Date button:hover {
+  background-color: #ff949d;
+  color: #ffffff;
+}
+.Date button:active {
+  background-color: #ff6471;
+  color: #ffffff;
 }
 /* 개인 사진 Div */
 .Love-Face {
@@ -291,6 +306,8 @@
 .description {
   width: 100%;
   height: 22.5%;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
 }
 /* 온도 */
 .temperature {
@@ -710,7 +727,7 @@
 /* 캘린더 알림 표시 Div 부분 */
 .To-Calendar {
   position: relative;
-  top: -17%;
+  /* top: -17%; */
   width: 97%;
   height: 70%;
   margin-left: 3%;
@@ -723,65 +740,19 @@
   border-right: 3px solid rgba(115, 115, 115, 1);
   overflow: hidden;
 }
-/* 캘린더 좌측 알림 표시 부분 */
 .Left-List ul {
+  list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  font-size: 1.1rem;
-}
-/* 캘린더 좌측 알림 표시 부분 */
-.Left-List ul li {
-  margin: 10px 0px 10px 0px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  width: 100%;
   overflow: hidden;
 }
-/* 캘린더 좌측 알림 표시 사이즈 부분 */
-.Left-List ul li:first-child {
-  width: 30%;
-  margin-right: 15px;
-}
-/* 캘린더 좌측 알림 표시 사이즈 부분 */
-.Left-List ul li:nth-child(2) {
-  width: 40%;
-  text-align: center;
-}
-/* 캘린더 좌측 알림 표시 사이즈 부분 */
-.Left-List ul li:last-child {
-  margin-left: 15px;
-  margin-right: 2px;
-  width: 30%;
-  text-align: center;
-}
+
 /* 캘린더 우측 알림 표시 부분 */
 .Right-List {
   width: 50%;
   height: 100%;
   overflow: hidden;
-}
-/* 캘린더 우측 알림 표시 부분 */
-.Right-List ul {
-  display: flex;
-  font-size: 1.1rem;
-  margin-left: 28px;
-  padding: 0;
-}
-/* 캘린더 우측 알림 표시 부분 */
-.Right-List ul li {
-  margin: 10px 0px 10px 0px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-/* 캘린더 우측 알림 표시 사이즈 부분 */
-.Right-List ul li:first-child {
-  width: 30%;
-  margin-right: 15%;
-}
-/* 캘린더 우측 알림 표시 사이즈 부분 */
-.Right-List ul li:last-child {
-  width: 30%;
 }
 
 /* ------------------------------------------ 캘린더 부분 끝 -------------------------------------------- */

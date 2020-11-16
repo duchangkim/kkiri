@@ -1,10 +1,48 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
+import calculateDday from '../../lib/calculateDday';
 
 const RightMainBlock = styled.div``;
 
-const RightMain = () => {
+const ScheduleItem = styled.li`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  margin-bottom: 5px;
+`;
+
+const ScheduleTitle = styled.div`
+  width: 40%;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+const DdayListBlock = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
+const DdayItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  padding: 0 10px;
+  margin-bottom: 5px;
+`;
+
+const RightMain = ({ schedules, dDays }) => {
+  console.log(dDays);
+
+  if (!schedules || !dDays) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <RightMainBlock>
       <div className="Right-Main" id="Right-Main">
@@ -99,25 +137,33 @@ const RightMain = () => {
           </div>
         </div>
         <div className="Krikri-Calendar">
-          <h3>Calendar</h3>
-          <img
-            src={require('../../images/plus.png')}
-            className="Calender-Add"
-            alt="캘린더 설정"
-          />
+          <Link to="/kkiri/calendar">
+            <h3>Calendar</h3>
+          </Link>
           <div className="To-Calendar">
             <div className="Left-List">
               <ul>
-                <li>20-00-00</li>
-                <li>TitleTitleTitleTitleTitle</li>
-                <li>00000</li>
+                {schedules.map((schedule) => (
+                  <ScheduleItem key={schedule.id}>
+                    <div>
+                      {schedule.start.getFullYear()}년{' '}
+                      {schedule.start.getMonth() + 1}월{' '}
+                      {schedule.start.getDate()}일
+                    </div>
+                    <ScheduleTitle>{schedule.title}</ScheduleTitle>
+                  </ScheduleItem>
+                ))}
               </ul>
             </div>
             <div className="Right-List">
-              <ul>
-                <li>20-00-00</li>
-                <li>D-000</li>
-              </ul>
+              <DdayListBlock>
+                {dDays.map((dDay) => (
+                  <DdayItem>
+                    <div>{dDay.title}</div>
+                    <div>{calculateDday(new Date(dDay.start))}</div>
+                  </DdayItem>
+                ))}
+              </DdayListBlock>
             </div>
           </div>
         </div>
