@@ -707,7 +707,7 @@ const RightMainStyle = styled.div`
     width: 94%;
     height: 26vh;
     position: relative;
-    top: 2%;
+    top: 3%;
     margin-left: 3%;
     margin-top: 30px;
     background-color: rgba(255, 255, 255, 1);
@@ -718,18 +718,6 @@ const RightMainStyle = styled.div`
     margin-left: 3%;
     padding-top: 18px;
     color: rgba(255, 131, 141, 1);
-  }
-  /* 캘린더 추가 버튼 */
-  .Calender-Add {
-    position: relative;
-    top: -20%;
-    left: 95%;
-    transform: translateY(-15%);
-    width: 35px;
-    height: 35px;
-  }
-  .Calender-Add:hover {
-    cursor: pointer;
   }
   /* 캘린더 알림 표시 Div 부분 */
   .To-Calendar {
@@ -815,7 +803,7 @@ const RightMainStyle = styled.div`
     height: 26vh;
     background-color: rgba(255, 255, 255, 1);
     position: relative;
-    top: 2%;
+    top: 5%;
     margin-top: 12px;
     margin-left: 3%;
     border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
@@ -825,19 +813,6 @@ const RightMainStyle = styled.div`
     margin-left: 3%;
     padding-top: 18px;
     color: rgba(255, 131, 141, 1);
-  }
-  /* 앨범 추가 버튼 */
-  .Album-Add {
-    position: relative;
-    top: -20%;
-    left: 95%;
-    transform: translateY(-15%);
-    width: 35px;
-    height: 35px;
-  }
-  /* 앨범 추가 버튼 hover */
-  .Album-Add:hover {
-    cursor: pointer;
   }
 
   /* 앨범 표시 부분 row col */

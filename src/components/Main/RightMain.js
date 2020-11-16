@@ -42,12 +42,32 @@ const DdayItem = styled.li`
   margin-bottom: 5px;
 `;
 
-const RightMain = ({ schedules, dDays }) => {
+const AlbumItem = styled.div`
+  width: 95%;
+  margin: 0 auto;
+  height: 70%;
+  display: flex;
+  .price {
+    width: 23%;
+    height: 100%;
+    margin-right: 0.5rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+`;
+
+const RightMain = ({ schedules, dDays, albums }) => {
   console.log(dDays);
 
-  if (!schedules || !dDays) {
+  if (!schedules || !dDays || !albums) {
     return <h1>Loading...</h1>;
   }
+
+  console.log("컴포넌트 라이트메인");
+  console.log(albums);
 
   return (
     <RightMainBlock>
@@ -152,32 +172,16 @@ const RightMain = ({ schedules, dDays }) => {
           <Link to="/kkiri/albums">
             <h3>Album</h3>
           </Link>
-          <Row className="m-0 p-0 To-Album" md={1}>
-            <Col className="Show-Album" md={2} sm={1}>
-              <img src={require("../../images/al2.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require("../../images/al3.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require("../../images/al4.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require("../../images/al5.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require("../../images/al6.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require("../../images/al7.png")} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-          </Row>
+          <AlbumItem>
+            {albums.fileData.files.slice(0, 5).map(
+              (album, index) =>
+                album.filename && (
+                  <div className="price" key={index}>
+                    <img src={`http://localhost:3000/uploads/${album.filename}`} />
+                  </div>
+                )
+            )}
+          </AlbumItem>
         </div>
       </div>
     </RightMainBlock>
