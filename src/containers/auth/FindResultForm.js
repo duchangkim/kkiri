@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm } from '../../modules/auth';
 import FindForm from '../../components/auth/FindForm';
-import { check } from '../../modules/member';
 import { withRouter } from 'react-router-dom';
 
 const FindResultForm = ({ history }) => {

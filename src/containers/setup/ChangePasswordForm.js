@@ -2,20 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, changepassword } from '../../modules/setUp';
 import PasswordForm from '../../components/setup/PasswordForm';
-import { check } from '../../modules/member';
 import { withRouter } from 'react-router-dom';
 
 const ChangePasswordForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, setup, authError, member,findEmail } = useSelector(
+  const { form, setup, authError,findEmail,isSuccess } = useSelector(
     ({ setup, member,auth }) => {
       return {
         form: setup.changepassword,
         setup: setup.setup,
         authError: setup.authError,
-        member: member.member,
         findEmail: auth.findpw.findEmail,
+        isSuccess: setup.changepassword.isSuccess,
       };
     }
   );
@@ -47,8 +46,9 @@ const ChangePasswordForm = ({ history }) => {
       return;
     }
     if (!password.match(password_check)) {
-      return setError("숫자와 문자 포함 6~12자리을 입력해주세요.");
-    } else if (password !== passwordConfirm) {
+      return setError("비밀번호 6~12자리을 입력해주세요.");
+    
+    }else if (password !== passwordConfirm) {
       setError("비밀번호가 일치하지 않습니다.");
       dispatch(changeField({ form: "register", key: "password", value: "" }));
       dispatch(
@@ -70,32 +70,19 @@ const ChangePasswordForm = ({ history }) => {
       // setError("회원가입 실패");
       return;
     }
-    if (setup) {
-      console.log("성공");
-      console.log(setup);
-      dispatch(check());
-      return;
-    }
   }, [setup, authError, dispatch, error]);
 
   useEffect(() => {
-    if (member) {
-      console.log(`check API success`);
-      console.log(member);
+    if (isSuccess) {
+      console.log(`success`);
+      console.log(isSuccess);
       history.push("/");
-      try {
-        localStorage.getItem("member", JSON.stringify(member));
-      } catch (e) {
-        console.log("localStorage error");
-      }
     }
-  }, [member, history]);
+  }, [isSuccess, history]);
 
   useEffect(() => {
     dispatch(initializeForm('changepassword'));
-    dispatch(initializeForm("findpw"));
   }, [dispatch]);
-
 
   return (
     <PasswordForm
