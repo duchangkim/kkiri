@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import { useSelector } from "react-redux";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -227,6 +228,17 @@ const Chatting = () => {
   const [message, setMessage] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
+  console.log(messages);
+
+  const { member } = useSelector(({ member }) => ({
+    member: member.member,
+  }));
+
+  // api 만들고
+  // 클라이언트 api (axios) 만들고
+  // reducer 만들고
+  // 컴포넌트에서 dispatch()
+
   const socketRef = useRef();
   console.log(socketRef + "socketRef");
 
@@ -257,9 +269,14 @@ const Chatting = () => {
   function sendMessage(e) {
     e.preventDefault();
     const messageObject = {
-      body: message,
-      id: 2491378,
-      coupleShareCode: 6224893,
+      // body: message,
+      // id: member._id,
+      // name: member.name,
+      coupleShareCode: member.coupleShareCode,
+      sender: member._id,
+      name: member.name,
+      text: message,
+      sendDate: new Date(Date.now()),
     };
     setMessage("");
     socketRef.current.emit("send message", messageObject);
@@ -286,6 +303,45 @@ const Chatting = () => {
     });
   };
 
+  // const messageO = [
+  //   {
+  //     sender: "5fade54567f84b05d4f2d8f8",
+  //     name: "이메론",
+  //     text: "안녕",
+  //     sendDate: new Date("2020-11-12T13:06:42.119Z"),
+  //   },
+  //   {
+  //     sender: "5fade50d67f84b05d4f2d8f7",
+  //     name: "김사과",
+  //     text: "하세요ㅕ",
+  //     sendDate: new Date("2020-11-12T13:06:42.415Z"),
+  //   },
+  //   {
+  //     sender: "5fade50d67f84b05d4f2d8f7",
+  //     name: "김사과",
+  //     text: "123123",
+  //     sendDate: new Date("2020-11-12T13:06:53.675Z"),
+  //   },
+  //   {
+  //     sender: "5fade50d67f84b05d4f2d8f7",
+  //     name: "김사과",
+  //     text: "123",
+  //     sendDate: new Date("2020-11-12T13:11:07.118Z"),
+  //   },
+  //   {
+  //     sender: "5fade54567f84b05d4f2d8f8",
+  //     name: "이메론",
+  //     text: "12기기기기기3",
+  //     sendDate: new Date("2020-11-12T13:25:33.934Z"),
+  //   },
+  //   {
+  //     sender: "5fade50d67f84b05d4f2d8f7",
+  //     name: "김사과",
+  //     text: "1거고고ㅓ고23",
+  //     sendDate: new Date("2020-11-12T13:25:37.934Z"),
+  //   },
+  // ];
+
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -307,6 +363,11 @@ const Chatting = () => {
   }
   const time = timehours + ":" + timeminutes;
 
+  const dateFormat = (sendDate) => {
+    console.log(sendDate);
+    return `${new Date(sendDate).getHours()}시 : ${new Date(sendDate).getMinutes()}분`;
+  };
+
   return (
     <Row className="main-contents m-0 p-0">
       <Col className="m-0 p-0">
@@ -315,23 +376,23 @@ const Chatting = () => {
             <Container ref={messagesRef}>
               <p className="chattingDate">{today}</p>
               {messages.map((message, index) => {
-                if (message.id === yourID) {
+                if (message.sender === member._id) {
                   return (
                     <MyRow className="MyRow" key={index}>
                       <div className="profile">
-                        <div className="name">김사과</div>
+                        <div className="name">{message.name}</div>
                       </div>
-                      <MyMessage className="MyMessage">{message.body}</MyMessage>
-                      <div className="Time">{time}</div>
+                      <MyMessage className="MyMessage">{message.text}</MyMessage>
+                      <div className="Time">{dateFormat(message.sendDate)}</div>
                     </MyRow>
                   );
                 }
                 return (
                   <PartnerRow className="PartnerRow" key={index}>
-                    <PartnerMessage className="PartnerMessage">{message.body}</PartnerMessage>
-                    <div className="Time2">{time}</div>
+                    <PartnerMessage className="PartnerMessage">{message.text}</PartnerMessage>
+                    <div className="Time2">{dateFormat(message.sendDate)}</div>
                     <div className="profile2">
-                      <div className="name">반하나</div>
+                      <div className="name">{message.name}</div>
                     </div>
                   </PartnerRow>
                 );
@@ -350,18 +411,20 @@ const Chatting = () => {
                 skinTone={SKIN_TONE_MEDIUM_DARK}
               />
             </div>
-            <div className="chatting-send">
-              <form onSubmit={sendMessage}>
-                <button className="btn-plus">+</button>
-                <input
-                  type="text"
-                  value={message}
-                  onChange={handleChange}
-                  onKeyPress={handleKeyPress}
-                />
-                <button className="btn-send">send</button>
-              </form>
-            </div>
+            {member && (
+              <div className="chatting-send">
+                <form onSubmit={sendMessage}>
+                  <button className="btn-plus">+</button>
+                  <input
+                    type="text"
+                    value={message}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                  />
+                  <button className="btn-send">send</button>
+                </form>
+              </div>
+            )}
           </div>
         </ChattingBox>
       </Col>

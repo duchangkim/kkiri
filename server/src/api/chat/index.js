@@ -6,5 +6,6 @@ const chat = new Router();
 
 chat.post("/", chatCtrl.saveMessage);
 chat.get("/", chatCtrl.getMessageList);
+chat.get("/list/:limit", chatCtrl.messageList);
 
 export default chat;
