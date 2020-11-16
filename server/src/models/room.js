@@ -20,17 +20,6 @@ RoomSchema.statics.findCoupleCode = async function (code) {
   });
 };
 
-// common methods
-/**
- * newData에 자동 증가하는 id값을 부여한다.
- * calendarData("calendars", "schedules", "dDay")에 id값 부여된 newData를 추가한 후 그 결과를 반환함.
- *
- * @method pushMessageData
- * @param {String} chattingData 추가할 대상 문자열 ("calendars", "schedules", "dDay")
- * @param {Object} newData 추가 하고자 하는 calendarData 요소
- * @return {Array} 추가된 calendarData 리스트를 반환함
- */
-
 //  룸 코드를 받아야함
 RoomSchema.methods.pushMessageData = async function (chattingData) {
   await this.chattingData.push(chattingData);
@@ -49,11 +38,22 @@ RoomSchema.methods.getSortedMessageList = async function (limit) {
     const aDate = new Date(a.sendDate);
     const bDate = new Date(b.sendDate);
 
-    return aDate - bDate;
+    return bDate - aDate;
   });
-  const messagePerPage = 5;
+  const messagePerPage = 10;
 
-  return sortedMessageList.slice(limit * messagePerPage, limit * messagePerPage + 5);
+  return sortedMessageList.slice(limit * messagePerPage, limit * messagePerPage + messagePerPage)
+    .sort((a, b) => {
+      const aDate = new Date(a.sendDate);
+      const bDate = new Date(b.sendDate);
+  
+      return aDate - bDate;
+    });
 };
+
+RoomSchema.methods.insertMessageList = async function (newMessageList) {
+  await this.chattingData.push.apply(this.chattingData, newMessageList);
+}
+
 const Room = mongoose.model("Room", RoomSchema);
 export default Room;

@@ -52,15 +52,6 @@ io.on("connection", (socket) => {
   socket.emit("your id", socket.id);
   socket.on("send message", async (body) => {
     io.emit("message", body);
-    console.log(body);
-    const msg = await Room.findCoupleCode(body.coupleShareCode);
-    console.log(msg + "메세지");
-    msg.chattingData.push({
-      sender: body.id,
-      text: body.body,
-      sendDate: new Date(),
-    });
-    msg.save();
   });
 });
 

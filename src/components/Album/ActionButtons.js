@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { IoIosTrash } from 'react-icons/io'
 import AskRemoveModal from './AskRemoveModal'
-import { removeFile } from '../../lib/api/album';
 
 const UpdBlock = styled.div`
     width: 70%;
@@ -28,12 +26,13 @@ const ActionButton = styled.button`
     }
 
     & + & {
-      margin-left: 10px;
+      margin-left: 0.75rem;
     }
 `
 
-const ActionButtons = ({ onRemove, onEdit }) => {
+const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
+  console.log('11111111313'+likes);
 
   const onRemoveClick = () => {
     setModal(true);
@@ -48,7 +47,9 @@ const ActionButtons = ({ onRemove, onEdit }) => {
   return (
     <>
       <UpdBlock>
-        <ActionButton onClick={onEdit}>즐겨찾기</ActionButton>
+        <ActionButton onClick={onEdit}>
+          {likes === true ? (<span>취소</span>) : (<span>좋아연</span>)}
+        </ActionButton>
         <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
       </UpdBlock>
       <AskRemoveModal

@@ -47,7 +47,7 @@ function Album({ albums, loading, error }) {
           <div className="album-itembox">
             {!loading && albums.fileData.files && (
               <ul className="a-items">
-                {albums.fileData.files.map((album, index) => (
+                {albums.fileData.files.sort(function(a,b) {return b.idx-a.idx;}).map((album, index) => (
                     album.filename && (
                       <Link to={`albums/${index}`} key={index}>
                         <li>
