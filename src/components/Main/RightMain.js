@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import calculateDday from '../../lib/calculateDday';
+import { func } from 'joi';
 
-const RightMainBlock = styled.div``;
+const RightMainBlock = styled.div`
+  height: 100%
+`;
 
 const ScheduleItem = styled.li`
   width: 100%;
@@ -188,11 +191,11 @@ const RightMain = ({ schedules, dDays, albums }) => {
           </div>
         </div>
         <div className="Krikri-Album">
-          <Link to="/kkiri/calendar">
+          <Link to="/kkiri/albums">
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.fileData.files.slice(0, 5).map((album, index) => (
+            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.idx-a.idx;}).map((album, index) => (
               album.filename && (
                 <div className="price" key={index}>
                   <img src={`http://localhost:3000/uploads/${album.filename}`}/>
