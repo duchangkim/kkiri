@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   changeField,
-  // initializeForm,
+  initializeForm,
   registercouple,
   createCoupleSet,
-} from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
-import { check } from '../../modules/member';
-import { withRouter } from 'react-router-dom';
+} from "../../modules/auth";
+import AuthForm from "../../components/auth/AuthForm";
+import { check } from "../../modules/member";
+import { withRouter } from "react-router-dom";
 
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember } = useSelector(
+  const { form, auth, coupleCodeError, otherMember, isSuccess } = useSelector(
     ({ auth }) => {
       console.log(auth);
       return {
@@ -21,6 +21,7 @@ const CoupleCodeForm = ({ history }) => {
         auth: auth.auth,
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
+        isSuccess: auth.registercouple.isSuccess,
       };
     }
   );
@@ -31,7 +32,7 @@ const CoupleCodeForm = ({ history }) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: 'registercouple',
+        form: "registercouple",
         key: name,
         value,
       })
@@ -41,10 +42,10 @@ const CoupleCodeForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { couplecode } = form;
-    console.log('casdfasfasdfadsfasdfadsfouplecode');
+    console.log("casdfasfasdfadsfasdfadsfouplecode");
     console.log(couplecode);
-    if (couplecode === '') {
-      setError('코드를 입력하세요.');
+    if (couplecode === "") {
+      setError("코드를 입력하세요.");
       return;
     }
     dispatch(registercouple(couplecode));
@@ -53,7 +54,7 @@ const CoupleCodeForm = ({ history }) => {
   useEffect(() => {
     // 유저코드로 찾아온 멤버가 있으면 커플세트 만들어주는 api호출
     if (otherMember) {
-      console.log('유저코드로 찾아왔는가?');
+      console.log("유저코드로 찾아왔는가?");
       dispatch(createCoupleSet(otherMember._id));
       return;
     }
@@ -62,7 +63,7 @@ const CoupleCodeForm = ({ history }) => {
   useEffect(() => {
     // 유저코드로 상대방을 찾아오지 못했을 때
     if (coupleCodeError) {
-      setError('상대방을 찾을 수 없습니다.');
+      setError("상대방을 찾을 수 없습니다.");
       return;
     }
   }, [coupleCodeError]);
@@ -77,13 +78,13 @@ const CoupleCodeForm = ({ history }) => {
 
   useEffect(() => {
     if (member.coupleShareCode) {
-      history.push('/kkiri/home');
+      history.push("/kkiri/home");
       return;
     }
   }, [history, member]);
 
   if (!member.userCode) {
-    history.push('/kkiri/home');
+    history.push("/kkiri/home");
   }
 
   return (

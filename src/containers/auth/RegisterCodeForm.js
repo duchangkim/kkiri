@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm, registercode } from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
-import { check } from '../../modules/member';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeField, initializeForm, registercode } from "../../modules/auth";
+import AuthForm from "../../components/auth/AuthForm";
+import { check } from "../../modules/member";
+import { withRouter } from "react-router-dom";
 
 const RegisterCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const RegisterCodeForm = ({ history }) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: 'registercode',
+        form: "registercode",
         key: name,
         value,
       })
@@ -32,35 +32,35 @@ const RegisterCodeForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { emailcode } = form;
-    console.log('submit', emailcode);
+    console.log("submit", emailcode);
     const emailcode_check = /[^0-9]/g;
-    if (emailcode === '') {
-      setError('코드를 입력하세요.');
+    if (emailcode === "") {
+      setError("코드를 입력하세요.");
       return;
     } else if (emailcode.match(emailcode_check)) {
       console.log(emailcode.match);
-      setError('숫자만 입력하세요.');
+      setError("숫자만 입력하세요.");
       return;
     }
     dispatch(registercode({ emailcode }));
   };
 
   useEffect(() => {
-    dispatch(initializeForm('registercode'));
+    dispatch(initializeForm("registercode"));
   }, [dispatch]);
 
   useEffect(() => {
     if (authError) {
       if (authError.response.status === 409) {
-        setError('이미 존재하는 계정명입니다.');
+        setError("이미 존재하는 계정명입니다.");
         return;
       }
       console.log(authError);
-      setError('코드가 같지 않습니다.');
+      setError("코드가 같지 않습니다.");
       return;
     }
     if (auth) {
-      console.log('코드인증 성공');
+      console.log("코드인증 성공");
       console.log(auth);
       dispatch(check());
       // return this.setState({ change: true });
@@ -69,21 +69,17 @@ const RegisterCodeForm = ({ history }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('member', JSON.stringify(member));
+      localStorage.setItem("member", JSON.stringify(member));
     } catch (e) {
-      console.log('localStorage error');
+      console.log("localStorage error");
     }
 
     if (isSuccess) {
-      console.log('check API 성공');
+      console.log("check API 성공");
       console.log(isSuccess);
-      history.push('/register');
+      history.push("/register");
     }
   }, [history, isSuccess, member]);
-
-  useEffect(() => {
-    dispatch(initializeForm('registercode'));
-  }, [dispatch]);
 
   return (
     <AuthForm
