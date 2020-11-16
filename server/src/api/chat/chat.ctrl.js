@@ -39,7 +39,29 @@ export const getMessageList = async (ctx) => {
     return;
   }
 
-  console.log(room);
+  // console.log(room);
   const chattingData = room.chattingData;
   ctx.body = chattingData;
+};
+
+// 보이는 개수 제한
+// chat.get("/list/:limit", chatCtrl.messageList);
+export const messageList = async (ctx) => {
+  const { member } = ctx.state;
+  const { limit } = ctx.params;
+  console.log(limit);
+  // console.log(member);
+  console.log(member.coupleShareCode);
+  try {
+    const room = await Room.findCoupleCode(Number(member.coupleShareCode));
+    // console.log(room);
+    const messageList = await room.getSortedMessageList(limit);
+
+    console.log("asdfasdfasdfasdfad");
+    // console.log(messageList);
+
+    ctx.body = await messageList;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
