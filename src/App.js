@@ -25,7 +25,7 @@ function App() {
       <Route component={FindPwPage} path="/findpw" />
       <Route component={FindResultPage} path="/findresult" />
       <Route component={ChangePasswordPage} path="/changepassword" />
-      <Route path="/kkiri/home" component={MainService} />
+      <Route path="/kkiri" component={MainService} />
     </>
   );
 }
