@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, findpw } from "../../modules/auth";
 import FindForm from "../../components/auth/FindForm";
-import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
 
 const FindPwForm = ({ history }) => {
@@ -68,7 +67,6 @@ const FindPwForm = ({ history }) => {
     }
     if (auth) {
       console.log("비밀번호 찾기 성공"); 
-      dispatch(check());
     }
   }, [auth, authError, dispatch]);
 

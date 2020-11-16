@@ -65,3 +65,21 @@ export const messageList = async (ctx) => {
     ctx.throw(500, e);
   }
 };
+
+export const insertMessageList = async (ctx) => {
+  console.log('여기가 인서트메시지리스트 입니다. 환영합니다.')
+  const { member } = ctx.state;
+  const newMessageList = ctx.request.body
+  console.log(newMessageList)
+  console.log(Array.isArray(newMessageList));
+
+  try {
+    const room = await Room.findCoupleCode(member.coupleShareCode);
+    await room.insertMessageList(newMessageList);
+    await room.save();
+
+    ctx.body = true;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+}

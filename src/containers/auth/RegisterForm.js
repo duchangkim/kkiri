@@ -38,13 +38,13 @@ const RegisterForm = ({ history }) => {
     const name_check = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
     const birthday_check = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
     const hp_check = /^\d{2,3}-\d{3,4}-\d{4}$/;
-
-    if ([email, password, passwordConfirm, birthday, name, hp].includes("")) {
-      setError("빈 칸을 모두 입력하세요.");
-      return;
+    
+    if ([ email, password, passwordConfirm, birthday, name, hp ].includes("")) {
+        setError('빈 칸을 모두 입력하세요.');
+        return;
     }
     if (!password.match(password_check)) {
-      return setError("숫자와 문자 포함 6~12자리을 입력해주세요.");
+      return setError("비밀번호 6~12자리을 입력해주세요.");
     } else if (password !== passwordConfirm) {
       setError("비밀번호가 일치하지 않습니다.");
       dispatch(changeField({ form: "register", key: "password", value: "" }));

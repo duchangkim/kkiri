@@ -50,6 +50,12 @@ const FindFormBlock = styled.div`
   input:focus::-webkit-input-placeholder {
     color: transparent;
   }
+  h1{
+    font-size: 28px;
+  }
+  p{
+    margin-bottom: 2px;
+  }
 `;
 
 const Footer = styled.div`

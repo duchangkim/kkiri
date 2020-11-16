@@ -6,17 +6,15 @@ import { Link } from "react-router-dom";
 const buttonStyle = css`
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: bold;
   padding: 0.25rem 1rem;
   color: white;
   outline: none;
   cursor: pointer;
 
-  background: #f58cb4;
   &:hover {
-    background: #f58cb49d;
-    color: #fff;
+    color: #000;
   }
   &:focus {
     outline: none;
@@ -38,6 +36,7 @@ const buttonStyle = css`
       padding: 0.5rem 0;
       &:hover {
         background: #f58cb49d;
+        color: #fff;
       }
     `}
 `;
