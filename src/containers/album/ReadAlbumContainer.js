@@ -6,8 +6,8 @@ import ReadAlbum from '../../components/Album/ReadAlbum';
 
 const ReadAlbumContainer = ({ match }) => {
   const albumIdx  = match.params.idx;
-  console.log(match);
-  console.log(albumIdx);
+  // console.log(match);
+  // console.log(albumIdx);
   const dispatch = useDispatch();
   const { album, error, loading } = useSelector(({ album, loading }) => {
     return({
@@ -16,8 +16,8 @@ const ReadAlbumContainer = ({ match }) => {
       loading: loading['album/READ_ALBUM']
     })
   });
-  console.log('44444444');
-  console.dir(album);
+  // console.log('44444444');
+  // console.dir(album);
 
   useEffect(() => {
     console.log('readalbum girit~~')
