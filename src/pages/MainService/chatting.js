@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import { useSelector, useDispatch } from "react-redux";
+import { getChatList } from "../../modules/chat";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -222,10 +224,29 @@ const PartnerMessage = styled.div`
 `;
 
 const Chatting = () => {
+  const dispatch = useDispatch();
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  console.log(messages);
+
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
+
+  const { member } = useSelector(({ member }) => ({
+    member: member.member,
+  }));
+  const { messageList, messageListError } = useSelector(({ chat }) => ({
+    messageList: chat.messageList,
+    messageListError: chat.messageListError,
+  }));
+
+  // api 만들고
+  // 클라이언트 api (axios) 만들고
+  // reducer 만들고
+  // 컴포넌트에서 dispatch()
 
   const socketRef = useRef();
   console.log(socketRef + "socketRef");
@@ -250,6 +271,58 @@ const Chatting = () => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages]);
 
+  // 로컬스토리지에 저장하는 함수
+  // useEffect(() => {
+  //   if (message) {
+  //     console.log(message + "useEffect에 찍히는 콘솔");
+  //     try {
+  //       localStorage.setItem("message", JSON.stringify(message));
+  //     } catch (e) {
+  //       console.log("localStorage error");
+  //     }
+  //   }
+  // });
+
+  // 로컬스토리지에서 화면에 보여주는 함수
+  // useEffect(() => {
+  //   let arr = [];
+  //   for (var i = 0; i < localStorage.length; i++) {
+  //     let obj = {
+  //       message: localStorage.text.key(i),
+  //     };
+  //     arr[i] = obj;
+  //   }
+  //   console.log(arr);
+  // });
+
+  // useEffect(() => {
+  //   try {
+  //     localStorage.setItem("messages", JSON.stringify(messages));
+  //   } catch (e) {
+  //     console.log("localStorage error!");
+  //   }
+  // }, [messages]);
+
+  useEffect(() => {
+    console.log("컴포넌트 렌더링됨");
+    // 디비에서 메시지 리스트 받아와서 로컬스토리지에 넣어주기
+    dispatch(getChatList(1));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (messageList) {
+      try {
+        localStorage.setItem("messages", JSON.stringify(messageList));
+      } catch (e) {
+        console.log("localStorage error!");
+      }
+      return () => {
+        console.log("컴포넌트 언마운트됨 디비에 저장");
+        //messages에 있는 배열집어넣기 (디비에)
+      };
+    }
+  }, [messageList]);
+
   function receivedMessage(message) {
     setMessages((oldMsgs) => [...oldMsgs, message]);
   }
@@ -257,9 +330,14 @@ const Chatting = () => {
   function sendMessage(e) {
     e.preventDefault();
     const messageObject = {
-      body: message,
-      id: 2491378,
-      coupleShareCode: 6224893,
+      // body: message,
+      // id: member._id,
+      // name: member.name,
+      coupleShareCode: member.coupleShareCode,
+      sender: member._id,
+      name: member.name,
+      text: message,
+      sendDate: new Date(Date.now()),
     };
     setMessage("");
     socketRef.current.emit("send message", messageObject);
@@ -307,31 +385,36 @@ const Chatting = () => {
   }
   const time = timehours + ":" + timeminutes;
 
+  const dateFormat = (sendDate) => {
+    console.log(sendDate);
+    return `${new Date(sendDate).getHours()}시 : ${new Date(sendDate).getMinutes()}분`;
+  };
+
   return (
     <Row className="main-contents m-0 p-0">
       <Col className="m-0 p-0">
         <ChattingBox>
           <div className="chatting-wrapper">
-            <Container ref={messagesRef}>
+            <Container ref={messagesRef} messages={messages}>
               <p className="chattingDate">{today}</p>
               {messages.map((message, index) => {
-                if (message.id === yourID) {
+                if (message.sender === member._id) {
                   return (
                     <MyRow className="MyRow" key={index}>
                       <div className="profile">
-                        <div className="name">김사과</div>
+                        <div className="name">{message.name}</div>
                       </div>
-                      <MyMessage className="MyMessage">{message.body}</MyMessage>
-                      <div className="Time">{time}</div>
+                      <MyMessage className="MyMessage">{message.text}</MyMessage>
+                      <div className="Time">{dateFormat(message.sendDate)}</div>
                     </MyRow>
                   );
                 }
                 return (
                   <PartnerRow className="PartnerRow" key={index}>
-                    <PartnerMessage className="PartnerMessage">{message.body}</PartnerMessage>
-                    <div className="Time2">{time}</div>
+                    <PartnerMessage className="PartnerMessage">{message.text}</PartnerMessage>
+                    <div className="Time2">{dateFormat(message.sendDate)}</div>
                     <div className="profile2">
-                      <div className="name">반하나</div>
+                      <div className="name">{message.name}</div>
                     </div>
                   </PartnerRow>
                 );
@@ -350,18 +433,20 @@ const Chatting = () => {
                 skinTone={SKIN_TONE_MEDIUM_DARK}
               />
             </div>
-            <div className="chatting-send">
-              <form onSubmit={sendMessage}>
-                <button className="btn-plus">+</button>
-                <input
-                  type="text"
-                  value={message}
-                  onChange={handleChange}
-                  onKeyPress={handleKeyPress}
-                />
-                <button className="btn-send">send</button>
-              </form>
-            </div>
+            {member && (
+              <div className="chatting-send">
+                <form onSubmit={sendMessage}>
+                  <button className="btn-plus">+</button>
+                  <input
+                    type="text"
+                    value={message}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                  />
+                  <button className="btn-send">send</button>
+                </form>
+              </div>
+            )}
           </div>
         </ChattingBox>
       </Col>

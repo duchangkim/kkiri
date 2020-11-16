@@ -44,5 +44,16 @@ RoomSchema.methods.serialize = function () {
   return data; // 리턴해줌
 };
 
+RoomSchema.methods.getSortedMessageList = async function (limit) {
+  const sortedMessageList = await this.chattingData.sort((a, b) => {
+    const aDate = new Date(a.sendDate);
+    const bDate = new Date(b.sendDate);
+
+    return aDate - bDate;
+  });
+  const messagePerPage = 5;
+
+  return sortedMessageList.slice(limit * messagePerPage, limit * messagePerPage + 5);
+};
 const Room = mongoose.model("Room", RoomSchema);
 export default Room;
