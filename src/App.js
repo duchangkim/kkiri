@@ -11,7 +11,6 @@ import FindIdPage from './pages/FindIdPage';
 import FindPwPage from './pages/FindPwPage';
 import FindResultPage from './pages/FindResultPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
-import NotFoundPage from './components/common/NotFoundPage';
 
 function App() {
   return (
@@ -27,7 +26,6 @@ function App() {
       <Route component={FindResultPage} path="/findresult" />
       <Route component={ChangePasswordPage} path="/changepassword" />
       <Route path="/kkiri/home" component={MainService} />
-      <Route path="*" component={NotFoundPage} />
     </>
   );
 }
