@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import calculateDday from '../../lib/calculateDday';
+import { func } from 'joi';
 
-const RightMainBlock = styled.div``;
+const RightMainBlock = styled.div`
+  height: 100%
+`;
 
 const ScheduleItem = styled.li`
   width: 100%;
@@ -36,13 +39,33 @@ const DdayItem = styled.li`
   margin-bottom: 5px;
 `;
 
-const RightMain = ({ schedules, dDays }) => {
+const AlbumItem = styled.div`
+  width: 95%;
+  margin: 0 auto;
+  height: 70%;
+  display: flex;
+  .price {
+    width: 23%;
+    height: 100%;
+    margin-right: 0.5rem;  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+`
+
+const RightMain = ({ schedules, dDays, albums }) => {
   console.log(dDays);
 
-  if (!schedules || !dDays) {
+  if (!schedules || !dDays || !albums) {
     return <h1>Loading...</h1>;
   }
 
+  console.log('컴포넌트 라이트메인');
+  console.log(albums);
+  
   return (
     <RightMainBlock>
       <div className="Right-Main" id="Right-Main">
@@ -168,42 +191,22 @@ const RightMain = ({ schedules, dDays }) => {
           </div>
         </div>
         <div className="Krikri-Album">
-          <h3>Album</h3>
-          <img
-            src={require('../../images/plus.png')}
-            className="Album-Add"
-            alt="앨범 설정"
-          />
-          <Row className="m-0 p-0 To-Album" md={1}>
-            <Col className="Show-Album" md={2} sm={1}>
-              <img src={require('../../images/al2.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require('../../images/al3.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require('../../images/al4.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require('../../images/al5.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require('../../images/al6.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-            <Col className="Show-Album" md={2}>
-              <img src={require('../../images/al7.png')} alt="첫번째 앨범" />
-              <div className="Album-Date">2020-00-00</div>
-            </Col>
-          </Row>
+          <Link to="/kkiri/albums">
+            <h3>Album</h3>
+          </Link>
+          <AlbumItem>
+            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.idx-a.idx;}).map((album, index) => (
+              album.filename && (
+                <div className="price" key={index}>
+                  <img src={`http://localhost:3000/uploads/${album.filename}`}/>
+                </div>
+              )
+            ))}
+          </AlbumItem>
         </div>
       </div>
     </RightMainBlock>
-  );
+  );  
 };
 
 export default RightMain;

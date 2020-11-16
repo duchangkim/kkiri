@@ -64,6 +64,9 @@ const BoxBody = styled.div`
 function ReadAlbum({ album, error, loading, albumIdx}) {
     console.log('555555555');
     console.log(albumIdx)
+    console.log(typeof albumIdx);
+    let abc = Number(albumIdx);
+    console.log(typeof abc);
     if(error) {
         if(error.response && error.response.status === 404) {
             return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>
@@ -76,15 +79,19 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
     }
     
     const { fileData } = album;
-    const filename = fileData.files[albumIdx].filename;
     const len = fileData.files.length; 
+    console.log(len);
+    console.log(typeof len);
+    const filename = fileData.files[albumIdx].filename;
+    console.log(abc < len ? abc : (abc-1));
+    const likes = fileData.files[albumIdx].like;
     
     const onRemove = async () => {
-        try {
-            console.log(albumIdx)
+        try {   
+            console.log(albumIdx);  
             await removeFile(albumIdx).then(res => {
-                console.log('삭제성공!');
-                window.location.href=`http://localhost:3000/kkiri/albums/${albumIdx > parseInt(len) ? albumIdx : albumIdx-1}`;
+                console.log('삭제성공!');              
+                window.location.href=`http://localhost:3000/kkiri/albums/${abc < len-1 ? abc : (abc-1)}`;
             }).catch(err => {
                 console.log(err);
             });
@@ -104,7 +111,7 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
 
     return (
         <>
-        <ActionButtons onEdit={onEdit} onRemove={onRemove}/>
+        <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/>
         <ReadBlock>
             <ArrowBackBox>
                 {albumIdx > 0 && 
