@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AskRemoveModal from './AskRemoveModal'
-import { BsHeartFill, BsHeart } from "react-icons/bs";
+import { BsHeartFill } from "react-icons/bs";
 
 const UpdBlock = styled.div`
     width: 70%;
@@ -34,13 +34,14 @@ const ActionButton = styled.button`
 const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
 
-  const [like, setLike] = useState(
-    ''
-  );
+  const [like, setLike] = useState(likes);
+  console.log(likes);
 
-  useEffect(() => {
-    setLike(likes ? '즐찾해제' : '즐찾ㄱ');
-  },[likes])
+  const onChangeText = () => {
+    console.log('here!');
+    setLike(!likes)
+  }
+
   const onRemoveClick = () => {
     setModal(true);
   }
@@ -51,14 +52,21 @@ const ActionButtons = ({ onRemove, onEdit, likes }) => {
     setModal(false);
     onRemove();
   }
+  
 
   console.log('ㅇㄴㄹㄴㅇㄹ여깅기이기~~ : ' + likes);
   return (
     <>
       <UpdBlock>
-        <ActionButton onClick={onEdit}>
-          {like}
-        </ActionButton>
+        {like ? (
+          <ActionButton onClick={() => { onEdit(); onChangeText();}}>
+            즐겨찾기 해제
+          </ActionButton> ) :
+        (
+          <ActionButton onClick={onEdit} onChange={onChangeText}>
+            즐겨찾기
+          </ActionButton>
+        )}
         <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
         {likes ? 
         <div><BsHeartFill color='red'/></div> 
