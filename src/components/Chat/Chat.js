@@ -232,6 +232,7 @@ const Chat = ({
       <div className="chatting-wrapper">
         <Container ref={messagesRef} messages={messages}>
           <p className="chattingDate">{_date.getToday()}</p>
+          <hr/>
           {messages.map((message, index) => {
             if (message.sender === member._id) {
               return (

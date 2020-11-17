@@ -12,6 +12,11 @@ const ChatContainer = ({ history }) => {
   const [message, setMessage] = useState('');
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [visitTime, setVisitTime] = useState(new Date())
+  const [chatLoad, setChatLoad] = useState({
+    number: 1,
+    done: false,
+  })
+  const [isNew, setIsNew] = useState(false);
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
@@ -108,6 +113,16 @@ const ChatContainer = ({ history }) => {
       } catch (e) {
         console.log(e);
       }
+    });
+
+    messagesRef.current.addEventListener('scroll', (e) => {
+      const target = e.target;
+      
+      if(target.scrollTop === 0) {
+        // alert('앙 꼭데기띠')
+        dispatch(getMessageList(chatLoad.number));
+        setChatLoad({...chatLoad, done: true})
+      }
     })
 
     return () => {
@@ -117,6 +132,34 @@ const ChatContainer = ({ history }) => {
     }
   }, [])
 
+  useEffect(() => {
+
+    if(chatLoad.done) {
+      console.log('messageList, chatLoad바뀜');
+      try {
+        console.log('이리콤');
+        const messageListFromLocalStorage = JSON.parse(localStorage.getItem('messages'))
+        const newMessageList = messageListFromLocalStorage.concat(messageList)
+          .sort((a, b) => {
+            const aDate = new Date(a.sendDate);
+            const bDate = new Date(b.sendDate);
+            return aDate - bDate;
+          });
+        console.log(newMessageList);
+        localStorage.setItem('messages', JSON.stringify(newMessageList));
+        setMessages(newMessageList)
+      } catch (e) {
+        console.log(e)
+      }
+
+      setChatLoad({
+        ...chatLoad,
+        number: chatLoad.number++,
+        done: false,
+      })
+      setIsNew(true)
+    }
+  }, [chatLoad, messageList])
 
   useEffect(() => {
     socketRef.current = io.connect('/');
@@ -136,7 +179,6 @@ const ChatContainer = ({ history }) => {
   useEffect(() => {
     dispatch(getMessageList(0));
     console.log(messageList);
-    const now = Date.now();
 
     return () => {
       console.log('페이지 나가요~');
@@ -179,7 +221,7 @@ const ChatContainer = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    // console.log('여기한번 와볼래?');
+    console.log('messageList가 바뀐다.');
     const messageListFromLocalStorage = JSON.parse(
       localStorage.getItem('messages')
     );
@@ -199,7 +241,16 @@ const ChatContainer = ({ history }) => {
     if (messagesRef !== null) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
+    if(isNew) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight / 2
+    }
   }, [messages]);
+
+  useEffect(() => {
+    if(isNew) {
+      messagesRef.current.scrollTop = 0;
+    }
+  }, [isNew])
 
   if (!member) {
     history.push('/');
