@@ -13,8 +13,8 @@ import { logout } from "../../modules/member";
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember } = useSelector(
-    ({ auth }) => {
+  const { form, auth, coupleCodeError, otherMember,member } = useSelector(
+    ({ auth,member }) => {
       console.log(auth);
       return {
         form: auth.registercouple,
@@ -22,11 +22,10 @@ const CoupleCodeForm = ({ history }) => {
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
+        member:member.member
       };
     }
   );
-  const { member } = useSelector(({ member }) => member);
-  console.dir(member);
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -88,9 +87,6 @@ const CoupleCodeForm = ({ history }) => {
     }
   }, [history, member]);
 
-  if (!member.userCode) {
-      history.push("/kkiri/home");
-    }
 
 
   return (
