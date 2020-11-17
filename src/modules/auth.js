@@ -17,11 +17,7 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
   'auth/REGISTER'
 );
-const [
-  REGISTERCODE,
-  REGISTERCODE_SUCCESS,
-  REGISTERCODE_FAILURE,
-] = createRequestActionTypes('auth/REGISTERCODE');
+
 const [
   REGISTEREMAIl,
   REGISTEREMAIl_SUCCESS,
@@ -32,6 +28,7 @@ const [
   REGISTERCOUPLE_SUCCESS,
   REGISTERCOUPLE_FAILURE,
 ] = createRequestActionTypes('auth/REGISTERCOUPLE');
+
 const [
   CREATECOUPLESET,
   CREATECOUPLESET_SUCCESS,
@@ -62,17 +59,15 @@ export const login = createAction(LOGIN, ({ email, password }) => ({
 }));
 export const register = createAction(
   REGISTER,
-  ({ email, password, birthday, name, hp }) => ({
+  ({ email,emailcode, password, birthday, name, hp }) => ({
     email,
+    emailcode,
     password,
     birthday,
     name,
     hp,
   })
 );
-export const registercode = createAction(REGISTERCODE, (emailcode) => ({
-  emailcode,
-}));
 export const registeremail = createAction(REGISTEREMAIl, (email) => ({
   email,
 }));
@@ -99,7 +94,6 @@ export const findpw = createAction(FINDPW, ({ birthday, email, hp }) => ({
 // saga함수
 const loginSaga = createRequestSaga(LOGIN, authAPI.localLogin);
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
-const registerCodeSaga = createRequestSaga(REGISTERCODE, authAPI.registercode);
 const registerEmailSaga = createRequestSaga(
   REGISTEREMAIl,
   authAPI.registeremail
@@ -118,7 +112,6 @@ const findpwSaga = createRequestSaga(FINDPW, authAPI.findpw);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
-  yield takeLatest(REGISTERCODE, registerCodeSaga);
   yield takeLatest(REGISTEREMAIl, registerEmailSaga);
   yield takeLatest(REGISTERCOUPLE, registercoupleSaga);
   yield takeLatest(CREATECOUPLESET, createCoupleSetSaga);
@@ -131,6 +124,7 @@ export function* authSaga() {
 const initialState = {
   register: {
     email: '',
+    emailcode:'',
     password: '',
     passwordConfirm: '',
     birthday: '',
@@ -139,7 +133,6 @@ const initialState = {
     isSuccess: false,
   },
   registeremail: {
-    isSuccess: false,
     email: '',
   },
   registercode: {
@@ -191,6 +184,13 @@ const auth = handleActions(
       authError: null,
       auth,
       register: {
+        email: '',
+        password: '',
+        emailcode:'',
+        passwordConfirm: '',
+        birthday: '',
+        name: '',
+        hp: '',
         isSuccess: true,
       },
     }),
@@ -199,41 +199,15 @@ const auth = handleActions(
       authError: error,
     }),
     [REGISTEREMAIl_SUCCESS]: (state, { payload: auth }) => {
-      console.log('~~~~~~~~~~~~~~!@#!@#!@#!#!@#');
-      console.log(auth);
-      console.log('~~~~~~~~~~~~~~!@#!@#!@#!#!@#');
       return {
         ...state,
         authError: null,
-        registeremail: {
-          isSuccess: true,
-          email: auth.email,
-        },
-        register: {
-          email: auth.email,
-          password: '',
-          passwordConfirm: '',
-          birthday: '',
-          name: '',
-          hp: '',
-          isSuccess: true,
-        },
       };
     },
     [REGISTEREMAIl_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
-    }),
-    [REGISTERCODE_SUCCESS]: (state) => ({
-      ...state,
-      authError: null,
-      registercode: {
-        isSuccess: true,
-      },
-    }),
-    [REGISTERCODE_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      authError: error,
+      auth,
     }),
     [REGISTERCOUPLE_FAILURE]: (state, { payload: error }) => ({
       ...state,
