@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { getCouple } from '../../modules/couple';
-import { getMyWeather, getYourWeather } from '../../modules/weather';
-import LeftMain from '../../components/Main/LeftMain';
-import getPosition from '../../lib/getPosition';
-import { insertPosition, insertGetTogetherDate } from '../../modules/member';
-import { withRouter } from 'react-router-dom';
-import LoadingPage from '../../pages/LoadingPage';
+import React, { useState, useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getCouple } from "../../modules/couple";
+import { getMyWeather, getYourWeather } from "../../modules/weather";
+import LeftMain from "../../components/Main/LeftMain";
+import getPosition from "../../lib/getPosition";
+import { insertPosition, insertGetTogetherDate } from "../../modules/member";
+import { withRouter } from "react-router-dom";
+import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const LeftMainContainer = () => {
   const state = useSelector((state) => state);
   console.log(state);
 
-  const [dateInputValue, setDateInputValue] = useState('');
+  const [dateInputValue, setDateInputValue] = useState("");
   const handleGetTogetherDateChange = (e) => {
     const { value } = e.target;
     setDateInputValue(value);
@@ -48,7 +48,7 @@ const LeftMainContainer = () => {
     if (!yourWeather) {
       // console.log('느그 날씨좀 불러와랏 ㅂ');
       if (couple) {
-        const API_KEY = '8838396b78d2bd1ab29b19d58374f16c';
+        const API_KEY = "8838396b78d2bd1ab29b19d58374f16c";
         dispatch(
           getYourWeather({
             latitude: couple.position.latitude,

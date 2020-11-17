@@ -1,20 +1,20 @@
-import React from 'react';
-import LeftMainContainer from '../containers/main/LeftMainContainer';
-import RightMainContainer from '../containers/main/RightMainContainer';
-import { Row, Col } from 'react-bootstrap';
-import '../css/MainPage.css';
-import { useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import LeftMainContainer from "../containers/main/LeftMainContainer";
+import RightMainContainer from "../containers/main/RightMainContainer";
+import { Row, Col } from "react-bootstrap";
+import "../css/MainPage.css";
+import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 const MainPage = ({ history }) => {
   const member = useSelector(({ member }) => member.member);
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <h1>No Contents</h1>;
   }
   if (!member.coupleShareCode) {
-    history.push('/registercouple');
+    history.push("/registercouple");
     return <h1>No Contents</h1>;
   }
 

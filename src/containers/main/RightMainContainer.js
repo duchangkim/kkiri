@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import RightMain from '../../components/Main/RightMain';
-import { getScheduleList } from '../../modules/schedule';
-import { listAlbums } from '../../modules/albums';
-import LoadingPage from '../../pages/LoadingPage';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import RightMain from "../../components/Main/RightMain";
+import { getScheduleList } from "../../modules/schedule";
+import { listAlbums } from "../../modules/albums";
+import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const LeftMainContainer = () => {
   }, []);
 
   useEffect(() => {
-    console.log('앨범드러완ㅇㄴ');
+    console.log("앨범드러완ㅇㄴ");
     dispatch(listAlbums());
   }, [dispatch]);
 
@@ -29,17 +29,11 @@ const LeftMainContainer = () => {
 
   const schedules = scheduleList
     .filter(
-      (schedule) =>
-        schedule.id !== 'l' &&
-        schedule.id !== 0 &&
-        schedule.calendarId !== 'dday'
+      (schedule) => schedule.id !== "l" && schedule.id !== 0 && schedule.calendarId !== "dday"
     )
     .slice(0, 5);
 
-  const dDays = scheduleList
-    .filter((schedule) => schedule.calendarId === 'dday')
-    .slice(0, 5);
-
+  const dDays = scheduleList.filter((schedule) => schedule.calendarId === "dday").slice(0, 5);
   console.dir(albums);
   // console.log(albums.fileData.files);
 
