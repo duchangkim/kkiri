@@ -62,7 +62,6 @@ const RegisterCodeForm = ({ history }) => {
     if (auth) {
       console.log("코드인증 성공");
       console.log(auth);
-      dispatch(check());
       // return this.setState({ change: true });
     }
   }, [auth, authError, dispatch]);
@@ -79,7 +78,7 @@ const RegisterCodeForm = ({ history }) => {
       console.log(isSuccess);
       history.push("/register");
     }
-  }, [history, isSuccess, member]);
+  }, [history, isSuccess, member,dispatch]);
 
   return (
     <AuthForm

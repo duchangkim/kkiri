@@ -14,7 +14,7 @@ const LeftMainContainer = () => {
 
   useEffect(() => {
     dispatch(getScheduleList());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     console.log("앨범드러완ㅇㄴ");

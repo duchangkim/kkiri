@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import calculateDday from "../../lib/calculateDday";
 import { func } from "joi";
+import LoadingPage from "../../pages/LoadingPage";
 import Figure from "react-bootstrap/Figure";
 
 const RightMainBlock = styled.div`
@@ -61,14 +62,12 @@ const AlbumItem = styled.div`
 `;
 
 const RightMain = ({ schedules, dDays, albums }) => {
+  console.log(schedules);
   console.log(dDays);
 
   if (!schedules || !dDays || !albums) {
-    return <h1>Loading...</h1>;
+    return <LoadingPage />;
   }
-
-  console.log("컴포넌트 라이트메인");
-  console.log(albums);
 
   return (
     <RightMainBlock>
@@ -193,8 +192,9 @@ const RightMain = ({ schedules, dDays, albums }) => {
                 {schedules.map((schedule) => (
                   <ScheduleItem key={schedule.id}>
                     <div>
-                      {schedule.start.getFullYear()}년 {schedule.start.getMonth() + 1}월{" "}
-                      {schedule.start.getDate()}일
+                      {new Date(schedule.start).getFullYear()}년{" "}
+                      {new Date(schedule.start).getMonth() + 1}월{" "}
+                      {new Date(schedule.start).getDate()}일
                     </div>
                     <ScheduleTitle>{schedule.title}</ScheduleTitle>
                   </ScheduleItem>
