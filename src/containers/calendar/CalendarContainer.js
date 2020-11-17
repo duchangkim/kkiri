@@ -172,9 +172,9 @@ const CalendarContainer = () => {
     return <Styles> ERROR! </Styles>;
   }
 
-  if (!calendars || !schedules) {
-    return <LoadingPage />;
-  }
+  // if (!calendars || !schedules) {
+  //   return <LoadingPage />;
+  // }
 
   return (
     <Styles>

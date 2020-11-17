@@ -14,7 +14,7 @@ const LeftMainContainer = () => {
 
   useEffect(() => {
     dispatch(getScheduleList());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     console.log('앨범드러완ㅇㄴ');
@@ -42,6 +42,8 @@ const LeftMainContainer = () => {
 
   console.dir(albums);
   // console.log(albums.fileData.files);
+
+ 
 
   return <RightMain schedules={schedules} dDays={dDays} albums={albums} />;
 };
