@@ -35,6 +35,16 @@ AlbumSchema.methods.deleteFile = async function (
   return this.fileData[fileData];
 };
 
+AlbumSchema.methods.changeFile = async function (keyid) {
+  console.log('model keyid -> ' + keyid);
+  this.fileData.files = this.fileData.files.map(file => file.keyid === parseInt(keyid, 10) ? ({
+    ...file,
+    like: !file.like
+  }) : file);
+}
+
+
+
 const Album = mongoose.model('Album', AlbumSchema);
 
 export default Album;

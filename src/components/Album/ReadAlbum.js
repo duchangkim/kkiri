@@ -1,10 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import { IoIosTrash, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom';
 import ActionButtons from './ActionButtons'
 import { removeFile, editFile } from '../../lib/api/album';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOriginalAlbum } from '../../modules/album'; 
 
 const ReadBlock = styled.div`
     width: 70%;
@@ -62,6 +64,7 @@ const BoxBody = styled.div`
 `
 
 function ReadAlbum({ album, error, loading, albumIdx}) {
+    // const dispatch = useDispatch();
     // console.log('555555555');
     // console.log(albumIdx)
     // console.log(typeof albumIdx);
@@ -102,10 +105,11 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
     }
 
     const asd = Date.now();
-    console.log(typeof asd); // 1605504640313 -> 1605504656112 -> 1605504722672
+    console.log(typeof asd); 
+    const keyid = fileData.files[albumIdx].keyid;
 
-    const onEdit = async () => {
-        await editFile(albumIdx).then(res => {
+    const onEdit = async (e) => {
+        await editFile(keyid).then(res => {           
             console.log(res);
         }).catch(err => {
             console.log(err);

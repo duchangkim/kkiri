@@ -54,20 +54,22 @@ const FindPwForm = ({ history }) => {
 
   useEffect(() => {
     dispatch(initializeForm("findpw")); 
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(initializeForm('findid'));
+    setError("");
   },[dispatch]);
+
+
   useEffect(() => {
     if (authError) {
       console.log("오류 발생");
       console.log(authError);
       setError("없는 계정입니다.");
-      return; 
+      return;
     }
     if (auth) {
       console.log("비밀번호 찾기 성공"); 
     }
+    setError("");
   }, [auth, authError, dispatch]);
 
   useEffect(() => {

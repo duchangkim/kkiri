@@ -52,8 +52,10 @@ const FindIdForm = ({ history }) => {
     console.log(birthday, name, hp);
     dispatch(findid({ birthday, name, hp }));
   };
+  
   useEffect(() => {
     dispatch(initializeForm('findid'));
+    setError("");
   }, [dispatch]);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const FindIdForm = ({ history }) => {
       console.log(findEmail);
       history.push(`/findresult`);
     }
+    setError("");
   }, [authError, dispatch, findEmail, history]);
   
   return (

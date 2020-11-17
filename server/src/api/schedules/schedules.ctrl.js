@@ -64,6 +64,7 @@ export const createSchedule = async (ctx) => {
 
 export const getSchduleList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
+  console.log(coupleShareCode)
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
@@ -79,19 +80,12 @@ export const getSchdule = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
   //Number("123원") > NaN, parseInt("123원") > 123
-  const numberScheduleId = parseInt(scheduleId);
-
-  if (isNaN(numberScheduleId)) {
-    console.log('숫자만 써라;;');
-    ctx.status = 409;
-    return;
-  }
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.getCaledarDataByTargetId(
       'schedules',
-      numberScheduleId
+      scheduleId
     );
 
     if (!result) {
@@ -108,19 +102,12 @@ export const getSchdule = async (ctx) => {
 export const deleteSchedule = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
-  const numberScheduleId = parseInt(scheduleId);
-
-  if (isNaN(numberScheduleId)) {
-    console.log('숫자만 써라;;');
-    ctx.status = 409;
-    return;
-  }
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
       'schedules',
-      numberScheduleId
+      scheduleId
     );
 
     await calendar.save();
@@ -135,14 +122,6 @@ export const modifySchedule = async (ctx) => {
   console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
-  const numberScheduleId = parseInt(scheduleId);
-
-  if (isNaN(numberScheduleId)) {
-    console.log('숫자만 써라;;');
-    ctx.status = 409;
-    return;
-  }
-
   const {
     calendarId,
     title,
@@ -154,14 +133,11 @@ export const modifySchedule = async (ctx) => {
     state,
   } = ctx.request.body;
 
-  // console.log(
-  //   `${id},${calendarId}, ${category}, ${raw}, ${title}, ${location}, ${start}, ${end}, ${isAllDay}, ${state},`
-  // );
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const currentSchedule = await calendar.calendarData.schedules.find(
-      (schedule) => schedule.id === numberScheduleId
+      (schedule) => schedule.id === scheduleId
     );
 
     if (!currentSchedule) {
@@ -187,7 +163,7 @@ export const modifySchedule = async (ctx) => {
     };
     const result = await calendar.modifyCalendarDataByTargetId(
       'schedules',
-      numberScheduleId,
+      scheduleId,
       modifiedSchedule
     );
 

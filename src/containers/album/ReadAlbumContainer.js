@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readAlbum, unloadAlbum } from '../../modules/album';
 import ReadAlbum from '../../components/Album/ReadAlbum';
+import { setOriginalAlbum } from '../../modules/album'; 
 
 const ReadAlbumContainer = ({ match }) => {
   const albumIdx  = match.params.idx;
-  // console.log(match);
-  // console.log(albumIdx);
+  console.log(match);
+  console.log(albumIdx);
   const dispatch = useDispatch();
   const { album, error, loading } = useSelector(({ album, loading }) => {
     return({

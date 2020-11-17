@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import CalendarHeaderContainer from './CalendarHeaderContainer';
 import CalenderSideContainer from './CalendarSideContainer';
 import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
+import LoadingPage from '../../pages/LoadingPage';
 
 const Styles = styled.div`
   display: flex;
@@ -104,15 +105,10 @@ const CalendarContainer = () => {
       const schedule = {
         id,
         ...e.changes,
-        isAllDay: true,
-        category: 'allday',
         start: e.changes.start ? e.changes.start.toDate() : null,
         end: e.changes.end ? e.changes.end.toDate() : null,
       };
 
-      // console.log(e);
-      // console.log(e.changes);
-      // console.log(schedule);
 
       dispatch(modifySchedule(schedule, id));
       cal.current.calendarInst.updateSchedule(id, calendarId, schedule);
