@@ -111,9 +111,6 @@ const CalendarContainer = () => {
         end: e.changes.end ? e.changes.end.toDate() : null,
       };
 
-      // console.log(e);
-      // console.log(e.changes);
-      // console.log(schedule);
 
       dispatch(modifySchedule(schedule, id));
       cal.current.calendarInst.updateSchedule(id, calendarId, schedule);
@@ -171,10 +168,6 @@ const CalendarContainer = () => {
   if (scheduleError) {
     return <Styles> ERROR! </Styles>;
   }
-
-  // if (!calendars || !schedules) {
-  //   return <LoadingPage />;
-  // }
 
   return (
     <Styles>

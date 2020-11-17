@@ -43,8 +43,6 @@ const LeftMainContainer = () => {
   console.dir(albums);
   // console.log(albums.fileData.files);
 
- 
-
   return <RightMain schedules={schedules} dDays={dDays} albums={albums} />;
 };
 
