@@ -1,4 +1,4 @@
-import Room from "../../models/room";
+import Room from '../../models/room';
 
 // 서버에 데이터를 보낼 양식
 export const saveMessage = async (ctx) => {
@@ -57,20 +57,20 @@ export const messageList = async (ctx) => {
     // console.log(room);
     const messageList = await room.getSortedMessageList(limit);
 
-    console.log("asdfasdfasdfasdfad");
+    console.log('asdfasdfasdfasdfad');
     // console.log(messageList);
 
-    ctx.body = await messageList;
+    ctx.body = messageList;
   } catch (e) {
     ctx.throw(500, e);
   }
 };
 
 export const insertMessageList = async (ctx) => {
-  console.log('여기가 인서트메시지리스트 입니다. 환영합니다.')
+  console.log('여기가 인서트메시지리스트 입니다. 환영합니다.');
   const { member } = ctx.state;
-  const newMessageList = ctx.request.body
-  console.log(newMessageList)
+  const newMessageList = ctx.request.body;
+  console.log(newMessageList);
   console.log(Array.isArray(newMessageList));
 
   try {
@@ -82,4 +82,4 @@ export const insertMessageList = async (ctx) => {
   } catch (e) {
     ctx.throw(500, e);
   }
-}
+};

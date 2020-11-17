@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import * as _date from "../../lib/_date";
-import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import * as _date from '../../lib/_date';
+import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import { Button } from 'react-bootstrap';
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -186,8 +187,19 @@ const Container = styled.div`
   overflow-y: auto;
   border-top: 3px solid #efefef;
   border-bottom: 3px solid #efefef;
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #dfdfdf;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
   }
 `;
 const MyRow = styled.div`
@@ -200,6 +212,7 @@ const MyRow = styled.div`
 `;
 const MyMessage = styled.div`
   width: 10%;
+  // max-width: 40%;
   background-color: pink;
   color: #46516e;
   padding: 10px;
@@ -212,8 +225,7 @@ const PartnerRow = styled(MyRow)`
   justify-content: flex-start;
 `;
 const PartnerMessage = styled.div`
-  width: 10%;
-  border: 1px solid lightgray;
+  min-width: 10%;
   background-color: pink;
   color: #46516e;
   padding: 10px;
@@ -233,15 +245,20 @@ const Chat = ({
   message,
   handleChange,
   handleKeyPress,
+  onMoreButtonClick,
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
+  // console.log(member);
   return (
     <ChattingBox>
       <div className="chatting-wrapper">
         <Container ref={messagesRef} messages={messages}>
+          <Button variant="outline" onClick={onMoreButtonClick}>
+            더보기
+          </Button>
           <p className="chattingDate">{_date.getToday()}</p>
-          <hr/>
+          <hr />
           {messages.map((message, index) => {
             if (message.sender === member._id) {
               return (
@@ -250,14 +267,20 @@ const Chat = ({
                     <div className="name">{message.name}</div>
                   </div>
                   <MyMessage className="MyMessage">{message.text}</MyMessage>
-                  <div className="Time">{_date.dateFormat(message.sendDate)}</div>
+                  <div className="Time">
+                    {_date.dateFormat(message.sendDate)}
+                  </div>
                 </MyRow>
               );
             }
             return (
               <PartnerRow className="PartnerRow" key={index}>
-                <PartnerMessage className="PartnerMessage">{message.text}</PartnerMessage>
-                <div className="Time2">{_date.dateFormat(message.sendDate)}</div>
+                <PartnerMessage className="PartnerMessage">
+                  {message.text}
+                </PartnerMessage>
+                <div className="Time2">
+                  {_date.dateFormat(message.sendDate)}
+                </div>
                 <div className="profile2">
                   <div className="name">{message.name}</div>
                 </div>
