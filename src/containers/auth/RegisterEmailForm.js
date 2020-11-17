@@ -69,7 +69,8 @@ const RegisterEmailForm = ({ history }) => {
       alert("이메일을 발송 했습니다.");
       history.push("/registercode");
     }
-  }, [history, isSuccess]);
+
+  }, [history, isSuccess, dispatch, form]);
 
   return (
     <AuthForm

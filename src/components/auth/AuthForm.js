@@ -76,6 +76,16 @@ const AuthFormBlock = styled.div`
   .as {
     color: ${palette.gray[6]};
   }
+
+  .logoutbtn {
+    float: right;
+    text-decoration: underline;
+    color: ${palette.gray[6]};
+    margin-top: 2rem;
+    &:hover {
+      color: ${palette.gray[9]};
+    }
+  }
 `;
 
 const Hrsect = styled.div`
@@ -113,6 +123,14 @@ const Footer = styled.div`
     float: right;
     text-decoration: underline;
   }
+
+  .logoutbtn {
+    background:none;
+    color: ${palette.gray[6]};
+    &:hover {
+      color: ${palette.gray[9]};
+    }
+  }
 `;
 
 const ButtonWithMarginTop = styled(Button)`
@@ -142,6 +160,7 @@ const AuthForm = ({
   onSubmit,
   error,
   myCode,
+  onLogout,
 }) => {
   console.log(`myCode 커플코드페이지콘솔 값 : ${myCode}`);
   const text = textMap[type];
@@ -331,6 +350,9 @@ const AuthForm = ({
           <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
             {text}
           </ButtonWithMarginTop>
+          {type === "registercouple" && (
+          <span onClick={onLogout} className="logoutbtn">로그아웃</span>
+          )}
         </form>
         <Footer>
           {type === "login" && (
