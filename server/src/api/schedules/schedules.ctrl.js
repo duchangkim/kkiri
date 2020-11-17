@@ -64,6 +64,7 @@ export const createSchedule = async (ctx) => {
 
 export const getSchduleList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
+  console.log(coupleShareCode)
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);

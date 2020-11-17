@@ -11,6 +11,7 @@ const ChatContainer = ({ history }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [visitTime, setVisitTime] = useState(new Date())
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
@@ -20,7 +21,7 @@ const ChatContainer = ({ history }) => {
   }));
 
   const state = useSelector((state) => ({ state }));
-  console.log(state);
+  // console.log(state);
 
   const socketRef = useRef();
   const messagesRef = useRef();
@@ -77,7 +78,46 @@ const ChatContainer = ({ history }) => {
     });
   };
 
+  useEffect(() => {
+    setVisitTime(new Date());
+  }, [])
+
   // useEffect
+  useEffect(() => {
+    //리스너 추가
+    console.log('리스너 추가하냐?')
+    
+    window.addEventListener('beforeunload', (event) => {
+      try {
+        console.log('새로고침할때다 여기는');
+        const messageListFromLocalStorage = JSON.parse(
+          localStorage.getItem('messages')
+        );
+        
+        console.log(messageListFromLocalStorage);
+
+        const newMessages = messageListFromLocalStorage.filter(
+          (message) => {
+            console.log(new Date(message.sendDate) >= visitTime);
+            return(new Date(message.sendDate) >= visitTime)
+          }
+        );
+        console.log(newMessages);
+
+        dispatch(insertMessageList(newMessages)); //배열을 보냄
+      } catch (e) {
+        console.log(e);
+      }
+    })
+
+    return () => {
+      //리스너 제거
+      setVisitTime(new Date());
+      window.removeEventListener('beforeunload', () => {console.log('remove')});
+    }
+  }, [])
+
+
   useEffect(() => {
     socketRef.current = io.connect('/');
     console.log('연결확인');
@@ -108,7 +148,7 @@ const ChatContainer = ({ history }) => {
         );
 
         const newMessages = messageListFromLocalStorage.filter(
-          (message) => new Date(message.sendDate) >= now
+          (message) => new Date(message.sendDate) >= visitTime
         );
         console.log(newMessages);
 
