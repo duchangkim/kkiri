@@ -40,8 +40,11 @@ const LeftMain = ({
   ];
 
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
+  const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
 
   const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleProfileSettingPopupOpenClick = () =>
+    setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
 
   const myWeatherIconSrc = `http://openweathermap.org/img/wn/${myWeather.weather[0].icon}.png`;
   const yourWeatherIconSrc = `http://openweathermap.org/img/wn/${yourWeather.weather[0].icon}.png`;
@@ -62,6 +65,11 @@ const LeftMain = ({
           ) : null}
           {/* 프로필 설정 팝업 */}
           {/* <ProfileSettingPopup /> */}
+          {ProfileSettingPopupOpen ? (
+            <ProfileSettingPopup
+              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+            />
+          ) : null}
           <img src={require("../../images/bgbg.png")} alt="배경화면" className="background-Img" />
           <div className="Date-Love">
             <img
@@ -181,7 +189,10 @@ const LeftMain = ({
                 <BsImageFill className="Link_To_Img" />
               </li>
               <li>
-                <BsPeopleCircle className="Link_To_Img" />
+                <BsPeopleCircle
+                  className="Link_To_Img"
+                  onClick={handleProfileSettingPopupOpenClick}
+                />
               </li>
             </ul>
           </div>
