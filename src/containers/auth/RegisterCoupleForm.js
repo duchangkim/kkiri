@@ -8,6 +8,7 @@ import {
 import AuthForm from "../../components/auth/AuthForm";
 import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
+import { logout } from "../../modules/member";
 
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -36,6 +37,11 @@ const CoupleCodeForm = ({ history }) => {
         value,
       })
     );
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+      history.push("/");
   };
 
   const onSubmit = (e) => {
@@ -83,8 +89,9 @@ const CoupleCodeForm = ({ history }) => {
   }, [history, member]);
 
   if (!member.userCode) {
-    history.push("/kkiri/home");
-  }
+      history.push("/kkiri/home");
+    }
+
 
   return (
     <AuthForm
@@ -94,6 +101,7 @@ const CoupleCodeForm = ({ history }) => {
       onSubmit={onSubmit}
       error={error}
       myCode={member.userCode}
+      onLogout={onLogout}
     />
   );
 };

@@ -16,11 +16,11 @@ const MainPage = ({ history }) => {
   }, [])
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <h1>No Contents</h1>;
   }
   if (!member.coupleShareCode) {
-    history.push('/registercouple');
+    history.push("/registercouple");
     return <h1>No Contents</h1>;
   }
 

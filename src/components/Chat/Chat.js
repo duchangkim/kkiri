@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import * as _date from '../../lib/_date';
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import React, { useState } from "react";
+import styled from "styled-components";
+import * as _date from "../../lib/_date";
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -109,6 +109,14 @@ const ChattingBox = styled.div`
     background: #ff838d;
     color: #ffffff;
     font-size: 1.4rem;
+  }
+  .btn-plus:hover {
+    cursor: pointer;
+  }
+  .btn-open {
+    position: relative;
+    left: 35%;
+    top: 14%;
   }
   .emoji-picker-react {
     width: 100%;
@@ -221,12 +229,13 @@ const Chat = ({
   member,
   chosenEmoji,
   onEmojiClick,
-  addEmoji,
   sendMessage,
   message,
   handleChange,
   handleKeyPress,
 }) => {
+  const [emojiNationOpen, setemojiNationOpen] = useState(false);
+  const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
   return (
     <ChattingBox>
       <div className="chatting-wrapper">
@@ -241,20 +250,14 @@ const Chat = ({
                     <div className="name">{message.name}</div>
                   </div>
                   <MyMessage className="MyMessage">{message.text}</MyMessage>
-                  <div className="Time">
-                    {_date.dateFormat(message.sendDate)}
-                  </div>
+                  <div className="Time">{_date.dateFormat(message.sendDate)}</div>
                 </MyRow>
               );
             }
             return (
               <PartnerRow className="PartnerRow" key={index}>
-                <PartnerMessage className="PartnerMessage">
-                  {message.text}
-                </PartnerMessage>
-                <div className="Time2">
-                  {_date.dateFormat(message.sendDate)}
-                </div>
+                <PartnerMessage className="PartnerMessage">{message.text}</PartnerMessage>
+                <div className="Time2">{_date.dateFormat(message.sendDate)}</div>
                 <div className="profile2">
                   <div className="name">{message.name}</div>
                 </div>
@@ -262,33 +265,35 @@ const Chat = ({
             );
           })}
         </Container>
-        <div>
-          {chosenEmoji ? (
-            <span>You chose: {chosenEmoji.emoji}</span>
-          ) : (
-            <span>No emoji Chosen</span>
-          )}
-          <Picker
-            onEmojiClick={onEmojiClick}
-            onSelect={addEmoji}
-            preload={true}
-            skinTone={SKIN_TONE_MEDIUM_DARK}
-          />
-        </div>
-        {member && (
-          <div className="chatting-send">
-            <form onSubmit={sendMessage}>
-              <button className="btn-plus">+</button>
-              <input
-                type="text"
-                value={message}
-                onChange={handleChange}
-                onKeyPress={handleKeyPress}
-              />
-              <button className="btn-send">send</button>
-            </form>
+        {emojiNationOpen ? (
+          <div className="emojiNation">
+            {chosenEmoji ? (
+              <span>Chosen Emoji: {chosenEmoji.emoji}</span>
+            ) : (
+              <span>No Emoji Chosen</span>
+            )}
+            <Picker
+              onEmojiClick={onEmojiClick}
+              preload={true}
+              skinTone={SKIN_TONE_MEDIUM_DARK}
+              handleEmojiNationOpenClick={handleEmojiNationOpenClick}
+            />
           </div>
-        )}
+        ) : null}
+        <div className="chatting-send">
+          <form onSubmit={sendMessage}>
+            <div className="btn-plus" onClick={handleEmojiNationOpenClick}>
+              <div className="btn-open">+</div>
+            </div>
+            <input
+              type="text"
+              value={message}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+            />
+            <button className="btn-send">send</button>
+          </form>
+        </div>
       </div>
     </ChattingBox>
   );

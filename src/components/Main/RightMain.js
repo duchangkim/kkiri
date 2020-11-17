@@ -1,13 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Row, Col } from 'react-bootstrap';
-import calculateDday from '../../lib/calculateDday';
-import { func } from 'joi';
-import LoadingPage from '../../pages/LoadingPage';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Row, Col } from "react-bootstrap";
+import calculateDday from "../../lib/calculateDday";
+import { func } from "joi";
+import LoadingPage from "../../pages/LoadingPage";
+import Figure from "react-bootstrap/Figure";
 
 const RightMainBlock = styled.div`
-  height: 100%
+  height: 100%;
+  a {
+    text-decoration: none;
+  }
 `;
 
 const ScheduleItem = styled.li`
@@ -48,14 +52,14 @@ const AlbumItem = styled.div`
   .price {
     width: 23%;
     height: 100%;
-    margin-right: 0.5rem;  
+    margin-right: 0.5rem;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
-`
+`;
 
 const RightMain = ({ schedules, dDays, albums }) => {
   console.log(schedules);
@@ -77,28 +81,16 @@ const RightMain = ({ schedules, dDays, albums }) => {
               <input type="radio" name="radio-btn" id="radio3" />
               <input type="radio" name="radio-btn" id="radio4" />
               <div className="slide first">
-                <img
-                  src={require('../../images/issue1.jfif')}
-                  alt="새로운 이슈 첫번째 슬라이드"
-                />
+                <img src={require("../../images/issue1.jfif")} alt="새로운 이슈 첫번째 슬라이드" />
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date1.jfif')}
-                  alt="새로운 이슈 두번째 슬라이드"
-                />
+                <img src={require("../../images/date1.jfif")} alt="새로운 이슈 두번째 슬라이드" />
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date2.jfif')}
-                  alt="새로운 이슈 세번째 슬라이드"
-                />
+                <img src={require("../../images/date2.jfif")} alt="새로운 이슈 세번째 슬라이드" />
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date3.jfif')}
-                  alt="새로운 이슈 네번째 슬라이드"
-                />
+                <img src={require("../../images/date3.jfif")} alt="새로운 이슈 네번째 슬라이드" />
               </div>
             </div>
             <div className="navigation-manual">
@@ -110,37 +102,69 @@ const RightMain = ({ schedules, dDays, albums }) => {
           </div>
           <div className="Right-Mall">
             <h4>데이트 추천장소</h4>
-            <div className="Date-Recommend">
+            <section id="slideshow">
+              <div className="entire-content">
+                <div className="content-carrousel">
+                  <Figure className="shadow">
+                    <img src={require("../../images/issue1.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date1.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date2.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date1.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date2.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date1.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date2.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date1.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                  <Figure className="shadow">
+                    <img src={require("../../images/date2.jfif")} />
+                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
+                  </Figure>
+                </div>
+              </div>
+            </section>
+            {/* <div className="Date-Recommend">
               <input type="radio" name="auto-radio-btn" id="auto-radio1" />
               <input type="radio" name="auto-radio-btn" id="auto-radio2" />
               <input type="radio" name="auto-radio-btn" id="auto-radio3" />
               <input type="radio" name="auto-radio-btn" id="auto-radio4" />
               <div className="auto-slide first2">
-                <img
-                  src={require('../../images/al8.png')}
-                  alt="데이트 추천장소 첫번째"
-                />
-                <div className="auto-slide-text">자동 슬라이드1</div>
+                <img src={require("../../images/lotte.jpg")} alt="데이트 추천장소 첫번째" />
+                <a href="http://www.lotteworld.com/gate.html" target="_blank">
+                  <div className="auto-slide-text">모험과 신비의 나라 롯데월드</div>
+                </a>
               </div>
               <div className="auto-slide">
-                <img
-                  src={require('../../images/al7.png')}
-                  alt="데이트 추천장소 두번째"
-                />
+                <img src={require("../../images/al7.png")} alt="데이트 추천장소 두번째" />
                 <div className="auto-slide-text">자동 슬라이드2</div>
               </div>
               <div className="auto-slide">
-                <img
-                  src={require('../../images/al6.png')}
-                  alt="데이트 추천장소 세번째"
-                />
+                <img src={require("../../images/al6.png")} alt="데이트 추천장소 세번째" />
                 <div className="auto-slide-text">자동 슬라이드3</div>
               </div>
               <div className="auto-slide">
-                <img
-                  src={require('../../images/al5.png')}
-                  alt="데이트 추천장소 네번째"
-                />
+                <img src={require("../../images/al5.png")} alt="데이트 추천장소 네번째" />
                 <div className="auto-slide-text">자동 슬라이드4</div>
               </div>
               <div className="A-navigation-auto">
@@ -155,7 +179,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
               <label htmlFor="auto-radio2" className="auto-manual-btn"></label>
               <label htmlFor="auto-radio3" className="auto-manual-btn"></label>
               <label htmlFor="auto-radio4" className="auto-manual-btn"></label>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="Krikri-Calendar">
@@ -168,8 +192,8 @@ const RightMain = ({ schedules, dDays, albums }) => {
                 {schedules.map((schedule) => (
                   <ScheduleItem key={schedule.id}>
                     <div>
-                      {new Date(schedule.start).getFullYear()}년{' '}
-                      {new Date(schedule.start).getMonth() + 1}월{' '}
+                      {new Date(schedule.start).getFullYear()}년{" "}
+                      {new Date(schedule.start).getMonth() + 1}월{" "}
                       {new Date(schedule.start).getDate()}일
                     </div>
                     <ScheduleTitle>{schedule.title}</ScheduleTitle>
@@ -194,18 +218,24 @@ const RightMain = ({ schedules, dDays, albums }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.idx-a.idx;}).map((album, index) => (
-              album.filename && (
-                <div className="price" key={index}>
-                  <img src={`http://localhost:3000/uploads/${album.filename}`}/>
-                </div>
-              )
-            ))}
+            {albums.fileData.files
+              .slice(-5)
+              .sort(function (a, b) {
+                return b.idx - a.idx;
+              })
+              .map(
+                (album, index) =>
+                  album.filename && (
+                    <div className="price" key={index}>
+                      <img src={`http://localhost:3000/uploads/${album.filename}`} />
+                    </div>
+                  )
+              )}
           </AlbumItem>
         </div>
       </div>
     </RightMainBlock>
-  );  
+  );
 };
 
 export default RightMain;

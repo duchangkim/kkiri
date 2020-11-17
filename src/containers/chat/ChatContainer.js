@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Chat from '../../components/Chat/Chat';
-import { Row, Col } from 'react-bootstrap';
-import io from 'socket.io-client';
-import { useSelector, useDispatch } from 'react-redux';
-import { getMessageList, insertMessageList } from '../../modules/chat';
-import LoadingPage from '../../pages/LoadingPage';
+import React, { useState, useEffect, useRef } from "react";
+import Chat from "../../components/Chat/Chat";
+import { Row, Col } from "react-bootstrap";
+import io from "socket.io-client";
+import { useSelector, useDispatch } from "react-redux";
+import { getMessageList, insertMessageList } from "../../modules/chat";
+import LoadingPage from "../../pages/LoadingPage";
 
 const ChatContainer = ({ history }) => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [visitTime, setVisitTime] = useState(new Date())
   const [chatLoad, setChatLoad] = useState({
@@ -36,17 +36,12 @@ const ChatContainer = ({ history }) => {
   // socket methods
   const receivedMessage = (message) => {
     try {
-      const messageListFromLocalStorage = JSON.parse(
-        localStorage.getItem('messages')
-      );
+      const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
       messageListFromLocalStorage.push(message);
       setMessages(messageListFromLocalStorage);
-      localStorage.setItem(
-        'messages',
-        JSON.stringify(messageListFromLocalStorage)
-      );
+      localStorage.setItem("messages", JSON.stringify(messageListFromLocalStorage));
     } catch (e) {
-      console.log('로컬스토리지 에에러러');
+      console.log("로컬스토리지 에에러러");
     }
   };
   const sendMessage = (e) => {
@@ -58,9 +53,9 @@ const ChatContainer = ({ history }) => {
       text: message,
       sendDate: new Date(),
     };
-    setMessage('');
-    socketRef.current.emit('send message', messageObject);
-    console.log('메시지 보냄');
+    setMessage("");
+    socketRef.current.emit("send message", messageObject);
+    console.log("메시지 보냄");
     console.log(messageObject);
   };
 
@@ -68,11 +63,13 @@ const ChatContainer = ({ history }) => {
     setMessage(e.target.value);
   };
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       sendMessage(e);
     }
   };
   const onEmojiClick = (event, emojiObject) => {
+    // console.dir(emojiObject.emoji);
+    setMessage(message.concat(emojiObject.emoji));
     setChosenEmoji(emojiObject);
   };
 
@@ -169,8 +166,8 @@ const ChatContainer = ({ history }) => {
       setYourID(id);
     });
 
-    socketRef.current.on('message', (message) => {
-      console.log('메세지보냄');
+    socketRef.current.on("message", (message) => {
+      console.log("메세지보냄");
       // console.log(message);
       receivedMessage(message);
     });
@@ -181,13 +178,11 @@ const ChatContainer = ({ history }) => {
     console.log(messageList);
 
     return () => {
-      console.log('페이지 나가요~');
-      socketRef.current.emit('leaveRoom', member.coupleShareCode);
+      console.log("페이지 나가요~");
+      socketRef.current.emit("leaveRoom", member.coupleShareCode);
       socketRef.current.disconnect();
       try {
-        const messageListFromLocalStorage = JSON.parse(
-          localStorage.getItem('messages')
-        );
+        const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
 
         const newMessages = messageListFromLocalStorage.filter(
           (message) => new Date(message.sendDate) >= visitTime
@@ -202,38 +197,30 @@ const ChatContainer = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    console.log('렌더링 될때 한번이지?');
+    console.log("렌더링 될때 한번이지?");
     dispatch(getMessageList(0));
     try {
       // 로컬스토리지에서 메시지 리스트 가져오는데 없으면 만들기
-      const messageListFromLocalStorage = JSON.parse(
-        localStorage.getItem('messages')
-      );
+      const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
       if (!messageListFromLocalStorage) {
-        console.log('로컬스토리지 없어서 만든다.');
-        localStorage.setItem('messages', JSON.stringify(messageList));
+        console.log("로컬스토리지 없어서 만든다.");
+        localStorage.setItem("messages", JSON.stringify(messageList));
       }
       setMessages(messageListFromLocalStorage);
     } catch (e) {
-      localStorage.setItem('messages', JSON.stringify(messageList));
-      console.log('로컬스토리지 에에러러');
+      localStorage.setItem("messages", JSON.stringify(messageList));
+      console.log("로컬스토리지 에에러러");
     }
   }, []);
 
   useEffect(() => {
     console.log('messageList가 바뀐다.');
-    const messageListFromLocalStorage = JSON.parse(
-      localStorage.getItem('messages')
-    );
-    if (
-      !messageListFromLocalStorage ||
-      messageListFromLocalStorage.length === 0
-    ) {
-      console.log(
-        '여기는 로컬스토리지에 메시지도 없고 있어도 빈 배열일 때 들어오ㅓㄴ단다.'
-      );
+    // console.log('여기한번 와볼래?');
+    const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
+    if (!messageListFromLocalStorage || messageListFromLocalStorage.length === 0) {
+      console.log("여기는 로컬스토리지에 메시지도 없고 있어도 빈 배열일 때 들어오ㅓㄴ단다.");
       setMessages(messageList);
-      localStorage.setItem('messages', JSON.stringify(messageList));
+      localStorage.setItem("messages", JSON.stringify(messageList));
     }
   }, [messageList]);
 
@@ -253,7 +240,7 @@ const ChatContainer = ({ history }) => {
   }, [isNew])
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <LoadingPage />;
   }
   if (messageListError) {
@@ -275,7 +262,6 @@ const ChatContainer = ({ history }) => {
           member={member}
           chosenEmoji={chosenEmoji}
           onEmojiClick={onEmojiClick}
-          addEmoji={addEmoji}
           sendMessage={sendMessage}
         />
       </Col>
