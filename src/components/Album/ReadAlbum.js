@@ -108,7 +108,7 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
     console.log(typeof asd); 
     const keyid = fileData.files[albumIdx].keyid;
 
-    const onEdit = async () => {
+    const onEdit = async (e) => {
         await editFile(keyid).then(res => {           
             console.log(res);
         }).catch(err => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AskRemoveModal from './AskRemoveModal'
 import { BsHeartFill, BsHeart } from "react-icons/bs";
@@ -33,10 +33,14 @@ const ActionButton = styled.button`
 
 const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
+
   const [like, setLike] = useState(
-    likes ? '즐겨찾기 해제에' : '즐찾하기!'
+    ''
   );
 
+  useEffect(() => {
+    setLike(likes ? '즐찾해제' : '즐찾ㄱ');
+  },[likes])
   const onRemoveClick = () => {
     setModal(true);
   }
