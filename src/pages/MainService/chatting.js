@@ -1,11 +1,11 @@
-import { Row, Col } from 'react-bootstrap';
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import io from 'socket.io-client';
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getMessageList, insertMessageList } from '../../modules/chat';
-import LoadingPage from '../LoadingPage';
+import { Row, Col } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+import io from "socket.io-client";
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import { useSelector, useDispatch } from "react-redux";
+import { getMessageList, insertMessageList } from "../../modules/chat";
+import LoadingPage from "../LoadingPage";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -223,7 +223,7 @@ const Chatting = ({ history }) => {
   const dispatch = useDispatch();
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   // console.log(messages);
@@ -242,15 +242,15 @@ const Chatting = ({ history }) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect('/');
-    console.log('연결확인');
-    socketRef.current.emit('joinRoom', member.coupleShareCode);
-    socketRef.current.on('your id', (id) => {
+    socketRef.current = io.connect("/");
+    console.log("연결확인");
+    socketRef.current.emit("joinRoom", member.coupleShareCode);
+    socketRef.current.on("your id", (id) => {
       setYourID(id);
     });
 
-    socketRef.current.on('message', (message) => {
-      console.log('메세지보냄');
+    socketRef.current.on("message", (message) => {
+      console.log("메세지보냄");
       console.log(message);
       receivedMessage(message);
     });
@@ -270,12 +270,10 @@ const Chatting = ({ history }) => {
     const now = Date.now();
 
     return () => {
-      console.log('페이지 나가요~');
-      socketRef.current.emit('leaveRoom', member.coupleShareCode);
+      console.log("페이지 나가요~");
+      socketRef.current.emit("leaveRoom", member.coupleShareCode);
       socketRef.current.disconnect();
-      const messageListFromLocalStorage = JSON.parse(
-        localStorage.getItem('messages')
-      );
+      const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
 
       const newMessages = messageListFromLocalStorage.filter(
         (message) => new Date(message.sendDate) >= now
@@ -287,54 +285,40 @@ const Chatting = ({ history }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('렌더링 될때 한번이지?');
+    console.log("렌더링 될때 한번이지?");
     dispatch(getMessageList(0));
     try {
       // 로컬스토리지에서 메시지 리스트 가져오는데 없으면 만들기
-      const messageListFromLocalStorage = JSON.parse(
-        localStorage.getItem('messages')
-      );
+      const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
       if (!messageListFromLocalStorage) {
-        console.log('로컬스토리지 없어서 만든다.');
-        localStorage.setItem('messages', JSON.stringify(messageList));
+        console.log("로컬스토리지 없어서 만든다.");
+        localStorage.setItem("messages", JSON.stringify(messageList));
       }
       setMessages(messageListFromLocalStorage);
     } catch (e) {
-      localStorage.setItem('messages', JSON.stringify(messageList));
-      console.log('로컬스토리지 에에러러');
+      localStorage.setItem("messages", JSON.stringify(messageList));
+      console.log("로컬스토리지 에에러러");
     }
   }, []);
 
   useEffect(() => {
     // console.log('여기한번 와볼래?');
-    const messageListFromLocalStorage = JSON.parse(
-      localStorage.getItem('messages')
-    );
-    if (
-      !messageListFromLocalStorage ||
-      messageListFromLocalStorage.length === 0
-    ) {
-      console.log(
-        '여기는 로컬스토리지에 메시지도 없고 있어도 빈 배열일 때 들어오ㅓㄴ단다.'
-      );
+    const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
+    if (!messageListFromLocalStorage || messageListFromLocalStorage.length === 0) {
+      console.log("여기는 로컬스토리지에 메시지도 없고 있어도 빈 배열일 때 들어오ㅓㄴ단다.");
       setMessages(messageList);
-      localStorage.setItem('messages', JSON.stringify(messageList));
+      localStorage.setItem("messages", JSON.stringify(messageList));
     }
   }, [messageList]);
 
   function receivedMessage(message) {
     try {
-      const messageListFromLocalStorage = JSON.parse(
-        localStorage.getItem('messages')
-      );
+      const messageListFromLocalStorage = JSON.parse(localStorage.getItem("messages"));
       messageListFromLocalStorage.push(message);
       setMessages(messageListFromLocalStorage);
-      localStorage.setItem(
-        'messages',
-        JSON.stringify(messageListFromLocalStorage)
-      );
+      localStorage.setItem("messages", JSON.stringify(messageListFromLocalStorage));
     } catch (e) {
-      console.log('로컬스토리지 에에러러');
+      console.log("로컬스토리지 에에러러");
     }
   }
 
@@ -348,9 +332,9 @@ const Chatting = ({ history }) => {
       text: message,
       sendDate: new Date(),
     };
-    setMessage('');
-    socketRef.current.emit('send message', messageObject);
-    console.log('메시지 보냄');
+    setMessage("");
+    socketRef.current.emit("send message", messageObject);
+    console.log("메시지 보냄");
     console.log(messageObject);
   }
 
@@ -359,13 +343,14 @@ const Chatting = ({ history }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       sendMessage(e);
     }
   };
 
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
+    console.log(chosenEmoji + "이모지");
   };
 
   const addEmoji = (e) => {
@@ -378,8 +363,7 @@ const Chatting = ({ history }) => {
   const getToday = () => {
     const now = new Date();
     const yyyy = now.getFullYear();
-    const mm =
-      now.getMonth() < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1;
+    const mm = now.getMonth() < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1;
     const dd = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate();
 
     return `${yyyy}년 ${mm}월 ${dd}일`;
@@ -409,7 +393,7 @@ const Chatting = ({ history }) => {
   }
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <LoadingPage />;
   }
   // console.log(messageList);
@@ -427,18 +411,14 @@ const Chatting = ({ history }) => {
                       <div className="profile">
                         <div className="name">{message.name}</div>
                       </div>
-                      <MyMessage className="MyMessage">
-                        {message.text}
-                      </MyMessage>
+                      <MyMessage className="MyMessage">{message.text}</MyMessage>
                       <div className="Time">{dateFormat(message.sendDate)}</div>
                     </MyRow>
                   );
                 }
                 return (
                   <PartnerRow className="PartnerRow" key={index}>
-                    <PartnerMessage className="PartnerMessage">
-                      {message.text}
-                    </PartnerMessage>
+                    <PartnerMessage className="PartnerMessage">{message.text}</PartnerMessage>
                     <div className="Time2">{dateFormat(message.sendDate)}</div>
                     <div className="profile2">
                       <div className="name">{message.name}</div>

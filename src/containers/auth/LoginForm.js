@@ -68,6 +68,7 @@ const LoginForm = ({ history }) => {
   useEffect(() => {
     dispatch(initializeForm("findid"));
     dispatch(initializeForm("findpw"));
+    setError("");
   }, [dispatch]);
   return (
     <AuthForm

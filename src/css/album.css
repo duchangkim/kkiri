@@ -45,7 +45,7 @@
 
 .album-itembox {
   width: 90%;
-  /* height: 80%; */
+  /* height: 600px; */
   /* background-color: rgba(244, 245, 249, 1); */
   margin: 10px auto 0;
   padding: 15px;
@@ -84,8 +84,7 @@
 .album-itembox li .img_place {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  /* max-height: 300px; */
 }
 
 /* 앨범추가 팝업 */

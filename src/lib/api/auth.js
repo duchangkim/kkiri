@@ -3,9 +3,11 @@ import client from "./client";
 export const localLogin = ({ email, password }) =>
   client.post("/api/auth/login", { email, password });
 
-export const register = ({ email, password, birthday, name, hp }) => {
+export const register = ({ email, emailcode, password, birthday, name, hp }) => {
+  console.log("dudusiaduiasduiosaudosaujdoijas")
   return client.post("/api/auth/register", {
     email,
+    emailcode,
     password,
     birthday,
     name,
@@ -21,9 +23,6 @@ export const findid = ({ name, birthday, hp }) =>
 
 export const findpw = ({ email, birthday, hp }) =>
   client.post("/api/auth/findpw", { email, birthday, hp });
-
-export const registercode = ({ emailcode }) =>
-  client.post("/api/auth/registercode", { emailcode });
 
 export const registercouple = (couplecode) =>
   client.get(`/api/code/${couplecode}`);
