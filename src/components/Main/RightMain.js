@@ -195,9 +195,9 @@ const RightMain = ({ schedules, dDays, albums }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.idx-a.idx;}).map((album, index) => (
+            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.keyid-a.keyid;}).map((album, index) => (
               album.filename && (
-                <div className="price" key={index}>
+                <div className="price" key={album.keyid}>
                   <img src={`http://localhost:3000/uploads/${album.filename}`}/>
                 </div>
               )

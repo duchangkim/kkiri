@@ -7,7 +7,7 @@ albums.get('/', albumCtrl.list);
 albums.post("/fileupload", albumCtrl.fileupload);
 albums.get('/:idx', albumCtrl.getAlbumById ,albumCtrl.read);
 albums.delete('/:idx', checkLoggedIn, albumCtrl.remove);
-albums.patch('/:idx', albumCtrl.checkObjectId, albumCtrl.update);
+albums.patch('/:keyid', albumCtrl.update);
 
 // const album = new Router();
 

@@ -52,15 +52,29 @@
   display: flex;
   box-sizing: border-box;
 }
+.album-itembox ul {
+  padding: 0;
+}
 
-.album-itembox li {
+.album-itembox ul li {
   float: left;
-  width: 23%;
-  height: 40%;
-  margin: 0 0.9%;
-  margin-bottom: 15px;
+  width: 24.5%;
+  height: 230px;
+  margin: 0 0.2%;
+  margin-bottom: 0.4%;
   cursor: pointer;
   list-style: none;
+}
+
+@media(max-width: 1080px) {
+  .album-itembox ul li {
+    height: 150px;  
+  }
+}
+@media(max-width: 768px) {
+  .album-itembox ul li {
+    height: 100px;  
+  }
 }
 
 .album.itembox li:nth-child(4n + 1) {

@@ -45,13 +45,13 @@ function Album({ albums, loading, error }) {
               <ul className="a-items">
                 {albums.fileData.files.map((album, index) => (
                     album.filename && (
-                      <Link to={`albums/${index}`} key={index}>
+                      <Link to={`albums/${index}`} key={album.keyid}>
                         <li>
                           <img
                             src={`http://localhost:3000/uploads/${album.filename}` ? 
                             `http://localhost:3000/uploads/${album.filename}` : '../../images/error.jpg'}
                             className="img_place"
-                            alt={album.idx}
+                            alt={album.keyid}
                           />                        
                         </li>
                       </Link>
