@@ -22,8 +22,7 @@ const Styles = styled.div`
     min-width: 120px;
     margin: 30px 0;
     // border-right: 10px solid #ddd;
-    box-shadow: none !important;
-    z-index: 0 !important;
+    z-index: 100 !important;
   }
   .btn-link {
     color: #555;

@@ -20,8 +20,8 @@ function Album({ albums, loading, error }) {
     }
     return <>오류 발생!</>;
   }
-  console.log("componenttttttttttt");
-  console.dir(albums);
+  // console.log('componenttttttttttt');
+  // console.dir(albums);
 
   if (albums) {
     return (
@@ -43,28 +43,24 @@ function Album({ albums, loading, error }) {
           <div className="album-itembox">
             {!loading && albums.fileData.files && (
               <ul className="a-items">
-                {albums.fileData.files
-                  .sort(function (a, b) {
-                    return b.idx - a.idx;
-                  })
-                  .map(
-                    (album, index) =>
-                      album.filename && (
-                        <Link to={`albums/${index}`} key={index}>
-                          <li>
-                            <img
-                              src={
-                                `http://localhost:3000/uploads/${album.filename}`
-                                  ? `http://localhost:3000/uploads/${album.filename}`
-                                  : "../../images/error.jpg"
-                              }
-                              className="img_place"
-                              alt={album.idx}
-                            />
-                          </li>
-                        </Link>
-                      )
-                  )}
+                {albums.fileData.files.map(
+                  (album, index) =>
+                    album.filename && (
+                      <Link to={`albums/${index}`} key={index}>
+                        <li>
+                          <img
+                            src={
+                              `http://localhost:3000/uploads/${album.filename}`
+                                ? `http://localhost:3000/uploads/${album.filename}`
+                                : "../../images/error.jpg"
+                            }
+                            className="img_place"
+                            alt={album.idx}
+                          />
+                        </li>
+                      </Link>
+                    )
+                )}
               </ul>
             )}
           </div>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, registeremail } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
-import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
 
 const RegisterEmailForm = ({ history }) => {
@@ -61,7 +60,6 @@ const RegisterEmailForm = ({ history }) => {
     }
     if (auth) {
       console.log("이메일 전송완료");
-      dispatch(check());
     }
   }, [auth, authError, dispatch, error]);
 

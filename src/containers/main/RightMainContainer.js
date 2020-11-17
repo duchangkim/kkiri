@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import RightMain from "../../components/Main/RightMain";
 import { getScheduleList } from "../../modules/schedule";
 import { listAlbums } from "../../modules/albums";
+import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,8 @@ const LeftMainContainer = () => {
     dispatch(listAlbums());
   }, [dispatch]);
 
-  if (!scheduleList) {
-    return <h1>Loading...</h1>;
+  if (!scheduleList || !albums) {
+    return <LoadingPage />;
   }
 
   console.log(scheduleList);
@@ -33,7 +34,6 @@ const LeftMainContainer = () => {
     .slice(0, 5);
 
   const dDays = scheduleList.filter((schedule) => schedule.calendarId === "dday").slice(0, 5);
-
   console.dir(albums);
   // console.log(albums.fileData.files);
 

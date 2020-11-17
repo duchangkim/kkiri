@@ -6,6 +6,7 @@ import LeftMain from "../../components/Main/LeftMain";
 import getPosition from "../../lib/getPosition";
 import { insertPosition, insertGetTogetherDate } from "../../modules/member";
 import { withRouter } from "react-router-dom";
+import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
@@ -71,13 +72,13 @@ const LeftMainContainer = () => {
   }, [dispatch, myWeather]);
 
   if (!couple) {
-    return <h1>Loading...</h1>;
+    return <LoadingPage />;
   }
   if (coupleError) {
     return <h1>Error!!</h1>;
   }
   if (!myWeather || !yourWeather) {
-    return <h1>Loading...</h1>;
+    return <LoadingPage />;
   }
 
   return (

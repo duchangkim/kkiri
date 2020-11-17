@@ -15,7 +15,7 @@ class UploadButton extends Component {
   };
 
   handlePost = () => {
-    console.log(this.state.files);
+    // console.log(this.state.files);
     const formData = new FormData();
     formData.append("files", this.state.files, this.state.files.name);
     console.log(formData);

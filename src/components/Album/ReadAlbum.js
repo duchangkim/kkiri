@@ -62,11 +62,11 @@ const BoxBody = styled.div`
 `
 
 function ReadAlbum({ album, error, loading, albumIdx}) {
-    console.log('555555555');
-    console.log(albumIdx)
-    console.log(typeof albumIdx);
+    // console.log('555555555');
+    // console.log(albumIdx)
+    // console.log(typeof albumIdx);
     let abc = Number(albumIdx);
-    console.log(typeof abc);
+    // console.log(typeof abc);
     if(error) {
         if(error.response && error.response.status === 404) {
             return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>
@@ -80,10 +80,10 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
     
     const { fileData } = album;
     const len = fileData.files.length; 
-    console.log(len);
-    console.log(typeof len);
+    // console.log(len);
+    // console.log(typeof len);
     const filename = fileData.files[albumIdx].filename;
-    console.log(abc < len ? abc : (abc-1));
+    // console.log(abc < len ? abc : (abc-1));
     const likes = fileData.files[albumIdx].like;
     
     const onRemove = async () => {
@@ -100,6 +100,9 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
             console.log(e);
         }
     }
+
+    const asd = Date.now();
+    console.log(typeof asd); // 1605504640313 -> 1605504656112 -> 1605504722672
 
     const onEdit = async () => {
         await editFile(albumIdx).then(res => {

@@ -1,3 +1,6 @@
+img {
+  object-fit: cover;
+}
 /* 메인 */
 .Left-Main {
   width: 90%;
@@ -701,7 +704,7 @@
   width: 94%;
   height: 26vh;
   position: relative;
-  top: 3%;
+  top: 2%;
   margin-left: 3%;
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 1);
@@ -752,7 +755,7 @@
   height: 31.2%;
   background-color: rgba(255, 255, 255, 1);
   position: relative;
-  top: 5%;
+  top: 3%;
   margin-top: 12px;
   margin-left: 3%;
   border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
@@ -785,6 +788,110 @@
   width: 100%;
   text-align: left;
   font-size: 1.1rem;
+}
+
+/* 데이트 추천장소 auto-Slide부분 */
+#slideshow {
+  margin: 0 auto;
+  padding-top: 50px;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.entire-content {
+  margin: auto;
+  width: 190px;
+  perspective: 1000px;
+  position: relative;
+}
+
+.content-carrousel {
+  width: 100%;
+  position: absolute;
+  float: right;
+  animation: rotar 30s infinite linear;
+  transform-style: preserve-3d;
+}
+
+.content-carrousel:hover {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+.content-carrousel figure {
+  width: 100%;
+  height: 120px;
+  border: 1px solid #3b444b;
+  overflow: hidden;
+  position: absolute;
+}
+
+.content-carrousel figure:nth-child(1) {
+  transform: rotateY(0deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(2) {
+  transform: rotateY(40deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(3) {
+  transform: rotateY(80deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(4) {
+  transform: rotateY(120deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(5) {
+  transform: rotateY(160deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(6) {
+  transform: rotateY(200deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(7) {
+  transform: rotateY(240deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(8) {
+  transform: rotateY(280deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(9) {
+  transform: rotateY(320deg) translateZ(300px);
+}
+.content-carrousel figure:nth-child(10) {
+  transform: rotateY(360deg) translateZ(300px);
+}
+
+.shadow {
+  position: absolute;
+  box-shadow: 0px 0px 20px 0px #000;
+  border-radius: 1px;
+}
+
+/* 그림 사이즈 */
+.content-carrousel img {
+  image-rendering: auto;
+  transition: all 300ms;
+  width: 100%;
+  height: 85%;
+}
+/* 해당 그림 텍스트 */
+.datePlace {
+  background-color: orange;
+  height: 15%;
+  font-size: 10px;
+  font-family: "Allerta Stencil";
+}
+
+.content-carrousel img:hover {
+  transform: scale(1.4);
+  transition: all 300ms;
+}
+
+@keyframes rotar {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
 
 @media (max-width: 768px) {

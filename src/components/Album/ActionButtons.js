@@ -32,7 +32,7 @@ const ActionButton = styled.button`
 
 const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
-  console.log('11111111313'+likes);
+  // console.log('11111111313'+likes);
 
   const onRemoveClick = () => {
     setModal(true);

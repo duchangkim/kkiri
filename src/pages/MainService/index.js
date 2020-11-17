@@ -8,10 +8,11 @@ import { Route } from 'react-router';
 // import Main from './Main';
 import MainPage from '../MainPage';
 import AlbumContainer from '../../containers/album/AlbumContainer';
-import Chatting from './chatting';
+// import Chatting from './chatting';
 import UnNavigationBar from '../../components/UnNavigationBar';
 import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
+import ChatContainer from '../../containers/chat/ChatContainer';
 
 const CustomContainer = styled.div`
   width: 100%;
@@ -61,11 +62,19 @@ const MainService = () => {
                 <Header />
               </Row>
             ) : null}
-            <Route path="/kkiri/home" component={MainPage} />
-            <Route path="/kkiri/calendar" component={CalendarPage} />
-            <Route path="/kkiri/albums/" exact={true}  component={AlbumContainer} />            
-            <Route path={['/kkiri/albums/:idx', '/']} exact={true} component={ReadAlbumContainer} />
-            <Route path="/kkiri/chatting" component={Chatting} />
+            <Route path="/kkiri/home" component={MainPage} exact />
+            <Route path="/kkiri/calendar" component={CalendarPage} exact />
+            <Route
+              path="/kkiri/albums/"
+              exact={true}
+              component={AlbumContainer}
+            />
+            <Route
+              path={['/kkiri/albums/:idx', '/']}
+              exact={true}
+              component={ReadAlbumContainer}
+            />
+            <Route path="/kkiri/chatting" component={ChatContainer} exact />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
                 <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
