@@ -20,8 +20,8 @@ AlbumSchema.methods.deleteFile = async function (
   fileData,
   idx
 ) {
-  console.log(this.fileData.files);
-  console.log(this.fileData[fileData]);
+  // console.log(this.fileData.files);
+  // console.log(this.fileData[fileData]);
   this.fileData[fileData] = await this.fileData[
     fileData
   ].filter(
@@ -29,7 +29,7 @@ AlbumSchema.methods.deleteFile = async function (
     );
 
   console.log('여기드러옴?');
-  console.log(idx);
+  // console.log(idx);
 
 
   return this.fileData[fileData];
