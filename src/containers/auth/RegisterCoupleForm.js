@@ -83,6 +83,7 @@ const CoupleCodeForm = ({ history }) => {
   }, [auth, dispatch]);
 
   useEffect(() => {
+    console.log(auth.coupleShareCode);
     if (auth.coupleShareCode) {
       history.push("/kkiri/home");
       return;

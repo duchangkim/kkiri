@@ -12,24 +12,19 @@ import { withRouter } from "react-router-dom";
 const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const {
-    form,
-    mailSuccess,
-    authError,
-    emailError,
-    member,
-    isSuccess,
-  } = useSelector(({ auth, member }) => {
-    return {
-      form: auth.register,
-      auth: auth.auth,
-      authError: auth.authError,
-      emailError: auth.emailError,
-      member: member.member,
-      isSuccess: auth.register.isSuccess,
-      mailSuccess: auth.registeremail.mailSuccess,
-    };
-  });
+  const { form, authError, emailError, member, isSuccess } = useSelector(
+    ({ auth, member }) => {
+      return {
+        form: auth.register,
+        auth: auth.auth,
+        authError: auth.authError,
+        emailError: auth.emailError,
+        member: member.member,
+        isSuccess: auth.register.isSuccess,
+        mailSuccess: auth.registeremail.mailSuccess,
+      };
+    }
+  );
 
   const onChange = (e) => {
     const { value, name } = e.target;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Responsive from "./Responsive";
 import Button from "./Button";
+import auth from "../../modules/auth";
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -48,6 +49,9 @@ const Header = ({ member, onLogout, children }) => {
             <div className="right">
               <UserInfo>{member.email}</UserInfo>
               <Button onClick={onLogout}>로그아웃</Button>
+              {auth.coupleShareCode ? null : (
+                <Button to="/registercouple">코드입력</Button>
+              )}
             </div>
           ) : (
             <div className="right">
