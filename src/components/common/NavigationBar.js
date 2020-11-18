@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import SideMenu from "react-sidebar";
-import { KkiriLogo, Navigation } from "./SideBarItems";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import SideMenu from 'react-sidebar';
+import { KkiriLogo, Navigation } from './SideBarItems';
+import { Link } from 'react-router-dom';
 
 const Styles = styled.div`
   position: fixed;
@@ -21,8 +21,8 @@ const Styles = styled.div`
     width: 100%;
     min-width: 120px;
     margin: 30px 0;
-    // border-right: 10px solid #ddd;
     z-index: 100 !important;
+    box-shadow: none !important;
   }
   .btn-link {
     color: #555;

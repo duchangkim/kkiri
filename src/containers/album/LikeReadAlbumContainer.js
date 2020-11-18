@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readAlbum, unloadAlbum } from '../../modules/album';
-import ReadAlbum from '../../components/Album/ReadAlbum';
+import LikeReadAlbum from '../../components/Album/LikeReadAlbum';
 import { setOriginalAlbum } from '../../modules/album'; 
 
-const ReadAlbumContainer = ({ match }) => {
+const LikeReadAlbumContainer = ({ match }) => {
   const albumIdx  = match.params.idx;
   console.log(match);
   console.log(albumIdx);
@@ -29,7 +29,7 @@ const ReadAlbumContainer = ({ match }) => {
   }, [dispatch, albumIdx]);
 
   return (
-    <ReadAlbum    
+    <LikeReadAlbum    
       album={album}
       loading={loading}
       error={error}
@@ -38,4 +38,4 @@ const ReadAlbumContainer = ({ match }) => {
   );
 };
 
-export default withRouter(ReadAlbumContainer);
+export default withRouter(LikeReadAlbumContainer);

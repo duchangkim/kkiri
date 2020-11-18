@@ -72,12 +72,12 @@ export const registeremail = async (ctx) => {
 
     const mailOption = mailOpt(result.value.email, contents());
     sendMail(mailOption);
-    ctx.body = { email: email };
   } catch (e) {
     ctx.throw(500, e);
   }
 };
 
+<<<<<<< HEAD
 export const registercode = async (ctx) => {
   // 코드
   const { emailcode } = ctx.request.body;
@@ -96,10 +96,17 @@ export const registercode = async (ctx) => {
     ctx.throw(500, e);
   }
 };
+=======
+>>>>>>> bf848e5ab4b3dd2201ff938613f337be0f108604
 
 export const register = async (ctx) => {
+  const { email, emailcode, password, birthday, name, hp } = ctx.request.body;
+  console.log(
+    `params : ${email},${emailcode},${password}, ${birthday}, ${name},${hp}`
+  );
   const schema = Joi.object().keys({
     email: Joi.string().required(),
+    emailcode: Joi.string().required(),
     password: Joi.string().required(),
     name: Joi.string().required(),
     birthday: Joi.string().required(),
@@ -114,10 +121,9 @@ export const register = async (ctx) => {
     return;
   }
 
-  const { email, password, birthday, name, hp } = ctx.request.body;
-  console.log(`params : ${email},${password}, ${birthday}, ${name},${hp}`);
 
   try {
+<<<<<<< HEAD
     //회원 고유 code부여
     //await 하지 않으면 Promise를 리턴받음
     const userCode = await createRandomCode();
@@ -141,6 +147,40 @@ export const register = async (ctx) => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
+=======
+    console.log(emailcode);
+    console.log(res_data.secret);
+    if (emailcode) {
+      if (emailcode !== res_data.secret) {
+        console.log('코드 인증 실패');
+      } else if (emailcode === res_data.secret) {
+        console.log('코드 인증 성공');
+
+        const userCode = await createRandomCode();
+        console.log(userCode);
+        const member = new Member({
+          email,
+          password,
+          birthday,
+          name,
+          hp,
+          userCode,
+        });
+
+        await member.encryptPassword(password);
+        await member.save();
+
+        ctx.body = member.serialize(); //직렬화해서 비밀번호를 제외한 JSON data 뿌려줌
+
+        const token = member.generateToken();
+        ctx.cookies.set('access_token', token, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+        });
+        ctx.body = { message: 'success' };
+      }
+    }
+>>>>>>> bf848e5ab4b3dd2201ff938613f337be0f108604
   } catch (e) {
     ctx.throw(500, e);
   }
