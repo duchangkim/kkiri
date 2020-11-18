@@ -20,8 +20,10 @@ const ChatContainer = ({ history }) => {
     messageList: chat.messageList,
     messageListError: chat.messageListError,
   }));
-  // const state = useSelector((state) => ({ state }));
-  // console.log(state);
+  const { loading } = useSelector(({ loading }) => ({ loading }));
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
+  console.log(loading);
 
   // state
   const [messages, setMessages] = useState([]);
@@ -29,6 +31,7 @@ const ChatContainer = ({ history }) => {
   const [messagePageNum, setMessagePageNum] = useState(0);
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [isTop, setIsTop] = useState(false)
 
   const receivedMessage = async (message) => {
     // console.log('리시브 메시시');
@@ -152,9 +155,27 @@ const ChatContainer = ({ history }) => {
     };
   }, []);
 
+  
   useEffect(() => {
+    if(messageList.length === 0) {
+      console.log('불러올것이 더이상 없다.')
+      return;
+    }
     receivedMessage(messageList);
+    
   }, [messageList]);
+
+  useEffect(() => {
+    if(!loading['chat/GET_MESSAGE_LIST']) {
+      console.log('메시지 로딩 끝?')
+      if(!messagesRef) {
+        return;
+      }
+      setTimeout(() => {
+        messagesRef.current.scrollTo(0, 0)
+      }, 30)
+    }
+  }, [messageList, loading]);
 
   useEffect(() => {
     newMessagesTemp.current = messages;
@@ -163,6 +184,7 @@ const ChatContainer = ({ history }) => {
   useEffect(() => {
     if (messagesRef !== null) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      // messagesRef.current.scrollTop = 0;
     }
   }, [messages]);
 
