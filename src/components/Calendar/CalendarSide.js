@@ -11,6 +11,7 @@ const CalendarSideBlock = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+
 `;
 const ListBlock = styled.div`
   width: 100%;
@@ -48,16 +49,28 @@ const ColorCircle = styled.div`
   height: ${(props) => (props.small ? `12px` : `17px`)};
   border-radius: 50%;
   background: ${(props) => props.bgColor};
+
+  @media ${(props) => props.theme.middle} {
+    display: none;
+  }
 `;
 const CalendarTitle = styled.div`
   font-size: 0.9rem;
   width: 50%;
-  max-width: 40%;
   overflow: hidden;
   cursor: pointer;
   &:hover {
     font-weight: bold;
     color: ${(props) => props.bgColor};
+  }
+
+  @media ${(props) => props.theme.middle} {
+    color: ${(props) => props.bgColor};
+    font-weight: bold;
+    &:hover {
+      position: relative;
+      bottom: 2px;
+    }
   }
 `;
 const DdayBlock = styled.div`

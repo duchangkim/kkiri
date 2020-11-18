@@ -34,6 +34,7 @@ const Styles = styled.div`
   .tui-full-calendar-popup-save {
     background: #ff838d;
   }
+
 `;
 
 const CalendarContainer = () => {
