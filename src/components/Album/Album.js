@@ -41,10 +41,28 @@ function Album({ albums, loading, error }) {
     }
     return <>오류 발생!</>;
   }
+  console.log(albums);
 
   if (albums && !loading) {
-    const num = albums.fileData.files.length-1;
+    const num = albums.length-1;
     console.log(typeof num);
+
+    let arr1 = [];
+    console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
+    console.log(albums)
+    albums.map((file, index) => {
+      if(file.like === true) {
+        console.log(index);
+        arr1 = arr1.concat({
+          id: index,
+          keyid: file.keyid,
+          filename: file.filename,
+        });
+      }
+    })
+    console.log(arr1);
+    console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
+
     return (
       <Row className="main-album m-0 p-0" md={2} sm={1}>
         <Col xl={12} md={12} className="m-0 p-0">
@@ -68,9 +86,9 @@ function Album({ albums, loading, error }) {
           </div>
           {isBasic ? <Album_ALL>
           <div className="album-itembox">
-            {!loading && albums.fileData.files && (
+            {!loading && albums && (
               <ul className="a-items">
-                {albums.fileData.files.reverse().map(
+                {albums.map(
                   (album, index) =>
                     album.filename && (
                       <Link to={`albums/${num-Number(index)}`} key={album.keyid}>
@@ -91,17 +109,17 @@ function Album({ albums, loading, error }) {
 
           {isWhat ? <Album_LIKE>
           <div className="album-itembox">
-            {!loading && albums.fileData.files && (
+            {!loading && albums && (
               <ul className="a-items">
-                {albums.fileData.files.reverse().map(
-                  (album, index) =>
-                    album.like === true && (
-                      <Link to={`albums/like/${num-Number(index)}`} key={album.keyid}>
+                {arr1.map(
+                  (ar, index) =>
+                    (
+                      <Link to={`albums/like/${index}`} key={ar.keyid}>
                         <li>
                           <img
-                            src={`http://localhost:3000/uploads/${album.filename}`}
+                            src={`http://localhost:3000/uploads/${ar.filename}`}
                             className="img_place"
-                            alt={album.keyid}
+                            alt={ar.keyid}
                           />                        
                         </li>
                       </Link>

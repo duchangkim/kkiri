@@ -121,9 +121,10 @@ export const list = async ctx => {
   console.log(coupleShareCode);
 
   try{
-    const albums = await Album.findOne({ coupleShareCode: `${coupleShareCode }`}).sort({_id: -1}).exec();
-    ctx.body = albums;
-    console.log(albums);
+    const albums = await Album.findOne({ coupleShareCode: `${coupleShareCode }`}).exec();
+    const result = albums.fileData.files.sort(function(a,b) {return a.keyid > b.keyid ? -1 : a.keyid < b.keyid ? 1 : 0;});
+    ctx.body = result;
+    console.log(result);
     console.log("안녕하세요~~")
   }catch(e) {
     ctx.throw(500, e);
