@@ -7,7 +7,7 @@ import Button from "./Button";
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  z-index:100;
+  z-index: 100;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -24,20 +24,19 @@ const Wrapper = styled(Responsive)`
   }
   .logo:hover {
     text-decoration: none;
-}
+  }
   .right {
     display: flex;
     align-items: center;
   }
 `;
 
-
 const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
 `;
 
-const Header = ({ member, onLogout,children }) => {
+const Header = ({ member, onLogout, children }) => {
   return (
     <>
       <HeaderBlock>

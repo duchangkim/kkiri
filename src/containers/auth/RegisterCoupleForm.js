@@ -13,20 +13,22 @@ import { logout } from "../../modules/member";
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember,member } = useSelector(
-    ({ auth,member }) => {
-      console.log(auth);
+  const { form, auth, coupleCodeError, otherMember, member } = useSelector(
+    ({ auth, member }) => {
+      console.log(member);
       return {
         form: auth.registercouple,
         auth: auth.auth,
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
-        member:member.member
+        member: member.member,
       };
     }
   );
-
+  console.log("##############################");
+  console.log(member);
+  console.log("##############################");
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -40,7 +42,7 @@ const CoupleCodeForm = ({ history }) => {
 
   const onLogout = () => {
     dispatch(logout());
-      history.push("/");
+    history.push("/");
   };
 
   const onSubmit = (e) => {
@@ -81,13 +83,11 @@ const CoupleCodeForm = ({ history }) => {
   }, [auth, dispatch]);
 
   useEffect(() => {
-    if (member.coupleShareCode) {
+    if (auth.coupleShareCode) {
       history.push("/kkiri/home");
       return;
     }
-  }, [history, member]);
-
-
+  }, [history, auth]);
 
   return (
     <AuthForm
@@ -96,7 +96,7 @@ const CoupleCodeForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={member.userCode}
+      myCode={auth.userCode}
       onLogout={onLogout}
     />
   );

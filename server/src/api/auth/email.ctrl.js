@@ -129,7 +129,6 @@ export const register = async (ctx) => {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           httpOnly: true,
         });
-        ctx.body = { message: "success" };
       }
     }
   } catch (e) {
