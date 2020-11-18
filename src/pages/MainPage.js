@@ -1,13 +1,19 @@
-import React from "react";
-import LeftMainContainer from "../containers/main/LeftMainContainer";
-import RightMainContainer from "../containers/main/RightMainContainer";
-import { Row, Col } from "react-bootstrap";
-import "../css/MainPage.css";
-import { useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React, {useEffect} from 'react';
+import LeftMainContainer from '../containers/main/LeftMainContainer';
+import RightMainContainer from '../containers/main/RightMainContainer';
+import { Row, Col } from 'react-bootstrap';
+import '../css/MainPage.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { check } from '../modules/member';
 
 const MainPage = ({ history }) => {
+  const dispatch = useDispatch()
   const member = useSelector(({ member }) => member.member);
+
+  useEffect(() => {
+    dispatch(check());
+  }, [])
 
   if (!member) {
     history.push("/");

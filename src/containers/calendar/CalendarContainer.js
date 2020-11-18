@@ -105,8 +105,6 @@ const CalendarContainer = () => {
       const schedule = {
         id,
         ...e.changes,
-        isAllDay: true,
-        category: 'allday',
         start: e.changes.start ? e.changes.start.toDate() : null,
         end: e.changes.end ? e.changes.end.toDate() : null,
       };

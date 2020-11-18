@@ -16,5 +16,5 @@ export const listAlbums = () => {
 export const removeFile = (idx) => client.delete(`/api/albums/${idx}`);
 console.log('111111111api/album->removefile');
 
-export const editFile = (idx) => client.patch(`/api/albums/${idx}`);
+export const editFile = (keyid) => client.patch(`/api/albums/${keyid}`);
 console.log('업데이트 요청전송');

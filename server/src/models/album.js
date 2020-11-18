@@ -20,8 +20,8 @@ AlbumSchema.methods.deleteFile = async function (
   fileData,
   idx
 ) {
-  console.log(this.fileData.files);
-  console.log(this.fileData[fileData]);
+  // console.log(this.fileData.files);
+  // console.log(this.fileData[fileData]);
   this.fileData[fileData] = await this.fileData[
     fileData
   ].filter(
@@ -29,11 +29,21 @@ AlbumSchema.methods.deleteFile = async function (
     );
 
   console.log('여기드러옴?');
-  console.log(idx);
+  // console.log(idx);
 
 
   return this.fileData[fileData];
 };
+
+AlbumSchema.methods.changeFile = async function (keyid) {
+  console.log('model keyid -> ' + keyid);
+  this.fileData.files = this.fileData.files.map(file => file.keyid === parseInt(keyid, 10) ? ({
+    ...file,
+    like: !file.like
+  }) : file);
+}
+
+
 
 const Album = mongoose.model('Album', AlbumSchema);
 

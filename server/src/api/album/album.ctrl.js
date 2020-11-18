@@ -68,6 +68,7 @@ export const fileupload = async ctx => {
     }
     const like = false;
     const today = new Date();
+    const keyid = Math.floor(Number(today)/1000);
     const publishedDate = today.toLocaleString();
     const filename = uploadfile.name;
     const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
@@ -82,7 +83,7 @@ export const fileupload = async ctx => {
         }
       }
       check.fileData.files.push({
-        idx,
+        keyid,
         filename,
         like,
         publishedDate
@@ -114,7 +115,7 @@ export const getAlbumById = async (ctx, next) => {
 // 모든 파일 조회
 // localhost:4000/api/albums/
 export const list = async ctx => {
-  const {member} = ctx.state
+  const {member} = ctx.state;
   const coupleShareCode = member.coupleShareCode;
   console.dir(member);
   console.log(coupleShareCode);
@@ -138,15 +139,17 @@ export const read = async ctx => {
 // 파일 업데이트(좋아요)
 export const update = async ctx => {
   console.log('업데이트요청받음');
-  const idx = ctx.params.idx;
-  const {member} = ctx.state
+  const keyid = ctx.params.keyid;
+  console.log(ctx.params);
+  const {member} = ctx.state;
   const coupleShareCode = member.coupleShareCode;
   try {
-    const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`})
-    if(!album) {
-      ctx.status = 404;
-      return;
-    }
+    const album = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
+
+    const result = await album.changeFile(keyid);
+
+    await album.save();
+    ctx.body = result;
     console.log('좋아연~');
   }catch(e) {
     ctx.throw(500, e);

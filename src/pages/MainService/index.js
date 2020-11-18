@@ -13,6 +13,7 @@ import UnNavigationBar from '../../components/UnNavigationBar';
 import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
 import ChatContainer from '../../containers/chat/ChatContainer';
+import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer'
 
 const CustomContainer = styled.div`
   width: 100%;
@@ -73,6 +74,11 @@ const MainService = () => {
               path={['/kkiri/albums/:idx', '/']}
               exact={true}
               component={ReadAlbumContainer}
+            />
+            <Route
+              path={['/kkiri/albums/like/:idx', '/']}
+              exact={true}
+              component={LikeReadAlbumContainer}
             />
             <Route path="/kkiri/chatting" component={ChatContainer} exact />
             {!windowMatches ? (

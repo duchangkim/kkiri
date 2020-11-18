@@ -43,6 +43,10 @@ export const check = async (ctx) => {
   console.log('check');
   const { member } = ctx.state;
   console.log(member);
+  if(!member) {
+    ctx.status = 401;
+    return;
+  }
   const fromDBMember = await Member.findById({ _id: member._id });
   if (!fromDBMember) {
     ctx.status = 401;
