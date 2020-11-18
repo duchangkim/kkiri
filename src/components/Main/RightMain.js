@@ -102,84 +102,74 @@ const RightMain = ({ schedules, dDays, albums }) => {
           </div>
           <div className="Right-Mall">
             <h4>데이트 추천장소</h4>
-            <section id="slideshow">
-              <div className="entire-content">
-                <div className="content-carrousel">
-                  <Figure className="shadow">
-                    <img src={require("../../images/issue1.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date1.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date2.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date1.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date2.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date1.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date2.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date1.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
-                  <Figure className="shadow">
-                    <img src={require("../../images/date2.jfif")} />
-                    <Figure.Caption className="datePlace">사당 부추삼겹살</Figure.Caption>
-                  </Figure>
+            <div id="wrapper">
+              <div className="container">
+                <a href="https://adventure.lotteworld.com/kor/main/index.do" target="_blank">
+                  <img src={require("../../images/lotte.jpg")} alt="롯데월드 어드벤쳐" />
+                </a>
+                <div className="caption">
+                  <h2>LOTTE WORLD ADVENTURE</h2>
+                  <p>
+                    놀이기구, 물미끄럼틀, 해양생물 전시관을 한 곳에서 즐길 수 있는 가족형 어드벤처
+                    파크입니다.
+                  </p>
                 </div>
               </div>
-            </section>
-            {/* <div className="Date-Recommend">
-              <input type="radio" name="auto-radio-btn" id="auto-radio1" />
-              <input type="radio" name="auto-radio-btn" id="auto-radio2" />
-              <input type="radio" name="auto-radio-btn" id="auto-radio3" />
-              <input type="radio" name="auto-radio-btn" id="auto-radio4" />
-              <div className="auto-slide first2">
-                <img src={require("../../images/lotte.jpg")} alt="데이트 추천장소 첫번째" />
-                <a href="http://www.lotteworld.com/gate.html" target="_blank">
-                  <div className="auto-slide-text">모험과 신비의 나라 롯데월드</div>
+              <div className="container">
+                <a href="https://www.everland.com/web/everland/main.html" target="_blank">
+                  <img src={require("../../images/ever.jpg")} alt="애버랜드" />
                 </a>
+                <div className="caption">
+                  <h2>EVERLAND</h2>
+                  <p>
+                    동물원을 비롯하여 놀이기구, 쇼, 상점, 식당, 테마존 등이 있는 인기
+                    놀이공원입니다.
+                  </p>
+                </div>
               </div>
-              <div className="auto-slide">
-                <img src={require("../../images/al7.png")} alt="데이트 추천장소 두번째" />
-                <div className="auto-slide-text">자동 슬라이드2</div>
+              <div className="container">
+                <a
+                  href="https://korean.visitseoul.net/attractions/%EB%B6%81%EC%95%85%EC%8A%A4%EC%B9%B4%EC%9D%B4%EC%9B%A8%EC%9D%B4-%ED%8C%94%EA%B0%81%EC%A0%95_/11117"
+                  target="_blank"
+                >
+                  <img src={require("../../images/bugak.jpg")} alt="북악스카이웨이" />
+                </a>
+                <div className="caption">
+                  <h2>BUGAK SKYWAY</h2>
+                  <p>
+                    연인들의 데이트 코스로 손꼽히는 북악스카이웨이는 남산서울타워와는 또 다른 각도로
+                    서울 전체를 볼 수 있는 곳이다.
+                  </p>
+                </div>
               </div>
-              <div className="auto-slide">
-                <img src={require("../../images/al6.png")} alt="데이트 추천장소 세번째" />
-                <div className="auto-slide-text">자동 슬라이드3</div>
+              <div className="container">
+                <a href="https://namisum.com/" target="_blank">
+                  <img src={require("../../images/nami.png")} alt="남이섬" />
+                </a>
+                <div className="caption">
+                  <h2>NAMISUM</h2>
+                  <p>
+                    유람선, 메타세콰이어길, 번지점프, 짚와이어, 짚라인, 가족여행, 경치, 가을여행,
+                    단풍여행, 기차여행을 이용할 수 있는 곳이다.
+                  </p>
+                </div>
               </div>
-              <div className="auto-slide">
-                <img src={require("../../images/al5.png")} alt="데이트 추천장소 네번째" />
-                <div className="auto-slide-text">자동 슬라이드4</div>
-              </div>
-              <div className="A-navigation-auto">
-                <div className="A-auto-btn1"></div>
-                <div className="A-auto-btn2"></div>
-                <div className="A-auto-btn3"></div>
-                <div className="A-auto-btn4"></div>
+              <div className="container">
+                <a
+                  href="https://www.siheung.go.kr/portal/treasureMap/list.do?mId=0801020000"
+                  target="_blank"
+                >
+                  <img src={require("../../images/oi.jpg")} alt="오이도 빨간등대" />
+                </a>
+                <div className="caption">
+                  <h2>OIDO(ISLAND)</h2>
+                  <p>
+                    인기토픽은 조개찜, 전망대, 조개구이, 드라이브, 칼국수이고, 찾는목적은 갯벌체험,
+                    나들이, 경치, 데이트, 비오는날이다.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="auto-navigation-manual">
-              <label htmlFor="auto-radio1" className="auto-manual-btn"></label>
-              <label htmlFor="auto-radio2" className="auto-manual-btn"></label>
-              <label htmlFor="auto-radio3" className="auto-manual-btn"></label>
-              <label htmlFor="auto-radio4" className="auto-manual-btn"></label>
-            </div> */}
           </div>
         </div>
         <div className="Krikri-Calendar">
