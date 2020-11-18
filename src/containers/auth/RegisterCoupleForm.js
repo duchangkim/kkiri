@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeField,
   registercouple,
+  initializeForm,
   createCoupleSet,
 } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
@@ -89,6 +90,10 @@ const CoupleCodeForm = ({ history }) => {
       return;
     }
   }, [history, auth]);
+
+  useEffect(() => {
+    dispatch(initializeForm("registercouple"));
+  }, [dispatch]);
 
   return (
     <AuthForm
