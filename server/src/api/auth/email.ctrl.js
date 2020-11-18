@@ -77,28 +77,6 @@ export const registeremail = async (ctx) => {
   }
 };
 
-<<<<<<< HEAD
-export const registercode = async (ctx) => {
-  // 코드
-  const { emailcode } = ctx.request.body;
-  console.log(emailcode);
-  console.log(res_data.secret);
-  try {
-    if (emailcode) {
-      if (emailcode.emailcode !== res_data.secret) {
-        console.log("코드 인증 실패");
-      } else if (emailcode.emailcode === res_data.secret) {
-        console.log("코드 인증 성공");
-        ctx.body = { message: "success" };
-      }
-    }
-  } catch (e) {
-    ctx.throw(500, e);
-  }
-};
-=======
->>>>>>> bf848e5ab4b3dd2201ff938613f337be0f108604
-
 export const register = async (ctx) => {
   const { email, emailcode, password, birthday, name, hp } = ctx.request.body;
   console.log(
@@ -121,40 +99,14 @@ export const register = async (ctx) => {
     return;
   }
 
-
   try {
-<<<<<<< HEAD
-    //회원 고유 code부여
-    //await 하지 않으면 Promise를 리턴받음
-    const userCode = await createRandomCode();
-    console.log(userCode);
-    const member = new Member({
-      email,
-      password,
-      birthday,
-      name,
-      hp,
-      userCode,
-    });
-
-    await member.encryptPassword(password);
-    await member.save();
-
-    ctx.body = member.serialize(); //직렬화해서 비밀번호를 제외한 JSON data 뿌려줌
-
-    const token = member.generateToken();
-    ctx.cookies.set("access_token", token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-    });
-=======
     console.log(emailcode);
     console.log(res_data.secret);
     if (emailcode) {
       if (emailcode !== res_data.secret) {
-        console.log('코드 인증 실패');
+        console.log("코드 인증 실패");
       } else if (emailcode === res_data.secret) {
-        console.log('코드 인증 성공');
+        console.log("코드 인증 성공");
 
         const userCode = await createRandomCode();
         console.log(userCode);
@@ -173,14 +125,13 @@ export const register = async (ctx) => {
         ctx.body = member.serialize(); //직렬화해서 비밀번호를 제외한 JSON data 뿌려줌
 
         const token = member.generateToken();
-        ctx.cookies.set('access_token', token, {
+        ctx.cookies.set("access_token", token, {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           httpOnly: true,
         });
-        ctx.body = { message: 'success' };
+        ctx.body = { message: "success" };
       }
     }
->>>>>>> bf848e5ab4b3dd2201ff938613f337be0f108604
   } catch (e) {
     ctx.throw(500, e);
   }
