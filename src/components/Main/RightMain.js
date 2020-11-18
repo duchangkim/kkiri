@@ -103,7 +103,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
           <div className="Right-Mall">
             <h4>데이트 추천장소</h4>
             <div id="wrapper">
-              <div className="container">
+              <div className="datePlace">
                 <a href="https://adventure.lotteworld.com/kor/main/index.do" target="_blank">
                   <img src={require("../../images/lotte.jpg")} alt="롯데월드 어드벤쳐" />
                 </a>
@@ -115,7 +115,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
                   </p>
                 </div>
               </div>
-              <div className="container">
+              <div className="datePlace">
                 <a href="https://www.everland.com/web/everland/main.html" target="_blank">
                   <img src={require("../../images/ever.jpg")} alt="애버랜드" />
                 </a>
@@ -127,7 +127,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
                   </p>
                 </div>
               </div>
-              <div className="container">
+              <div className="datePlace">
                 <a
                   href="https://korean.visitseoul.net/attractions/%EB%B6%81%EC%95%85%EC%8A%A4%EC%B9%B4%EC%9D%B4%EC%9B%A8%EC%9D%B4-%ED%8C%94%EA%B0%81%EC%A0%95_/11117"
                   target="_blank"
@@ -142,7 +142,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
                   </p>
                 </div>
               </div>
-              <div className="container">
+              <div className="datePlace">
                 <a href="https://namisum.com/" target="_blank">
                   <img src={require("../../images/nami.png")} alt="남이섬" />
                 </a>
@@ -154,7 +154,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
                   </p>
                 </div>
               </div>
-              <div className="container">
+              <div className="datePlace">
                 <a
                   href="https://www.siheung.go.kr/portal/treasureMap/list.do?mId=0801020000"
                   target="_blank"
@@ -208,14 +208,19 @@ const RightMain = ({ schedules, dDays, albums }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-
-            {albums.fileData.files.slice(-5).sort(function(a,b) {return b.keyid-a.keyid;}).map((album, index) => (
-              album.filename && (
-                <div className="price" key={album.keyid}>
-                  <img src={`http://localhost:3000/uploads/${album.filename}`}/>
-                </div>
-              )
-            ))}
+            {albums.fileData.files
+              .slice(-5)
+              .sort(function (a, b) {
+                return b.keyid - a.keyid;
+              })
+              .map(
+                (album, index) =>
+                  album.filename && (
+                    <div className="price" key={album.keyid}>
+                      <img src={`http://localhost:3000/uploads/${album.filename}`} />
+                    </div>
+                  )
+              )}
           </AlbumItem>
         </div>
       </div>

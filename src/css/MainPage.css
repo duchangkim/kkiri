@@ -697,7 +697,7 @@
   -o-transition: all 0.5s ease 0s;
   -ms-transition: all 0.5s ease 0s;
 }
-.container {
+.datePlace {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -709,7 +709,7 @@
 a {
   text-decoration: none;
 }
-div.container > a > img {
+div.datePlace > a > img {
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -723,16 +723,14 @@ div.caption {
   top: 0;
   right: -100%;
   opacity: 0;
-
   -webkit-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
   -moz-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
   -ms-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
   -o-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
   transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
-
   background: rgba(0, 0, 0, 0.9);
 }
-div.container:hover > div.caption {
+div.datePlace:hover > div.caption {
   right: 0 !important;
   opacity: 1 !important;
 }
@@ -749,8 +747,8 @@ div.caption > p {
   font-size: 13px;
   overflow: hidden;
 }
-div.container:hover > div.caption > h2,
-div.container:hover > div.caption > p {
+div.datePlace:hover > div.caption > h2,
+div.datePlace:hover > div.caption > p {
   right: -5% !important;
   opacity: 1 !important;
 }
@@ -760,7 +758,6 @@ div.caption > p {
   right: -40%;
   opacity: 0;
   width: 100%;
-
   -webkit-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
   -moz-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
   -ms-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
@@ -772,39 +769,37 @@ div.caption > p {
   color: white;
 }
 
-div.container:nth-child(1) {
+div.datePlace:nth-child(1) {
   -moz-animation: slider 50s ease-in-out infinite;
   -o-animation: slider 50s ease-in-out infinite;
   -webkit-animation: slider 50s ease-in-out infinite;
   animation: slider 50s ease-in-out infinite;
 }
-div.container:nth-child(2) {
+div.datePlace:nth-child(2) {
   -moz-animation: slider01 50s ease-in-out infinite;
   -o-animation: slider01 50s ease-in-out infinite;
   -webkit-animation: slider01 50s ease-in-out infinite;
   animation: slider01 50s ease-in-out infinite;
 }
-div.container:nth-child(3) {
+div.datePlace:nth-child(3) {
   -moz-animation: slider02 50s ease-in-out infinite;
   -o-animation: slider02 50s ease-in-out infinite;
   -webkit-animation: slider02 50s ease-in-out infinite;
   animation: slider02 50s ease-in-out infinite;
 }
-div.container:nth-child(4) {
+div.datePlace:nth-child(4) {
   -moz-animation: slider03 50s ease-in-out infinite;
   -o-animation: slider03 50s ease-in-out infinite;
   -webkit-animation: slider03 50s ease-in-out infinite;
   animation: slider03 50s ease-in-out infinite;
 }
-div.container:nth-child(5) {
+div.datePlace:nth-child(5) {
   -moz-animation: slider04 50s ease-in-out infinite;
   -o-animation: slider04 50s ease-in-out infinite;
   -webkit-animation: slider04 50s ease-in-out infinite;
   animation: slider04 50s ease-in-out infinite;
 }
-/**************************************
-    Animation webkit
-**************************************/
+
 @-webkit-keyframes slider {
   0% {
     left: 0px;
@@ -951,9 +946,7 @@ div.container:nth-child(5) {
     z-index: 0;
   }
 }
-/**************************************
-    Animation moz
-**************************************/
+
 @-moz-keyframes slider {
   0% {
     left: 0px;
@@ -1100,9 +1093,7 @@ div.container:nth-child(5) {
     z-index: 0;
   }
 }
-/**************************************
-    Animation o
-**************************************/
+
 @-o-keyframes slider {
   0% {
     left: 0px;
@@ -1249,9 +1240,7 @@ div.container:nth-child(5) {
     z-index: 0;
   }
 }
-/**************************************
-    Animation
-**************************************/
+
 @keyframes slider {
   0% {
     left: 0px;
