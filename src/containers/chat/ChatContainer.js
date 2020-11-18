@@ -36,8 +36,8 @@ const ChatContainer = ({ history }) => {
     // console.log(message);
     if (Array.isArray(message)) {
       setMessages((oldMessages) => {
-        console.log(oldMessages);
-        console.log([...oldMessages, ...message]);
+        // console.log(oldMessages);
+        // console.log([...oldMessages, ...message]);
 
         return [...oldMessages, ...message].filter((item, index) => {
           return (
@@ -48,9 +48,13 @@ const ChatContainer = ({ history }) => {
               );
             }) === index
           );
+        }).sort((a, b) => {
+          const aDate = new Date(a.sendDate);
+          const bDate = new Date(b.sendDate);
+          return aDate - bDate;
         });
       });
-      console.log(messages);
+      // console.log(messages);
       return;
     }
     setMessages((oldMessages) => [...oldMessages, message]);
@@ -98,13 +102,6 @@ const ChatContainer = ({ history }) => {
     // console.dir(emojiObject.emoji);
     setMessage(message.concat(emojiObject.emoji));
     setChosenEmoji(emojiObject);
-  };
-
-  const addEmoji = (e) => {
-    let emoji = e.native;
-    this.setState({
-      message: this.state.message + emoji,
-    });
   };
 
   useEffect(() => {
