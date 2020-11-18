@@ -1,20 +1,18 @@
-import dotenv from "dotenv";
-import Koa from "koa";
-import Router from "koa-router";
-import bodyparser from "koa-bodyparser";
-import mongoose from "mongoose";
-import cors from "koa-cors";
-import koaBody from "koa-body";
-import api from "./api";
-import jwtMiddleware from "./lib/jwtMiddleware";
+import dotenv from 'dotenv';
+import Koa from 'koa';
+import Router from 'koa-router';
+import bodyparser from 'koa-bodyparser';
+import mongoose from 'mongoose';
+import cors from 'koa-cors';
+import koaBody from 'koa-body';
+import api from './api';
+import jwtMiddleware from './lib/jwtMiddleware';
 
-import socket from "socket.io";
-import http from "http";
-import Room from "./models/room";
+import socket from 'socket.io';
+import http from 'http';
 dotenv.config();
 
-const { SERVER_PORT, MONGO_URI } = process.env;
-const { MONGODB_URI, MONGODB_USER, MONGODB_PASS } = process.env;
+const { MONGODB_URI, MONGODB_USER, MONGODB_PASS, SERVER_PORT } = process.env;
 const authData = {
   user: MONGODB_USER,
   pass: MONGODB_PASS,
@@ -27,7 +25,7 @@ mongoose
     console.log(`Connected to MongoDB`);
   })
   .catch((e) => {
-    console.log("????????????~");
+    console.log('????????????~');
     console.error(e);
   });
 
@@ -39,7 +37,7 @@ app.use(koaBody({ multipart: true }));
 app.use(cors());
 const router = new Router();
 
-router.use("/api", api.routes());
+router.use('/api', api.routes());
 app.use(bodyparser());
 app.use(jwtMiddleware);
 
@@ -48,10 +46,25 @@ app.use(router.allowedMethods());
 
 const server = http.createServer(app.callback());
 const io = socket(server);
-io.on("connection", (socket) => {
-  socket.emit("your id", socket.id);
-  socket.on("send message", async (body) => {
-    io.emit("message", body);
+io.on('connection', (socket) => {
+  socket.emit('your id', socket.id);
+  // console.log(socket);
+  console.log(socket.id);
+  // 방 나갈때
+  socket.on('leaveRoom', (roomId) => {
+    socket.leave(roomId, () => {
+      console.log('방 나감');
+    });
+  });
+  // 방 들어올때
+  socket.on('joinRoom', (roomId) => {
+    socket.join(roomId, () => {
+      console.log(`${roomId}에 입장`);
+    });
+  });
+  // 방에 있는 사용자들에게만 메시지보냄
+  socket.on('send message', async (messageObj) => {
+    io.to(messageObj.coupleShareCode).emit('message', messageObj);
   });
 });
 

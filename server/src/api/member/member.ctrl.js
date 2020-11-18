@@ -42,7 +42,8 @@ export const insertGetTogetherDate = async (ctx) => {
   const { getTogetherDate } = ctx.request.body;
   const getTogetherDateObj = new Date(getTogetherDate);
   // console.log(ctx.request.body);
-  // console.log(getTogetherDate);
+  console.log('아이디 값 있냐');
+  console.log(_id);
   const getTogetherDday = {
     id: 'l',
     calendarId: 'dday',

@@ -10,6 +10,8 @@ import { tempSetMember, check } from './modules/member';
 import App from './App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ThemeProvider } from 'styled-components';
+import theme from './lib/styles/theme'
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
@@ -34,7 +36,9 @@ loadMember();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
+    <ThemeProvider theme={theme}>
       <App />
+    </ThemeProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

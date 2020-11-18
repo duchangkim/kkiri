@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, findid } from '../../modules/auth';
 import FindForm from '../../components/auth/FindForm';
-import { check } from '../../modules/member';
 import { withRouter } from 'react-router-dom';
 
 const FindIdForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, findEmail } = useSelector(
+  const { form, authError, findEmail } = useSelector(
     ({ auth, member }) => {
       return {
         form: auth.findid,
@@ -53,8 +52,10 @@ const FindIdForm = ({ history }) => {
     console.log(birthday, name, hp);
     dispatch(findid({ birthday, name, hp }));
   };
+  
   useEffect(() => {
     dispatch(initializeForm('findid'));
+    setError("");
   }, [dispatch]);
 
   useEffect(() => {
@@ -67,9 +68,9 @@ const FindIdForm = ({ history }) => {
     if (findEmail) {
       console.log('아이디 찾기 성공');
       console.log(findEmail);
-      dispatch(check());
       history.push(`/findresult`);
     }
+    setError("");
   }, [authError, dispatch, findEmail, history]);
   
   return (

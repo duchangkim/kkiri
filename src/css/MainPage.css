@@ -259,7 +259,7 @@
   height: 30px;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 5px;
+  margin-top: 40px;
   background: #cacaca77;
 }
 /* 날씨 부분 */
@@ -589,111 +589,7 @@
   overflow: hidden;
   margin-left: 18px;
 }
-/* 우측 자동 슬라이더 사이즈 부분 */
-.Date-Recommend {
-  width: 500%;
-  height: 90%;
-  margin-top: 10px;
-  display: flex;
-}
-/* 우측 자동 슬라이더 사이즈 부분 */
-.Date-Recommend input {
-  display: none;
-}
-/* 우측 자동 슬라이더 사이즈 부분 */
-.auto-slide {
-  width: 20%;
-  transition: 2s;
-}
-/* 우측 자동 슬라이더 이미지 부분 */
-.auto-slide img {
-  width: 100%;
-  height: 80%;
-  display: flex;
-}
-/* 슬라이더 이미지 내용 부분 */
-.auto-slide-text {
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-  padding-left: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  background-color: black;
-  color: rgba(255, 170, 177, 1);
-}
-/* 우측 자동 슬라이더 부분 */
-.auto-navigation-manual {
-  position: relative;
-  width: 100%;
-  margin-top: -40px;
-  display: flex;
-  justify-content: flex-end;
-}
-/* 우측 자동 슬라이더 버튼 부분 */
-.auto-manual-btn {
-  border: 2px solid #fff;
-  padding: 5px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 1s;
-  display: none;
-}
-/* 우측 자동 슬라이더 버튼 사이즈 부분 */
-.auto-manual-btn:not(:last-child) {
-  margin-right: 10px;
-}
-/* 우측 자동 슬라이더 버튼 사이즈 부분 */
-.auto-manual-btn:last-child {
-  margin-right: 10px;
-}
-/* 우측 자동 슬라이더 버튼 hover 부분 */
-.auto-manual-btn:hover {
-  background: #fff;
-}
-/* 우측 자동 슬라이더 버튼 체크 부분 */
-#auto-radio1:checked ~ .first2 {
-  margin-left: 0;
-}
-#auto-radio2:checked ~ .first2 {
-  margin-left: -20%;
-}
-#auto-radio3:checked ~ .first2 {
-  margin-left: -40%;
-}
-#auto-radio4:checked ~ .first2 {
-  margin-left: -60%;
-}
-/* 우측 자동 슬라이더 부분 */
-.A-navigation-auto {
-  position: absolute;
-  display: flex;
-  background: chartreuse;
-  justify-content: center;
-  margin-top: 100px;
-  display: none;
-}
-/* 우측 자동 슬라이더 부분 */
-.A-navigation-auto div {
-  border: 2px solid #fff;
-  padding: 5px;
-  border-radius: 10px;
-  transition: 1s;
-}
-/* 우측 자동 슬라이더 부분 */
-#auto-radio1:checked ~ .A-navigation-auto .A-auto-btn1 {
-  background: #fff;
-}
-#auto-radio2:checked ~ .A-navigation-auto .A-auto-btn2 {
-  background: #fff;
-}
-#auto-radio3:checked ~ .A-navigation-auto .A-auto-btn3 {
-  background: #fff;
-}
-#auto-radio4:checked ~ .A-navigation-auto .A-auto-btn4 {
-  background: #fff;
-}
+
 /* ------------------------------------------ 슬라이더 부분 끝 ------------------------------------------ */
 /* 캘린더 부분 */
 .Krikri-Calendar {
@@ -712,18 +608,7 @@
   padding-top: 18px;
   color: rgba(255, 131, 141, 1);
 }
-/* 캘린더 추가 버튼 */
-.Calender-Add {
-  position: relative;
-  top: -20%;
-  left: 95%;
-  transform: translateY(-15%);
-  width: 35px;
-  height: 35px;
-}
-.Calender-Add:hover {
-  cursor: pointer;
-}
+
 /* 캘린더 알림 표시 Div 부분 */
 .To-Calendar {
   position: relative;
@@ -762,7 +647,7 @@
   height: 31.2%;
   background-color: rgba(255, 255, 255, 1);
   position: relative;
-  top: 2%;
+  top: 3%;
   margin-top: 12px;
   margin-left: 3%;
   border-radius: 15px 15px 15px 15px / 15px 15px 15px 15px;
@@ -772,19 +657,6 @@
   margin-left: 3%;
   padding-top: 18px;
   color: rgba(255, 131, 141, 1);
-}
-/* 앨범 추가 버튼 */
-.Album-Add {
-  position: relative;
-  top: -20%;
-  left: 95%;
-  transform: translateY(-15%);
-  width: 35px;
-  height: 35px;
-}
-/* 앨범 추가 버튼 hover */
-.Album-Add:hover {
-  cursor: pointer;
 }
 
 /* 앨범 표시 부분 row col */
@@ -809,6 +681,714 @@
   text-align: left;
   font-size: 1.1rem;
 }
+
+/* 자동 슬라이드 */
+#wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+}
+.datePlace {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+div.datePlace > a > img {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  object-fit: cover;
+}
+div.caption {
+  width: 40%;
+  height: 100%;
+  padding: 2% 2%;
+  position: absolute;
+  top: 0;
+  right: -100%;
+  opacity: 0;
+  -webkit-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
+  -moz-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
+  -ms-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
+  -o-transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
+  transition: all 0.5s cubic-bezier(0, 1, 0.7, 1);
+  background: rgba(0, 0, 0, 0.9);
+}
+div.datePlace:hover > div.caption {
+  right: 0 !important;
+  opacity: 1 !important;
+}
+div.caption > h2 {
+  width: 100%;
+  height: 20%;
+  font-size: 22px;
+  overflow: hidden;
+}
+div.caption > p {
+  width: 100%;
+  height: 65%;
+  padding-right: 5%;
+  font-size: 13px;
+  overflow: hidden;
+}
+div.datePlace:hover > div.caption > h2,
+div.datePlace:hover > div.caption > p {
+  right: -5% !important;
+  opacity: 1 !important;
+}
+div.caption div.caption > h2,
+div.caption > p {
+  position: relative;
+  right: -40%;
+  opacity: 0;
+  width: 100%;
+  -webkit-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
+  -moz-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
+  -ms-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
+  -o-transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
+  transition: all 0.5s cubic-bezier(0, 1, 0.5, 1) 0.18s;
+}
+div.caption > h2,
+div.caption > p {
+  color: white;
+}
+
+div.datePlace:nth-child(1) {
+  -moz-animation: slider 50s ease-in-out infinite;
+  -o-animation: slider 50s ease-in-out infinite;
+  -webkit-animation: slider 50s ease-in-out infinite;
+  animation: slider 50s ease-in-out infinite;
+}
+div.datePlace:nth-child(2) {
+  -moz-animation: slider01 50s ease-in-out infinite;
+  -o-animation: slider01 50s ease-in-out infinite;
+  -webkit-animation: slider01 50s ease-in-out infinite;
+  animation: slider01 50s ease-in-out infinite;
+}
+div.datePlace:nth-child(3) {
+  -moz-animation: slider02 50s ease-in-out infinite;
+  -o-animation: slider02 50s ease-in-out infinite;
+  -webkit-animation: slider02 50s ease-in-out infinite;
+  animation: slider02 50s ease-in-out infinite;
+}
+div.datePlace:nth-child(4) {
+  -moz-animation: slider03 50s ease-in-out infinite;
+  -o-animation: slider03 50s ease-in-out infinite;
+  -webkit-animation: slider03 50s ease-in-out infinite;
+  animation: slider03 50s ease-in-out infinite;
+}
+div.datePlace:nth-child(5) {
+  -moz-animation: slider04 50s ease-in-out infinite;
+  -o-animation: slider04 50s ease-in-out infinite;
+  -webkit-animation: slider04 50s ease-in-out infinite;
+  animation: slider04 50s ease-in-out infinite;
+}
+
+@-webkit-keyframes slider {
+  0% {
+    left: 0px;
+  }
+  4% {
+    left: 0px;
+  }
+  16% {
+    left: 0px;
+    z-index: 0;
+  }
+  20% {
+    left: 100%;
+    z-index: 0;
+  }
+  21% {
+    left: -100%;
+    z-index: -1;
+  }
+  50% {
+    left: -100%;
+    z-index: -1;
+  }
+  92% {
+    left: -100%;
+    z-index: 0;
+  }
+  96% {
+    left: -100%;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@-webkit-keyframes slider01 {
+  0% {
+    left: -100%;
+  }
+  16% {
+    left: -100%;
+  }
+  20% {
+    left: 0px;
+  }
+  24% {
+    left: 0px;
+  }
+  36% {
+    left: 0px;
+    z-index: 0;
+  }
+  40% {
+    left: 100%;
+    z-index: 0;
+  }
+  41% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-webkit-keyframes slider02 {
+  0% {
+    left: -100%;
+  }
+  36% {
+    left: -100%;
+  }
+  40% {
+    left: 0px;
+  }
+  44% {
+    left: 0px;
+  }
+  56% {
+    left: 0px;
+    z-index: 0;
+  }
+  60% {
+    left: 100%;
+    z-index: 0;
+  }
+  61% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-webkit-keyframes slider03 {
+  0% {
+    left: -100%;
+  }
+  56% {
+    left: -100%;
+  }
+  60% {
+    left: 0px;
+  }
+  64% {
+    left: 0px;
+  }
+  76% {
+    left: 0px;
+    z-index: 0;
+  }
+  80% {
+    left: 100%;
+    z-index: 0;
+  }
+  81% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-webkit-keyframes slider04 {
+  0% {
+    left: -100%;
+  }
+  76% {
+    left: -100%;
+  }
+  80% {
+    left: 0px;
+  }
+  84% {
+    left: 0px;
+  }
+  96% {
+    left: 0px;
+    z-index: 0;
+  }
+  100% {
+    left: 100%;
+    z-index: 0;
+  }
+}
+
+@-moz-keyframes slider {
+  0% {
+    left: 0px;
+  }
+  4% {
+    left: 0px;
+  }
+  16% {
+    left: 0px;
+    z-index: 0;
+  }
+  20% {
+    left: 100%;
+    z-index: 0;
+  }
+  21% {
+    left: -100%;
+    z-index: -1;
+  }
+  50% {
+    left: -100%;
+    z-index: -1;
+  }
+  92% {
+    left: -100%;
+    z-index: 0;
+  }
+  96% {
+    left: -100%;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@-moz-keyframes slider01 {
+  0% {
+    left: -100%;
+  }
+  16% {
+    left: -100%;
+  }
+  20% {
+    left: 0px;
+  }
+  24% {
+    left: 0px;
+  }
+  36% {
+    left: 0px;
+    z-index: 0;
+  }
+  40% {
+    left: 100%;
+    z-index: 0;
+  }
+  41% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-moz-keyframes slider02 {
+  0% {
+    left: -100%;
+  }
+  36% {
+    left: -100%;
+  }
+  40% {
+    left: 0px;
+  }
+  44% {
+    left: 0px;
+  }
+  56% {
+    left: 0px;
+    z-index: 0;
+  }
+  60% {
+    left: 100%;
+    z-index: 0;
+  }
+  61% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-moz-keyframes slider03 {
+  0% {
+    left: -100%;
+  }
+  56% {
+    left: -100%;
+  }
+  60% {
+    left: 0px;
+  }
+  64% {
+    left: 0px;
+  }
+  76% {
+    left: 0px;
+    z-index: 0;
+  }
+  80% {
+    left: 100%;
+    z-index: 0;
+  }
+  81% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-moz-keyframes slider04 {
+  0% {
+    left: -100%;
+  }
+  76% {
+    left: -100%;
+  }
+  80% {
+    left: 0px;
+  }
+  84% {
+    left: 0px;
+  }
+  96% {
+    left: 0px;
+    z-index: 0;
+  }
+  100% {
+    left: 100%;
+    z-index: 0;
+  }
+}
+
+@-o-keyframes slider {
+  0% {
+    left: 0px;
+  }
+  4% {
+    left: 0px;
+  }
+  16% {
+    left: 0px;
+    z-index: 0;
+  }
+  20% {
+    left: 100%;
+    z-index: 0;
+  }
+  21% {
+    left: -100%;
+    z-index: -1;
+  }
+  50% {
+    left: -100%;
+    z-index: -1;
+  }
+  92% {
+    left: -100%;
+    z-index: 0;
+  }
+  96% {
+    left: -100%;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@-o-keyframes slider01 {
+  0% {
+    left: -100%;
+  }
+  16% {
+    left: -100%;
+  }
+  20% {
+    left: 0px;
+  }
+  24% {
+    left: 0px;
+  }
+  36% {
+    left: 0px;
+    z-index: 0;
+  }
+  40% {
+    left: 100%;
+    z-index: 0;
+  }
+  41% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-o-keyframes slider02 {
+  0% {
+    left: -100%;
+  }
+  36% {
+    left: -100%;
+  }
+  40% {
+    left: 0px;
+  }
+  44% {
+    left: 0px;
+  }
+  56% {
+    left: 0px;
+    z-index: 0;
+  }
+  60% {
+    left: 100%;
+    z-index: 0;
+  }
+  61% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-o-keyframes slider03 {
+  0% {
+    left: -100%;
+  }
+  56% {
+    left: -100%;
+  }
+  60% {
+    left: 0px;
+  }
+  64% {
+    left: 0px;
+  }
+  76% {
+    left: 0px;
+    z-index: 0;
+  }
+  80% {
+    left: 100%;
+    z-index: 0;
+  }
+  81% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@-o-keyframes slider04 {
+  0% {
+    left: -100%;
+  }
+  76% {
+    left: -100%;
+  }
+  80% {
+    left: 0px;
+  }
+  84% {
+    left: 0px;
+  }
+  96% {
+    left: 0px;
+    z-index: 0;
+  }
+  100% {
+    left: 100%;
+    z-index: 0;
+  }
+}
+
+@keyframes slider {
+  0% {
+    left: 0px;
+  }
+  4% {
+    left: 0px;
+  }
+  16% {
+    left: 0px;
+    z-index: 0;
+  }
+  20% {
+    left: 100%;
+    z-index: 0;
+  }
+  21% {
+    left: -100%;
+    z-index: -1;
+  }
+  50% {
+    left: -100%;
+    z-index: -1;
+  }
+  92% {
+    left: -100%;
+    z-index: 0;
+  }
+  96% {
+    left: -100%;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@keyframes slider01 {
+  0% {
+    left: -100%;
+  }
+  16% {
+    left: -100%;
+  }
+  20% {
+    left: 0px;
+  }
+  24% {
+    left: 0px;
+  }
+  36% {
+    left: 0px;
+    z-index: 0;
+  }
+  40% {
+    left: 100%;
+    z-index: 0;
+  }
+  41% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@keyframes slider02 {
+  0% {
+    left: -100%;
+  }
+  36% {
+    left: -100%;
+  }
+  40% {
+    left: 0px;
+  }
+  44% {
+    left: 0px;
+  }
+  56% {
+    left: 0px;
+    z-index: 0;
+  }
+  60% {
+    left: 100%;
+    z-index: 0;
+  }
+  61% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@keyframes slider03 {
+  0% {
+    left: -100%;
+  }
+  56% {
+    left: -100%;
+  }
+  60% {
+    left: 0px;
+  }
+  64% {
+    left: 0px;
+  }
+  76% {
+    left: 0px;
+    z-index: 0;
+  }
+  80% {
+    left: 100%;
+    z-index: 0;
+  }
+  81% {
+    left: -100%;
+    z-index: -1;
+  }
+  100% {
+    left: -100%;
+    z-index: -1;
+  }
+}
+@keyframes slider04 {
+  0% {
+    left: -100%;
+  }
+  76% {
+    left: -100%;
+  }
+  80% {
+    left: 0px;
+  }
+  84% {
+    left: 0px;
+  }
+  96% {
+    left: 0px;
+    z-index: 0;
+  }
+  100% {
+    left: 100%;
+    z-index: 0;
+  }
+}
+
+/* 자동슬라이드 부분 끝 */
 
 @media (max-width: 768px) {
   .Right-Main {

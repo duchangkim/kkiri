@@ -80,7 +80,7 @@ CalendarSchema.methods.createCalendarData = async function (
 ) {
   newData = {
     id:
-      Number(
+      (Number(
         this.calendarData[calendarData][
           this.calendarData[calendarData].length - 1
         ].id === 'l'
@@ -90,7 +90,7 @@ CalendarSchema.methods.createCalendarData = async function (
           : this.calendarData[calendarData][
               this.calendarData[calendarData].length - 1
             ].id
-      ) + 1,
+      ) + 1).toString(),
     ...newData,
   };
   await this.calendarData[calendarData].push(newData);

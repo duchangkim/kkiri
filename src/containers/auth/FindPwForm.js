@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, findpw } from "../../modules/auth";
 import FindForm from "../../components/auth/FindForm";
-import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
 
 const FindPwForm = ({ history }) => {
@@ -55,21 +54,22 @@ const FindPwForm = ({ history }) => {
 
   useEffect(() => {
     dispatch(initializeForm("findpw")); 
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(initializeForm('findid'));
+    setError("");
   },[dispatch]);
+
+
   useEffect(() => {
     if (authError) {
       console.log("오류 발생");
       console.log(authError);
       setError("없는 계정입니다.");
-      return; 
+      return;
     }
     if (auth) {
       console.log("비밀번호 찾기 성공"); 
-      dispatch(check());
     }
+    setError("");
   }, [auth, authError, dispatch]);
 
   useEffect(() => {

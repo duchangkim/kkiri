@@ -1,4 +1,24 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
+
+const MessageSchema = new Schema({
+  coupleShareCode: {
+    type: String,
+  },
+  sender: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  sendDate: {
+    type: Date,
+  },
+  text: {
+    type: String,
+  },
+});
+
+const Message = mongoose.model('messages', MessageSchema);
 
 const RoomSchema = new Schema({
   // 커플 연결 성공시 주어지는 코드 - 채팅방룸id 캘린더 앨범 아이디로 사용
@@ -9,9 +29,7 @@ const RoomSchema = new Schema({
   owner: {
     type: Array,
   },
-  chattingData: {
-    type: Array,
-  },
+  chattingData: [MessageSchema],
 });
 
 RoomSchema.statics.findCoupleCode = async function (code) {
@@ -33,27 +51,46 @@ RoomSchema.methods.serialize = function () {
   return data; // 리턴해줌
 };
 
-RoomSchema.methods.getSortedMessageList = async function (limit) {
+RoomSchema.methods.getSortedMessageList = async function (page) {
+  const messagePerPage = 9;
+  const totalMessage = this.chattingData.length; //23
+  // 3 * 10 > 23
+  if (page * messagePerPage > totalMessage) {
+  }
+
   const sortedMessageList = await this.chattingData.sort((a, b) => {
     const aDate = new Date(a.sendDate);
     const bDate = new Date(b.sendDate);
 
     return bDate - aDate;
   });
-  const messagePerPage = 10;
 
-  return sortedMessageList.slice(limit * messagePerPage, limit * messagePerPage + messagePerPage)
+  // 0 ~ 9,
+  // 10 ~ 19,
+  // 20 ~ 29
+  return sortedMessageList
+    .slice(page * messagePerPage, page * messagePerPage + messagePerPage - 1)
     .sort((a, b) => {
       const aDate = new Date(a.sendDate);
       const bDate = new Date(b.sendDate);
-  
+
       return aDate - bDate;
     });
 };
 
 RoomSchema.methods.insertMessageList = async function (newMessageList) {
-  await this.chattingData.push.apply(this.chattingData, newMessageList);
-}
+  await newMessageList.map((newMessage) =>
+    this.chattingData.push(
+      new Message({
+        coupleShareCode: newMessage.coupleShareCode,
+        name: newMessage.name,
+        sendDate: newMessage.sendDate,
+        sender: newMessage.sender,
+        text: newMessage.text,
+      })
+    )
+  );
+};
 
-const Room = mongoose.model("Room", RoomSchema);
+const Room = mongoose.model('Room', RoomSchema);
 export default Room;

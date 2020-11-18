@@ -2,32 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeField,
-  initializeForm,
   registercouple,
+  initializeForm,
   createCoupleSet,
 } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
 import { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
+import { logout } from "../../modules/member";
 
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember, isSuccess } = useSelector(
-    ({ auth }) => {
-      console.log(auth);
+  const { form, auth, coupleCodeError, otherMember, member } = useSelector(
+    ({ auth, member }) => {
+      console.log(member);
       return {
         form: auth.registercouple,
         auth: auth.auth,
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
+        member: member.member,
       };
     }
   );
-  const { member } = useSelector(({ member }) => member);
-  console.dir(member);
-
+  console.log("##############################");
+  console.log(member);
+  console.log("##############################");
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -37,6 +39,11 @@ const CoupleCodeForm = ({ history }) => {
         value,
       })
     );
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    history.push("/");
   };
 
   const onSubmit = (e) => {
@@ -77,15 +84,16 @@ const CoupleCodeForm = ({ history }) => {
   }, [auth, dispatch]);
 
   useEffect(() => {
-    if (member.coupleShareCode) {
+    console.log(auth.coupleShareCode);
+    if (auth.coupleShareCode) {
       history.push("/kkiri/home");
       return;
     }
-  }, [history, member]);
+  }, [history, auth]);
 
-  if (!member.userCode) {
-    history.push("/kkiri/home");
-  }
+  useEffect(() => {
+    dispatch(initializeForm("registercouple"));
+  }, [dispatch]);
 
   return (
     <AuthForm
@@ -94,7 +102,8 @@ const CoupleCodeForm = ({ history }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={member.userCode}
+      myCode={auth.userCode}
+      onLogout={onLogout}
     />
   );
 };

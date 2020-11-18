@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readAlbum, unloadAlbum } from '../../modules/album';
 import ReadAlbum from '../../components/Album/ReadAlbum';
+import { setOriginalAlbum } from '../../modules/album'; 
 
 const ReadAlbumContainer = ({ match }) => {
   const albumIdx  = match.params.idx;
@@ -16,8 +17,8 @@ const ReadAlbumContainer = ({ match }) => {
       loading: loading['album/READ_ALBUM']
     })
   });
-  console.log('44444444');
-  console.dir(album);
+  // console.log('44444444');
+  // console.dir(album);
 
   useEffect(() => {
     console.log('readalbum girit~~')

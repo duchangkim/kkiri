@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Responsive from "./Responsive";
 import Button from "./Button";
+import auth from "../../modules/auth";
 
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 100;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -17,21 +17,19 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: 2px;
-    color: #f58cb4;
+    color: #fff;
+    font-family: MaplestoryOTFBold;
+  }
+  .logo:hover {
+    text-decoration: none;
   }
   .right {
     display: flex;
     align-items: center;
   }
-  a {
-  }
-`;
-
-const Spacer = styled.div`
-  height: 4rem;
 `;
 
 const UserInfo = styled.div`
@@ -39,7 +37,7 @@ const UserInfo = styled.div`
   margin-right: 1rem;
 `;
 
-const Header = ({ member, onLogout }) => {
+const Header = ({ member, onLogout, children }) => {
   return (
     <>
       <HeaderBlock>
@@ -51,6 +49,9 @@ const Header = ({ member, onLogout }) => {
             <div className="right">
               <UserInfo>{member.email}</UserInfo>
               <Button onClick={onLogout}>로그아웃</Button>
+              {auth.coupleShareCode ? null : (
+                <Button to="/registercouple">코드입력</Button>
+              )}
             </div>
           ) : (
             <div className="right">
@@ -58,8 +59,8 @@ const Header = ({ member, onLogout }) => {
             </div>
           )}
         </Wrapper>
+        {children}
       </HeaderBlock>
-      <Spacer />
     </>
   );
 };

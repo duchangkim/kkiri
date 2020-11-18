@@ -156,13 +156,7 @@ function Header() {
         <HeaderLeft>
           <div className="Krikri-Select" id="Krikri-Select">
             <form className="Search" id="Search">
-              <button
-                className="Img-Button"
-                id="Img-Button"
-                type="submit"
-                name="click"
-                value=""
-              >
+              <button className="Img-Button" id="Img-Button" type="submit" name="click" value="">
                 <BsSearch />
               </button>
               <input

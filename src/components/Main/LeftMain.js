@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FcLike } from 'react-icons/fc';
-import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
-import { withRouter } from 'react-router-dom';
-import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FcLike } from "react-icons/fc";
+import { BsPeopleCircle, BsImageFill } from "react-icons/bs";
+import { withRouter } from "react-router-dom";
+import { Button, FormControl, InputGroup } from "react-bootstrap";
 
-import ProfileSettingPopup from './ProfileSettingPopup';
-import BackgroundSettingPopup from './BackgroundSettingPopup';
-import calculateDday from '../../lib/calculateDday';
+import ProfileSettingPopup from "./ProfileSettingPopup";
+import BackgroundSettingPopup from "./BackgroundSettingPopup";
+import calculateDday from "../../lib/calculateDday";
 
 const LeftMainBlock = styled.div`
   width: 100%;
@@ -40,9 +40,11 @@ const LeftMain = ({
   ];
 
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
+  const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
 
-  const handleBackgroundSettingOpenClick = () =>
-    setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleProfileSettingPopupOpenClick = () =>
+    setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
 
   const myWeatherIconSrc = `http://openweathermap.org/img/wn/${myWeather.weather[0].icon}.png`;
   const yourWeatherIconSrc = `http://openweathermap.org/img/wn/${yourWeather.weather[0].icon}.png`;
@@ -58,21 +60,20 @@ const LeftMain = ({
           {/* 배경화면 설정 팝업 */}
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
-              handleBackgroundSettingOpenClick={
-                handleBackgroundSettingOpenClick
-              }
+              handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
             />
           ) : null}
           {/* 프로필 설정 팝업 */}
           {/* <ProfileSettingPopup /> */}
-          <img
-            src={require('../../images/bgbg.png')}
-            alt="배경화면"
-            className="background-Img"
-          />
+          {ProfileSettingPopupOpen ? (
+            <ProfileSettingPopup
+              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+            />
+          ) : null}
+          <img src={require("../../images/bgbg.png")} alt="배경화면" className="background-Img" />
           <div className="Date-Love">
             <img
-              src={require('../../images/hamburger.png')}
+              src={require("../../images/hamburger.png")}
               alt="배경화면 설정"
               id="Background-Option"
               onClick={handleBackgroundSettingOpenClick}
@@ -92,10 +93,7 @@ const LeftMain = ({
                     placeholder="사귄 날짜를 입력해주세요"
                   />
                   <InputGroup.Append>
-                    <Button
-                      onClick={onSaveButtonClick}
-                      variant="outline-secondary"
-                    >
+                    <Button onClick={onSaveButtonClick} variant="outline-secondary">
                       저장
                     </Button>
                   </InputGroup.Append>
@@ -107,10 +105,7 @@ const LeftMain = ({
             <div className="Left-Face">
               <div className="L-Face">
                 <div className="Face">
-                  <img
-                    src={require('../../images/bgbgbg.png')}
-                    alt="좌측 프로필 사진"
-                  />
+                  <img src={require("../../images/bgbgbg.png")} alt="좌측 프로필 사진" />
                 </div>
                 <div className="Name">{member.name}</div>
                 {/* 반응형 */}
@@ -134,10 +129,7 @@ const LeftMain = ({
                     placeholder="사귄 날짜를 입력해주세요"
                   />
                   <InputGroup.Append>
-                    <Button
-                      onClick={onSaveButtonClick}
-                      variant="outline-secondary"
-                    >
+                    <Button onClick={onSaveButtonClick} variant="outline-secondary">
                       저장
                     </Button>
                   </InputGroup.Append>
@@ -148,10 +140,7 @@ const LeftMain = ({
             <div className="Right-Face">
               <div className="R-Face">
                 <div className="Face">
-                  <img
-                    src={require('../../images/bgbgbg.png')}
-                    alt="우측 프로필 사진"
-                  />
+                  <img src={require("../../images/bgbgbg.png")} alt="우측 프로필 사진" />
                 </div>
                 <div className="Name">{couple.name}</div>
                 {/* 반응형 */}
@@ -200,7 +189,10 @@ const LeftMain = ({
                 <BsImageFill className="Link_To_Img" />
               </li>
               <li>
-                <BsPeopleCircle className="Link_To_Img" />
+                <BsPeopleCircle
+                  className="Link_To_Img"
+                  onClick={handleProfileSettingPopupOpenClick}
+                />
               </li>
             </ul>
           </div>

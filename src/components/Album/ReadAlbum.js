@@ -1,10 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import { IoIosTrash, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom';
 import ActionButtons from './ActionButtons'
 import { removeFile, editFile } from '../../lib/api/album';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOriginalAlbum } from '../../modules/album'; 
 
 const ReadBlock = styled.div`
     width: 70%;
@@ -62,11 +64,12 @@ const BoxBody = styled.div`
 `
 
 function ReadAlbum({ album, error, loading, albumIdx}) {
-    console.log('555555555');
-    console.log(albumIdx)
-    console.log(typeof albumIdx);
+    // const dispatch = useDispatch();
+    // console.log('555555555');
+    // console.log(albumIdx)
+    // console.log(typeof albumIdx);
     let abc = Number(albumIdx);
-    console.log(typeof abc);
+    // console.log(typeof abc);
     if(error) {
         if(error.response && error.response.status === 404) {
             return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>
@@ -80,10 +83,10 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
     
     const { fileData } = album;
     const len = fileData.files.length; 
-    console.log(len);
-    console.log(typeof len);
+    // console.log(len);
+    // console.log(typeof len);
     const filename = fileData.files[albumIdx].filename;
-    console.log(abc < len ? abc : (abc-1));
+    // console.log(abc < len ? abc : (abc-1));
     const likes = fileData.files[albumIdx].like;
     
     const onRemove = async () => {
@@ -101,8 +104,12 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
         }
     }
 
+    const asd = Date.now();
+    console.log(typeof asd); 
+    const keyid = fileData.files[albumIdx].keyid;
+
     const onEdit = async () => {
-        await editFile(albumIdx).then(res => {
+        await editFile(keyid).then(res => {           
             console.log(res);
         }).catch(err => {
             console.log(err);
@@ -113,25 +120,25 @@ function ReadAlbum({ album, error, loading, albumIdx}) {
         <>
         <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/>
         <ReadBlock>
-            <ArrowBackBox>
-                {albumIdx > 0 && 
-                <Link to={`${parseInt(albumIdx)-1}`}>
+            <ArrowForwardBox>
+                {albumIdx < len-1 &&
+                <Link to={`${parseInt(albumIdx)+1}`}>
                     <IoIosArrowBack size="70" cursor="pointer" color="#ffb6c1"/>
                 </Link>
                 }
-            </ArrowBackBox>
+            </ArrowForwardBox>
             <ItemBox>
                 <BoxBody>
                 <img src={`http://localhost:3000/uploads/${filename}`} alt={filename}/>
                 </BoxBody>
             </ItemBox>
-            <ArrowForwardBox>
-                {albumIdx < len-1 &&
-                <Link to={`${parseInt(albumIdx)+1}`}>
+            <ArrowBackBox>
+                {albumIdx > 0 && 
+                <Link to={`${parseInt(albumIdx)-1}`}>
                     <IoIosArrowForward size="70" cursor="pointer" color="#ffb6c1"/>
                 </Link>
                 }   
-            </ArrowForwardBox>
+            </ArrowBackBox>
         </ReadBlock>
         </>
     );
