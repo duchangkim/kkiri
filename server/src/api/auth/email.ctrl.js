@@ -1,22 +1,22 @@
-import Joi from '@hapi/joi';
-import Member from '../../models/member';
-import nodeMailer from 'nodemailer';
-import createRandomCode from '../../lib/createRandomCode';
+import Joi from "@hapi/joi";
+import Member from "../../models/member";
+import nodeMailer from "nodemailer";
+import createRandomCode from "../../lib/createRandomCode";
 
 // 메일 발송 서비스에 대한 환경 설정
 const mailPoster = nodeMailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
-    user: 'gyominis100@gmail.com',
-    pass: 'qw9712me12!',
+    user: "gyominis100@gmail.com",
+    pass: "qw9712me12!",
   },
 });
 
 const mailOpt = (email, contents) => {
   const mailOptions = {
-    from: 'gyominis100@gmail.com',
+    from: "gyominis100@gmail.com",
     to: email,
-    subject: 'kkiri 회원가입 인증코드',
+    subject: "kkiri 회원가입 인증코드",
     text: contents,
   };
   console.log(mailOptions);
@@ -26,9 +26,9 @@ const mailOpt = (email, contents) => {
 const sendMail = (mailOption) => {
   mailPoster.sendMail(mailOption, function (error, info) {
     if (error) {
-      console.log('에러 ' + error);
+      console.log("에러 " + error);
     } else {
-      console.log('전송 완료 ' + info.response);
+      console.log("전송 완료 " + info.response);
     }
   });
 };
@@ -36,14 +36,14 @@ const sendMail = (mailOption) => {
 //랜덤 번호 생성
 var res_data = {};
 const contents = () => {
-  var number = '';
+  var number = "";
   var random = 0;
   for (let i = 0; i < 6; i++) {
     random = Math.trunc(Math.random() * (9 - 0) + 0);
     number += random;
   }
-  res_data['secret'] = number;
-  return '인증 칸에 아래의 숫자를 입력해주세요. \n ' + number;
+  res_data["secret"] = number;
+  return "인증 칸에 아래의 숫자를 입력해주세요. \n " + number;
 };
 
 export const registeremail = async (ctx) => {
@@ -86,10 +86,10 @@ export const registercode = async (ctx) => {
   try {
     if (emailcode) {
       if (emailcode.emailcode !== res_data.secret) {
-        console.log('코드 인증 실패');
+        console.log("코드 인증 실패");
       } else if (emailcode.emailcode === res_data.secret) {
-        console.log('코드 인증 성공');
-        ctx.body = { message: 'success' };
+        console.log("코드 인증 성공");
+        ctx.body = { message: "success" };
       }
     }
   } catch (e) {
@@ -137,7 +137,7 @@ export const register = async (ctx) => {
     ctx.body = member.serialize(); //직렬화해서 비밀번호를 제외한 JSON data 뿌려줌
 
     const token = member.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
