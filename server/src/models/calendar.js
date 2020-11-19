@@ -79,8 +79,8 @@ CalendarSchema.methods.createCalendarData = async function (
   newData
 ) {
   newData = {
-    id:
-      (Number(
+    id: (
+      Number(
         this.calendarData[calendarData][
           this.calendarData[calendarData].length - 1
         ].id === 'l'
@@ -90,7 +90,8 @@ CalendarSchema.methods.createCalendarData = async function (
           : this.calendarData[calendarData][
               this.calendarData[calendarData].length - 1
             ].id
-      ) + 1).toString(),
+      ) + 1
+    ).toString(),
     ...newData,
   };
   await this.calendarData[calendarData].push(newData);
@@ -103,7 +104,7 @@ CalendarSchema.methods.createCalendarData = async function (
  *
  * @method getCaledarDataByTargetId
  * @param {String} calendarData 찾고자 하는 대상 문자열 ("calendars", "schedules", "dDay")
- * @param {Number} targetId 찾고자 하는 대상의 id값
+ * @param {Number || String} targetId 찾고자 하는 대상의 id값
  * @return {Object} calendarData.targetId로 찾은 결과를 반환함
  */
 CalendarSchema.methods.getCaledarDataByTargetId = async function (
@@ -120,7 +121,7 @@ CalendarSchema.methods.getCaledarDataByTargetId = async function (
  *
  * @method deleteCalendarDataByTargetId
  * @param {String} calendarData 삭제할 대상 문자열 ("calendars", "schedules", "dDay")
- * @param {Number} targetId 수정하고싶은 대상 id값
+ * @param {Number || String} targetId 수정하고싶은 대상 id값
  * @return {Array} 해당 요소를 삭제한 배열(결과)
  */
 CalendarSchema.methods.deleteCalendarDataByTargetId = async function (
@@ -139,7 +140,7 @@ CalendarSchema.methods.deleteCalendarDataByTargetId = async function (
  *
  * @method modifyCalendarDataByTargetId
  * @param {String} calendarData 수정할 대상 문자열 ("calendars", "schedules", "dDay")
- * @param {Number} targetId 찾고자 하는 대상 id값, 반드시 정수여야 함
+ * @param {Number || String} targetId 찾고자 하는 대상 id값
  * @param {Object} modifiedData 수정한 내용, 반드시 객체형식이여야 함
  * @return {Array} 수정된 내용까지 담은 수정할 대상("calendars", "schedules", "dDay") 배열을 반환함
  */

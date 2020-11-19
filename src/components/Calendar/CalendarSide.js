@@ -11,7 +11,6 @@ const CalendarSideBlock = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-
 `;
 const ListBlock = styled.div`
   width: 100%;
@@ -65,6 +64,7 @@ const CalendarTitle = styled.div`
   }
 
   @media ${(props) => props.theme.middle} {
+    width: 100%;
     color: ${(props) => props.bgColor};
     font-weight: bold;
     &:hover {
@@ -99,6 +99,12 @@ const DdayTitle = styled.div`
     color: #b291ff;
     font-weight: bold;
   }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    font-size: 0.8rem;
+    word-break: keep-all;
+  }
 `;
 const Dday = styled.div`
   font-weight: bold;
@@ -120,6 +126,11 @@ const DeleteButtonBlock = styled.div`
       z-index: -10;
     }
   }
+  @media ${(props) => props.theme.mobile} {
+    & button {
+      display: none;
+    }
+  }
 `;
 const BlockHeader = styled.div`
   display: flex;
@@ -129,6 +140,10 @@ const BlockHeader = styled.div`
   min-height: 35px;
   border-bottom: 1px solid #dfdfdf;
   text-align: center;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 0.85rem;
+  }
 `;
 const ErrorBlock = styled.div`
   display: flex;
@@ -210,7 +225,7 @@ const CalendarSide = ({
                   {calendar.name}
                 </CalendarTitle>
                 <DeleteButtonBlock>
-                  <button value={calendar.start} onClick={onDelete}>
+                  <button id={calendar.id} onClick={onDelete}>
                     X
                   </button>
                 </DeleteButtonBlock>
