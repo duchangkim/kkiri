@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as _date from '../../lib/_date';
 import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 import { Button } from 'react-bootstrap';
@@ -201,93 +201,38 @@ const Container = styled.div`
     width: 0;
     height: 0;
   }
-
-  button {
-    &:hover {
-      background: #d4d4d480;
-    }
-    &:focus {
-      box-shadow: none;
-    }
-  }
 `;
-const MessageLine = styled.div`
-  margin-top: -30px;
-  display: flex;
-  justify-content: ${({ myMessage }) =>
-    myMessage ? `flex-end` : `flex-start`};
-`;
-const MessageBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 40%;
-  align-items: ${({ myMessage }) => (myMessage ? `flex-end` : `flex-start`)};
-`;
-const Profile = styled.div`
-  box-sizing: border-box;
-  width: 45px;
-  height: 45px;
-  border: 5px solid #ffffff;
-  border-radius: 50%;
-  background: #ff838d;
-`;
-const Name = styled.div`
-  position: relative;
-  top: -38px;
-  right: 50px;
-  width: 80%;
-  text-align: right;
-  ${({ myMessage }) =>
-    myMessage
-      ? css`
-          right: 50px;
-          text-align: right;
-        `
-      : css`
-          left: 50px;
-          text-align: left;
-        `};
-`;
-const Message = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  top: -35px;
-  min-width: 10%;
-  max-width: 80%;
-  padding: 12px 15px;
-  border-radius: 5px;
-  background-color: lightblue;
-  z-index: -1;
-  line-height: 1.6rem;
-
-  .time {
-    width: 100%;
-    position: absolute;
-    bottom: -5px;
-    color: #7f7f7f;
-    font-size: 0.7rem;
-  }
-  ${({ myMessage }) =>
-    myMessage &&
-    css`
-      right: 5px;
-      padding-right: 10px;
-      .time {
-        left: -60px;
-      }
-    `};
-`;
-const MessageTimeBox = styled.div`
-  position: relative;
+const MyRow = styled.div`
   width: 100%;
   display: flex;
-
-  .time {
-    color: #7f7f7f;
-    font-size: 0.7rem;
-    margin-left: 5px;
-  }
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  position: relative;
+`;
+const MyMessage = styled.div`
+  width: 10%;
+  // max-width: 40%;
+  background-color: pink;
+  color: #46516e;
+  padding: 10px;
+  margin-right: 5px;
+  text-align: center;
+  word-break: keep-all;
+  word-break: break-all;
+`;
+const PartnerRow = styled(MyRow)`
+  justify-content: flex-start;
+`;
+const PartnerMessage = styled.div`
+  min-width: 10%;
+  background-color: pink;
+  color: #46516e;
+  padding: 10px;
+  margin-left: 5px;
+  text-align: center;
+  word-break: keep-all;
+  word-break: break-all;
 `;
 
 const Chat = ({
@@ -314,35 +259,34 @@ const Chat = ({
           </Button>
           <p className="chattingDate">{_date.getToday()}</p>
           <hr />
-          {messages.map((message, index) =>
-            message.sender === member._id ? (
-              <MessageLine key={index} myMessage>
-                <MessageBlock myMessage>
-                  <Profile></Profile>
-                  <Name myMessage>{message.name}</Name>
-                  <Message myMessage>
-                    {message.text}
-                    <div className="time">
-                      {_date.dateFormat(message.sendDate)}
-                    </div>
-                  </Message>
-                </MessageBlock>
-              </MessageLine>
-            ) : (
-              <MessageLine key={index}>
-                <MessageBlock>
-                  <Profile></Profile>
-                  <Name>{message.name}</Name>
-                  <MessageTimeBox>
-                    <Message>{message.text}</Message>
-                    <div className="time">
-                      {_date.dateFormat(message.sendDate)}
-                    </div>
-                  </MessageTimeBox>
-                </MessageBlock>
-              </MessageLine>
-            )
-          )}
+          {messages.map((message, index) => {
+            if (message.sender === member._id) {
+              return (
+                <MyRow className="MyRow" key={index}>
+                  <div className="profile">
+                    <div className="name">{message.name}</div>
+                  </div>
+                  <MyMessage className="MyMessage">{message.text}</MyMessage>
+                  <div className="Time">
+                    {_date.dateFormat(message.sendDate)}
+                  </div>
+                </MyRow>
+              );
+            }
+            return (
+              <PartnerRow className="PartnerRow" key={index}>
+                <PartnerMessage className="PartnerMessage">
+                  {message.text}
+                </PartnerMessage>
+                <div className="Time2">
+                  {_date.dateFormat(message.sendDate)}
+                </div>
+                <div className="profile2">
+                  <div className="name">{message.name}</div>
+                </div>
+              </PartnerRow>
+            );
+          })}
         </Container>
         {emojiNationOpen ? (
           <div className="emojiNation">
