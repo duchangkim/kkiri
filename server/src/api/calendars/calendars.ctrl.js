@@ -69,19 +69,12 @@ export const getCalendarsList = async (ctx) => {
 export const getCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
-  const numberCalendarsId = parseInt(calendarsId);
-
-  if (isNaN(numberCalendarsId)) {
-    console.log('숫자를 달라..');
-    ctx.status = 409;
-    return;
-  }
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const findResult = await calendar.getCaledarDataByTargetId(
       'calendars',
-      numberCalendarsId
+      calendarsId
     );
 
     if (!findResult) {
@@ -98,19 +91,12 @@ export const getCalendars = async (ctx) => {
 export const deleteCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
-  const numberCalendarsId = Number(calendarsId);
-
-  if (isNaN(numberCalendarsId)) {
-    console.log('숫자를 달라..');
-    ctx.status = 409;
-    return;
-  }
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
       'calendars',
-      numberCalendarsId
+      calendarsId
     );
 
     await calendar.save();
@@ -125,13 +111,7 @@ export const deleteCalendars = async (ctx) => {
 export const modifyCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
-  const numberCalendarsId = Number(calendarsId);
 
-  if (isNaN(numberCalendarsId)) {
-    console.log('숫자를 달라..');
-    ctx.status = 409;
-    return;
-  }
   const validateCalendar = Joi.object().keys({
     name: Joi.string(),
     color: Joi.string().max(7),
@@ -152,7 +132,7 @@ export const modifyCalendars = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const currentCalendars = await calendar.calendarData.calendars.find(
-      (calendar) => calendar.id === numberCalendarsId
+      (calendar) => calendar.id === calendarsId
     );
 
     if (!currentCalendars) {
@@ -171,7 +151,7 @@ export const modifyCalendars = async (ctx) => {
 
     const result = await calendar.modifyCalendarDataByTargetId(
       'calendars',
-      numberCalendarsId,
+      calendarsId,
       modifiedCalendars
     );
 

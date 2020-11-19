@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Alert, Form } from 'react-bootstrap';
+import { BlockPicker } from 'react-color';
 
 const CalendarFormPopupBlock = styled.div`
   border: 1px solid #eaeaea;
@@ -28,6 +29,15 @@ const CalendarFormPopupBlock = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  .block-picker {
+    margin: 0 auto !important;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    right: 20%;
+    top: 5%;
+  }
 `;
 
 const Button = styled.button`
@@ -41,6 +51,18 @@ const Button = styled.button`
   }
 `;
 
+const colors = [
+  '#F15A5A',
+  '#F0C419',
+  '#4EBA6F',
+  '#2D95BF',
+  '#955BA5',
+  '#F28A2E',
+  '#282828',
+  '#5A5A5A',
+  '#FFFFFF',
+];
+
 const CalendarFormPopup = ({
   isOpen,
   form,
@@ -48,12 +70,23 @@ const CalendarFormPopup = ({
   onChange,
   error,
   type,
+  onTextColorClick,
+  displayTextColorPicker,
+  textColor,
+  onTextColorChange,
+  onTextColorChangeComplete,
+  onBgColorClick,
+  displayBgColorPicker,
+  bgColor,
+  onBgColorChange,
+  onBgColorChangeComplete,
 }) => {
   const textMap = {
     create: '추가',
     modify: '수정',
   };
   // const isOpen = true;
+  console.log(form);
   return (
     <>
       {isOpen ? (
@@ -79,7 +112,17 @@ const CalendarFormPopup = ({
                 name="color"
                 value={form.color}
                 onChange={onChange}
+                onClick={onTextColorClick}
+                readOnly
               />
+              {displayTextColorPicker ? (
+                <BlockPicker
+                  onChange={onTextColorChange}
+                  onChangeComplete={onTextColorChangeComplete}
+                  color={textColor}
+                  colors={colors}
+                />
+              ) : null}
             </Form.Group>
             <Form.Group controlId="formBasicFilterBgColor">
               <Form.Control
@@ -90,7 +133,17 @@ const CalendarFormPopup = ({
                 name="bgColor"
                 value={form.bgColor}
                 onChange={onChange}
+                onClick={onBgColorClick}
+                readOnly
               />
+              {displayBgColorPicker ? (
+                <BlockPicker
+                  onChange={onBgColorChange}
+                  color={bgColor}
+                  onChangeComplete={onBgColorChangeComplete}
+                  colors={colors}
+                />
+              ) : null}
             </Form.Group>
             {error ? <Alert variant="danger">{error}</Alert> : null}
             {type === 'create' ? (

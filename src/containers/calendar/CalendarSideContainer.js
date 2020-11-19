@@ -21,9 +21,10 @@ const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
   });
 
   const handleDeleteButtonClick = (e) => {
+    console.dir('필터 삭제버튼 눌렀다');
     console.dir(e.target);
-    console.log(e.target.value);
-    dispatch(deleteCalendar(e.target.value));
+    console.log(e.target.id);
+    dispatch(deleteCalendar(e.target.id));
   };
 
   const handleCalendarFilterClick = (e) => {

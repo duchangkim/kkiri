@@ -18,7 +18,6 @@ import styled from 'styled-components';
 import CalendarHeaderContainer from './CalendarHeaderContainer';
 import CalenderSideContainer from './CalendarSideContainer';
 import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
-import LoadingPage from '../../pages/LoadingPage';
 
 const Styles = styled.div`
   display: flex;
@@ -35,6 +34,12 @@ const Styles = styled.div`
     background: #ff838d;
   }
 
+  @media ${(props) => props.theme.mobile} {
+    .left + div {
+      min-width: 90px;
+      width: 13%;
+    }
+  }
 `;
 
 const CalendarContainer = () => {
@@ -87,6 +92,7 @@ const CalendarContainer = () => {
     (res) => {
       console.log(`call Delete`);
       const { id, calendarId } = res.schedule;
+      console.log(calendarId);
 
       dispatch(deleteSchedule(id));
       cal.current.calendarInst.deleteSchedule(id, calendarId);
@@ -109,7 +115,6 @@ const CalendarContainer = () => {
         start: e.changes.start ? e.changes.start.toDate() : null,
         end: e.changes.end ? e.changes.end.toDate() : null,
       };
-
 
       dispatch(modifySchedule(schedule, id));
       cal.current.calendarInst.updateSchedule(id, calendarId, schedule);
