@@ -12,20 +12,19 @@ const Fullscreen = styled.div`
   background: rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
-  align-items;
+  align-items: center;
 `
 
 const AskModalBlock = styled.div`
   position: fixed;
   top: 262px;
-  width: 60%;
   height: 200px;
   background: white;
   padding: 1.5rem;
   border-radius: 4px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   h2 {
-    margin:top: 0;
+    margin-top: 0;
     margin-bottom: 1rem;
   }
   p {

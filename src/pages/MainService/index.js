@@ -14,6 +14,8 @@ import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
 import ChatContainer from '../../containers/chat/ChatContainer';
 import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer'
+import PostActionButtons from '../../components/setup/PostActionButtons'
+
 
 const CustomContainer = styled.div`
   width: 100%;
@@ -81,6 +83,11 @@ const MainService = () => {
               component={LikeReadAlbumContainer}
             />
             <Route path="/kkiri/chatting" component={ChatContainer} exact />
+            <Route
+              path="/kkiri/setting/"
+              exact={true}
+              component={PostActionButtons}
+            />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
                 <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
