@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readAlbum, unloadAlbum } from '../../modules/album';
 import LikeReadAlbum from '../../components/Album/LikeReadAlbum';
-import { setOriginalAlbum } from '../../modules/album'; 
 
 const LikeReadAlbumContainer = ({ match }) => {
   const albumIdx  = match.params.idx;
+  // const keyId = match.params.keyid;
   console.log(match);
-  console.log(albumIdx);
+  // console.log(albumIdx);
   const dispatch = useDispatch();
   const { album, error, loading } = useSelector(({ album, loading }) => {
     return({
@@ -19,7 +19,7 @@ const LikeReadAlbumContainer = ({ match }) => {
   });
   // console.log('44444444');
   // console.dir(album);
-
+  
   useEffect(() => {
     console.log('readalbum girit~~')
     dispatch(readAlbum(albumIdx));
@@ -28,6 +28,7 @@ const LikeReadAlbumContainer = ({ match }) => {
     }
   }, [dispatch, albumIdx]);
 
+  
   return (
     <LikeReadAlbum    
       album={album}

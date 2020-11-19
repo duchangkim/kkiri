@@ -43,6 +43,9 @@ AlbumSchema.methods.changeFile = async function (keyid) {
   }) : file);
 }
 
+AlbumSchema.methods.reverseFile = async function () {
+  this.fileData.files = this.fileData.files.sort(function(a,b) {b.keyid - a.keyid}).map(file => file)
+}
 
 
 const Album = mongoose.model('Album', AlbumSchema);
