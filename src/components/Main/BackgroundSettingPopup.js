@@ -111,6 +111,7 @@ const Popups = styled.div`
     transform: translateY(-50%);
     font-size: 1rem;
     color: white;
+    border: none;
   }
   .Choice-Select-Text h4:hover {
     cursor: pointer;
@@ -129,6 +130,8 @@ const Popups = styled.div`
     }
   }
 `;
+
+// 파일 선택 후 저장하기 -> uploads파일에 배경화면 이미지 보내기 -> DB에 파일값 저장 -> 배경화면 세팅하기
 
 class BackgroundSettingPopup extends Component {
   state = {
