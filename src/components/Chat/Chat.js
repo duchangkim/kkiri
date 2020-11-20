@@ -174,6 +174,7 @@ const Message = styled.div`
   background-color: lightblue;
   z-index: -1;
   line-height: 1.6rem;
+  word-break: keep-all;
 
   .time {
     min-width: 60px;
@@ -210,6 +211,7 @@ const Chat = ({
   handleChange,
   handleKeyPress,
   onMoreButtonClick,
+  messageListLoad
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
@@ -218,9 +220,11 @@ const Chat = ({
     <ChattingBox>
       <div className="chatting-wrapper">
         <Container ref={messagesRef} messages={messages}>
-          <Button variant="outline" onClick={onMoreButtonClick}>
-            더보기
-          </Button>
+          {messageListLoad ? null : (
+            <Button variant="outline" onClick={onMoreButtonClick}>
+              더보기
+            </Button>
+          )}
           <p className="chattingDate">{_date.getToday()}</p>
           {messages.map((message, index) =>
             message.sender === member._id ? (

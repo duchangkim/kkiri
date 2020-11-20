@@ -31,7 +31,7 @@ const ChatContainer = ({ history }) => {
   const [messagePageNum, setMessagePageNum] = useState(0);
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
-  const [isTop, setIsTop] = useState(false)
+  const [messageListLoad, setMessageListLoad] = useState(false)
 
   const receivedMessage = async (message) => {
     // console.log('리시브 메시시');
@@ -134,6 +134,7 @@ const ChatContainer = ({ history }) => {
       dispatch(insertMessageList(newMessages));
       setMessages([]);
       newMessagesTemp.current = [];
+      setMessageListLoad(false)
     };
   }, []);
 
@@ -150,6 +151,7 @@ const ChatContainer = ({ history }) => {
       dispatch(insertMessageList(newMessages));
       setMessages([]);
       newMessagesTemp.current = [];
+      setMessageListLoad(false)
     });
 
     return () => {
@@ -159,8 +161,9 @@ const ChatContainer = ({ history }) => {
 
   
   useEffect(() => {
-    if(messageList.length === 0) {
-      console.log('불러올것이 더이상 없다.')
+    if(messageList.length === 0 && messagePageNum !== 1) {
+      console.log('불러올것이 더이상 없다.');
+      setMessageListLoad(true)
       return;
     }
     receivedMessage(messageList);
@@ -224,6 +227,7 @@ const ChatContainer = ({ history }) => {
           onMoreButtonClick={handleMoreButtonClick}
           chosenEmoji={chosenEmoji}
           onEmojiClick={onEmojiClick}
+          messageListLoad={messageListLoad}
         />
       </Col>
     </Row>
