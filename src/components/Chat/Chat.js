@@ -216,6 +216,16 @@ const Chat = ({
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
   // console.log(member);
+
+  const timestamp = []
+  messages.forEach(message => timestamp.push(new Date(message.sendDate).toDateString()))
+  console.log(timestamp)
+  const nowDateString = new Date().toDateString()
+  console.log(nowDateString)
+  
+  const result = timestamp.find(time => time === nowDateString)
+  console.log(result)
+  
   return (
     <ChattingBox>
       <div className="chatting-wrapper">
