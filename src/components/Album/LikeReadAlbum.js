@@ -3,14 +3,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom';
-import ActionButtons from './ActionButtons'
 import { removeFile, editFile } from '../../lib/api/album';
+import ActionButtons from "./ActionButtons";
 
+
+const TitleBlock = styled.div`
+    width: 70%;
+    height: 96px;
+    padding-top: 40px;
+    text-align: center;
+    margin: 0 auto;
+    div {
+        width: 140px;
+        height: 32px;
+        background-color: #ffb6c1;
+        margin: 0 auto; 
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        padding: 0.25rem 1rem;
+    }
+`
 const ReadBlock = styled.div`
     width: 70%;
-    padding: 50px 0 0 0;
+    padding: 0;
     margin: 0 auto;
-    height: 75%;
+    height: 65%;
     display: flex;
     align-items: center;
     @media(max-width: 1080px) {
@@ -60,6 +78,27 @@ const BoxBody = styled.div`
         }
     }
 `
+const HomeBlock = styled.div`
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+`
+const HomeButton = styled.button`
+    border: none;
+    border-radius: 4px;
+    width: 135px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.25rem 1rem;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    background: #ffb6c1;
+
+    &:hover {
+        background: #ff4d67;
+    }
+`
 
 function LikeReadAlbum({ album, error, loading, albumIdx }) {  
     let abc = Number(albumIdx);
@@ -104,6 +143,7 @@ function LikeReadAlbum({ album, error, loading, albumIdx }) {
         })
     }
     
+    console.log('여긴 likereadalbum');
     let arr1 = [];
     console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
     console.log(album)
@@ -114,6 +154,7 @@ function LikeReadAlbum({ album, error, loading, albumIdx }) {
           index: index,
           keyid: file.keyid,
           filename: file.filename,
+          likes: file.like
         });
       }
     })
@@ -121,9 +162,15 @@ function LikeReadAlbum({ album, error, loading, albumIdx }) {
     const len2 = arr1.length;
     console.log(len2);
     console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
+    console.log('likereadalbum~~~~~~~~~~~~')
     return (
         <>
-        <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/>
+        {/* <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/> */}
+        <TitleBlock>
+            <div>
+                즐찾이에용~
+            </div>
+        </TitleBlock>
         <ReadBlock>
             <ArrowForwardBox>
                 {albumIdx > 0 &&
@@ -145,6 +192,9 @@ function LikeReadAlbum({ album, error, loading, albumIdx }) {
                 }   
             </ArrowBackBox>
         </ReadBlock>
+        <HomeBlock>
+            <Link to="/kkiri/albums"><HomeButton>앨범 전체보기</HomeButton></Link>
+        </HomeBlock>
         </>
     );
 }

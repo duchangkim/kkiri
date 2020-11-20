@@ -12,6 +12,7 @@ import dDay, { dDaySaga } from "./dDay";
 import couple, { coupleSaga } from "./couple";
 import weather, { weatherSaga } from "./weather";
 import setup, { setupSaga } from "./setUp";
+import setting, { settingSaga } from "./setting";
 import chat, { chatSaga } from "./chat";
 
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   couple,
   weather,
   setup,
+  setting,
   chat,
 });
 
@@ -43,6 +45,7 @@ export function* rootSaga() {
     weatherSaga(),
     setupSaga(),
     chatSaga(),
+    settingSaga(),
   ]);
 }
 

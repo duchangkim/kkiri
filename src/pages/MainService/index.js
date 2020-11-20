@@ -14,7 +14,8 @@ import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
 import ChatContainer from '../../containers/chat/ChatContainer';
 import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer'
-import PostActionButtons from '../../components/setup/PostActionButtons'
+import MemberDeleteContainer from '../../containers/setup/MemberDeleteContainer'
+// import PostActionButtons from "../../components/setup/PostActionButtons"
 
 
 const CustomContainer = styled.div`
@@ -86,7 +87,7 @@ const MainService = () => {
             <Route
               path="/kkiri/setting/"
               exact={true}
-              component={PostActionButtons}
+              component={MemberDeleteContainer}
             />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">

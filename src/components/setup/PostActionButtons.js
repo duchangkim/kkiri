@@ -27,6 +27,7 @@ const ActionButton = styled.button`
 `;
 
 const PostActionButtons = ({ onRemove }) => {
+  
   const [modal, setModal] = useState(false);
   const onRemoveClick = () => {
     setModal(true);
@@ -37,6 +38,7 @@ const PostActionButtons = ({ onRemove }) => {
   const onConfirm = () => {
     setModal(false);
     onRemove();
+    console.log("여기엔 드러와?");
   };
 
   return (
