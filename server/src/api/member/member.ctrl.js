@@ -47,7 +47,7 @@ export const insertGetTogetherDate = async (ctx) => {
   const getTogetherDday = {
     id: 'l',
     calendarId: 'dday',
-    title: '우리 사귄지',
+    title: '우리 함께한지',
     isAllDay: true,
     start: getTogetherDateObj,
     end: getTogetherDateObj,

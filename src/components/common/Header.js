@@ -37,7 +37,7 @@ const UserInfo = styled.div`
   margin-right: 1rem;
 `;
 
-const Header = ({ member, onLogout, children }) => {
+const Header = ({ member, onLogout, children, auth }) => {
   return (
     <>
       <HeaderBlock>
@@ -49,7 +49,7 @@ const Header = ({ member, onLogout, children }) => {
             <div className="right">
               <UserInfo>{member.email}</UserInfo>
               <Button onClick={onLogout}>로그아웃</Button>
-              {auth.coupleShareCode ? null : (
+              {member.coupleShareCode ? null : (
                 <Button to="/registercouple">코드입력</Button>
               )}
             </div>

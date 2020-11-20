@@ -10,6 +10,12 @@ import {
 import { togglePopup } from '../../modules/tuiCalendar';
 
 const CalendarFormPopupContainer = () => {
+  const [displayTextColorPicker, setDisplayTextColorPicker] = useState(false);
+  const [displayBgColorPicker, setDisplayBgColorPicker] = useState(false);
+  const [color, setColor] = useState({
+    text: '#ffffff',
+    bg: '#ffffff',
+  });
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const { isOpen, type } = useSelector(
@@ -26,6 +32,48 @@ const CalendarFormPopupContainer = () => {
     }),
     shallowEqual
   );
+
+  const handleTextColorClick = () => {
+    setDisplayBgColorPicker(false);
+    setDisplayTextColorPicker((prev) => !prev);
+  };
+
+  const handleBgColorClick = () => {
+    setDisplayTextColorPicker(false);
+    setDisplayBgColorPicker((prev) => !prev);
+  };
+
+  const handleTextColorChangeComplete = (color) => {
+    setColor((state) => ({
+      ...state,
+      text: color,
+    }));
+  };
+
+  const handleBgColorChangeComplete = (color) => {
+    setColor((state) => ({
+      ...state,
+      bg: color,
+    }));
+  };
+
+  const handleTextColorChange = (color, event) => {
+    dispatch(
+      changeField({
+        name: 'color',
+        value: color.hex,
+      })
+    );
+  };
+
+  const handleBgColorChange = (color, event) => {
+    dispatch(
+      changeField({
+        name: 'bgColor',
+        value: color.hex,
+      })
+    );
+  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -97,6 +145,16 @@ const CalendarFormPopupContainer = () => {
       onSubmit={onSubmit}
       error={error}
       type={type}
+      onTextColorClick={handleTextColorClick}
+      displayTextColorPicker={displayTextColorPicker}
+      textColor={color.text}
+      onTextColorChange={handleTextColorChange}
+      onTextColorChangeComplete={handleTextColorChangeComplete}
+      onBgColorClick={handleBgColorClick}
+      displayBgColorPicker={displayBgColorPicker}
+      bgColor={color.bg}
+      onBgColorChange={handleBgColorChange}
+      onBgColorChangeComplete={handleBgColorChangeComplete}
     />
   );
 };

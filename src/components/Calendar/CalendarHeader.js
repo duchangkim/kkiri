@@ -37,6 +37,10 @@ const TodayButton = styled(Button)`
     background: #ff838da0;
     color: #fff;
   }
+
+  @media ${(props) => props.theme.middle} {
+    font-size: 1.2rem;
+  }
 `;
 const CurrentRange = styled.h2`
   width: 200px;
@@ -45,6 +49,17 @@ const CurrentRange = styled.h2`
   font-size: 1.8rem;
   cursor: context-menu;
   color: ${(props) => (props.isToday ? '#ff838d' : '#919191')};
+
+  @media ${(props) => props.theme.middle} {
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 1rem;
+  }
 `;
 const AddButtonBlock = styled.div`
   display: flex;
@@ -64,6 +79,12 @@ const AddButton = styled(Button)`
   }
   transition: ease 0.3s;
   ${({ isOpen }) => (isOpen ? `transform: rotate(45deg); color: #ff838d` : ``)};
+
+  @media ${(props) => props.theme.mobile} {
+    &:hover + div.msg {
+      display: none;
+    }
+  }
 `;
 const Message = styled.div`
   display: none;

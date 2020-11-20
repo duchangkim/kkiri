@@ -18,7 +18,7 @@ const buttonStyle = css`
   }
   &:focus {
     outline: none;
-    border: 2px dotted #f58cb4;
+    border: 2px dotted rgba(255, 131, 141, 1);
     border-radius: 4px;
   }
 
@@ -32,10 +32,10 @@ const buttonStyle = css`
   ${(props) =>
     props.cyan &&
     css`
-      background: #f58cb4;
+      background: rgba(255, 131, 141, 1);
       padding: 0.5rem 0;
       &:hover {
-        background: #f58cb49d;
+        background: rgb(255 131 141 / 42%);
         color: #fff;
       }
     `}

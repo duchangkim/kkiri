@@ -95,6 +95,12 @@ const CoupleCodeForm = ({ history }) => {
     dispatch(initializeForm("registercouple"));
   }, [dispatch]);
 
+if(auth.coupleShareCode){
+  history.push("/kkiri/home");
+  return;
+}
+
+
   return (
     <AuthForm
       type="registercouple"
