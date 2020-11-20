@@ -168,7 +168,8 @@ const ChatContainer = ({ history }) => {
   }, [messageList]);
 
   useEffect(() => {
-    if(!loading['chat/GET_MESSAGE_LIST']) {
+    
+    if(!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
       console.log('메시지 로딩 끝?')
       if(!messagesRef) {
         return;
@@ -186,7 +187,6 @@ const ChatContainer = ({ history }) => {
   useEffect(() => {
     if (messagesRef !== null) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-      // messagesRef.current.scrollTop = 0;
     }
   }, [messages]);
 
