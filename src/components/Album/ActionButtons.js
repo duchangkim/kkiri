@@ -34,12 +34,12 @@ const ActionButton = styled.button`
 const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
 
-  const [like, setLike] = useState(likes);
-  console.log(likes);
+  const [like, setLike] = useState(likes ? true : false);
+  console.log('!!!!!!!!!!!!' + likes);
 
   const onChangeText = () => {
     console.log('here!');
-    setLike(!likes)
+    setLike(!like)
   }
 
   const onRemoveClick = () => {
@@ -63,12 +63,12 @@ const ActionButtons = ({ onRemove, onEdit, likes }) => {
             즐겨찾기 해제
           </ActionButton> ) :
         (
-          <ActionButton onClick={onEdit} onChange={onChangeText}>
+          <ActionButton onClick={() => { onEdit(); onChangeText();}}>
             즐겨찾기
           </ActionButton>
         )}
         <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
-        {likes ? 
+        {like ? 
         <div><BsHeartFill color='red'/></div> 
         : 
         <div><BsHeartFill color='black'/></div>

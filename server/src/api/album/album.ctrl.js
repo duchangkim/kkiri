@@ -75,13 +75,13 @@ export const fileupload = async ctx => {
     console.log('mememmmmmmmmmmm'+ctx.state.member.coupleShareCode);
     const check = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
     if(check !== null) {
-      let idx = check.fileData.files.length;
-      if(idx === check.fileData.files.idx) {
-        while(true) {
-          idx++;
-          return idx;
-        }
-      }
+      // let idx = check.fileData.files.length;
+      // if(idx === check.fileData.files.idx) {
+      //   while(true) {
+      //     idx++;
+      //     return idx;
+      //   }
+      // }
       check.fileData.files.push({
         keyid,
         filename,
@@ -151,7 +151,7 @@ export const update = async ctx => {
 
     await album.save();
     ctx.body = result;
-    console.log('좋아연~');
+    console.log(album.fileData.files);
   }catch(e) {
     ctx.throw(500, e);
     ctx.body = "업뎃안댐"
