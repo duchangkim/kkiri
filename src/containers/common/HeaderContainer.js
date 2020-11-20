@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/common/Header";
+import auth from "../../modules/auth";
 import { logout } from "../../modules/member";
 
-const HeaderContainer = () => {
+const HeaderContainer = ({history}) => {
   const { member } = useSelector(({ member }) => {
     console.log("123123123123");
     console.log(member);
@@ -14,6 +15,8 @@ const HeaderContainer = () => {
   const onLogout = () => {
     dispatch(logout());
   };
+
+
   return <Header member={member} onLogout={onLogout} />;
 };
 

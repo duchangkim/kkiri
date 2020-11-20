@@ -8,6 +8,7 @@ import {
 } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
 import { withRouter } from "react-router-dom";
+import { check } from "../../modules/member";
 
 const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -130,6 +131,7 @@ const RegisterForm = ({ history }) => {
     if (isSuccess) {
       console.log("check API 성공");
       console.log(isSuccess);
+      dispatch(check());
       history.push("/registercouple");
       try {
         localStorage.setItem("member", JSON.stringify(member));
@@ -137,7 +139,7 @@ const RegisterForm = ({ history }) => {
         console.log("localStorage error");
       }
     }
-  }, [history, isSuccess, member]);
+  }, [history,dispatch, isSuccess, member]);
 
   console.log("여기가 레지스터폼");
   console.log(form);

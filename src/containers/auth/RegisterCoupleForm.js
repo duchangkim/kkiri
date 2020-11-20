@@ -84,19 +84,27 @@ const CoupleCodeForm = ({ history }) => {
   }, [auth, dispatch]);
 
   useEffect(() => {
-    console.log(auth.coupleShareCode);
-    if (auth.coupleShareCode) {
+    console.log(member.coupleShareCode);
+    if (member.coupleShareCode) {
       history.push("/kkiri/home");
+      dispatch(check());
       return;
     }
-  }, [history, auth]);
+  }, [history,dispatch, member]);
 
   useEffect(() => {
     dispatch(initializeForm("registercouple"));
   }, [dispatch]);
 
-if(auth.coupleShareCode){
+if(member.userCode === null){
   history.push("/kkiri/home");
+  return;
+}else if(member.userCode){
+  history.push("/");
+  dispatch(check());
+  return;
+}else if(member.coupleShareCode){
+  history.push("/");
   return;
 }
 
@@ -108,7 +116,7 @@ if(auth.coupleShareCode){
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
-      myCode={auth.userCode}
+      myCode={member.userCode}
       onLogout={onLogout}
     />
   );
