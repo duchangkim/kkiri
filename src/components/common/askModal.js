@@ -18,6 +18,7 @@ const Fullscreen = styled.div`
 const AskModalBlock = styled.div`
   position: fixed;
   top: 262px;
+  width: 60%;
   height: 200px;
   background: white;
   padding: 1.5rem;
@@ -38,6 +39,7 @@ const AskModalBlock = styled.div`
 
 const StyledButton = styled(Button)`
   height: 2rem;
+  background-color: #ffb6c1;
   & + & {
     margin-left: 0.75rem;
   }

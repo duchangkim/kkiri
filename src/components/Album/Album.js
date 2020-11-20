@@ -57,6 +57,8 @@ function Album({ albums, loading, error }) {
           id: index,
           keyid: file.keyid,
           filename: file.filename,
+          like: file.like,
+          // why: 'why',
         });
       }
     })
