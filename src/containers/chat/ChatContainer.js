@@ -70,17 +70,19 @@ const ChatContainer = ({ history }) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const messageObject = {
-      coupleShareCode: member.coupleShareCode,
-      sender: member._id,
-      name: member.name,
-      text: message,
-      sendDate: new Date(),
-    };
-    setMessage('');
-    socketRef.current.emit('send message', messageObject);
-    console.log('메시지 보냄');
-    console.log(messageObject);
+    if (message !== '') {
+      const messageObject = {
+        coupleShareCode: member.coupleShareCode,
+        sender: member._id,
+        name: member.name,
+        text: message,
+        sendDate: new Date(),
+      };
+      setMessage('');
+      socketRef.current.emit('send message', messageObject);
+      console.log('메시지 보냄');
+      console.log(messageObject);
+    }
   };
 
   const handleChange = (e) => {
