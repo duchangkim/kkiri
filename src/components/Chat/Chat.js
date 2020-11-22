@@ -116,6 +116,7 @@ const Container = styled.div`
   }
 
   button {
+    margin-bottom: 30px;
     &:hover {
       background: #d4d4d480;
     }
@@ -184,20 +185,26 @@ const Message = styled.div`
     font-size: 0.7rem;
   }
   ${({ myMessage }) =>
-    myMessage ?
-    css`
-      right: 5px;
-      padding-right: 10px;
-      .time {
-        left: -60px;
-      }
-    ` : css`
-      right: -5px;
-      padding-right: 15px;
-      .time {
-        right: -65px;
-      }
-    `};
+    myMessage
+      ? css`
+          right: 5px;
+          padding-right: 10px;
+          .time {
+            left: -60px;
+          }
+        `
+      : css`
+          right: -5px;
+          padding-right: 15px;
+          .time {
+            right: -65px;
+          }
+        `};
+`;
+const TimeAssortmentMessage = styled.div`
+  text-align: center;
+  color: #7f7f7f;
+  margin: 20px 0;
 `;
 
 const Chat = ({
@@ -211,21 +218,23 @@ const Chat = ({
   handleChange,
   handleKeyPress,
   onMoreButtonClick,
-  messageListLoad
+  messageListLoad,
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
   // console.log(member);
 
-  const timestamp = []
-  messages.forEach(message => timestamp.push(new Date(message.sendDate).toDateString()))
-  console.log(timestamp)
-  const nowDateString = new Date().toDateString()
-  console.log(nowDateString)
-  
-  const result = timestamp.find(time => time === nowDateString)
-  console.log(result)
-  
+  const timestamp = [];
+  messages.forEach((message) =>
+    timestamp.push(new Date(message.sendDate).toDateString())
+  );
+  console.log(messages);
+  const nowDateString = new Date().toDateString();
+  console.log(nowDateString);
+
+  const result = timestamp.find((time) => time === nowDateString);
+  console.log(result);
+
   return (
     <ChattingBox>
       <div className="chatting-wrapper">
@@ -235,9 +244,23 @@ const Chat = ({
               더보기
             </Button>
           )}
-          <p className="chattingDate">{_date.getToday()}</p>
-          {messages.map((message, index) =>
-            message.sender === member._id ? (
+          {messages.map((message, index) => {
+            const currentSendDate = message.sendDate.substring(0, 10);
+            let nextSendDate;
+            if (messages.length - 1 === index) {
+              nextSendDate = messages[index].sendDate.substring(0, 10);
+            } else {
+              nextSendDate = messages[index + 1].sendDate.substring(0, 10);
+            }
+            if (currentSendDate !== nextSendDate) {
+              const _date = new Date(nextSendDate);
+              return (
+                <TimeAssortmentMessage key={index}>{`${_date.getFullYear()}년 ${
+                  _date.getMonth() + 1
+                }월 ${_date.getDate()}일`}</TimeAssortmentMessage>
+              );
+            }
+            return message.sender === member._id ? (
               <MessageLine key={index} myMessage>
                 <MessageBlock myMessage>
                   <Profile></Profile>
@@ -263,8 +286,8 @@ const Chat = ({
                   </Message>
                 </MessageBlock>
               </MessageLine>
-            )
-          )}
+            );
+          })}
         </Container>
         {emojiNationOpen ? (
           <div className="emojiNation">
