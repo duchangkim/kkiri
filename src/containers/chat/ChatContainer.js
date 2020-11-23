@@ -31,7 +31,7 @@ const ChatContainer = ({ history }) => {
   const [messagePageNum, setMessagePageNum] = useState(0);
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
-  const [messageListLoad, setMessageListLoad] = useState(false)
+  const [messageListLoad, setMessageListLoad] = useState(false);
 
   const receivedMessage = async (message) => {
     // console.log('리시브 메시시');
@@ -42,20 +42,22 @@ const ChatContainer = ({ history }) => {
         // console.log(oldMessages);
         // console.log([...oldMessages, ...message]);
 
-        return [...oldMessages, ...message].filter((item, index) => {
-          return (
-            [...oldMessages, ...message].findIndex((item2, index2) => {
-              return (
-                new Date(item.sendDate).getTime() ===
-                new Date(item2.sendDate).getTime()
-              );
-            }) === index
-          );
-        }).sort((a, b) => {
-          const aDate = new Date(a.sendDate);
-          const bDate = new Date(b.sendDate);
-          return aDate - bDate;
-        });
+        return [...oldMessages, ...message]
+          .filter((item, index) => {
+            return (
+              [...oldMessages, ...message].findIndex((item2, index2) => {
+                return (
+                  new Date(item.sendDate).getTime() ===
+                  new Date(item2.sendDate).getTime()
+                );
+              }) === index
+            );
+          })
+          .sort((a, b) => {
+            const aDate = new Date(a.sendDate);
+            const bDate = new Date(b.sendDate);
+            return aDate - bDate;
+          });
       });
       // console.log(messages);
       return;
@@ -134,7 +136,7 @@ const ChatContainer = ({ history }) => {
       dispatch(insertMessageList(newMessages));
       setMessages([]);
       newMessagesTemp.current = [];
-      setMessageListLoad(false)
+      setMessageListLoad(false);
     };
   }, []);
 
@@ -151,7 +153,7 @@ const ChatContainer = ({ history }) => {
       dispatch(insertMessageList(newMessages));
       setMessages([]);
       newMessagesTemp.current = [];
-      setMessageListLoad(false)
+      setMessageListLoad(false);
     });
 
     return () => {
@@ -159,27 +161,24 @@ const ChatContainer = ({ history }) => {
     };
   }, []);
 
-  
   useEffect(() => {
-    if(messageList.length === 0 && messagePageNum !== 1) {
+    if (messageList.length === 0 && messagePageNum !== 1) {
       console.log('불러올것이 더이상 없다.');
-      setMessageListLoad(true)
+      setMessageListLoad(true);
       return;
     }
     receivedMessage(messageList);
-    
   }, [messageList]);
 
   useEffect(() => {
-    
-    if(!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
-      console.log('메시지 로딩 끝?')
-      if(!messagesRef) {
+    if (!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
+      console.log('메시지 로딩 끝?');
+      if (!messagesRef) {
         return;
       }
       setTimeout(() => {
-        messagesRef.current.scrollTo(0, 0)
-      }, 30)
+        messagesRef.current.scrollTo(0, 0);
+      }, 30);
     }
   }, [messageList, loading]);
 
