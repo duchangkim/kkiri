@@ -13,8 +13,8 @@ import { logout } from "../../modules/member";
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember,member } = useSelector(
-    ({ auth,member }) => {
+  const { form, auth, coupleCodeError, otherMember, member } = useSelector(
+    ({ auth, member }) => {
       console.log(member);
       return {
         form: auth.registercouple,
@@ -22,7 +22,7 @@ const CoupleCodeForm = ({ history }) => {
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
-        member: auth.auth,
+        member: member.member,
       };
     }
   );
@@ -84,14 +84,14 @@ const CoupleCodeForm = ({ history }) => {
 
   useEffect(() => {
     console.log(member.coupleShareCode);
-    if(member){
+    if (member) {
       if (member.coupleShareCode) {
         history.push("/kkiri/home");
+        dispatch(check());
         return;
       }
-      dispatch(check());
     }
-  }, [history,dispatch, member]);
+  }, [history, dispatch, member]);
 
   useEffect(() => {
     dispatch(initializeForm("registercouple"));

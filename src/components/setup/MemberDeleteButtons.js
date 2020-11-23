@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import AskRemoveModal from './AskRemoveModal';
-import { Container } from 'react-bootstrap';
+import React, { useState } from "react";
+import styled from "styled-components";
+import palette from "../../lib/styles/palette";
+import AskRemoveModal from "./AskRemoveModal";
+import { Container } from "react-bootstrap";
 
 const PostActionButtonsBlock = styled.div`
   margin-top: 3rem;
+  h2 {
+    font-size: 1.3rem;
+  }
 `;
 
 const ActionButton = styled.button`
@@ -37,14 +40,13 @@ const MemberDeleteButtons = ({ onRemove }) => {
   const onConfirm = () => {
     setModal(false);
     onRemove();
-    console.log('여기엔 드러와?');
+    console.log("여기엔 드러와?");
   };
 
   return (
     <>
       <PostActionButtonsBlock>
         <Container>
-          <h2>로그아웃 하기</h2>
           <h2>회원탈퇴</h2>
           <ActionButton onClick={onRemoveClick}>회원 탈퇴</ActionButton>
         </Container>
