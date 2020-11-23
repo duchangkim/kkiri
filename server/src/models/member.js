@@ -170,24 +170,6 @@ MemberSchema.methods.insertGetTogetherDate = function (getTogetherDate) {
   this.getTogetherDate = getTogetherDate;
 };
 
-<<<<<<< HEAD
-
-MemberSchema.methods.deleteMember = async function (
-email,
-) {
-  console.log("dfsdfdsfsdfsdfsdf")
-  console.log(this.email);
-  await this.email;
-
-  console.log('""email여기드러옴?');
-
-
-  return this.email;
-};
-
-const Member = mongoose.model('Member', MemberSchema);
-=======
 const Member = mongoose.model("Member", MemberSchema);
->>>>>>> 04c16ac6f8107705d8a8c8f71fdce488d2d4e423
 
 export default Member;
