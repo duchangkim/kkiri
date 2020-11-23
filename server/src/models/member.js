@@ -51,8 +51,8 @@ const MemberSchema = new Schema({
     type: Object,
     default: {
       coupleBackground: "al2.png",
-      coupleProfile1: "",
-      coupleProfile2: "",
+      coupleProfile1: "duli.png",
+      coupleProfile2: "duli.png",
     },
   },
   // 간편로그인 회원정보
