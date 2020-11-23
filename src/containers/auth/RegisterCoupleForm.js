@@ -7,15 +7,14 @@ import {
   createCoupleSet,
 } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
-import { check } from "../../modules/member";
+import member, { check } from "../../modules/member";
 import { withRouter } from "react-router-dom";
 import { logout } from "../../modules/member";
-
 const CoupleCodeForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, coupleCodeError, otherMember, member } = useSelector(
-    ({ auth, member }) => {
+  const { form, auth, coupleCodeError, otherMember,member } = useSelector(
+    ({ auth,member }) => {
       console.log(member);
       return {
         form: auth.registercouple,
@@ -23,7 +22,7 @@ const CoupleCodeForm = ({ history }) => {
         coupleCodeError: auth.registercouple.error,
         otherMember: auth.registercouple.otherMember,
         isSuccess: auth.registercouple.isSuccess,
-        member: member.member,
+        member: auth.auth,
       };
     }
   );
@@ -85,29 +84,18 @@ const CoupleCodeForm = ({ history }) => {
 
   useEffect(() => {
     console.log(member.coupleShareCode);
-    if (member.coupleShareCode) {
-      history.push("/kkiri/home");
+    if(member){
+      if (member.coupleShareCode) {
+        history.push("/kkiri/home");
+        return;
+      }
       dispatch(check());
-      return;
     }
   }, [history,dispatch, member]);
 
   useEffect(() => {
     dispatch(initializeForm("registercouple"));
   }, [dispatch]);
-
-if(member.userCode === null){
-  history.push("/kkiri/home");
-  return;
-}else if(member.userCode){
-  history.push("/");
-  dispatch(check());
-  return;
-}else if(member.coupleShareCode){
-  history.push("/");
-  return;
-}
-
 
   return (
     <AuthForm

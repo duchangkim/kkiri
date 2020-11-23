@@ -2,6 +2,7 @@ import Router from "koa-router";
 import calendars from "./calendars";
 import auth from "./auth";
 import setup from "./setup";
+import setting from "./setting";
 import code from "./code";
 import schedules from "./schedules";
 import albums from "./album";
@@ -14,7 +15,7 @@ import profilesetting from "./profilesetting";
 
 const api = new Router();
 api.use("/auth", auth.routes());
-api.use("/setup", setup.routes());
+api.use("/setting", setting.routes());
 api.use("/setup", setup.routes());
 api.use("/code", code.routes());
 api.use("/calendars", calendars.routes());

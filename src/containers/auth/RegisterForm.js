@@ -127,6 +127,7 @@ const RegisterForm = ({ history }) => {
     return;
   }, [emailError]);
 
+
   useEffect(() => {
     if (isSuccess) {
       console.log("check API 성공");
@@ -139,6 +140,7 @@ const RegisterForm = ({ history }) => {
         console.log("localStorage error");
       }
     }
+    setError("");
   }, [history,dispatch, isSuccess, member]);
 
   console.log("여기가 레지스터폼");
@@ -146,6 +148,7 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     dispatch(initializeForm("register"));
+    dispatch(initializeForm("registercouple"));
   }, [dispatch]);
 
   return (

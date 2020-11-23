@@ -1,10 +1,10 @@
 import Router from "koa-router";
-import * as setttingCtrl from "./settting.ctrl";
+import * as settingCtrl from "./setting.ctrl";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 
 // localhost:4000/api/auth
-const auth = new Router();
+const setting = new Router();
 
-auth.delete("/:email", checkLoggedIn, setttingCtrl.removeMember);
+setting.delete("/:email", checkLoggedIn, settingCtrl.removeMember);
 
-export default auth;
+export default setting;
