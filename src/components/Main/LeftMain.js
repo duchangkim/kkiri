@@ -31,7 +31,8 @@ const DdayInputBlock = styled.div`
     color: #ffffff;
     border: none;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       background: #ff9ba3;
     }
     &:focus {
@@ -78,10 +79,9 @@ const LeftMain = ({
   }
 
   console.log("lf컨테이너");
-  console.log(member);
-  const mem = member;
   const file = member.mainSetting.coupleBackground;
-  console.log("#### : " + file);
+  const coupleImg1 = member.mainSetting.coupleProfile1;
+  const coupleImg2 = member.mainSetting.coupleProfile2;
 
   return (
     <LeftMainBlock>
@@ -116,14 +116,12 @@ const LeftMain = ({
               <>
                 <div className="Love-Text">우리 함께한지</div>
                 <FcLike className="Love" alt="하트" />
-                <div className="Date">
-                  {calculateDday(new Date(member.getTogetherDate))}
-                </div>
+                <div className="Date">{calculateDday(new Date(member.getTogetherDate))}</div>
               </>
             ) : (
               <DdayInputBlock>
                 <div className="dday-massage">커플 디데이를 입력하세요</div>
-                <br/>
+                <br />
                 <InputGroup>
                   <FormControl
                     onChange={onDateInputChange}
@@ -145,7 +143,10 @@ const LeftMain = ({
             <div className="Left-Face">
               <div className="L-Face">
                 <div className="Face">
-                  <img src={require("../../images/bgbgbg.png")} alt="좌측 프로필 사진" />
+                  <img
+                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
+                    alt="좌측 프로필 사진"
+                  />
                 </div>
                 <div className="Name">{member.name}</div>
                 {/* 반응형 */}
@@ -157,17 +158,18 @@ const LeftMain = ({
             <div className="Love-Text2">우리 함께한지</div>
             <FcLike className="Love2" alt="하트" />
             <div className="Date2">
-              {member.getTogetherDate !== null ? (
-                calculateDday(new Date(member.getTogetherDate))
-                ) : (
-                null
-              )}
+              {member.getTogetherDate !== null
+                ? calculateDday(new Date(member.getTogetherDate))
+                : null}
             </div>
             {/* 끝 */}
             <div className="Right-Face">
               <div className="R-Face">
                 <div className="Face">
-                  <img src={require("../../images/bgbgbg.png")} alt="우측 프로필 사진" />
+                  <img
+                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
+                    alt="우측 프로필 사진"
+                  />
                 </div>
                 <div className="Name">{couple.name}</div>
                 {/* 반응형 */}

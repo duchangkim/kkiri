@@ -10,6 +10,7 @@ import dDay from "./dday";
 import member from "./member";
 import welcome from "./welcome";
 import backgroundsetting from "./backgroundsetting";
+import profilesetting from "./profilesetting";
 
 const api = new Router();
 api.use("/auth", auth.routes());
@@ -24,5 +25,6 @@ api.use("/dday", dDay.routes());
 api.use("/member", member.routes());
 api.use("/welcome", welcome.routes());
 api.use("/backgroundsetting", backgroundsetting.routes());
+api.use("/profilesetting", profilesetting.routes());
 
 export default api;

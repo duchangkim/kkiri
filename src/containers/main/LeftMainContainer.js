@@ -32,15 +32,15 @@ const LeftMainContainer = () => {
   };
   const handleGetTogetherDateClick = (e) => {
     e.preventDefault();
-    if(!dateInputValue) {
-      alert('날짜를 선택해주세요!')
-      return;
-    }
+    // console.dir(dateInputValue);
+
     dispatch(insertGetTogetherDate(dateInputValue));
   };
 
   useEffect(() => {
     if (!myWeather) {
+      // console.log('ㅅㅂ마이웨더좀 불러와라');
+      // console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
       dispatch(getCouple(member.coupleId));
       getPosition(dispatch, getMyWeather);
     }
@@ -48,6 +48,7 @@ const LeftMainContainer = () => {
 
   useEffect(() => {
     if (!yourWeather) {
+      // console.log('느그 날씨좀 불러와랏 ㅂ');
       if (couple) {
         const API_KEY = "8838396b78d2bd1ab29b19d58374f16c";
         dispatch(
@@ -83,17 +84,15 @@ const LeftMainContainer = () => {
   }
 
   return (
-    <>
-      <LeftMain
-        myWeather={myWeather}
-        yourWeather={yourWeather}
-        couple={couple}
-        member={member}
-        onSaveButtonClick={handleGetTogetherDateClick}
-        onDateInputChange={handleGetTogetherDateChange}
-        dateInputValue={dateInputValue}
-      />
-    </>
+    <LeftMain
+      myWeather={myWeather}
+      yourWeather={yourWeather}
+      couple={couple}
+      member={member}
+      onSaveButtonClick={handleGetTogetherDateClick}
+      onDateInputChange={handleGetTogetherDateChange}
+      dateInputValue={dateInputValue}
+    />
   );
 };
 

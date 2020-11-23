@@ -114,6 +114,20 @@ MemberSchema.methods.setCoupleBackground = async function (image) {
     coupleBackground: image,
   };
 };
+MemberSchema.methods.setProfileImg = async function (image) {
+  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
+  this.mainSetting = {
+    ...this.mainSetting,
+    coupleProfile1: image,
+  };
+};
+MemberSchema.methods.setCoupleProfileImg = async function (image) {
+  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
+  this.mainSetting = {
+    ...this.mainSetting,
+    coupleProfile2: image,
+  };
+};
 
 MemberSchema.methods.insertCoupleId = function (coupleId) {
   this.coupleId = coupleId;
