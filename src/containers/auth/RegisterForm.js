@@ -132,6 +132,7 @@ const RegisterForm = ({ history }) => {
       console.log("check API 성공");
       console.log(isSuccess);
       history.push("/registercouple");
+      dispatch(check());
       try {
         localStorage.setItem("member", JSON.stringify(member));
       } catch (e) {

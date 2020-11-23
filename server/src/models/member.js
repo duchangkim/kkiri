@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const MemberSchema = new Schema({
   email: {
@@ -25,11 +25,11 @@ const MemberSchema = new Schema({
   },
   updated_at: {
     type: Date,
-    default: '',
+    default: "",
   },
   coupleId: {
     type: String,
-    default: '',
+    default: "",
   },
   userCode: {},
   coupleShareCode: {
@@ -50,9 +50,9 @@ const MemberSchema = new Schema({
   mainSetting: {
     type: Object,
     default: {
-      coupleBackground: '',
-      coupleProfile1: '',
-      coupleProfile2: '',
+      coupleBackground: "al2.png",
+      coupleProfile1: "",
+      coupleProfile2: "",
     },
   },
   // 간편로그인 회원정보
@@ -107,6 +107,13 @@ MemberSchema.methods.insertCoupleShareCode = function (code) {
   // console.log(this);
   this.coupleShareCode = code;
 };
+MemberSchema.methods.setCoupleBackground = async function (image) {
+  console.log("백그라운드 메소드 - 이미지 이름 호출 : " + image);
+  this.mainSetting = {
+    ...this.mainSetting,
+    coupleBackground: image,
+  };
+};
 
 MemberSchema.methods.insertCoupleId = function (coupleId) {
   this.coupleId = coupleId;
@@ -146,7 +153,7 @@ MemberSchema.methods.generateToken = function () {
       naver: this.naver,
     },
     process.env.JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: "7d" }
   );
   return token;
 };
@@ -163,6 +170,7 @@ MemberSchema.methods.insertGetTogetherDate = function (getTogetherDate) {
   this.getTogetherDate = getTogetherDate;
 };
 
+<<<<<<< HEAD
 
 MemberSchema.methods.deleteMember = async function (
 email,
@@ -178,5 +186,8 @@ email,
 };
 
 const Member = mongoose.model('Member', MemberSchema);
+=======
+const Member = mongoose.model("Member", MemberSchema);
+>>>>>>> 04c16ac6f8107705d8a8c8f71fdce488d2d4e423
 
 export default Member;

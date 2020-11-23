@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
+import { Form } from "react-bootstrap";
+import axios from "axios";
 
 const Popups = styled.div`
   /* 배경화면 설정 팝업창 */
@@ -56,7 +58,6 @@ const Popups = styled.div`
     width: 50%;
     height: 80%;
     border: 1px solid rgba(132, 132, 132, 1);
-    background: url("../images/aaa.png") no-repeat center;
   }
   .Background-Choice-Image-Size img {
     width: 100%;
@@ -111,6 +112,7 @@ const Popups = styled.div`
     transform: translateY(-50%);
     font-size: 1rem;
     color: white;
+    border: none;
   }
   .Choice-Select-Text h4:hover {
     cursor: pointer;
@@ -130,12 +132,16 @@ const Popups = styled.div`
   }
 `;
 
+// 파일 선택 후 저장하기 -> uploads파일에 배경화면 이미지 보내기 -> DB에 파일값 저장 -> 배경화면 세팅하기
+
 class BackgroundSettingPopup extends Component {
   state = {
-    imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg", // 파일 base64
-    imgFile: "", // 이미지파일
+    imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
+    files: "",
+    value: "",
   };
-  handleChangeFile = (event) => {
+
+  handleChange = (event) => {
     let reader = new FileReader();
     reader.onloadend = (e) => {
       // 2. 읽기가 완료되면 아래코드가 실행
@@ -149,30 +155,33 @@ class BackgroundSettingPopup extends Component {
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
       this.setState({
-        imgFile: event.target.files[0], // 파일 상태 업데이트 업로드 하는것은 파일이기 때문에 관리 필요
+        files: event.target.files[0], // 파일 상태 업데이트 업로드 하는것은 파일이기 때문에 관리 필요
+        value: event.target.files[0].name,
       });
     }
   };
-  handleSubmit = (event) => {
-    alert("저장하기 눌리냐?");
-    console.log("저장하기 눌리나요?");
-    event.preventDefault();
+
+  handlePost = () => {
+    console.log(this.state.files + "핸들포스트");
     const formData = new FormData();
-    formData.append("file", event.target.file.files[0]);
-    this.register(formData);
+    formData.append("files", this.state.files, this.state.files.name);
+    console.log(formData);
+
+    axios
+      .post("/api/backgroundsetting/fileupload", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  register = (regiInfo) => {
-    fetch("http://localhost:4000/api/fileupload", {
-      method: "post",
-      body: regiInfo,
-    })
-      .then((res) => res.json())
-      .then((data) => alert(data.msg));
-  };
+
   handleRemove = () => {
     this.setState({
       imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
-      imgFile: null,
+      files: "",
+      value: "",
     });
   };
 
@@ -191,7 +200,11 @@ class BackgroundSettingPopup extends Component {
             <h4>배경이미지</h4>
             <div className="Background-Choice-Image-Size" id="image_container">
               {this.state.imgBase64 ? (
-                <img src={this.state.imgBase64} onClick={this.handleRemove} alt=""></img>
+                <img
+                  src={this.state.imgBase64}
+                  onClick={this.handleRemove}
+                  alt="배경화면 사진"
+                ></img>
               ) : (
                 <div></div>
               )}
@@ -201,17 +214,18 @@ class BackgroundSettingPopup extends Component {
             <form
               name="accountFrm"
               className="choiceSelect"
-              onSubmit={this.handleSubmit}
+              onSubmit={this.handlePost}
               encType="multipart/form-data"
             >
               <div className="Choice-Select-Text">
                 <div className="Choice-File-Button">
                   <input
                     type="file"
-                    name="file"
-                    id="ex_file"
+                    name="files"
+                    id="files"
+                    accept="image/*"
                     className="ex_file"
-                    onChange={this.handleChangeFile}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <div className="Choice-Save-Button">

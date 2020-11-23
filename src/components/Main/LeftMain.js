@@ -19,6 +19,30 @@ const LeftMainBlock = styled.div`
     object-fit: cover;
   }
 `;
+const DdayInputBlock = styled.div`
+  padding: 0 14%;
+  .dday-massage {
+    padding: 2%;
+    background: rgba(236, 226, 226, 0.4);
+    font-weight: bold;
+  }
+  button {
+    background: #ff838d;
+    color: #ffffff;
+    border: none;
+
+    &:hover, &:active {
+      background: #ff9ba3;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding-top: 10%;
+  }
+`;
 
 const LeftMain = ({
   myWeather,
@@ -53,6 +77,12 @@ const LeftMain = ({
     return <h1>Loading...</h1>;
   }
 
+  console.log("lf컨테이너");
+  console.log(member);
+  const mem = member;
+  const file = member.mainSetting.coupleBackground;
+  console.log("#### : " + file);
+
   return (
     <LeftMainBlock>
       <div className="Left-Main" id="Left-Main">
@@ -70,7 +100,11 @@ const LeftMain = ({
               handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
             />
           ) : null}
-          <img src={require("../../images/bgbg.png")} alt="배경화면" className="background-Img" />
+          <img
+            src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
+            alt="배경화면"
+            className="background-Img"
+          />
           <div className="Date-Love">
             <img
               src={require("../../images/hamburger.png")}
@@ -78,19 +112,25 @@ const LeftMain = ({
               id="Background-Option"
               onClick={handleBackgroundSettingOpenClick}
             />
-            <div className="Love-Text">우리 함께한지</div>
-            <FcLike className="Love" alt="하트" />
-            <div className="Date">
-              {member.getTogetherDate !== null ? (
-                calculateDday(new Date(member.getTogetherDate))
-              ) : (
+            {member.getTogetherDate !== null ? (
+              <>
+                <div className="Love-Text">우리 함께한지</div>
+                <FcLike className="Love" alt="하트" />
+                <div className="Date">
+                  {calculateDday(new Date(member.getTogetherDate))}
+                </div>
+              </>
+            ) : (
+              <DdayInputBlock>
+                <div className="dday-massage">커플 디데이를 입력하세요</div>
+                <br/>
                 <InputGroup>
                   <FormControl
                     onChange={onDateInputChange}
                     name="getTogetherDate"
                     value={dateInputValue}
                     type="date"
-                    placeholder="사귄 날짜를 입력해주세요"
+                    required
                   />
                   <InputGroup.Append>
                     <Button onClick={onSaveButtonClick} variant="outline-secondary">
@@ -98,8 +138,8 @@ const LeftMain = ({
                     </Button>
                   </InputGroup.Append>
                 </InputGroup>
-              )}
-            </div>
+              </DdayInputBlock>
+            )}
           </div>
           <div className="Love-Face">
             <div className="Left-Face">
@@ -119,21 +159,8 @@ const LeftMain = ({
             <div className="Date2">
               {member.getTogetherDate !== null ? (
                 calculateDday(new Date(member.getTogetherDate))
-              ) : (
-                <InputGroup>
-                  <FormControl
-                    onChange={onDateInputChange}
-                    name="getTogetherDate"
-                    value={dateInputValue}
-                    type="date"
-                    placeholder="사귄 날짜를 입력해주세요"
-                  />
-                  <InputGroup.Append>
-                    <Button onClick={onSaveButtonClick} variant="outline-secondary">
-                      저장
-                    </Button>
-                  </InputGroup.Append>
-                </InputGroup>
+                ) : (
+                null
               )}
             </div>
             {/* 끝 */}
@@ -186,7 +213,7 @@ const LeftMain = ({
           <div className="Link_To_SideBar">
             <ul>
               <li>
-                <BsImageFill className="Link_To_Img" />
+                <BsImageFill className="Link_To_Img" onClick={handleBackgroundSettingOpenClick} />
               </li>
               <li>
                 <BsPeopleCircle
