@@ -53,6 +53,12 @@ const LeftMain = ({
     return <h1>Loading...</h1>;
   }
 
+  console.log("lf컨테이너");
+  console.log(member);
+  const mem = member;
+  const file = member.mainSetting.coupleBackground;
+  console.log("#### : " + file);
+
   return (
     <LeftMainBlock>
       <div className="Left-Main" id="Left-Main">
@@ -70,7 +76,11 @@ const LeftMain = ({
               handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
             />
           ) : null}
-          <img src={require("../../images/bgbg.png")} alt="배경화면" className="background-Img" />
+          <img
+            src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
+            alt="배경화면"
+            className="background-Img"
+          />
           <div className="Date-Love">
             <img
               src={require("../../images/hamburger.png")}
@@ -186,7 +196,7 @@ const LeftMain = ({
           <div className="Link_To_SideBar">
             <ul>
               <li>
-                <BsImageFill className="Link_To_Img" />
+                <BsImageFill className="Link_To_Img" onClick={handleBackgroundSettingOpenClick} />
               </li>
               <li>
                 <BsPeopleCircle

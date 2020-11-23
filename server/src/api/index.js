@@ -9,7 +9,7 @@ import chat from "./chat";
 import dDay from "./dday";
 import member from "./member";
 import welcome from "./welcome";
-import backgrounsetting from "./backgrounsetting";
+import backgroundsetting from "./backgroundsetting";
 
 const api = new Router();
 api.use("/auth", auth.routes());
@@ -23,6 +23,6 @@ api.use("/chat", chat.routes());
 api.use("/dday", dDay.routes());
 api.use("/member", member.routes());
 api.use("/welcome", welcome.routes());
-api.use("/backgrounsetting", backgrounsetting.routes());
+api.use("/backgroundsetting", backgroundsetting.routes());
 
 export default api;

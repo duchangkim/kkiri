@@ -68,6 +68,8 @@ const RightMain = ({ schedules, dDays, albums }) => {
   if (!schedules || !dDays || !albums) {
     return <LoadingPage />;
   }
+  console.log("111111111111" + albums);
+  console.log(albums);
 
   return (
     <RightMainBlock>
@@ -208,20 +210,14 @@ const RightMain = ({ schedules, dDays, albums }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.length === 0 ||
-              albums.fileData.files
-                .slice(-5)
-                .sort(function (a, b) {
-                  return b.keyid - a.keyid;
-                })
-                .map(
-                  (album, index) =>
-                    album.filename && (
-                      <div className="price" key={album.keyid}>
-                        <img src={`http://localhost:3000/uploads/${album.filename}`} />
-                      </div>
-                    )
-                )}
+            {albums.slice(0, 5).map(
+              (album, index) =>
+                album.filename && (
+                  <div className="price" key={album.keyid}>
+                    <img src={`http://localhost:3000/uploads/${album.filename}`} />
+                  </div>
+                )
+            )}
           </AlbumItem>
         </div>
       </div>

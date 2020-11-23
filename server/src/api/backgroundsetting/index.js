@@ -2,13 +2,13 @@ import Router from "koa-router";
 import * as backgroundSettingCtrl from "./backgroundsetting.ctrl";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 
-const backgroundsettings = new Router();
-backgroundsettings.get("/", backgroundSettingCtrl.list);
-backgroundsettings.post("/fileupload", backgroundSettingCtrl.fileupload);
-backgroundsettings.get(
+const backgroundsetting = new Router();
+backgroundsetting.get("/", backgroundSettingCtrl.list);
+backgroundsetting.post("/fileupload", backgroundSettingCtrl.fileupload);
+backgroundsetting.get(
   "/:idx",
   backgroundSettingCtrl.getBackgroundSettingById,
   backgroundSettingCtrl.read
 );
 
-export default backgroundsettings;
+export default backgroundsetting;

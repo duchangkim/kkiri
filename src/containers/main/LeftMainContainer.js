@@ -22,6 +22,8 @@ const LeftMainContainer = () => {
   );
   const state = useSelector((state) => state);
   console.log(state);
+  console.log(member + "member를 부른다");
+  console.dir(member);
 
   const [dateInputValue, setDateInputValue] = useState("");
   const handleGetTogetherDateChange = (e) => {
@@ -82,15 +84,17 @@ const LeftMainContainer = () => {
   }
 
   return (
-    <LeftMain
-      myWeather={myWeather}
-      yourWeather={yourWeather}
-      couple={couple}
-      member={member}
-      onSaveButtonClick={handleGetTogetherDateClick}
-      onDateInputChange={handleGetTogetherDateChange}
-      dateInputValue={dateInputValue}
-    />
+    <>
+      <LeftMain
+        myWeather={myWeather}
+        yourWeather={yourWeather}
+        couple={couple}
+        member={member}
+        onSaveButtonClick={handleGetTogetherDateClick}
+        onDateInputChange={handleGetTogetherDateChange}
+        dateInputValue={dateInputValue}
+      />
+    </>
   );
 };
 

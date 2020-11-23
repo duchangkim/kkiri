@@ -1,6 +1,6 @@
 import Joi from "@hapi/joi";
 import fs from "fs";
-import BackgroundSetting from "../../models/member";
+import Member from "../../models/member";
 import promisePipe from "promisepipe";
 import path from "path";
 import mongoose from "mongoose";
@@ -15,7 +15,7 @@ export const checkObjectId = async (ctx, next) => {
     return;
   }
   try {
-    const backgroundsetting = await BackgroundSetting.findById(id);
+    const backgroundsetting = await Member.findById(id);
     if (!backgroundsetting) {
       ctx.status = 404;
       return;
@@ -28,14 +28,19 @@ export const checkObjectId = async (ctx, next) => {
 };
 
 // 파일 업로드
-// localhost:4000/api/backgroundimages/fileupload
+// localhost:4000/api/backgroundsetting/fileupload
 export const fileupload = async (ctx) => {
+  console.log("안녕하세요 파일업로드중입니다");
+  // console.log(ctx.request.files.files.name);
   const schema = Joi.object().keys({
     _id: Joi.string(),
     filename: Joi.array(),
   });
   // console.log("배경화면 저장" + _id)
   console.dir(ctx.state.member);
+  const mem = ctx.state.member;
+  console.log(mem + " : ctx.state.member");
+  console.log(mem._id + "멤버안에 있는 id 값 호출");
 
   const result = schema.validate(ctx.request.body);
   if (result.error) {
@@ -46,14 +51,25 @@ export const fileupload = async (ctx) => {
   }
 
   try {
-    const uploadfile = ctx.request.files.files;
-    const savefile = `${uploadfile.name}`;
-    const settingStream = fs.createSettingStream(path.join("./public/uploads/", savefile));
+    const uploadfile = ctx.request.files.files; // 리액트에서 보낸 파일이름
+    const savefile = `${uploadfile.name}`; // 저장하는이름
+    console.log(savefile + " : 파일이름 나오나요?");
+    console.log(`./public/uploads/${mem.coupleShareCode}/` + " : 쉐어코드");
+
+    const readStream = fs.createReadStream(uploadfile.path);
+    const writeStream = fs.createWriteStream(
+      path.join(`./public/uploads/${mem.coupleShareCode}/`, savefile)
+    );
 
     await promisePipe(
-      settingStream.on(" err ", () => {
+      readStream.on(" err", () => {
         throw new Error({
-          error: "setting Error",
+          error: "File Read Error",
+        });
+      }),
+      writeStream.on(" err ", () => {
+        throw new Error({
+          error: "Write Error",
         });
       })
     );
@@ -61,26 +77,22 @@ export const fileupload = async (ctx) => {
     ctx.body = {
       message: "backgroundSettingImg file upload success",
     };
-    const today = new Date();
-    const keyid = Math.floor(Number(today) / 1000);
-    const publishedDate = today.toLocaleString();
+
+    console.log("여기까지 잘 들어가지니?");
     const filename = uploadfile.name;
-    const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
-    console.log("mememmmmmmmmmmm" + ctx.state.member.coupleShareCode);
-    const check = await BackgroundSetting.findOne({ coupleShareCode: `${coupleShareCode}` });
-    if (check != null) {
-      let idx = check.mainSetting.default.coupleBackground.length;
-      if (idx === check.mainSetting.default.coupleBackground.idx) {
-        while (true) {
-          idx++;
-          return idx;
-        }
-      }
-      check.mainSetting.default.coupleBackground.push({
-        filename,
-      });
-      check.save();
-    }
+    console.log(filename + " : filename입니다.");
+
+    const check = await Member.findOne({
+      _id: `${mem._id}`,
+    });
+    console.log(check + "\n ㄴ check=await Member.fineOne({_id:`${_id}`입니다");
+
+    console.log(check.mainSetting + " : check.mainsetting입니다.");
+
+    console.log(check + "Member호출");
+
+    await check.setCoupleBackground(filename);
+    await check.save();
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -90,7 +102,7 @@ export const getBackgroundSettingById = async (ctx, next) => {
   console.log(ctx.params);
   const coupleShareCode = ctx.state.member.coupleShareCode;
   try {
-    const backgroundsetting = await BackgroundSetting.findOne({
+    const backgroundsetting = await Member.findOne({
       coupleShareCode: `${coupleShareCode}`,
     });
     if (!backgroundsetting) {
@@ -113,7 +125,7 @@ export const list = async (ctx) => {
   console.log(coupleShareCode);
 
   try {
-    const backgroundsetting = await BackgroundSetting.findOne({
+    const backgroundsetting = await Member.findOne({
       coupleShareCode: `${coupleShareCode}`,
     })
       .sort({ _id: -1 })
