@@ -45,10 +45,14 @@ export const fileupload = async ctx => {
   }
   
   try {
+    const rd = Math.floor(Math.random() * 99999999); 
     const uploadfile = ctx.request.files.files;
     const savefile = `${uploadfile.name}`;
+    console.log('2323 -> ' + savefile.split('.').pop().toLowerCase());
+    const renamefile = rd + '.' + savefile.split('.').pop().toLowerCase();
+    console.log('renamefile -> ' + renamefile);
     const readStream = fs.createReadStream(uploadfile.path);
-    const writeStream = fs.createWriteStream(path.join('./public/uploads/', savefile));
+    const writeStream = fs.createWriteStream(path.join('./public/uploads/', renamefile));
 
     await promisePipe (
       readStream .on (' err' , () => {
@@ -70,18 +74,11 @@ export const fileupload = async ctx => {
     const today = new Date();
     const keyid = Math.floor(Number(today)/1000);
     const publishedDate = today.toLocaleString();
-    const filename = uploadfile.name;
+    const filename = rd + '.' + savefile.split('.').pop().toLowerCase();
     const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
     console.log('mememmmmmmmmmmm'+ctx.state.member.coupleShareCode);
     const check = await Album.findOne({ coupleShareCode: `${coupleShareCode }`});
     if(check !== null) {
-      // let idx = check.fileData.files.length;
-      // if(idx === check.fileData.files.idx) {
-      //   while(true) {
-      //     idx++;
-      //     return idx;
-      //   }
-      // }
       check.fileData.files.push({
         keyid,
         filename,
