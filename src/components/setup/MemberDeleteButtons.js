@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import AskRemoveModal from './AskRemoveModal';
@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 
 const PostActionButtonsBlock = styled.div`
 margin-top: 3rem;
+margin: 50% 45%;
 `;
 
 const ActionButton = styled.button`
@@ -26,7 +27,7 @@ const ActionButton = styled.button`
   }
 `;
 
-const PostActionButtons = ({ onRemove }) => {
+const MemberDeleteButtons = ({ onRemove }) => {
   
   const [modal, setModal] = useState(false);
   const onRemoveClick = () => {
@@ -57,4 +58,4 @@ const PostActionButtons = ({ onRemove }) => {
   );
 };
 
-export default PostActionButtons;
+export default MemberDeleteButtons;

@@ -16,13 +16,12 @@ function App() {
       <Route component={WelcomPage} path={['/@:username', '/']} exact />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
-      <Route component={RegisterCouplePage} path="/registercouple" />
       <Route component={FindIdPage} path="/findid" />
       <Route component={FindPwPage} path="/findpw" />
+      <Route component={RegisterCouplePage} path="/registercouple" />
       <Route component={FindResultPage} path="/findresult" />
       <Route component={ChangePasswordPage} path="/changepassword" />
-      <Route component={MainService} path="/kkiri"/>
-
+      <Route component={MainService} path="/kkiri" />
     </>
   );
 }

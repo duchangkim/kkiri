@@ -131,7 +131,6 @@ const RegisterForm = ({ history }) => {
     if (isSuccess) {
       console.log("check API 성공");
       console.log(isSuccess);
-      dispatch(check());
       history.push("/registercouple");
       try {
         localStorage.setItem("member", JSON.stringify(member));
@@ -139,6 +138,7 @@ const RegisterForm = ({ history }) => {
         console.log("localStorage error");
       }
     }
+    setError("");
   }, [history,dispatch, isSuccess, member]);
 
   console.log("여기가 레지스터폼");
@@ -146,6 +146,7 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     dispatch(initializeForm("register"));
+    dispatch(initializeForm("registercouple"));
   }, [dispatch]);
 
   return (

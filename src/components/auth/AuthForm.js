@@ -164,6 +164,7 @@ const AuthForm = ({
   myCode,
   onLogout,
   sendEmail,
+  auth,
 }) => {
   console.log(`myCode 커플코드페이지콘솔 값 : ${myCode}`);
   const text = textMap[type];
