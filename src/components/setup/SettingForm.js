@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MemberDeleteButtons from './MemberDeleteButtons'
 import {removeMember} from "../../lib/api/setting";
-import member from "../../modules/member";
 
 function SettingForm({ setting, email, history}) {
     
