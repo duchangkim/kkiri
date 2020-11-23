@@ -3,6 +3,7 @@ import Member from '../../models/member';
 import Room from '../../models/room';
 import Calendar from '../../models/calendar';
 import Album from '../../models/album';
+import fs from 'fs';
 
 export const checkCode = async (ctx) => {
   const { code } = ctx.params;
@@ -70,6 +71,11 @@ export const createCoupleSet = async (ctx) => {
     await room.save();
     await calendar.save();
     await album.save();
+
+    const dir = `./public/uploads/${coupleShareCode}`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
 
     console.log(123123123131132123123);
     console.log(firstMember);
