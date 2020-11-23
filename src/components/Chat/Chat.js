@@ -20,57 +20,6 @@ const ChattingBox = styled.div`
     text-align: center;
     color: #6b6b6b;
   }
-  .profile {
-    width: 45px;
-    height: 45px;
-    border: 4px solid #ffffff;
-    border-radius: 50%;
-    background-color: thistle;
-    position: relative;
-    top: -35px;
-    left: 10.3%;
-  }
-  .profile .name {
-    position: relative;
-    top: 6px;
-    left: -152px;
-    text-align: end;
-    width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .profile2 {
-    width: 45px;
-    height: 45px;
-    border: 4px solid #ffffff;
-    border-radius: 50%;
-    background-color: thistle;
-    position: relative;
-    top: -35px;
-    left: -10.3%;
-  }
-  .profile2 .name {
-    position: relative;
-    top: 6px;
-    left: 40px;
-    width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .Time {
-    position: absolute;
-    bottom: 1px;
-    font-size: 12px;
-    left: 85.5%;
-  }
-  .Time2 {
-    position: absolute;
-    bottom: 1px;
-    font-size: 12px;
-    left: 11%;
-  }
   .chatting-send {
     width: 100%;
     height: 80px;
@@ -85,7 +34,6 @@ const ChattingBox = styled.div`
     box-sizing: border-box;
     width: 88%;
     height: 50px;
-    /* border: 2px solid #ff838d; */
     padding-left: 20px;
     font-size: 1.2rem;
     outline: none;
@@ -101,6 +49,9 @@ const ChattingBox = styled.div`
     border: 2px solid #ff838d;
     border-radius: 50%;
     color: #ff838d;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .btn-send {
     width: 8%;
@@ -110,9 +61,6 @@ const ChattingBox = styled.div`
     background: #ff838d;
     color: #ffffff;
     font-size: 1.4rem;
-  }
-  .btn-plus:hover {
-    cursor: pointer;
   }
   .btn-open {
     position: relative;
@@ -127,7 +75,7 @@ const ChattingBox = styled.div`
     display: none;
   }
 
-  @media (max-width: 768px) {
+  @media ${(props) => props.theme.middle} {
     .chatting-send form input {
       box-sizing: border-box;
       width: 80%;
@@ -138,43 +86,7 @@ const ChattingBox = styled.div`
     }
     .btn-send {
       width: 10%;
-      height: 50px;
-      border: none;
-      border-radius: 10px;
-      background: #ff838d;
-      color: #ffffff;
-      font-size: 1.4rem;
-    }
-    .PartnerMessage {
-      width: 45%;
-    }
-    .MyMessage {
-      width: 45%;
-    }
-    .profile {
-      position: relative;
-      top: -35px;
-      left: 45.5%;
-    }
-    .profile2 {
-      position: relative;
-      top: -35px;
-      left: -45.5%;
-    }
-    .Time {
-      position: absolute;
-      bottom: 1px;
-      font-size: 12px;
-      left: 40%;
-    }
-    .Time2 {
-      position: absolute;
-      bottom: 1px;
-      font-size: 12px;
-      left: 47%;
-    }
-    .btn-send {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
   }
 `;
@@ -187,6 +99,7 @@ const Container = styled.div`
   overflow-y: auto;
   border-top: 3px solid #efefef;
   border-bottom: 3px solid #efefef;
+
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -203,6 +116,7 @@ const Container = styled.div`
   }
 
   button {
+    margin-bottom: 30px;
     &:hover {
       background: #d4d4d480;
     }
@@ -212,6 +126,7 @@ const Container = styled.div`
   }
 `;
 const MessageLine = styled.div`
+  position: relative;
   margin-top: -30px;
   display: flex;
   justify-content: ${({ myMessage }) =>
@@ -260,34 +175,36 @@ const Message = styled.div`
   background-color: lightblue;
   z-index: -1;
   line-height: 1.6rem;
+  word-break: keep-all;
 
   .time {
-    width: 100%;
+    min-width: 60px;
     position: absolute;
     bottom: -5px;
     color: #7f7f7f;
     font-size: 0.7rem;
   }
   ${({ myMessage }) =>
-    myMessage &&
-    css`
-      right: 5px;
-      padding-right: 10px;
-      .time {
-        left: -60px;
-      }
-    `};
+    myMessage
+      ? css`
+          right: 5px;
+          padding-right: 10px;
+          .time {
+            left: -60px;
+          }
+        `
+      : css`
+          right: -5px;
+          padding-right: 15px;
+          .time {
+            right: -65px;
+          }
+        `};
 `;
-const MessageTimeBox = styled.div`
-  position: relative;
-  width: 100%;
-  display: flex;
-
-  .time {
-    color: #7f7f7f;
-    font-size: 0.7rem;
-    margin-left: 5px;
-  }
+const TimeAssortmentMessage = styled.div`
+  text-align: center;
+  color: #7f7f7f;
+  margin: 20px 0;
 `;
 
 const Chat = ({
@@ -301,21 +218,37 @@ const Chat = ({
   handleChange,
   handleKeyPress,
   onMoreButtonClick,
+  messageListLoad,
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
-  // console.log(member);
+
   return (
     <ChattingBox>
       <div className="chatting-wrapper">
         <Container ref={messagesRef} messages={messages}>
-          <Button variant="outline" onClick={onMoreButtonClick}>
-            더보기
-          </Button>
-          <p className="chattingDate">{_date.getToday()}</p>
-          <hr />
-          {messages.map((message, index) =>
-            message.sender === member._id ? (
+          {messageListLoad ? null : (
+            <Button variant="outline" onClick={onMoreButtonClick}>
+              더보기
+            </Button>
+          )}
+          {messages.map((message, index) => {
+            const currentSendDate = message.sendDate.substring(0, 10);
+            let nextSendDate;
+            if (messages.length - 1 === index) {
+              nextSendDate = messages[index].sendDate.substring(0, 10);
+            } else {
+              nextSendDate = messages[index + 1].sendDate.substring(0, 10);
+            }
+            if (currentSendDate !== nextSendDate) {
+              const _date = new Date(nextSendDate);
+              return (
+                <TimeAssortmentMessage key={index}>{`${_date.getFullYear()}년 ${
+                  _date.getMonth() + 1
+                }월 ${_date.getDate()}일`}</TimeAssortmentMessage>
+              );
+            }
+            return message.sender === member._id ? (
               <MessageLine key={index} myMessage>
                 <MessageBlock myMessage>
                   <Profile></Profile>
@@ -333,16 +266,16 @@ const Chat = ({
                 <MessageBlock>
                   <Profile></Profile>
                   <Name>{message.name}</Name>
-                  <MessageTimeBox>
-                    <Message>{message.text}</Message>
+                  <Message>
+                    {message.text}
                     <div className="time">
                       {_date.dateFormat(message.sendDate)}
                     </div>
-                  </MessageTimeBox>
+                  </Message>
                 </MessageBlock>
               </MessageLine>
-            )
-          )}
+            );
+          })}
         </Container>
         {emojiNationOpen ? (
           <div className="emojiNation">

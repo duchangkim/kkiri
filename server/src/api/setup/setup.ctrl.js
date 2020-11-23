@@ -37,15 +37,3 @@ export const changepassword = async (ctx) => {
   }
 };
 
-export const remove = async (ctx) => {
-  console.log("여디ㅣ잉니;ㅇㅁ나ㅓ임나ㅓ이ㅏㅁ너ㅏ이ㅓㅁ");
-  const { email,_id } = ctx.params;
-  console.log(`email :  ${email}`);
-  console.log(`_id :  ${_id}`);
-  try {
-    await Member.findByEmail(email).exec();
-    ctx.status = 204;
-  } catch (e) {
-    ctx.throw(500, e);
-  }
-};

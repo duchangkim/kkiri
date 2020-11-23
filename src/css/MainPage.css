@@ -484,8 +484,8 @@
 .Left-List {
   width: 50%;
   height: 100%;
-  border-right: 3px solid rgba(115, 115, 115, 1);
   overflow: hidden;
+  margin-right: 3%;
 }
 .Left-List ul {
   list-style: none;
@@ -500,6 +500,7 @@
   width: 50%;
   height: 100%;
   overflow: hidden;
+  padding-right: 3%;
 }
 
 /* ------------------------------------------ 캘린더 부분 끝 -------------------------------------------- */

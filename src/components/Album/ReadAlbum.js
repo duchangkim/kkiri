@@ -5,17 +5,16 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 import ActionButtons from "./ActionButtons";
 import { removeFile, editFile } from "../../lib/api/album";
-import { useDispatch, useSelector } from "react-redux";
-import { setOriginalAlbum } from "../../modules/album";
+import Button from "../common/Button";
 
 const ReadBlock = styled.div`
   width: 70%;
-  padding: 50px 0 0 0;
+  padding: 0;
   margin: 0 auto;
-  height: 75%;
+  height: 65%;
   display: flex;
   align-items: center;
-  @media (max-width: 1080px) {
+  @media (max-width: 1200px) {
     width: 80%;
   }
   @media (max-width: 768px) {
@@ -53,13 +52,34 @@ const BoxBody = styled.div`
     margin: 0 auto;
     max-width: 700px;
     max-height: 500px;
-    @media (max-width: 1080px) {
+    @media (max-width: 1200px) {
       width: 100%;
       // height: 500px;
     }
     @media (max-width: 768px) {
       width: 90%;
     }
+  }
+`;
+const HomeBlock = styled.div`
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+`;
+const HomeButton = styled.button`
+  border: none;
+  border-radius: 4px;
+  width: 135px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  background: #ffb6c1;
+
+  &:hover {
+    background: #ff4d67;
   }
 `;
 
@@ -83,6 +103,7 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
 
   const { fileData } = album;
   const len = fileData.files.length;
+  // console.log(len);
   // console.log(typeof len);
   const filename = fileData.files[albumIdx].filename;
   // console.log(abc < len ? abc : (abc-1));
@@ -144,6 +165,11 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
           )}
         </ArrowBackBox>
       </ReadBlock>
+      <HomeBlock>
+        <Link to="/kkiri/albums">
+          <HomeButton>앨범 전체보기</HomeButton>
+        </Link>
+      </HomeBlock>
     </>
   );
 }

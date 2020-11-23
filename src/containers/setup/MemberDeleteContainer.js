@@ -1,42 +1,56 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { readPost, unloadPost } from '../../modules/post';
-import PostViewer from '../../components/setup/PostViewer';
+import { readSetting, unloadSetting } from '../../modules/setting';
 import PostActionButtons from '../../components/setup/PostActionButtons';
-import { removePost } from '../../lib/api/setUp';
+import {removeMember} from "../../lib/api/setting";
 
 const MemberDeleteContainer = ({ match, history }) => {
-  const { email } = match.params;
   const dispatch = useDispatch();
-  const { post, error, loading } = useSelector(({ post, loading }) => ({
-    post: post.post,
-    error: post.error,
-    loading: loading['post/READ_POST'],
+  const { setting, error,email, member, loading } = useSelector(({ member, setting, loading }) => ({
+    setting: setting.setting,
+    error: setting.error,
+    member: member.member,
+    email: member.email,
+    loading: loading['setting/READ_SETTING'],
   }));
+  console.log("여앙")
+  console.log(member.email);
+
+  const removeemail = member.email;
 
   useEffect(() => {
-    dispatch(readPost(email));
+    dispatch(readSetting(removeemail));
     return () => {
-      dispatch(unloadPost());
+      dispatch(unloadSetting());
     };
-  }, [dispatch, email]);
+  }, [dispatch, removeemail]);
 
-  const onRemove = async () => {
-    try {
-      await removePost(email);
-      history.push('/'); // 홈으로 이동
-    } catch (e) {
-      console.log(e);
+  
+  const onRemove  = async () => {
+    console.log()
+    try {   
+        console.log(removeemail);  
+        await removeMember(email).then(res => {
+            console.log('삭제성공!');              
+            history.push("/");
+          }).catch(err => {
+            console.log(err);
+        });
+        
+    }catch(e) {
+        console.log(e);
     }
-  };
+  }
+
+
 
   return (
-    <PostViewer
-      post={post}
+    <PostActionButtons
+    setting={setting}
       loading={loading}
       error={error}
-      actionButtons={<PostActionButtons onRemove={onRemove} />}
+      onRemove={onRemove}
     />
   );
 };

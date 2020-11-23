@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Row, Col } from "react-bootstrap";
 import calculateDday from "../../lib/calculateDday";
-import { func } from "joi";
 import LoadingPage from "../../pages/LoadingPage";
-import Figure from "react-bootstrap/Figure";
 
 const RightMainBlock = styled.div`
   height: 100%;
@@ -13,15 +10,16 @@ const RightMainBlock = styled.div`
     text-decoration: none;
   }
 `;
-
 const ScheduleItem = styled.li`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-right: 10px;
-  margin-bottom: 5px;
+  padding: 5px;
+  padding-left: 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  background: #f5f5f5;
 `;
-
 const ScheduleTitle = styled.div`
   width: 40%;
   height: 20px;
@@ -32,18 +30,21 @@ const DdayListBlock = styled.ul`
   margin: 0;
   padding: 0;
 `;
-
 const DdayItem = styled.li`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 20px;
   margin: 0;
-  padding: 0;
-  padding: 0 10px;
+  padding: 5px;
+  padding-left: 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  background: #f5f5f5;
   margin-bottom: 5px;
+  div + div {
+    font-weight: bold;
+  }
 `;
-
 const AlbumItem = styled.div`
   width: 95%;
   margin: 0 auto;
@@ -62,9 +63,6 @@ const AlbumItem = styled.div`
 `;
 
 const RightMain = ({ schedules, dDays, albums }) => {
-  console.log(schedules);
-  console.log(dDays);
-
   if (!schedules || !dDays || !albums) {
     return <LoadingPage />;
   }
