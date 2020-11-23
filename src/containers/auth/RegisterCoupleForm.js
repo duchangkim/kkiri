@@ -84,9 +84,12 @@ const CoupleCodeForm = ({ history }) => {
 
   useEffect(() => {
     console.log(member.coupleShareCode);
-    if (member.coupleShareCode) {
-      history.push("/kkiri/home");
-      return;
+    if(member){
+      if (member.coupleShareCode) {
+        history.push("/kkiri/home");
+        return;
+      }
+      dispatch(check());
     }
   }, [history,dispatch, member]);
 

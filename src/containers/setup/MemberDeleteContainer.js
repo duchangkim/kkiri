@@ -21,7 +21,6 @@ const MemberDeleteContainer = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(readSetting(findemail));
-    history.push("/")
     return () => {
       dispatch(unloadSetting());
     };

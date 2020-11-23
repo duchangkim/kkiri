@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MemberDeleteButtons from './MemberDeleteButtons'
 import {removeMember} from "../../lib/api/setting";
+import member from "../../modules/member";
 
 function SettingForm({ setting, email, history}) {
     
@@ -9,9 +10,8 @@ function SettingForm({ setting, email, history}) {
     const onRemove = async () => {
         try {   
             console.log(email);
-            await removeMember(email)
-                console.log('계정 삭제성공!');              
-                history.push("/");          
+            await removeMember(email);
+            window.location.href = `http://localhost:3000`;
         }catch(e) {
             console.log(e);
         }
