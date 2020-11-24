@@ -263,6 +263,7 @@ const AuthForm = ({
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
+                type="date"
                   autoComplate="birthday"
                   name="birthday"
                   placeholder="년 월 일"

@@ -93,10 +93,6 @@ const CoupleCodeForm = ({ history }) => {
     }
   }, [history, dispatch, member]);
 
-  useEffect(() => {
-    dispatch(initializeForm("registercouple"));
-  }, [dispatch]);
-
   return (
     <AuthForm
       type="registercouple"
