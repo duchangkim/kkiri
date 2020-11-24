@@ -4,7 +4,7 @@ import Header from "../../components/common/Header";
 import auth from "../../modules/auth";
 import { logout } from "../../modules/member";
 
-const HeaderContainer = ({history}) => {
+const HeaderContainer = ({ history }) => {
   const { member } = useSelector(({ member }) => {
     console.log("123123123123");
     console.log(member);
@@ -15,7 +15,6 @@ const HeaderContainer = ({history}) => {
   const onLogout = () => {
     dispatch(logout());
   };
-
 
   return <Header member={member} onLogout={onLogout} />;
 };

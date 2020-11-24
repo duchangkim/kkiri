@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
-import {
-  BsFillChatDotsFill,
-  BsImages,
-  BsGearFill,
-  BsCalendarFill,
-} from "react-icons/bs";
+import { BsFillChatDotsFill, BsImages, BsGearFill, BsCalendarFill } from "react-icons/bs";
 
 const Styles = styled.div`
   border-top: 1px solid #a9a9a9;
@@ -49,7 +44,7 @@ const Styles = styled.div`
   }
   .unnavbar-brand {
     height: 80%;
-    width: 10%;
+    width: 12%;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
