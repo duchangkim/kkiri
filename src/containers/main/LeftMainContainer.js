@@ -83,16 +83,19 @@ const LeftMainContainer = () => {
     return <LoadingPage />;
   }
 
+  console.log(myWeather);
   return (
-    <LeftMain
-      myWeather={myWeather}
-      yourWeather={yourWeather}
-      couple={couple}
-      member={member}
-      onSaveButtonClick={handleGetTogetherDateClick}
-      onDateInputChange={handleGetTogetherDateChange}
-      dateInputValue={dateInputValue}
-    />
+    <>
+      <LeftMain
+        myWeather={myWeather}
+        yourWeather={yourWeather}
+        couple={couple}
+        member={member}
+        onSaveButtonClick={handleGetTogetherDateClick}
+        onDateInputChange={handleGetTogetherDateChange}
+        dateInputValue={dateInputValue}
+      />
+    </>
   );
 };
 

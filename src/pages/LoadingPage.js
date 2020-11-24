@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const LoadingPageBlock = styled.div`
   width: 100%;
@@ -29,8 +29,7 @@ const LoadingPageBlock = styled.div`
     }
   }
   .ldio-ckfywe494jw > div {
-    animation: ldio-ckfywe494jw 1.2987012987012987s infinite
-      cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation: ldio-ckfywe494jw 1.2987012987012987s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
     transform-origin: 100px 100px;
   }
   .ldio-ckfywe494jw > div div {
@@ -44,7 +43,7 @@ const LoadingPageBlock = styled.div`
   }
   .ldio-ckfywe494jw > div div:after,
   .ldio-ckfywe494jw > div div:before {
-    content: ' ';
+    content: " ";
     position: absolute;
     display: block;
     width: 70px;
@@ -82,8 +81,8 @@ const LoadingPageBlock = styled.div`
 const LoadingPage = () => {
   return (
     <LoadingPageBlock>
-      <div class="loadingio-spinner-heart-m7qe26sr3mk">
-        <div class="ldio-ckfywe494jw">
+      <div className="loadingio-spinner-heart-m7qe26sr3mk">
+        <div className="ldio-ckfywe494jw">
           <div>
             <div></div>
           </div>

@@ -4,11 +4,36 @@ import styled from "styled-components";
 import axios from "axios";
 import member from "../../modules/member";
 
+const MODAL_STYLES = {
+  position: "relative",
+  top: `0`,
+  left: `0`,
+  fransform: "translate(-50%, -50%)",
+  backgroundColor: "#FFF",
+  zIndex: 1500,
+  borderRadius: 10,
+};
+const OVERLAY_STYLES = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0, 0, 0, 0.25)",
+  zIndex: 1500,
+};
+
 const ProfilePopups = styled.div`
+  *:focus {
+    outline: none;
+  }
+  * {
+    list-style: none;
+  }
   .Profile-Choice {
     position: absolute;
     z-index: 1000;
-    top: 40%;
+    top: 380px;
     left: 80%;
     transform: translateY(-40%);
     width: 400px;
@@ -53,8 +78,11 @@ const ProfilePopups = styled.div`
     border-right: 1px solid gray;
   }
   .Profile-Weather-Img img {
-    margin-top: 25%;
-    margin-left: 20%;
+    margin-top: 20%;
+    margin-left: 25%;
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
   }
   .Profile-Weather-Content {
     width: 60%;
@@ -142,6 +170,9 @@ const ProfilePopups = styled.div`
     border: 1px solid gray;
     align-content: center;
     border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: rgba(255, 131, 141, 1);
   }
   .ProfileSetting:hover {
     cursor: pointer;
@@ -161,7 +192,7 @@ const ProfilePopups = styled.div`
     .Profile-Choice {
       position: absolute;
       z-index: 1000;
-      top: 40%;
+      top: 300px;
       left: 10%;
       transform: translateY(-40%);
       width: 400px;
@@ -174,7 +205,7 @@ const ProfilePopups = styled.div`
 
 class ProfileSettingPopup extends Component {
   state = {
-    imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
+    imgBase64: this.props.member.mainSetting.coupleBackground,
     files: "",
     value: "",
   };
@@ -217,81 +248,90 @@ class ProfileSettingPopup extends Component {
 
   handleRemove = () => {
     this.setState({
-      imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
+      imgBase64:
+        "https://previews.123rf.com/images/tuktukdesign/tuktukdesign1608/tuktukdesign160800051/61010844-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%82%A8%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%82%AC%EC%97%85%EA%B0%80-%EC%95%84%EB%B0%94%ED%83%80-%EC%82%AC%EB%9E%8C-%EB%AC%B8%EC%96%91-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98.jpg",
       files: "",
       value: "",
     });
   };
 
   render() {
-    const aaa = member.email;
-    console.log(aaa + "제발 프로필 나와주세요!");
+    console.log(this.props);
+    const myWeatherIconSrc = `http://openweathermap.org/img/wn/${this.props.myWeather.weather[0].icon}.png`;
+
     return (
-      <ProfilePopups>
-        <div className="Profile-Choice" id="Profile-Choice">
-          <div className="Profile-Choice-Title">
-            <h4>프로필 설정 화면</h4>
-            <AiOutlinePlus className="Profile_Close" />
-          </div>
-          <div className="Profile-Weather">
-            <div className="Profile-Weather-Img" id="ProfileWeatherImg">
-              <img
-                src={require("../../images/bgbgbg.png")}
-                width="100px"
-                height="50px"
-                alt="weather icon"
-              />
-            </div>
-            <div className="Profile-Weather-Content">
-              <div className="Profile-Weather-Local" id="ProfileWeatherLocal">
-                {/* {weathers.place} */}
+      <>
+        <div style={OVERLAY_STYLES} />
+        <div style={MODAL_STYLES}>
+          <ProfilePopups>
+            <div className="Profile-Choice" id="Profile-Choice">
+              <div className="Profile-Choice-Title">
+                <h4>프로필 설정 화면</h4>
+                <AiOutlinePlus
+                  className="Profile_Close"
+                  onClick={this.props.handleProfileSettingPopupOpenClick}
+                />
               </div>
-              <div className="Profile-Weather-Description" id="ProfileWeatherDescription">
-                {/* {weathers.description} */}
+              <div className="Profile-Weather">
+                <div className="Profile-Weather-Img" id="ProfileWeatherImg">
+                  <img src={myWeatherIconSrc} alt="weather icon" />
+                </div>
+                <div className="Profile-Weather-Content">
+                  <div className="Profile-Weather-Local" id="ProfileWeatherLocal">
+                    {this.props.myWeather.name}
+                  </div>
+                  <div className="Profile-Weather-Description" id="ProfileWeatherDescription">
+                    {this.props.myWeather.weather[0].description}
+                  </div>
+                  <div className="Profile-Weather-Temperature" id="ProfileWeatherTemperature">
+                    {`${Math.floor(this.props.myWeather.main.temp)}ºC`}
+                  </div>
+                </div>
               </div>
-              <div className="Profile-Weather-Temperature" id="ProfileWeatherTemperature">
-                {/* {weathers.temperature} */}
+              <div className="MyProfile">
+                <div className="ProfileIMG">
+                  {this.state.imgBase64 ? (
+                    <img
+                      src={this.state.imgBase64}
+                      onClick={this.handleRemove}
+                      alt="프로필 사진"
+                    ></img>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                <div className="ProfileContent">
+                  <ul>
+                    <li>{this.props.member.name}</li>
+                    <li>{this.props.member.hp}</li>
+                    <li>{this.props.member.email}</li>
+                  </ul>
+                </div>
               </div>
+              <form
+                name="accountFrm"
+                className="choiceSelect"
+                onSubmit={this.handlePost}
+                encType="multipart/form-data"
+              >
+                <div className="Choice-File-Button">
+                  <input
+                    type="file"
+                    name="files"
+                    id="files"
+                    accept="image/*"
+                    className="ex_file"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="ProfileSetting">
+                  저장하기
+                </button>
+              </form>
             </div>
-          </div>
-          <div className="MyProfile">
-            <div className="ProfileIMG">
-              {this.state.imgBase64 ? (
-                <img src={this.state.imgBase64} onClick={this.handleRemove} alt="프로필 사진"></img>
-              ) : (
-                <div></div>
-              )}
-            </div>
-            <div className="ProfileContent">
-              <ul>
-                <li>{member.name}</li>
-                <li>2020년-10월-27일</li>
-                <li>kkiri@kkiri.com</li>
-              </ul>
-            </div>
-          </div>
-          <form
-            name="accountFrm"
-            className="choiceSelect"
-            onSubmit={this.handlePost}
-            encType="multipart/form-data"
-          >
-            <div className="Choice-File-Button">
-              <input
-                type="file"
-                name="files"
-                id="files"
-                accept="image/*"
-                className="ex_file"
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit" className="ProfileSetting">
-              저장하기
-            </button>
-          </form>
+          </ProfilePopups>
         </div>
-      </ProfilePopups>
+      </>
     );
   }
 }

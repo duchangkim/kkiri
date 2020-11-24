@@ -22,6 +22,106 @@ const NaviMessage = styled.div`
     line-height: 0px;
   }
 `;
+const AuthFormBlock = styled.div`
+  h3 {
+    margin: 0;
+    color: ${palette.gray[8]};
+    margin-bottom: 1rem;
+  }
+
+  // 간편 로그인 버튼
+  .login_box {
+    margin: 5% 0;
+  }
+  .api_img {
+    width: 80%;
+    border-radius: 6px;
+  }
+
+  .kep-login-facebook {
+    font-size: 0;
+    background-image: url(../images/fackbookicon.png) !important;
+  }
+  .login_form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .login_form p {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .content_name {
+    display: none;
+  }
+  input:focus + .content_name,
+  input:valid + .content_name {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    color: #f58cb4;
+    display: inline;
+  }
+  .form-control {
+    padding: 1.3rem;
+  }
+  .form-control:focus {
+    border: 2px solid #f58cb4;
+    box-shadow: none;
+  }
+  input:focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  // 커플코드 입력
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  p {
+    text-align: center;
+    font-size: 16px;
+  }
+  .as {
+    color: ${palette.gray[6]};
+  }
+
+  .logoutbtn {
+    float: right;
+    text-decoration: underline;
+    color: ${palette.gray[6]};
+    margin-top: 2rem;
+    &:hover {
+      color: ${palette.gray[9]};
+    }
+  }
+  .sendEmail {
+    margin-top: 0.2px;
+    margin-bottom: 0.2px;
+  }
+`;
+const Hrsect = styled.div`
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  font-size: 15px;
+  margin: 8px 0px;
+
+  &:before,
+  &:after {
+    content: '';
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+  }
+`;
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;

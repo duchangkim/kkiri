@@ -98,6 +98,8 @@ const LeftMain = ({
           {ProfileSettingPopupOpen ? (
             <ProfileSettingPopup
               handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+              myWeather={myWeather}
+              member={member}
             />
           ) : null}
           <img
@@ -106,12 +108,12 @@ const LeftMain = ({
             className="background-Img"
           />
           <div className="Date-Love">
-            <img
+            {/* <img
               src={require("../../images/hamburger.png")}
               alt="배경화면 설정"
               id="Background-Option"
               onClick={handleBackgroundSettingOpenClick}
-            />
+            /> */}
             {member.getTogetherDate !== null ? (
               <>
                 <div className="Love-Text">우리 함께한지</div>

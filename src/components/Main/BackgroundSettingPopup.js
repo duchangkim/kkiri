@@ -3,12 +3,33 @@ import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
 import axios from "axios";
 
+const MODAL_STYLES = {
+  position: "relative",
+  top: `0`,
+  left: `0`,
+  fransform: "translate(-50%, -50%)",
+  backgroundColor: "#FFF",
+  zIndex: 1500,
+  borderRadius: 10,
+};
+const OVERLAY_STYLES = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0, 0, 0, 0.25)",
+  zIndex: 1500,
+};
 const Popups = styled.div`
+  *:focus {
+    outline: none;
+  }
   /* 배경화면 설정 팝업창 */
   .Background-Choice {
     position: absolute;
     z-index: 1000;
-    top: 40%;
+    top: 380px;
     left: 80%;
     transform: translateY(-40%);
     width: 400px;
@@ -105,13 +126,24 @@ const Popups = styled.div`
     background-color: rgba(255, 131, 141, 1);
   }
 
-  .Choice-Save-Button button {
+  .Choice-Save-Button {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1rem;
     color: white;
     border: none;
+    left: 8%;
+    width: 100px;
+    height: 25px;
+    text-align: center;
+    justify-content: center;
+    border: 1px solid gray;
+    align-content: center;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: rgba(255, 131, 141, 1);
   }
   .Choice-Select-Text h4:hover {
     cursor: pointer;
@@ -120,7 +152,7 @@ const Popups = styled.div`
     .Background-Choice {
       position: absolute;
       z-index: 1000;
-      top: 40%;
+      top: 300px;
       left: 10%;
       transform: translateY(-40%);
       width: 400px;
@@ -186,55 +218,60 @@ class BackgroundSettingPopup extends Component {
 
   render() {
     return (
-      <Popups>
-        <div className="Background-Choice" id="Background-Choice">
-          <div className="Background-Choice-Title">
-            <h4>배경 화면</h4>
-            <AiOutlinePlus
-              className="Choice-Popup_Close"
-              onClick={this.props.handleBackgroundSettingOpenClick}
-            />
-          </div>
-          <div className="Background-Choice-Image">
-            <h4>배경이미지</h4>
-            <div className="Background-Choice-Image-Size" id="image_container">
-              {this.state.imgBase64 ? (
-                <img
-                  src={this.state.imgBase64}
-                  onClick={this.handleRemove}
-                  alt="배경화면 사진"
-                ></img>
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </div>
-          <div className="Background-Choice-Select">
-            <form
-              name="accountFrm"
-              className="choiceSelect"
-              onSubmit={this.handlePost}
-              encType="multipart/form-data"
-            >
-              <div className="Choice-Select-Text">
-                <div className="Choice-File-Button">
-                  <input
-                    type="file"
-                    name="files"
-                    id="files"
-                    accept="image/*"
-                    className="ex_file"
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="Choice-Save-Button">
-                  <button type="submit">저장하기</button>
+      <>
+        <div style={OVERLAY_STYLES} />
+        <div style={MODAL_STYLES}>
+          <Popups>
+            <div className="Background-Choice" id="Background-Choice">
+              <div className="Background-Choice-Title">
+                <h4>배경 화면</h4>
+                <AiOutlinePlus
+                  className="Choice-Popup_Close"
+                  onClick={this.props.handleBackgroundSettingOpenClick}
+                />
+              </div>
+              <div className="Background-Choice-Image">
+                <h4>배경이미지</h4>
+                <div className="Background-Choice-Image-Size" id="image_container">
+                  {this.state.imgBase64 ? (
+                    <img
+                      src={this.state.imgBase64}
+                      onClick={this.handleRemove}
+                      alt="배경화면 사진"
+                    ></img>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
-            </form>
-          </div>
+              <div className="Background-Choice-Select">
+                <form
+                  name="accountFrm"
+                  className="choiceSelect"
+                  onSubmit={this.handlePost}
+                  encType="multipart/form-data"
+                >
+                  <div className="Choice-Select-Text">
+                    <div className="Choice-File-Button">
+                      <input
+                        type="file"
+                        name="files"
+                        id="files"
+                        accept="image/*"
+                        className="ex_file"
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                    <button type="submit" className="Choice-Save-Button">
+                      저장하기
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Popups>
         </div>
-      </Popups>
+      </>
     );
   }
 }

@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/Col";
 import styled from "styled-components";
-import { BsSearch } from "react-icons/bs";
+import BackgroundSettingPopup from "../Main/BackgroundSettingPopup";
+import ProfileSettingPopup from "../Main/ProfileSettingPopup";
+import { BsSearch, BsPeopleCircle, BsImage } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import getPosition from "../../lib/getPosition";
+import { getMyWeather } from "../../modules/weather";
+import { getCouple } from "../../modules/couple";
 
 const HeaderLeft = styled.div`
   width: 100%;
@@ -90,7 +96,7 @@ const HeaderRight = styled.div`
     color: rgba(181, 181, 183, 1);
   }
 
-  .Krikri-Header-Alram {
+  .Krikri-Header-Background {
     /* width: 35px;
     height: 35px; */
     width: 5%;
@@ -109,9 +115,10 @@ const HeaderRight = styled.div`
     top: -80%;
     right: -83%;
   }
-  .Krikri-Header-Alram:hover,
+  .Krikri-Header-Background:hover,
   .Krikri-Header-Profile:hover {
     cursor: pointer;
+    color: #ff949d;
   }
 
   @media (max-width: 768px) {
@@ -126,7 +133,7 @@ const HeaderRight = styled.div`
     .Krikri-Name {
       font-size: 100%;
     }
-    .Krikri-Header-Alram {
+    .Krikri-Header-Background {
       position: relative;
       top: -80%;
       right: -88%;
@@ -136,7 +143,7 @@ const HeaderRight = styled.div`
       top: -80%;
       right: -91%;
     }
-    .Krikri-Header-Alram,
+    .Krikri-Header-Background,
     .Krikri-Header-Profile {
       position: relative;
       top: -60%;
@@ -150,10 +157,41 @@ function Header() {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const today = year + "년 " + month + "월 " + day + "일";
+
+  const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
+  const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
+
+  const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleProfileSettingPopupOpenClick = () =>
+    setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
+
+  const dispatch = useDispatch();
+  const { myWeather, member } = useSelector(({ weather, member }) => ({
+    myWeather: weather.myWeather,
+    member: member.member,
+  }));
+
+  useEffect(() => {
+    getPosition(dispatch, getMyWeather);
+  }, [dispatch]);
+
   return (
     <>
       <Col md={5} className="m-0 p-0">
         <HeaderLeft>
+          {/* 배경화면 설정 팝업 */}
+          {backgroundSettingOpen ? (
+            <BackgroundSettingPopup
+              handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
+            />
+          ) : null}
+          {ProfileSettingPopupOpen ? (
+            <ProfileSettingPopup
+              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+              myWeather={myWeather}
+              member={member}
+            />
+          ) : null}
           <div className="Krikri-Select" id="Krikri-Select">
             <form className="Search" id="Search">
               <button className="Img-Button" id="Img-Button" type="submit" name="click" value="">
@@ -175,15 +213,13 @@ function Header() {
           <div className="Krikri-Header">
             <div className="Krikri-Name">우리들만의 끼리끼리:）</div>
             <div className="Krikri-Date">{today}</div>
-            <img
-              src={require("../../images/alram.png")}
-              alt="알림"
-              className="Krikri-Header-Alram"
+            <BsImage
+              className="Krikri-Header-Background"
+              onClick={handleBackgroundSettingOpenClick}
             />
-            <img
-              src={require("../../images/profile.png")}
-              alt="프로필"
+            <BsPeopleCircle
               className="Krikri-Header-Profile"
+              onClick={handleProfileSettingPopupOpenClick}
             />
           </div>
         </HeaderRight>
