@@ -19,10 +19,6 @@ const MainPage = ({ history }) => {
     history.push("/");
     return <h1>No Contents</h1>;
   }
-  if (!member.coupleShareCode) {
-    history.push("/registercouple");
-    return <h1>No Contents</h1>;
-  }
 
   return (
     <Row className="main-contents m-0 p-0" md={2} sm={1}>
