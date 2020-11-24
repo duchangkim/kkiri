@@ -9,6 +9,12 @@ import FindIdPage from './pages/FindIdPage';
 import FindPwPage from './pages/FindPwPage';
 import FindResultPage from './pages/FindResultPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import LoginPage_ from './pages/LoginPage_';
+import RegisterPage_ from './pages/RegisterPage_';
+
+const Temp = () => {
+  return <h1>시발 솔로 꺼져</h1>;
+};
 
 function App() {
   return (
@@ -22,6 +28,9 @@ function App() {
       <Route component={FindResultPage} path="/findresult" />
       <Route component={ChangePasswordPage} path="/changepassword" />
       <Route component={MainService} path="/kkiri" />
+      <Route component={LoginPage_} path="/login_" />
+      <Route component={RegisterPage_} path="/register_" />
+      <Route component={Temp} path="/connection" />
     </>
   );
 }

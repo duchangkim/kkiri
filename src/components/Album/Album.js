@@ -84,7 +84,7 @@ function Album({ albums, loading, error }) {
           <div className='choice'>
             <div onClick={onClickALL}>앨범</div>
             <div onClick={onClickLIKE}>즐겨찾기</div>
-            <div>그룹</div>
+            <div>동영상</div>
           </div>
           {isBasic ? <Album_ALL>
           <div className="album-itembox">

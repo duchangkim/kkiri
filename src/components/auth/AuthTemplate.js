@@ -30,7 +30,7 @@ const WhiteBox = styled.div`
     margin-top: 50px;
     font-family: MaplestoryOTFBold;
     font-size: 2.5rem;
-    color: #f58cb4;
+    color: rgba(255, 131, 141, 1);
     text-decoration: none;
   }
 
