@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
-import { Form } from "react-bootstrap";
 import axios from "axios";
 
 const Popups = styled.div`

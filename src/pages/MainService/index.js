@@ -1,29 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useWindowMatches } from '../../customHooks/hooks';
-import NavigationBarContainer from '../../containers/common/NavigationBarContainer';
-import Header from '../../components/Header';
-import { Route } from 'react-router';
+import React from "react";
+import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+import { useWindowMatches } from "../../customHooks/hooks";
+import NavigationBarContainer from "../../containers/common/NavigationBarContainer";
+import Header from "../../components/Header";
+import { Route } from "react-router";
 // import Main from './Main';
-import MainPage from '../MainPage';
-import AlbumContainer from '../../containers/album/AlbumContainer';
+import MainPage from "../MainPage";
+import AlbumContainer from "../../containers/album/AlbumContainer";
 // import Chatting from './chatting';
-import UnNavigationBar from '../../components/UnNavigationBar';
-import CalendarPage from '../CalendarPage';
-import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
-import ChatContainer from '../../containers/chat/ChatContainer';
-import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer'
-import MemberDeleteContainer from '../../containers/setup/MemberDeleteContainer'
-// import PostActionButtons from "../../components/setup/PostActionButtons"
-
+import UnNavigationBar from "../../components/UnNavigationBar";
+import CalendarPage from "../CalendarPage";
+import ReadAlbumContainer from "../../containers/album/ReadAlbumContainer";
+import ChatContainer from "../../containers/chat/ChatContainer";
+import LikeReadAlbumContainer from "../../containers/album/LikeReadAlbumContainer";
+import SettingPage from "./SettingPage";
 
 const CustomContainer = styled.div`
   width: 100%;
   height: 100%;
   .col-sidebar {
     min-width: 120px;
-    ${(props) => (props.windowMatches ? '' : 'display: none;')}
+    ${(props) => (props.windowMatches ? "" : "display: none;")}
   }
   .header {
     width: 100%;
@@ -74,12 +72,12 @@ const MainService = () => {
               component={AlbumContainer}
             />
             <Route
-              path={['/kkiri/albums/:idx', '/']}
+              path={["/kkiri/albums/:idx", "/"]}
               exact={true}
               component={ReadAlbumContainer}
             />
             <Route
-              path={['/kkiri/albums/like/:idx', '/']}
+              path={["/kkiri/albums/like/:idx", "/"]}
               exact={true}
               component={LikeReadAlbumContainer}
             />
@@ -87,11 +85,11 @@ const MainService = () => {
             <Route
               path="/kkiri/setting/"
               exact={true}
-              component={MemberDeleteContainer}
+              component={SettingPage}
             />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
-                <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
+                <Col className="m-0 p-0" style={{ backgroundColor: "red" }}>
                   <UnNavigationBar />
                 </Col>
               </Row>

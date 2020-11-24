@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import palette from '../../lib/styles/palette';
-import Button from '../common/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import palette from "../../lib/styles/palette";
+import Button from "../common/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Container, Row, Col, Image, Form } from 'react-bootstrap';
-import { Input } from 'reactstrap';
+import { Container, Form } from "react-bootstrap";
+import { Input } from "reactstrap";
 
 const AuthFormBlock = styled.div`
   h3 {
@@ -86,7 +86,7 @@ const AuthFormBlock = styled.div`
       color: ${palette.gray[9]};
     }
   }
-  .sendEmail{
+  .sendEmail {
     margin-top: 0.2px;
     margin-bottom: 0.2px;
   }
@@ -101,7 +101,7 @@ const Hrsect = styled.div`
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -142,9 +142,9 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  login: '로그인',
-  register: '회원 가입',
-  registercouple: '커플코드 확인',
+  login: "로그인",
+  register: "회원 가입",
+  registercouple: "커플코드 확인",
 };
 
 const ErrorMessage = styled.div`
@@ -168,64 +168,12 @@ const AuthForm = ({
 }) => {
   console.log(`myCode 커플코드페이지콘솔 값 : ${myCode}`);
   const text = textMap[type];
+  console.log(auth);
   return (
     <AuthFormBlock>
       <Container>
         <form onSubmit={onSubmit}>
-          {/* {type === 'login' && (
-            <Hrsect>
-              <span className="m-3">간편 로그인</span>
-            </Hrsect>
-          )}
-          {type === 'login' && (
-            <Row className="login_box">
-              <Col xs={3} md={3}>
-                <div className="apidiv">
-                  <p>
-                    <a href="/auth/facebook">
-                      <Image
-                        src={require('../images/fackbookicon.png')}
-                        className="api_img"
-                      />
-                    </a>
-                  </p>
-                </div>
-              </Col>
-              <Col xs={3} md={3}>
-                <div className="apidiv">
-                  <p>
-                    <a href="/auth/naver">
-                      <Image
-                        src={require('../images/navericon.png')}
-                        className="api_img"
-                      />
-                    </a>
-                  </p>
-                </div>
-              </Col>
-              <Col xs={3} md={3}>
-                <div className="apidiv">
-                  <p>
-                    <a href="/auth/google">
-                      <Image
-                        src={require('../images/googleicon.png')}
-                        className="api_img"
-                      />
-                    </a>
-                  </p>
-                </div>
-              </Col>
-              <Col xs={3} md={3}>
-                <div className="apidiv">
-                  <Image
-                    src={require('../images/kakaoicon.png')}
-                    className="api_img"
-                  />
-                </div>
-              </Col>
-            </Row>
-          )} */}
-          {type === 'login' && (
+          {type === "login" && (
             <Hrsect>
               <span className="m-3">이메일 로그인</span>
             </Hrsect>
@@ -235,27 +183,27 @@ const AuthForm = ({
               <Hrsect>{member.email}</Hrsect>
             </div>
           )}
-          {type === 'registercouple' ? null : (
-          <Form.Group controlId="formBasicEmail" className="login_form">
-            <Input
-              autoComplate="email"
-              name="email"
-              placeholder="아이디(이메일)"
-              onChange={onChange}
-              value={form.email}
-              required
-            />
-            <span className="content_name pl-1 pr-1">아이디(이메일)</span>
-          </Form.Group>
+          {type === "registercouple" ? null : (
+            <Form.Group controlId="formBasicEmail" className="login_form">
+              <Input
+                autoComplate="email"
+                name="email"
+                placeholder="아이디(이메일)"
+                onChange={onChange}
+                value={form.email}
+                required
+              />
+              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+            </Form.Group>
           )}
-          {type === 'register' && (
+          {type === "register" && (
             <>
               <ButtonWithMarginTop
                 onClick={sendEmail}
                 cyan
                 fullWidth
                 className="sendEmail"
-                style={{ marginBottom: '1rem '}}
+                style={{ marginBottom: "1rem " }}
               >
                 코드 전송
               </ButtonWithMarginTop>
@@ -272,23 +220,23 @@ const AuthForm = ({
               </Form.Group>
             </>
           )}
-          
-          {type === 'registercouple' ? null : (
-          <Form.Group controlId="formBasicPassword" className="login_form">
-            <Input
-              autoComplate="new-password"
-              name="password"
-              placeholder="비밀번호"
-              type="password"
-              onChange={onChange}
-              value={form.password}
-              required
-            />
-            <span className="content_name pl-1 pr-1">비밀번호</span>
-          </Form.Group>
+
+          {type === "registercouple" ? null : (
+            <Form.Group controlId="formBasicPassword" className="login_form">
+              <Input
+                autoComplate="new-password"
+                name="password"
+                placeholder="비밀번호"
+                type="password"
+                onChange={onChange}
+                value={form.password}
+                required
+              />
+              <span className="content_name pl-1 pr-1">비밀번호</span>
+            </Form.Group>
           )}
 
-          {type === 'register' && (
+          {type === "register" && (
             <>
               <Form.Group controlId="formBasicPassword" className="login_form">
                 <Input
@@ -303,41 +251,42 @@ const AuthForm = ({
                 <span className="content_name pl-1 pr-1">비밀번호 확인</span>
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="name"
-                name="name"
-                placeholder="이름"
-                onChange={onChange}
-                value={form.name}
-                required
-              />
-              <span className="content_name pl-1 pr-1">이름</span>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="birthday"
-                name="birthday"
-                placeholder="년 월 일"
-                onChange={onChange}
-                value={form.birthday}
-                required
-              />
-              <span className="content_name pl-1 pr-1">생년 월 일</span>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="hp"
-                name="hp"
-                placeholder="전화번호"
-                onChange={onChange}
-                value={form.hp}
-                required
-              />
-              <span className="content_name pl-1 pr-1">전화번호</span>
-            </Form.Group>
+                <Input
+                  autoComplate="name"
+                  name="name"
+                  placeholder="이름"
+                  onChange={onChange}
+                  value={form.name}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">이름</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                type="date"
+                  autoComplate="birthday"
+                  name="birthday"
+                  placeholder="년 월 일"
+                  onChange={onChange}
+                  value={form.birthday}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">생년 월 일</span>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail" className="login_form">
+                <Input
+                  autoComplate="hp"
+                  name="hp"
+                  placeholder="전화번호"
+                  onChange={onChange}
+                  value={form.hp}
+                  required
+                />
+                <span className="content_name pl-1 pr-1">전화번호</span>
+              </Form.Group>
             </>
           )}
-          {type === 'registercouple' && (
+          {type === "registercouple" && (
             <div className="couplediv">
               <p>*커플코드를 상대방에게 공유*</p>
               <h1>{myCode}</h1>
@@ -358,26 +307,26 @@ const AuthForm = ({
             </div>
           )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem ' }}>
+          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
             {text}
           </ButtonWithMarginTop>
-          {type === 'registercouple' && (
+          {type === "registercouple" && (
             <span onClick={onLogout} className="logoutbtn">
               로그아웃
             </span>
           )}
         </form>
         <Footer>
-          {type === 'login' && (
+          {type === "login" && (
             <Link to="/findid">
               <span className="ma_ra">아이디 / 비밀번호 찾기</span>
             </Link>
           )}
-          {type === 'login' ? (
+          {type === "login" ? (
             <Link to="/register">
               <span className="ma_le">회원가입</span>
             </Link>
-          ) : type === 'registercouple' ? null : (
+          ) : type === "registercouple" ? null : (
             <Link to="/login">
               <span className="ma_le">로그인</span>
             </Link>

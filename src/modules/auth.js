@@ -130,6 +130,7 @@ const initialState = {
     birthday: "",
     name: "",
     hp: "",
+    findcode: "",
     isSuccess: false,
   },
   registeremail: {
@@ -147,6 +148,7 @@ const initialState = {
   login: {
     email: "",
     password: "",
+    findcode: "",
   },
   createCoupleSet: {
     id: "",
@@ -191,6 +193,7 @@ const auth = handleActions(
         birthday: "",
         name: "",
         hp: "",
+        findcode: auth.findcode,
         isSuccess: true,
       },
     }),
@@ -240,6 +243,9 @@ const auth = handleActions(
       ...state,
       authError: null,
       auth,
+      login: {
+        findcode: auth.findcode,
+      },
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,

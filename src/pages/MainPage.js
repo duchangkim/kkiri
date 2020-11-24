@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import LeftMainContainer from '../containers/main/LeftMainContainer';
 import RightMainContainer from '../containers/main/RightMainContainer';
 import { Row, Col } from 'react-bootstrap';
@@ -8,15 +8,18 @@ import { withRouter } from 'react-router-dom';
 import { check } from '../modules/member';
 
 const MainPage = ({ history }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const member = useSelector(({ member }) => member.member);
+
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
 
   useEffect(() => {
     dispatch(check());
-  }, [])
+  }, [dispatch]);
 
   if (!member) {
-    history.push("/");
+    history.push('/');
     return <h1>No Contents</h1>;
   }
 

@@ -16,6 +16,7 @@
     "emoji-picker-react": "^3.2.4",
     "esm": "^3.2.25",
     "fs": "^0.0.1-security",
+    "immer": "^8.0.0",
     "infinite-react-carousel": "^1.2.11",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",

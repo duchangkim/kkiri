@@ -116,6 +116,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
+                  type="date"
                   autoComplate="birthday"
                   name="birthday"
                   placeholder="년 월 일"
@@ -166,6 +167,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
+                  type="date"
                   autoComplate="birthday"
                   name="birthday"
                   placeholder="년 월 일"

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import styled from "styled-components";
+import axios from "axios";
+import member from "../../modules/member";
 
 const ProfilePopups = styled.div`
   .Profile-Choice {
@@ -78,7 +80,8 @@ const ProfilePopups = styled.div`
   }
   .MyProfile {
     width: 100%;
-    height: 55%;
+    height: 45%;
+    display: flex;
     border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
   }
   .ProfileIMG {
@@ -99,6 +102,7 @@ const ProfilePopups = styled.div`
     height: 110px;
     position: relative;
     top: 11.5%;
+    left: 7%;
     display: flex;
   }
   .ProfileContent ul {
@@ -130,7 +134,7 @@ const ProfilePopups = styled.div`
   .ProfileSetting {
     position: relative;
     top: 2%;
-    left: 73%;
+    left: -2%;
     width: 100px;
     height: 25px;
     text-align: center;
@@ -141,6 +145,16 @@ const ProfilePopups = styled.div`
   }
   .ProfileSetting:hover {
     cursor: pointer;
+  }
+  .choiceSelect {
+    width: 100%;
+    margin-top: 2%;
+    position: relative;
+    display: flex;
+  }
+  .ex_file {
+    width: 90%;
+    margin-left: 5%;
   }
 
   @media (max-width: 768px) {
@@ -164,7 +178,54 @@ class ProfileSettingPopup extends Component {
     files: "",
     value: "",
   };
+
+  handleChange = (event) => {
+    let reader = new FileReader();
+    reader.onloadend = (e) => {
+      // 2. 읽기가 완료되면 아래코드가 실행
+      const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
+      if (base64) {
+        this.setState({
+          imgBase64: base64.toString(), // 파일 base64 상태 업데이트
+        });
+      }
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
+      this.setState({
+        files: event.target.files[0], // 파일 상태 업데이트 업로드 하는것은 파일이기 때문에 관리 필요
+        value: event.target.files[0].name,
+      });
+    }
+  };
+
+  handlePost = () => {
+    console.log(this.state.files + "핸들포스트");
+    const formData = new FormData();
+    formData.append("files", this.state.files, this.state.files.name);
+    console.log(formData);
+
+    axios
+      .post("/api/profilesetting/fileupload", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleRemove = () => {
+    this.setState({
+      imgBase64: "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
+      files: "",
+      value: "",
+    });
+  };
+
   render() {
+    const aaa = member.email;
+    console.log(aaa + "제발 프로필 나와주세요!");
     return (
       <ProfilePopups>
         <div className="Profile-Choice" id="Profile-Choice">
@@ -203,22 +264,32 @@ class ProfileSettingPopup extends Component {
             </div>
             <div className="ProfileContent">
               <ul>
-                <li>OOO</li>
+                <li>{member.name}</li>
                 <li>2020년-10월-27일</li>
                 <li>kkiri@kkiri.com</li>
               </ul>
             </div>
-            <form
-              name="accountFrm"
-              className="choiceSelect"
-              onSubmit={this.handlePost}
-              encType="multipart/form-data"
-            >
-              <button type="submit" className="ProfileSetting">
-                프로필 편집
-              </button>
-            </form>
           </div>
+          <form
+            name="accountFrm"
+            className="choiceSelect"
+            onSubmit={this.handlePost}
+            encType="multipart/form-data"
+          >
+            <div className="Choice-File-Button">
+              <input
+                type="file"
+                name="files"
+                id="files"
+                accept="image/*"
+                className="ex_file"
+                onChange={this.handleChange}
+              />
+            </div>
+            <button type="submit" className="ProfileSetting">
+              저장하기
+            </button>
+          </form>
         </div>
       </ProfilePopups>
     );
