@@ -63,8 +63,13 @@ export const createSchedule = async (ctx) => {
 };
 
 export const getSchduleList = async (ctx) => {
+  console.log('=========================');
+  console.log(ctx.state.member.coupleShareCode);
+  console.log(ctx.state.member);
+  console.log('=========================');
+
   const { coupleShareCode } = ctx.state.member;
-  console.log(coupleShareCode)
+  console.log(coupleShareCode);
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
@@ -132,7 +137,6 @@ export const modifySchedule = async (ctx) => {
     raw,
     state,
   } = ctx.request.body;
-
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);

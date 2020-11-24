@@ -111,4 +111,10 @@ export const check = async (ctx) => {
     return;
   }
   ctx.body = await fromDBMember.serialize();
+
+  const token = fromDBMember.generateToken();
+  ctx.cookies.set('access_token', token, {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+  });
 };

@@ -77,6 +77,12 @@ export const createCoupleSet = async (ctx) => {
       fs.mkdirSync(dir);
     }
 
+    const token = firstMember.generateToken();
+    ctx.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+
     ctx.body = await firstMember.serialize();
   } catch (e) {
     ctx.throw(500, { message: e });

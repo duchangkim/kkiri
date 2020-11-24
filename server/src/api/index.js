@@ -12,7 +12,7 @@ import member from './member';
 import welcome from './welcome';
 import backgroundsetting from './backgroundsetting';
 import profilesetting from './profilesetting';
-import _auth from './_auth';
+// import _auth from './_auth';
 
 const api = new Router();
 api.use('/auth', auth.routes());
@@ -28,6 +28,6 @@ api.use('/member', member.routes());
 api.use('/welcome', welcome.routes());
 api.use('/backgroundsetting', backgroundsetting.routes());
 api.use('/profilesetting', profilesetting.routes());
-api.use('/_auth', _auth.routes());
+// api.use('/_auth', _auth.routes());
 
 export default api;

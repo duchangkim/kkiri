@@ -46,6 +46,7 @@ const ConnectionContainer = ({ history }) => {
   };
 
   useEffect(() => {
+    dispatch(check());
     dispatch(initializeForm('connection'));
 
     return () => {

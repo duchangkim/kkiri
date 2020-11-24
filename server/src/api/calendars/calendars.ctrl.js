@@ -44,9 +44,14 @@ export const createCalendars = async (ctx) => {
 
 export const getCalendarsList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
+  // console.log('===============================');
+  // console.log(coupleShareCode);
+  // console.log(ctx.state.member);
+  // console.log('===============================');
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
+    console.log(calendar);
     const calendars = calendar.calendarData.calendars;
 
     console.log('``````````````요기가 캘린더리스트');

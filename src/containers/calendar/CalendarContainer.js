@@ -6,8 +6,6 @@ import {
   deleteSchedule,
   modifySchedule,
 } from '../../modules/schedule';
-import { getCalendarList } from '../../modules/calendar';
-
 import serializeSchedule from '../../lib/serializeSchedule';
 
 import TUICalendar from '@toast-ui/react-calendar';
@@ -18,6 +16,7 @@ import styled from 'styled-components';
 import CalendarHeaderContainer from './CalendarHeaderContainer';
 import CalenderSideContainer from './CalendarSideContainer';
 import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
+import { getCalendarList } from '../../modules/calendar';
 
 const Styles = styled.div`
   display: flex;
@@ -52,12 +51,14 @@ const CalendarContainer = () => {
     };
   });
   const { calendars, calendarsError } = useSelector(({ calendar }) => {
-    console.log(calendar);
+    // console.log(calendar);
     return {
       calendars: calendar.calendars,
       calendarsError: calendar.calendarsError,
     };
   });
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
 
   const cal = useRef(null);
 
@@ -71,14 +72,14 @@ const CalendarContainer = () => {
 
   const onBeforeCreateSchedule = useCallback(
     (scheduleData) => {
-      console.log(scheduleData);
+      // console.log(scheduleData);
 
-      console.log('스케쥴 만들거임 버튼 클릭');
+      // console.log('스케쥴 만들거임 버튼 클릭');
       // console.log(scheduleData);
       // 스케쥴 직렬화
       const schedule = serializeSchedule(scheduleData);
 
-      console.log(schedule.calendarId);
+      // console.log(schedule.calendarId);
       // console.log(schedule.start instanceof Date);
 
       dispatch(createSchedule(schedule)); //db에 저장
@@ -92,7 +93,7 @@ const CalendarContainer = () => {
     (res) => {
       console.log(`call Delete`);
       const { id, calendarId } = res.schedule;
-      console.log(calendarId);
+      // console.log(calendarId);
 
       dispatch(deleteSchedule(id));
       cal.current.calendarInst.deleteSchedule(id, calendarId);
@@ -105,7 +106,6 @@ const CalendarContainer = () => {
       console.log(`call Update`);
       const { id, calendarId } = e.schedule;
 
-      console.log(calendarId);
       if (!e.changes) {
         return;
       }
@@ -161,11 +161,7 @@ const CalendarContainer = () => {
   };
 
   useEffect(() => {
-    console.log('렌더');
     dispatch(getScheduleList());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getCalendarList());
   }, [dispatch]);
 

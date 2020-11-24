@@ -12,7 +12,7 @@ import { getDdayList } from '../../modules/dDay';
 const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
   const dispatch = useDispatch();
   const { dDays, dDayError, schedules } = useSelector(({ dDay, schedule }) => {
-    console.log(dDay);
+    // console.log(dDay);
     return {
       dDays: dDay.dDays,
       dDayError: dDay.dDayError,
@@ -21,16 +21,16 @@ const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
   });
 
   const handleDeleteButtonClick = (e) => {
-    console.dir('필터 삭제버튼 눌렀다');
-    console.dir(e.target);
-    console.log(e.target.id);
+    // console.dir('필터 삭제버튼 눌렀다');
+    // console.dir(e.target);
+    // console.log(e.target.id);
     dispatch(deleteCalendar(e.target.id));
   };
 
   const handleCalendarFilterClick = (e) => {
-    console.log(calendars);
+    // console.log(calendars);
     const calendarId = e.target.id;
-    console.log(calendarId);
+    // console.log(calendarId);
     // console.dir(typeof calendarId);
     dispatch(togglePopup());
     dispatch(changeType('modify'));
@@ -38,7 +38,7 @@ const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
     const currentCalendar = calendars.find(
       (calendar) => calendar.id === calendarId
     );
-    console.log(currentCalendar);
+    // console.log(currentCalendar);
     dispatch(setField(currentCalendar));
   };
 

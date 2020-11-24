@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Alert, Form } from 'react-bootstrap';
 import { BlockPicker } from 'react-color';
@@ -39,7 +39,6 @@ const CalendarFormPopupBlock = styled.div`
     top: 5%;
   }
 `;
-
 const Button = styled.button`
   background: #ff838d;
   border: none;
@@ -50,7 +49,6 @@ const Button = styled.button`
     background: #faa3aa;
   }
 `;
-
 const colors = [
   '#F15A5A',
   '#F0C419',
@@ -86,7 +84,7 @@ const CalendarFormPopup = ({
     modify: '수정',
   };
   // const isOpen = true;
-  console.log(form);
+  // console.log(form);
   return (
     <>
       {isOpen ? (
