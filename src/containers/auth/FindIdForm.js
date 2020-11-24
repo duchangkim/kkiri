@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, findid } from '../../modules/auth';
-import FindForm from '../../components/auth/FindForm';
+import FindForm from '../../components/Auth/FindForm';
 import { withRouter } from 'react-router-dom';
 
 const FindIdForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, authError, findEmail } = useSelector(
-    ({ auth, member }) => {
-      return {
-        form: auth.findid,
-        auth: auth.auth,
-        authError: auth.authError,
-        findEmail: auth.findid.findEmail,
-      };
-    }
-  );
+  const { form, authError, findEmail } = useSelector(({ auth, member }) => {
+    return {
+      form: auth.findid,
+      auth: auth.auth,
+      authError: auth.authError,
+      findEmail: auth.findid.findEmail,
+    };
+  });
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -52,10 +50,10 @@ const FindIdForm = ({ history }) => {
     console.log(birthday, name, hp);
     dispatch(findid({ birthday, name, hp }));
   };
-  
+
   useEffect(() => {
     dispatch(initializeForm('findid'));
-    setError("");
+    setError('');
   }, [dispatch]);
 
   useEffect(() => {
@@ -70,9 +68,9 @@ const FindIdForm = ({ history }) => {
       console.log(findEmail);
       history.push(`/findresult`);
     }
-    setError("");
+    setError('');
   }, [authError, dispatch, findEmail, history]);
-  
+
   return (
     <FindForm
       type="findid"

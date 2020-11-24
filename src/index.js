@@ -11,7 +11,7 @@ import App from './App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ThemeProvider } from 'styled-components';
-import theme from './lib/styles/theme'
+import theme from './lib/styles/theme';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
@@ -21,7 +21,7 @@ const loadMember = () => {
     const member = localStorage.getItem('member');
 
     if (!member) {
-      return;
+      return <h3>잉</h3>;
     }
     store.dispatch(tempSetMember(JSON.parse(member)));
     store.dispatch(check());
@@ -36,9 +36,9 @@ loadMember();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

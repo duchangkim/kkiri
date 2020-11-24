@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { changeField, initializeForm } from "../../modules/auth";
-import FindForm from "../../components/auth/FindForm";
-import { withRouter } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeField, initializeForm } from '../../modules/auth';
+import FindForm from '../../components/Auth/FindForm';
+import { withRouter } from 'react-router-dom';
 
 const FindResultForm = ({ history }) => {
-  let myEmail = "";
+  let myEmail = '';
   const { findEmail } = useSelector(({ auth }) => {
     return {
       findEmail: auth.findid.findEmail,
     };
   });
-  myEmail = findEmail + "";
-  console.log("여기 결과 이메일~~");
+  myEmail = findEmail + '';
+  console.log('여기 결과 이메일~~');
   console.log(findEmail);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const FindResultForm = ({ history }) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: "findresult",
+        form: 'findresult',
         key: name,
         value,
       })
@@ -28,7 +28,7 @@ const FindResultForm = ({ history }) => {
   };
 
   useEffect(() => {
-    dispatch(initializeForm("findresult"));
+    dispatch(initializeForm('findresult'));
   }, [dispatch]);
 
   return (

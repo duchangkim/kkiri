@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { check } from '../../modules/member';
-import AuthForm from '../../components/_Auth/AuthForm';
-import { changeField, initalizeFrom, login } from '../../modules/_auth';
+import AuthForm from '../../components/Auth/AuthForm';
+import { changeField, initializeForm, login } from '../../modules/auth';
 
 const LoginFromContainer = ({ history }) => {
   const dispatch = useDispatch();
-  const { form, auth } = useSelector(({ _auth }) => ({
-    form: _auth.login,
-    auth: _auth.auth,
+  const [authErrorMessage, setAuthErrorMessage] = useState();
+  const { form, auth, authError } = useSelector(({ auth }) => ({
+    form: auth.login,
+    auth: auth.auth,
+    authError: auth.authError,
   }));
   const { member } = useSelector(({ member }) => ({ member: member.member }));
 
@@ -25,6 +27,7 @@ const LoginFromContainer = ({ history }) => {
         value,
       })
     );
+    setAuthErrorMessage('');
   };
 
   const handleSubmit = (e) => {
@@ -32,18 +35,31 @@ const LoginFromContainer = ({ history }) => {
     console.log('로그인 서브밋 눌럿땅');
     console.log(form);
     dispatch(login(form));
-    dispatch(initalizeFrom('login'));
   };
 
   useEffect(() => {
-    dispatch(initalizeFrom('login'));
+    dispatch(initializeForm('login'));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authError) {
+      if (authError.response.data.error === 'not found email') {
+        console.log('존재 ㄴ이메일');
+        setAuthErrorMessage('존재하지 않는 이메일 입니다');
+      } else {
+        console.log('비번 병신');
+        setAuthErrorMessage('비밀번호가 일치하지 않습니다');
+        return;
+      }
+    }
+  }, [authError]);
 
   useEffect(() => {
     if (auth) {
       console.log('로그인 했을때만');
       console.log(auth);
 
+      dispatch(initializeForm('login'));
       dispatch(check());
     }
   }, [dispatch, auth]);
@@ -72,6 +88,7 @@ const LoginFromContainer = ({ history }) => {
       form={form}
       onChange={handleChange}
       onSubmit={handleSubmit}
+      authErrorMessage={authErrorMessage}
     />
   );
 };

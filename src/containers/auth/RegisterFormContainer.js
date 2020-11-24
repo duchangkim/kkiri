@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import AuthForm from '../../components/_Auth/AuthForm';
+import AuthForm from '../../components/Auth/AuthForm';
 import {
   changeField,
-  initalizeFrom,
+  initializeForm,
   sendEmailAuthenticationCode,
   register,
-  initalizeAll,
-} from '../../modules/_auth';
+  initializeAll,
+} from '../../modules/auth';
 import { check } from '../../modules/member';
 
 const RegisterFormContainer = ({ history }) => {
@@ -18,12 +18,12 @@ const RegisterFormContainer = ({ history }) => {
   const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const { form, emailError, emailSuccess, auth, authError } = useSelector(
-    ({ _auth }) => ({
-      form: _auth.register,
-      emailError: _auth.emailAuthenticationError,
-      emailSuccess: _auth.emailAuthentication,
-      auth: _auth.auth,
-      authError: _auth.authError,
+    ({ auth }) => ({
+      form: auth.register,
+      emailError: auth.emailAuthenticationError,
+      emailSuccess: auth.emailAuthentication,
+      auth: auth.auth,
+      authError: auth.authError,
     })
   );
   const { member } = useSelector(({ member }) => ({ member: member.member }));
@@ -43,6 +43,11 @@ const RegisterFormContainer = ({ history }) => {
     setAuthErrorMessage('');
     if (name === 'email') {
       setEmailErrorMessage('');
+      if (emailSuccess) {
+        setEmailErrorMessage('이메일 인증을 다시 받아주세요!');
+        setEmailSendMessage('');
+        dispatch(initializeAll());
+      }
     }
   };
 
@@ -50,23 +55,35 @@ const RegisterFormContainer = ({ history }) => {
     e.preventDefault();
     console.log('이메일 보내기 누름');
     setEmailSendMessage('');
+    setEmailErrorMessage('');
     dispatch(sendEmailAuthenticationCode(form.email));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('회원가입 서브밋 눌럿땅');
-    dispatch(register(form));
-    dispatch(initalizeFrom('register'));
+
+    if (emailSuccess) {
+      if (
+        emailSuccess.emailAuthenticationCode === form.emailAuthenticationCode
+      ) {
+        dispatch(register(form));
+        dispatch(initializeForm('register'));
+      } else {
+        setAuthErrorMessage('이메일 인증번호가 일치하지 않습니다');
+      }
+    } else {
+      setAuthErrorMessage('이메일이 인증되지 않았습니다');
+    }
   };
 
   useEffect(() => {
-    dispatch(initalizeFrom('register'));
+    dispatch(initializeForm('register'));
 
     return () => {
       console.log('나가냐');
-      dispatch(initalizeAll());
-      dispatch(initalizeFrom('register'));
+      dispatch(initializeAll());
+      dispatch(initializeForm('register'));
     };
   }, [dispatch]);
 
@@ -83,7 +100,7 @@ const RegisterFormContainer = ({ history }) => {
     }
     if (authError) {
       if (authError.response.status === 401) {
-        setAuthErrorMessage('이메일 인증 코드가 일치하지 않습니다');
+        setAuthErrorMessage('이메일 인증번호가 일치하지 않습니다');
       }
     }
   }, [emailError, emailSuccess, authError]);

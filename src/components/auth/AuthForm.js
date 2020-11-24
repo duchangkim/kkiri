@@ -1,98 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import palette from "../../lib/styles/palette";
-import Button from "../common/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
-import { Container, Form } from "react-bootstrap";
-import { Input } from "reactstrap";
-
-const AuthFormBlock = styled.div`
-  h3 {
-    margin: 0;
-    color: ${palette.gray[8]};
-    margin-bottom: 1rem;
-  }
-
-  // 간편 로그인 버튼
-  .login_box {
-    margin: 5% 0;
-  }
-  .api_img {
-    width: 80%;
-    border-radius: 6px;
-  }
-
-  .kep-login-facebook {
-    font-size: 0;
-    background-image: url(../images/fackbookicon.png) !important;
-  }
-  .login_form {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  .login_form p {
-    position: relative;
-    width: 100%;
-    margin-bottom: 12px;
-  }
-  .content_name {
-    display: none;
-  }
-  input:focus + .content_name,
-  input:valid + .content_name {
-    position: absolute;
-    top: -10px;
-    left: 16px;
-    background: #ffffff;
-    font-size: 13px;
-    font-weight: bold;
-    color: #f58cb4;
-    display: inline;
-  }
-  .form-control {
-    padding: 1.3rem;
-  }
-  .form-control:focus {
-    border: 2px solid #f58cb4;
-    box-shadow: none;
-  }
-  input:focus::-webkit-input-placeholder {
-    color: transparent;
-  }
-
-  // 커플코드 입력
-  h1 {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  p {
-    text-align: center;
-    font-size: 16px;
-  }
-  .as {
-    color: ${palette.gray[6]};
-  }
-
-  .logoutbtn {
-    float: right;
-    text-decoration: underline;
-    color: ${palette.gray[6]};
-    margin-top: 2rem;
-    &:hover {
-      color: ${palette.gray[9]};
-    }
-  }
-  .sendEmail {
-    margin-top: 0.2px;
-    margin-bottom: 0.2px;
-  }
-`;
-
-const Hrsect = styled.div`
+const NaviMessage = styled.div`
   display: flex;
   flex-basis: 100%;
   align-items: center;
@@ -101,7 +14,7 @@ const Hrsect = styled.div`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -109,7 +22,6 @@ const Hrsect = styled.div`
     line-height: 0px;
   }
 `;
-
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
@@ -137,202 +49,141 @@ const Footer = styled.div`
   }
 `;
 
-const ButtonWithMarginTop = styled(Button)`
-  margin-top: 1rem;
-`;
-
 const textMap = {
-  login: "로그인",
-  register: "회원 가입",
-  registercouple: "커플코드 확인",
+  login: '로그인',
+  register: '회원 가입',
+  registercouple: '커플코드 확인',
 };
 
-const ErrorMessage = styled.div`
-  color: red;
-  text-align: center;
-  font-size: 0.875rem;
-  margin-top: 1rem;
-`;
-
 const AuthForm = ({
-  member,
   type,
   form,
   onChange,
   onSubmit,
-  error,
-  myCode,
-  onLogout,
-  sendEmail,
-  auth,
+  onSendButtonClick,
+  emailErrorMessage,
+  emailSendMessage,
+  authErrorMessage,
 }) => {
-  console.log(`myCode 커플코드페이지콘솔 값 : ${myCode}`);
-  const text = textMap[type];
-  console.log(auth);
+  console.log(authErrorMessage);
   return (
-    <AuthFormBlock>
-      <Container>
-        <form onSubmit={onSubmit}>
-          {type === "login" && (
-            <Hrsect>
-              <span className="m-3">이메일 로그인</span>
-            </Hrsect>
-          )}
-          {member && (
-            <div className="right">
-              <Hrsect>{member.email}</Hrsect>
-            </div>
-          )}
-          {type === "registercouple" ? null : (
-            <Form.Group controlId="formBasicEmail" className="login_form">
-              <Input
-                autoComplate="email"
-                name="email"
-                placeholder="아이디(이메일)"
-                onChange={onChange}
-                value={form.email}
-                required
-              />
-              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
-            </Form.Group>
-          )}
-          {type === "register" && (
+    <>
+      <NaviMessage>
+        <span className="m-3">{textMap[type]}</span>
+      </NaviMessage>
+      <form onSubmit={onSubmit}>
+        <Container>
+          <Form.Group>
+            <Input
+              name="email"
+              value={form.email}
+              onChange={onChange}
+              required
+              placeholder="아이디 (이메일)"
+            />
+          </Form.Group>
+          {type === 'register' && (
             <>
-              <ButtonWithMarginTop
-                onClick={sendEmail}
-                cyan
-                fullWidth
-                className="sendEmail"
-                style={{ marginBottom: "1rem " }}
-              >
-                코드 전송
-              </ButtonWithMarginTop>
-              <Form.Group controlId="formBasicEmail" className="login_form">
+              <Form.Group>
+                <Button variant="primary" block onClick={onSendButtonClick}>
+                  인증번호 발송
+                </Button>
+              </Form.Group>
+              {emailErrorMessage && (
+                <Alert variant="danger">{emailErrorMessage}</Alert>
+              )}
+              {emailSendMessage && (
+                <Alert variant="success">{emailSendMessage}</Alert>
+              )}
+              <Form.Group>
                 <Input
-                  autoComplate="emailcode"
-                  name="emailcode"
-                  placeholder="코드 입력"
+                  name="emailAuthenticationCode"
+                  value={form.emailAuthenticationCode}
                   onChange={onChange}
-                  value={form.emailcode}
                   required
+                  placeholder="이메일 인증번호"
                 />
-                <span className="content_name pl-1 pr-1">이메일 인증 번호</span>
               </Form.Group>
             </>
           )}
-
-          {type === "registercouple" ? null : (
-            <Form.Group controlId="formBasicPassword" className="login_form">
-              <Input
-                autoComplate="new-password"
-                name="password"
-                placeholder="비밀번호"
-                type="password"
-                onChange={onChange}
-                value={form.password}
-                required
-              />
-              <span className="content_name pl-1 pr-1">비밀번호</span>
-            </Form.Group>
-          )}
-
-          {type === "register" && (
+          <Form.Group>
+            <Input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={onChange}
+              required
+              placeholder="비밀번호"
+            />
+          </Form.Group>
+          {type === 'register' && (
             <>
-              <Form.Group controlId="formBasicPassword" className="login_form">
+              <Form.Group>
                 <Input
-                  autoComplate="new-password"
-                  name="passwordConfirm"
-                  placeholder="비밀번호 확인"
                   type="password"
-                  onChange={onChange}
+                  name="passwordConfirm"
                   value={form.passwordConfirm}
+                  onChange={onChange}
                   required
+                  placeholder="비밀번호 확인"
                 />
-                <span className="content_name pl-1 pr-1">비밀번호 확인</span>
               </Form.Group>
-              <Form.Group controlId="formBasicEmail" className="login_form">
+              <Form.Group>
                 <Input
-                  autoComplate="name"
                   name="name"
-                  placeholder="이름"
-                  onChange={onChange}
                   value={form.name}
+                  onChange={onChange}
                   required
+                  placeholder="이름"
                 />
-                <span className="content_name pl-1 pr-1">이름</span>
               </Form.Group>
-              <Form.Group controlId="formBasicEmail" className="login_form">
+              <Form.Group>
                 <Input
-                  autoComplate="birthday"
+                  type="date"
                   name="birthday"
-                  placeholder="년 월 일"
-                  onChange={onChange}
                   value={form.birthday}
-                  required
-                />
-                <span className="content_name pl-1 pr-1">생년 월 일</span>
-              </Form.Group>
-              <Form.Group controlId="formBasicEmail" className="login_form">
-                <Input
-                  autoComplate="hp"
-                  name="hp"
-                  placeholder="전화번호"
                   onChange={onChange}
-                  value={form.hp}
                   required
+                  placeholder="생년월일 (yyyy-mm-dd)"
                 />
-                <span className="content_name pl-1 pr-1">전화번호</span>
               </Form.Group>
+              <Form.Group>
+                <Input
+                  name="hp"
+                  value={form.hp}
+                  onChange={onChange}
+                  required
+                  placeholder="전화번호 (010-xxxx-xxxx)"
+                />
+              </Form.Group>
+              {authErrorMessage && (
+                <Alert variant="danger">{authErrorMessage}</Alert>
+              )}
             </>
           )}
-          {type === "registercouple" && (
-            <div className="couplediv">
-              <p>*커플코드를 상대방에게 공유*</p>
-              <h1>{myCode}</h1>
-              <p className="as">
-                상대방이 코드를 입력에 성공하면 새로고침 해주세요
-              </p>
-              <Form.Group controlId="formBasicEmail" className="login_form">
-                <Input
-                  autoComplate="couplecode"
-                  name="couplecode"
-                  placeholder="커플 코드"
-                  onChange={onChange}
-                  value={form.couplecode}
-                  required
-                />
-                <span className="content_name pl-1 pr-1">커플 코드</span>
-              </Form.Group>
-            </div>
+          {authErrorMessage && (
+            <Alert variant="danger">{authErrorMessage}</Alert>
           )}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
-            {text}
-          </ButtonWithMarginTop>
-          {type === "registercouple" && (
-            <span onClick={onLogout} className="logoutbtn">
-              로그아웃
-            </span>
-          )}
-        </form>
-        <Footer>
-          {type === "login" && (
+          <button className="btn btn-primary btn-block">{textMap[type]}</button>
+        </Container>
+      </form>
+      <Footer>
+        {type === 'login' ? (
+          <>
             <Link to="/findid">
               <span className="ma_ra">아이디 / 비밀번호 찾기</span>
             </Link>
-          )}
-          {type === "login" ? (
             <Link to="/register">
               <span className="ma_le">회원가입</span>
             </Link>
-          ) : type === "registercouple" ? null : (
-            <Link to="/login">
-              <span className="ma_le">로그인</span>
-            </Link>
-          )}
-        </Footer>
-      </Container>
-    </AuthFormBlock>
+          </>
+        ) : type === 'registercouple' ? null : (
+          <Link to="/login">
+            <span className="ma_le">로그인</span>
+          </Link>
+        )}
+      </Footer>
+    </>
   );
 };
 

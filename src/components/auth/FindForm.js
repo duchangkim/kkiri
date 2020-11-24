@@ -50,10 +50,10 @@ const FindFormBlock = styled.div`
   input:focus::-webkit-input-placeholder {
     color: transparent;
   }
-  h1{
+  h1 {
     font-size: 28px;
   }
-  p{
+  p {
     margin-bottom: 2px;
   }
 `;
@@ -94,8 +94,8 @@ const ErrorMessage = styled.div`
 `;
 
 const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
-  console.log('~~~~파인드 폼 이메일');
-  console.log(myEmail);
+  // console.log('~~~~파인드 폼 이메일');
+  // console.log(myEmail);
   const text = textMap[type];
   return (
     <FindFormBlock>
@@ -105,7 +105,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
             <>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="email"
                   name="email"
                   placeholder="아이디(이메일)"
                   onChange={onChange}
@@ -116,7 +115,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="birthday"
                   name="birthday"
                   placeholder="년 월 일"
                   onChange={onChange}
@@ -127,7 +125,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="hp"
                   name="hp"
                   placeholder="전화번호"
                   onChange={onChange}
@@ -141,7 +138,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
           {type === 'registercode' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
-                autoComplate="emailcode"
                 name="emailcode"
                 placeholder="코드 입력"
                 onChange={onChange}
@@ -155,7 +151,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
             <>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="name"
                   name="name"
                   placeholder="이름"
                   onChange={onChange}
@@ -166,7 +161,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="birthday"
                   name="birthday"
                   placeholder="년 월 일"
                   onChange={onChange}
@@ -177,7 +171,6 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
-                  autoComplate="hp"
                   name="hp"
                   placeholder="전화번호"
                   onChange={onChange}

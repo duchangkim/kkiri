@@ -4,7 +4,7 @@ import Calendar from '../../models/calendar';
 export const getMyCouple = async (ctx) => {
   const { coupleId } = ctx.params;
 
-  console.log('여기 이거밑에꺼가 커플아이디여');
+  console.log('여기 이거밑에꺼가 커플아이디여'.concat());
   console.log(coupleId);
 
   try {

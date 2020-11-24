@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import Joi from '@hapi/joi';
 import Member from '../../models/member';
 import nodeMailer from 'nodemailer';
-import createRandomCode from '../../lib/createRandomCode';
 dotenv.config();
 
 const { MAILER_EMAIL, MAILER_PASSWORD } = process.env;
@@ -18,9 +17,9 @@ const mailPoster = nodeMailer.createTransport({
 
 const mailOpt = (email, contents) => {
   const mailOptions = {
-    from: 'gyominis100@gmail.com',
+    from: 'Kkiri 서비스',
     to: email,
-    subject: 'kkiri 회원가입 인증코드',
+    subject: 'kkiri 회원가입 인증번호입니다.',
     text: contents,
   };
   console.log(mailOptions);
@@ -37,24 +36,29 @@ const sendMail = (mailOption) => {
   });
 };
 
-//랜덤 번호 생성
-var res_data = {};
-const contents = () => {
-  var number = '';
-  var random = 0;
+const getRandomNumber = () => {
+  let number = '';
+  let random = 0;
   for (let i = 0; i < 6; i++) {
     random = Math.trunc(Math.random() * (9 - 0) + 0);
     number += random;
   }
-  res_data['secret'] = number;
-  return '인증 칸에 아래의 숫자를 입력해주세요. \n ' + number;
+
+  return number;
 };
 
-export const registeremail = async (ctx) => {
-  const schema = Joi.object().keys({
-    email: Joi.string().email().min(3).max(20).required(),
+const contents = (randomNumber) => {
+  return `인증 칸에 아래의 숫자를 입력해주세요. \n ${randomNumber}`;
+};
+
+export const sendEmailAuthenticationCode = async (ctx) => {
+  // console.log('이메일 보내냐ㅕ?');
+  // console.log(ctx.request.body);
+  // console.log(ctx.request.body.email);
+  const requestData = Joi.object().keys({
+    email: Joi.string().email().min(3).max(100).required(),
   });
-  const result = schema.validate(ctx.request.body);
+  const result = requestData.validate(ctx.request.body);
   if (result.error) {
     console.log(result.error);
 
@@ -63,7 +67,6 @@ export const registeremail = async (ctx) => {
     return;
   }
   const { email } = ctx.request.body;
-  console.log(`params : ${email}`);
   try {
     const exists = await Member.findByEmail(email);
     if (exists) {
@@ -71,72 +74,11 @@ export const registeremail = async (ctx) => {
       return;
     }
 
-    console.log(result);
-    console.log(result.value.email);
+    const randomNumber = getRandomNumber();
 
-    const mailOption = mailOpt(result.value.email, contents());
+    const mailOption = mailOpt(result.value.email, contents(randomNumber));
     sendMail(mailOption);
-  } catch (e) {
-    ctx.throw(500, e);
-  }
-};
-
-export const register = async (ctx) => {
-  const { email, emailcode, password, birthday, name, hp } = ctx.request.body;
-  console.log(
-    `params : ${email},${emailcode},${password}, ${birthday}, ${name},${hp}`
-  );
-  const schema = Joi.object().keys({
-    email: Joi.string().required(),
-    emailcode: Joi.string().required(),
-    password: Joi.string().required(),
-    name: Joi.string().required(),
-    birthday: Joi.string().required(),
-    hp: Joi.string().required(),
-  });
-  const result = schema.validate(ctx.request.body);
-  console.log(ctx.request.body);
-  if (result.error) {
-    console.log(result);
-    ctx.status = 400;
-    ctx.body = result.error;
-    return;
-  }
-
-  try {
-    console.log(emailcode);
-    console.log(res_data.secret);
-    if (emailcode) {
-      if (emailcode !== res_data.secret) {
-        console.log('코드 인증 실패');
-      } else if (emailcode === res_data.secret) {
-        console.log('코드 인증 성공');
-
-        const userCode = await createRandomCode();
-        console.log(userCode);
-        const member = new Member({
-          email,
-          password,
-          birthday,
-          name,
-          hp,
-          userCode,
-        });
-
-        await member.encryptPassword(password);
-        await member.save();
-
-        ctx.body = member.serialize(); //직렬화해서 비밀번호를 제외한 JSON data 뿌려줌
-
-        const token = member.generateToken();
-        ctx.cookies.set('access_token', token, {
-          maxAge: 1000 * 60 * 60 * 24 * 7,
-          httpOnly: true,
-        });
-
-        ctx.body = { message: "success", member };
-      }
-    }
+    ctx.body = { emailAuthenticationCode: randomNumber };
   } catch (e) {
     ctx.throw(500, e);
   }
