@@ -179,7 +179,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
           <div className="To-Calendar">
             <div className="Left-List">
               <ul>
-                {schedules.map((schedule) => (
+                {schedules.map((schedule, index) => (
                   <ScheduleItem key={schedule.id}>
                     <div>
                       {new Date(schedule.start).getFullYear()}년{" "}
@@ -193,8 +193,8 @@ const RightMain = ({ schedules, dDays, albums }) => {
             </div>
             <div className="Right-List">
               <DdayListBlock>
-                {dDays.map((dDay) => (
-                  <DdayItem>
+                {dDays.map((dDay, index) => (
+                  <DdayItem key={index}>
                     <div>{dDay.title}</div>
                     <div>{calculateDday(new Date(dDay.start))}</div>
                   </DdayItem>
