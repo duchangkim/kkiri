@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useWindowMatches } from '../../customHooks/hooks';
@@ -18,6 +18,7 @@ import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContaine
 import SettingPage from './SettingPage';
 
 import io from 'socket.io-client';
+import { newMessage } from '../../modules/chat';
 
 const CustomContainer = styled.div`
   width: 100%;
@@ -52,21 +53,28 @@ const CustomContainer = styled.div`
 `;
 
 const MainService = () => {
+  const dispatch = useDispatch();
   const socketRef = useRef();
   const windowMatches = useWindowMatches();
 
   const { member } = useSelector(({ member }) => ({ member: member.member }));
 
   useEffect(() => {
+    console.log(
+      '----------------------------------어이어이 항상 나와야하는거 아니냐구'
+    );
+    console.log(member);
     if (member) {
       console.log('소켓 연결하는 유이펙');
       socketRef.current = io.connect('/');
       socketRef.current.emit('joinRoom', member.coupleShareCode);
     }
-    //2nwWsze-h2KL2KsAAAD
-    // 방 입장 이벤트 받음
-    socketRef.current.on('new message', () => {
-      console.log('메시지 왔는디요?');
+
+    socketRef.current.on('notification', (coupleId) => {
+      if (coupleId === member._id) {
+        console.log('메시지 왔는디요?');
+        dispatch(newMessage());
+      }
     });
   }, []);
 
@@ -76,7 +84,10 @@ const MainService = () => {
         <Row className="h-100 m-0 p-0">
           {/*height: 100vh*/}
           <Col xl={1} md={1} className="h-100 m-0 p-0 col-sidebar">
-            <NavigationBarContainer windowMatches={windowMatches} />
+            <NavigationBarContainer
+              windowMatches={windowMatches}
+              newMessage={newMessage}
+            />
           </Col>
           <Col className="h-100 m-0 p-0">
             {windowMatches ? (
@@ -103,7 +114,7 @@ const MainService = () => {
             />
             <Route
               path="/kkiri/chatting"
-              render={() => <ChatContainer socketRef={socketRef} />}
+              render={() => <ChatContainer />}
               exact
             />
             <Route

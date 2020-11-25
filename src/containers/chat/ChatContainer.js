@@ -4,7 +4,11 @@ import { Row, Col } from 'react-bootstrap';
 import io from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMessageList, insertMessageList } from '../../modules/chat';
+import {
+  getMessageList,
+  insertMessageList,
+  newMessageOff,
+} from '../../modules/chat';
 import LoadingPage from '../../pages/LoadingPage';
 
 const ChatContainer = ({ history }) => {
@@ -82,7 +86,7 @@ const ChatContainer = ({ history }) => {
       };
       setMessage('');
       socketRef.current.emit('send message', messageObject);
-      socketRef.current.emit('new message', messageObject);
+      socketRef.current.emit('new message', member.coupleId);
       console.log('메시지 보냄');
       console.log(messageObject);
     }
@@ -114,8 +118,12 @@ const ChatContainer = ({ history }) => {
 
   useEffect(() => {
     if (member) {
+      dispatch(newMessageOff());
+
       console.log('소켓 연결하는 유이펙');
-      socketRef.current = io.connect('/');
+      socketRef.current = io.connect('/', {
+        query: `CustomId = ${member._id}`,
+      });
       socketRef.current.emit('joinRoom', member.coupleShareCode);
       socketRef.current.on('message', (message) => {
         console.log('메시지받음');
@@ -123,9 +131,6 @@ const ChatContainer = ({ history }) => {
       });
       setVisitTime(new Date());
     }
-  }, []);
-
-  useEffect(() => {
     return () => {
       console.log('페이지에서 나가셨구먼유');
       console.log(messages);
@@ -144,7 +149,7 @@ const ChatContainer = ({ history }) => {
   useEffect(() => {
     console.log('리스너 유이펙');
     window.addEventListener('beforeunload', () => {
-      socketRef.current.emit('leaveRoom', member.coupleShareCode);
+      // socketRef.current.emit('leaveRoom', member.coupleShareCode);
       socketRef.current.disconnect();
 
       const newMessages = newMessagesTemp.current.filter(

@@ -1,41 +1,46 @@
 import dotenv from 'dotenv';
 import Koa from 'koa';
 import Router from 'koa-router';
-import bodyparser from 'koa-bodyparser';
+import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import cors from 'koa-cors';
 import koaBody from 'koa-body';
-import api from './api';
-import jwt from 'jsonwebtoken';
-import jwtMiddleware from './lib/jwtMiddleware';
 
-import socketIO from 'socket.io';
 import http from 'http';
+import socketIO from 'socket.io';
+
+import api from './api';
+import jwtMiddleware from './lib/jwtMiddleware';
+import Room from './models/room';
+
 dotenv.config();
 
 const { MONGODB_URI, MONGODB_USER, MONGODB_PASS, SERVER_PORT } = process.env;
+
 const authData = {
   user: MONGODB_USER,
   pass: MONGODB_PASS,
   useNewUrlParser: true,
   useCreateIndex: true,
 };
+
 mongoose
   .connect(MONGODB_URI, authData)
   .then(() => {
-    console.log(`Connected to MongoDB`);
+    console.log('Connected to MongoDB');
   })
   .catch((e) => {
-    console.log('????????????~');
     console.error(e);
   });
 
 const app = new Koa();
+const router = new Router();
+const socketRouter = new Router();
 
+// Socket.io app 인스턴스 생성
 app.server = http.createServer(app.callback());
 app.io = socketIO(app.server, {});
-
-console.dir(app.io);
 
 app.io
   .use((socket, next) => {
@@ -44,56 +49,73 @@ app.io
     try {
       let ctx = app.createContext(socket.request, new http.OutgoingMessage());
       socket.cookies = ctx.cookies;
-    } catch (e) {
-      error = e;
-      console.log(e);
+    } catch (err) {
+      error = err;
+      console.log(error);
     }
     return next(error);
   })
-  .on('connection', (socket) => {
-    console.log('소켓 커넥션');
+  .on('connection', function (socket) {
     const token = socket.cookies.get('access_token');
-
-    if (!token) return;
+    if (!token) return; // 토큰이 없음
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (app.io.socket.adapter.rooms.has(decoded.coupleShareCode)) {
-      console.log(`${decoded.coupleShareCode} 로 방 입장!`);
+    if (app.io.sockets.adapter.rooms.has(decoded.coupleShareCode)) {
+      console.log(`방 만드셨나요? / ${decoded.coupleShareCode}`);
       socket.join(decoded.coupleShareCode);
     } else {
-      socket.join(decoded.coupleShareCode);
+      const createRoomId = decoded.coupleShareCode;
+      socket.join(createRoomId);
     }
 
-    socket.on('send message', async (messageObj) => {
-      app.io.to(messageObj.coupleShareCode).emit('message', messageObj);
+    // 방 입장
+    socket.on('joinRoom', (coupleShareCode) => {
+      console.log(`아이디뭐여 / ${socket.id}`);
+      console.log(`방 입장 이벤트 받음 / ${coupleShareCode}`);
     });
 
-    socket.on('new message', () => {
+    // 메시지 전송
+    socket.on('send message', async (messageObj) => {
+      app.io.to(messageObj.coupleShareCode).emit('message', messageObj);
+
+      try {
+        const room = await Room.findCoupleCode(messageObj.coupleShareCode);
+        console.log(room);
+        await room.pushMessageData(messageObj);
+        room.save();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    // 알림에 쓰일것
+    socket.on('new message', (coupleId) => {
       console.log('뉴 메시지 입니다');
+      app.io.to(decoded.coupleShareCode).emit('notification', coupleId);
     });
   });
 
-// const dir1 = path.resolve( __dirname, '../../src/auploads/');
-// app.use(serve(dir1));
+// 라우터 설정
+router.use('/api', api.routes()); // api 라우트 적용
+router.use('/', socketRouter.routes());
+// 라우터 적용 전에 bodyParser 적용
 app.use(koaBody({ multipart: true }));
 app.use(cors());
-const router = new Router();
-
-router.use('/api', api.routes());
-app.use(bodyparser());
+app.use(bodyParser());
 app.use(jwtMiddleware);
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+// app 인스턴스에 라우터 적용
+app.use(router.routes()).use(router.allowedMethods());
 
-// const server = http.createServer(app.callback());
-
+// 소켓 적용, app.listen 오버라이드
 app.listen = (...args) => {
   app.server.listen.call(app.server, ...args);
   return app.server;
 };
 
-app.listen(SERVER_PORT, () => {
-  console.log(`server is running on port chat: ${SERVER_PORT}`);
+// PORT 가 지정되어있지 않다면 4000 을 사용
+const port = SERVER_PORT || 4000;
+app.listen(port, () => {
+  console.log(`server is running on port chat: ${port}`);
 });

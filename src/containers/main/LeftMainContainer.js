@@ -34,7 +34,11 @@ const LeftMainContainer = () => {
     e.preventDefault();
     // console.dir(dateInputValue);
 
-    dispatch(insertGetTogetherDate(dateInputValue));
+    if (dateInputValue || dateInputValue.length > 0) {
+      dispatch(insertGetTogetherDate(dateInputValue));
+      return;
+    }
+    alert('날짜를 선택해주세요!');
   };
 
   useEffect(() => {
