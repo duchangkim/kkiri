@@ -63,7 +63,7 @@ const AlbumItem = styled.div`
   }
 `;
 
-const RightMain = ({ schedules, dDays, albums }) => {
+const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   if (!schedules || !dDays || !albums) {
     return <LoadingPage />;
   }
@@ -243,7 +243,7 @@ const RightMain = ({ schedules, dDays, albums }) => {
                 album.filename && (
                   <div className="price" key={album.keyid}>
                     <img
-                      src={`http://localhost:3000/uploads/${album.filename}`}
+                      src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
                     />
                   </div>
                 )

@@ -80,8 +80,11 @@ const LeftMain = ({
 
   console.log("lf컨테이너");
   const file = member.mainSetting.coupleBackground;
+  console.log(file + "배경이미지");
   const coupleImg1 = member.mainSetting.coupleProfile1;
+  console.log(coupleImg1 + "프로필1");
   const coupleImg2 = member.mainSetting.coupleProfile2;
+  console.log(coupleImg2 + "프로필2");
 
   return (
     <LeftMainBlock>
@@ -103,7 +106,12 @@ const LeftMain = ({
             />
           ) : null}
           <img
-            src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
+            src={
+              member.mainSetting.coupleBackground
+                ? `http://localhost:3000/uploads/${member.coupleShareCode}/${file}`
+                : `https://cdn.pixabay.com/photo/2012/04/13/01/23/moon-31665_960_720.png`
+            }
+            // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
             alt="배경화면"
             className="background-Img"
           />
@@ -146,7 +154,12 @@ const LeftMain = ({
               <div className="L-Face">
                 <div className="Face">
                   <img
-                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
+                    // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
+                    src={
+                      member.mainSetting.coupleBackground
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
+                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                    }
                     alt="좌측 프로필 사진"
                   />
                 </div>
@@ -169,7 +182,12 @@ const LeftMain = ({
               <div className="R-Face">
                 <div className="Face">
                   <img
-                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
+                    // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
+                    src={
+                      member.mainSetting.coupleBackground
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
+                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                    }
                     alt="우측 프로필 사진"
                   />
                 </div>

@@ -119,7 +119,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                       <Link to={`albums/like/${index}`} key={ar.keyid}>
                         <li>
                           <img
-                            src={`http://localhost:3000/uploads/${ar.filename}`}
+                            src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
                             className="img_place"
                             alt={ar.keyid}
                           />                        

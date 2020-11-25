@@ -7,9 +7,10 @@ import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
-  const { scheduleList, albums } = useSelector(({ schedule, albums }) => ({
+  const { scheduleList, albums, member } = useSelector(({ schedule, albums, member }) => ({
     scheduleList: schedule.schedules,
     albums: albums.albums,
+    member: member.member,
   }));
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const LeftMainContainer = () => {
   if (!scheduleList || !albums) {
     return <LoadingPage />;
   }
+  const coupleShareCode = member.coupleShareCode;
 
   console.log(scheduleList);
 
@@ -37,7 +39,7 @@ const LeftMainContainer = () => {
   console.dir(albums);
   // console.log(albums.fileData.files);
 
-  return <RightMain schedules={schedules} dDays={dDays} albums={albums} />;
+  return <RightMain schedules={schedules} dDays={dDays} albums={albums} coupleShareCode={coupleShareCode}/>;
 };
 
 export default LeftMainContainer;
