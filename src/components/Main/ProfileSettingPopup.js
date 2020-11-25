@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import styled from "styled-components";
-import axios from "axios";
-import member from "../../modules/member";
+import React, { Component } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import styled from 'styled-components';
+import axios from 'axios';
+import member from '../../modules/member';
 
 const MODAL_STYLES = {
-  position: "relative",
+  position: 'relative',
   top: `0`,
   left: `0`,
-  fransform: "translate(-50%, -50%)",
-  backgroundColor: "#FFF",
+  fransform: 'translate(-50%, -50%)',
+  backgroundColor: '#FFF',
   zIndex: 1500,
   borderRadius: 10,
 };
 const OVERLAY_STYLES = {
-  position: "fixed",
+  position: 'fixed',
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.25)",
+  backgroundColor: 'rgba(0, 0, 0, 0.25)',
   zIndex: 1500,
 };
 
@@ -206,8 +206,8 @@ const ProfilePopups = styled.div`
 class ProfileSettingPopup extends Component {
   state = {
     imgBase64: this.props.member.mainSetting.coupleProfile1,
-    files: "",
-    value: "",
+    files: '',
+    value: '',
   };
 
   handleChange = (event) => {
@@ -231,13 +231,13 @@ class ProfileSettingPopup extends Component {
   };
 
   handlePost = () => {
-    console.log(this.state.files + "핸들포스트");
+    console.log(this.state.files + '핸들포스트');
     const formData = new FormData();
-    formData.append("files", this.state.files, this.state.files.name);
+    formData.append('files', this.state.files, this.state.files.name);
     console.log(formData);
 
     axios
-      .post("/api/profilesetting/fileupload", formData)
+      .post('/api/profilesetting/fileupload', formData)
       .then((res) => {
         console.log(res);
       })
@@ -249,9 +249,9 @@ class ProfileSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        "https://previews.123rf.com/images/tuktukdesign/tuktukdesign1608/tuktukdesign160800051/61010844-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%82%A8%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%82%AC%EC%97%85%EA%B0%80-%EC%95%84%EB%B0%94%ED%83%80-%EC%82%AC%EB%9E%8C-%EB%AC%B8%EC%96%91-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98.jpg",
-      files: "",
-      value: "",
+        'https://previews.123rf.com/images/tuktukdesign/tuktukdesign1608/tuktukdesign160800051/61010844-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%82%A8%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%82%AC%EC%97%85%EA%B0%80-%EC%95%84%EB%B0%94%ED%83%80-%EC%82%AC%EB%9E%8C-%EB%AC%B8%EC%96%91-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98.jpg',
+      files: '',
+      value: '',
     });
   };
 
@@ -277,13 +277,22 @@ class ProfileSettingPopup extends Component {
                   <img src={myWeatherIconSrc} alt="weather icon" />
                 </div>
                 <div className="Profile-Weather-Content">
-                  <div className="Profile-Weather-Local" id="ProfileWeatherLocal">
+                  <div
+                    className="Profile-Weather-Local"
+                    id="ProfileWeatherLocal"
+                  >
                     {this.props.myWeather.name}
                   </div>
-                  <div className="Profile-Weather-Description" id="ProfileWeatherDescription">
+                  <div
+                    className="Profile-Weather-Description"
+                    id="ProfileWeatherDescription"
+                  >
                     {this.props.myWeather.weather[0].description}
                   </div>
-                  <div className="Profile-Weather-Temperature" id="ProfileWeatherTemperature">
+                  <div
+                    className="Profile-Weather-Temperature"
+                    id="ProfileWeatherTemperature"
+                  >
                     {`${Math.floor(this.props.myWeather.main.temp)}ºC`}
                   </div>
                 </div>

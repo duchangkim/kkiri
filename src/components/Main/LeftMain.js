@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FcLike } from "react-icons/fc";
-import { BsPeopleCircle, BsImageFill } from "react-icons/bs";
-import { withRouter } from "react-router-dom";
-import { Button, FormControl, InputGroup } from "react-bootstrap";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { FcLike } from 'react-icons/fc';
+import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
+import { withRouter } from 'react-router-dom';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
-import ProfileSettingPopup from "./ProfileSettingPopup";
-import BackgroundSettingPopup from "./BackgroundSettingPopup";
-import calculateDday from "../../lib/calculateDday";
+import ProfileSettingPopup from './ProfileSettingPopup';
+import BackgroundSettingPopup from './BackgroundSettingPopup';
+import calculateDday from '../../lib/calculateDday';
 
 const LeftMainBlock = styled.div`
   width: 100%;
@@ -67,7 +67,8 @@ const LeftMain = ({
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
   const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
 
-  const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleBackgroundSettingOpenClick = () =>
+    setbackgroundSettingOpen(!backgroundSettingOpen);
   const handleProfileSettingPopupOpenClick = () =>
     setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
 
@@ -78,13 +79,13 @@ const LeftMain = ({
     return <h1>Loading...</h1>;
   }
 
-  console.log("lf컨테이너");
+  console.log('lf컨테이너');
   const file = member.mainSetting.coupleBackground;
-  console.log(file + "배경이미지");
+  console.log(file + '배경이미지');
   const coupleImg1 = member.mainSetting.coupleProfile1;
-  console.log(coupleImg1 + "프로필1");
+  console.log(coupleImg1 + '프로필1');
   const coupleImg2 = member.mainSetting.coupleProfile2;
-  console.log(coupleImg2 + "프로필2");
+  console.log(coupleImg2 + '프로필2');
 
   return (
     <LeftMainBlock>
@@ -93,14 +94,19 @@ const LeftMain = ({
           {/* 배경화면 설정 팝업 */}
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
-              handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
+              memberA={member}
+              handleBackgroundSettingOpenClick={
+                handleBackgroundSettingOpenClick
+              }
             />
           ) : null}
           {/* 프로필 설정 팝업 */}
           {/* <ProfileSettingPopup /> */}
           {ProfileSettingPopupOpen ? (
             <ProfileSettingPopup
-              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+              handleProfileSettingPopupOpenClick={
+                handleProfileSettingPopupOpenClick
+              }
               myWeather={myWeather}
               member={member}
             />
@@ -126,7 +132,9 @@ const LeftMain = ({
               <>
                 <div className="Love-Text">우리 함께한지</div>
                 <FcLike className="Love" alt="하트" />
-                <div className="Date">{calculateDday(new Date(member.getTogetherDate))}</div>
+                <div className="Date">
+                  {calculateDday(new Date(member.getTogetherDate))}
+                </div>
               </>
             ) : (
               <DdayInputBlock>
@@ -141,7 +149,10 @@ const LeftMain = ({
                     required
                   />
                   <InputGroup.Append>
-                    <Button onClick={onSaveButtonClick} variant="outline-secondary">
+                    <Button
+                      onClick={onSaveButtonClick}
+                      variant="outline-secondary"
+                    >
                       저장
                     </Button>
                   </InputGroup.Append>
@@ -156,7 +167,7 @@ const LeftMain = ({
                   <img
                     // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
                     src={
-                      member.mainSetting.coupleBackground
+                      member.mainSetting.coupleProfile1
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
                         : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
                     }
@@ -184,7 +195,7 @@ const LeftMain = ({
                   <img
                     // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
                     src={
-                      member.mainSetting.coupleBackground
+                      member.mainSetting.coupleProfile2
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
                         : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
                     }
@@ -235,7 +246,10 @@ const LeftMain = ({
           <div className="Link_To_SideBar">
             <ul>
               <li>
-                <BsImageFill className="Link_To_Img" onClick={handleBackgroundSettingOpenClick} />
+                <BsImageFill
+                  className="Link_To_Img"
+                  onClick={handleBackgroundSettingOpenClick}
+                />
               </li>
               <li>
                 <BsPeopleCircle

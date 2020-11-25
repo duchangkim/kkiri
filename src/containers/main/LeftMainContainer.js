@@ -38,6 +38,9 @@ const LeftMainContainer = () => {
   };
 
   useEffect(() => {
+    if (member) {
+      dispatch(getCouple(member.coupleId));
+    }
     if (!myWeather) {
       if (member.coupleId) {
         dispatch(getCouple(member.coupleId));
