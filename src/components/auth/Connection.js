@@ -55,7 +55,7 @@ const Connection = ({ member, form, onChange, onSubmit, errorMessage }) => {
         </div>
       </form>
       <Footer>
-        <Link to="/login_">
+        <Link to="/logout">
           <span className="ma_le">로그아웃</span>
         </Link>
       </Footer>

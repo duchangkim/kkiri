@@ -113,7 +113,7 @@ const ProfilePopups = styled.div`
   }
   .ProfileIMG {
     width: 120px;
-    height: 100px;
+    height: 120px;
     position: relative;
     top: 10%;
     left: 5%;
@@ -270,7 +270,7 @@ class ProfileSettingPopup extends Component {
           <ProfilePopups>
             <div className="Profile-Choice" id="Profile-Choice">
               <div className="Profile-Choice-Title">
-                <h4>프로필 설정 화면</h4>
+                <h4>프로필 수정</h4>
                 <AiOutlinePlus
                   className="Profile_Close"
                   onClick={this.props.handleProfileSettingPopupOpenClick}
