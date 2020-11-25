@@ -40,9 +40,11 @@ const LeftMainContainer = () => {
   useEffect(() => {
     if (!myWeather) {
       // console.log('ㅅㅂ마이웨더좀 불러와라');
-      // console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
-      dispatch(getCouple(member.coupleId));
-      getPosition(dispatch, getMyWeather);
+      if (member.coupleId) {
+        console.log(`이거슨 커플님 아이디 : ${member.coupleId}`);
+        dispatch(getCouple(member.coupleId));
+        getPosition(dispatch, getMyWeather);
+      }
     }
   }, [dispatch, member, myWeather]);
 

@@ -205,7 +205,7 @@ const ProfilePopups = styled.div`
 
 class ProfileSettingPopup extends Component {
   state = {
-    imgBase64: this.props.member.mainSetting.coupleBackground,
+    imgBase64: this.props.member.mainSetting.coupleProfile1,
     files: "",
     value: "",
   };
