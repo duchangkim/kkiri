@@ -6,7 +6,7 @@ import "../../css/album.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function Album({ albums, loading, error }) {
+function Album({ albums, loading, error, coupleShareCode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isBasic, setIsBasic] = useState(true);
   const [isWhat, setIsWhat] = useState(false);
@@ -96,7 +96,7 @@ function Album({ albums, loading, error }) {
                       <Link to={`albums/${num-Number(index)}`} key={album.keyid}>
                         <li>
                           <img
-                            src={`http://localhost:3000/uploads/${album.filename}`}
+                            src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
                             className="img_place"
                             alt={album.keyid}
                           />                        
