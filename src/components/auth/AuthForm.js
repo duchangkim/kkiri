@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
-import { Container, Form, Button, Alert } from 'react-bootstrap';
-import { Input } from 'reactstrap';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../lib/styles/palette";
+import { Link } from "react-router-dom";
+import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Input } from "reactstrap";
 
 const NaviMessage = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const NaviMessage = styled.div`
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -104,6 +104,18 @@ const AuthFormBlock = styled.div`
     margin-top: 0.2px;
     margin-bottom: 0.2px;
   }
+  .btn-primary {
+    color: #fff;
+    background-color: rgba(255, 131, 141, 1);
+    border-color: rgba(255, 131, 141, 1);
+  }
+  .btn-primary.focus,
+  .btn-primary:focus {
+    color: #fff;
+    background-color: rgba(255, 131, 141, 1) !important;
+    border-color: rgba(255, 131, 141, 1) !important;
+    box-shadow: 0 0 0 0.2rem rgb(255 131 141 / 38%) !important;
+  }
 `;
 const Hrsect = styled.div`
   display: flex;
@@ -114,7 +126,7 @@ const Hrsect = styled.div`
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -150,9 +162,9 @@ const Footer = styled.div`
 `;
 
 const textMap = {
-  login: '로그인',
-  register: '회원 가입',
-  registercouple: '커플코드 확인',
+  login: "로그인",
+  register: "회원 가입",
+  registercouple: "커플코드 확인",
 };
 
 const AuthForm = ({
@@ -168,121 +180,139 @@ const AuthForm = ({
   console.log(authErrorMessage);
   return (
     <>
-      <NaviMessage>
-        <span className="m-3">{textMap[type]}</span>
-      </NaviMessage>
-      <form onSubmit={onSubmit}>
-        <Container>
-          <Form.Group>
-            <Input
-              name="email"
-              value={form.email}
-              onChange={onChange}
-              required
-              placeholder="아이디 (이메일)"
-            />
-          </Form.Group>
-          {type === 'register' && (
+      <Container>
+        <NaviMessage>
+          <span className="m-3">{textMap[type]}</span>
+        </NaviMessage>
+        <form onSubmit={onSubmit}>
+          <AuthFormBlock>
+            <Form.Group className="login_form">
+              <Input
+                name="email"
+                value={form.email}
+                onChange={onChange}
+                required
+                placeholder="아이디 (이메일)"
+              />
+
+              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+            </Form.Group>
+            {type === "register" && (
+              <>
+                <Form.Group>
+                  <Button variant="primary" block onClick={onSendButtonClick}>
+                    인증번호 발송
+                  </Button>
+                </Form.Group>
+                {emailErrorMessage && (
+                  <Alert variant="danger">{emailErrorMessage}</Alert>
+                )}
+                {emailSendMessage && (
+                  <Alert variant="success">{emailSendMessage}</Alert>
+                )}
+                <Form.Group className="login_form">
+                  <Input
+                    name="emailAuthenticationCode"
+                    value={form.emailAuthenticationCode}
+                    onChange={onChange}
+                    required
+                    placeholder="이메일 인증번호"
+                  />
+
+                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                </Form.Group>
+              </>
+            )}
+            <Form.Group className="login_form">
+              <Input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={onChange}
+                required
+                placeholder="비밀번호"
+              />
+
+              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+            </Form.Group>
+            {type === "register" && (
+              <>
+                <Form.Group className="login_form">
+                  <Input
+                    type="password"
+                    name="passwordConfirm"
+                    value={form.passwordConfirm}
+                    onChange={onChange}
+                    required
+                    placeholder="비밀번호 확인"
+                  />
+
+                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                </Form.Group>
+                <Form.Group className="login_form">
+                  <Input
+                    name="name"
+                    value={form.name}
+                    onChange={onChange}
+                    required
+                    placeholder="이름"
+                  />
+
+                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                </Form.Group>
+                <Form.Group className="login_form">
+                  <Input
+                    type="date"
+                    name="birthday"
+                    value={form.birthday}
+                    onChange={onChange}
+                    required
+                    placeholder="생년월일 (yyyy-mm-dd)"
+                  />
+
+                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                </Form.Group>
+                <Form.Group className="login_form">
+                  <Input
+                    name="hp"
+                    value={form.hp}
+                    onChange={onChange}
+                    required
+                    placeholder="전화번호 (010-xxxx-xxxx)"
+                  />
+
+                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                </Form.Group>
+                {authErrorMessage && (
+                  <Alert variant="danger">{authErrorMessage}</Alert>
+                )}
+              </>
+            )}
+            {authErrorMessage && (
+              <Alert variant="danger">{authErrorMessage}</Alert>
+            )}
+            <button className="btn btn-primary btn-block">
+              {textMap[type]}
+            </button>
+          </AuthFormBlock>
+        </form>
+        <Footer>
+          {type === "login" ? (
             <>
-              <Form.Group>
-                <Button variant="primary" block onClick={onSendButtonClick}>
-                  인증번호 발송
-                </Button>
-              </Form.Group>
-              {emailErrorMessage && (
-                <Alert variant="danger">{emailErrorMessage}</Alert>
-              )}
-              {emailSendMessage && (
-                <Alert variant="success">{emailSendMessage}</Alert>
-              )}
-              <Form.Group>
-                <Input
-                  name="emailAuthenticationCode"
-                  value={form.emailAuthenticationCode}
-                  onChange={onChange}
-                  required
-                  placeholder="이메일 인증번호"
-                />
-              </Form.Group>
+              <Link to="/findid">
+                <span className="ma_ra">아이디 / 비밀번호 찾기</span>
+              </Link>
+              <Link to="/register">
+                <span className="ma_le">회원가입</span>
+              </Link>
             </>
-          )}
-          <Form.Group>
-            <Input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={onChange}
-              required
-              placeholder="비밀번호"
-            />
-          </Form.Group>
-          {type === 'register' && (
-            <>
-              <Form.Group>
-                <Input
-                  type="password"
-                  name="passwordConfirm"
-                  value={form.passwordConfirm}
-                  onChange={onChange}
-                  required
-                  placeholder="비밀번호 확인"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Input
-                  name="name"
-                  value={form.name}
-                  onChange={onChange}
-                  required
-                  placeholder="이름"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Input
-                  type="date"
-                  name="birthday"
-                  value={form.birthday}
-                  onChange={onChange}
-                  required
-                  placeholder="생년월일 (yyyy-mm-dd)"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Input
-                  name="hp"
-                  value={form.hp}
-                  onChange={onChange}
-                  required
-                  placeholder="전화번호 (010-xxxx-xxxx)"
-                />
-              </Form.Group>
-              {authErrorMessage && (
-                <Alert variant="danger">{authErrorMessage}</Alert>
-              )}
-            </>
-          )}
-          {authErrorMessage && (
-            <Alert variant="danger">{authErrorMessage}</Alert>
-          )}
-          <button className="btn btn-primary btn-block">{textMap[type]}</button>
-        </Container>
-      </form>
-      <Footer>
-        {type === 'login' ? (
-          <>
-            <Link to="/findid">
-              <span className="ma_ra">아이디 / 비밀번호 찾기</span>
+          ) : type === "registercouple" ? null : (
+            <Link to="/login">
+              <span className="ma_le">로그인</span>
             </Link>
-            <Link to="/register">
-              <span className="ma_le">회원가입</span>
-            </Link>
-          </>
-        ) : type === 'registercouple' ? null : (
-          <Link to="/login">
-            <span className="ma_le">로그인</span>
-          </Link>
-        )}
-      </Footer>
+          )}
+        </Footer>
+      </Container>
     </>
   );
 };
