@@ -204,7 +204,10 @@ const ProfilePopups = styled.div`
 
 class ProfileSettingPopup extends Component {
   state = {
-    imgBase64: `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+    imgBase64:
+      `${this.props.member.mainSetting.coupleProfile1}` == ""
+        ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
+        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: "",
     value: "",
   };
@@ -248,7 +251,9 @@ class ProfileSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        "https://previews.123rf.com/images/tuktukdesign/tuktukdesign1608/tuktukdesign160800051/61010844-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%82%A8%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%82%AC%EC%97%85%EA%B0%80-%EC%95%84%EB%B0%94%ED%83%80-%EC%82%AC%EB%9E%8C-%EB%AC%B8%EC%96%91-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98.jpg",
+        `${this.props.member.mainSetting.coupleProfile1}` == ""
+          ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
+          : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
       files: "",
       value: "",
     });

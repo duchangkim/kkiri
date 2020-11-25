@@ -44,7 +44,7 @@ const Styles = styled.div`
   }
   .unnavbar-brand {
     height: 80%;
-    width: 12%;
+    width: 75px;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
