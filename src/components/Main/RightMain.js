@@ -256,3 +256,4 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
 };
 
 export default RightMain;
+  
