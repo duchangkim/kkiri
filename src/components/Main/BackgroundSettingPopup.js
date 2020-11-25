@@ -167,8 +167,7 @@ const Popups = styled.div`
 
 class BackgroundSettingPopup extends Component {
   state = {
-    imgBase64:
-      'https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg',
+    imgBase64: `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
     files: '',
     value: '',
   };
@@ -219,6 +218,7 @@ class BackgroundSettingPopup extends Component {
   };
 
   render() {
+    console.log(this.props.member + 'ㅎㅎㅎㅎ멤버');
     return (
       <>
         <div style={OVERLAY_STYLES} />

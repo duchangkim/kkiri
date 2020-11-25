@@ -186,6 +186,7 @@ function Header() {
               handleBackgroundSettingOpenClick={
                 handleBackgroundSettingOpenClick
               }
+              member={member}
             />
           ) : null}
           {ProfileSettingPopupOpen ? (

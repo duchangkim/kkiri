@@ -53,7 +53,9 @@ export const fileupload = async (ctx) => {
     console.log("renamefile -> " + renamefile);
     const readStream = fs.createReadStream(uploadfile.path);
 
-    const writeStream = fs.createWriteStream(path.join(`./public/uploads/${coupleShareCode}`, renamefile));
+    const writeStream = fs.createWriteStream(
+      path.join(`./public/uploads/${coupleShareCode}`, renamefile)
+    );
 
     await promisePipe(
       readStream.on(" err", () => {

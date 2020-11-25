@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import styled from 'styled-components';
 import axios from 'axios';
 import member from '../../modules/member';
+=======
+import React, { Component } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import styled from "styled-components";
+import axios from "axios";
+>>>>>>> f13ee4e3e84a784fe2b749d97d63e00609b3b861
 
 const MODAL_STYLES = {
   position: 'relative',
@@ -205,9 +212,15 @@ const ProfilePopups = styled.div`
 
 class ProfileSettingPopup extends Component {
   state = {
+<<<<<<< HEAD
     imgBase64: this.props.member.mainSetting.coupleProfile1,
     files: '',
     value: '',
+=======
+    imgBase64: `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+    files: "",
+    value: "",
+>>>>>>> f13ee4e3e84a784fe2b749d97d63e00609b3b861
   };
 
   handleChange = (event) => {
