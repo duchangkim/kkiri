@@ -3,7 +3,7 @@ import Calendar from '../../models/calendar';
 
 // 스케쥴 CRUD
 export const createSchedule = async (ctx) => {
-  console.log(ctx.request.body);
+  // console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const validateSchedule = Joi.object().keys({
     calendarId: Joi.required(),
@@ -36,8 +36,8 @@ export const createSchedule = async (ctx) => {
     raw,
     state,
   } = ctx.request.body;
-  console.log('123123123123123');
-  console.log(typeof calendarId);
+  // console.log('123123123123123');
+  // console.log(typeof calendarId);
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
@@ -63,13 +63,13 @@ export const createSchedule = async (ctx) => {
 };
 
 export const getSchduleList = async (ctx) => {
-  console.log('=========================');
-  console.log(ctx.state.member.coupleShareCode);
-  console.log(ctx.state.member);
-  console.log('=========================');
+  // console.log('=========================');
+  // console.log(ctx.state.member.coupleShareCode);
+  // console.log(ctx.state.member);
+  // console.log('=========================');
 
   const { coupleShareCode } = ctx.state.member;
-  console.log(coupleShareCode);
+  // console.log(coupleShareCode);
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);

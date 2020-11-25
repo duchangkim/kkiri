@@ -1,27 +1,30 @@
-import React from "react";
-import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
-import { useWindowMatches } from "../../customHooks/hooks";
-import NavigationBarContainer from "../../containers/common/NavigationBarContainer";
-import Header from "../../components/Header";
-import { Route } from "react-router";
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useWindowMatches } from '../../customHooks/hooks';
+import NavigationBarContainer from '../../containers/common/NavigationBarContainer';
+import Header from '../../components/Header';
+import { Route } from 'react-router';
 // import Main from './Main';
-import MainPage from "../MainPage";
-import AlbumContainer from "../../containers/album/AlbumContainer";
+import MainPage from '../MainPage';
+import AlbumContainer from '../../containers/album/AlbumContainer';
 // import Chatting from './chatting';
-import UnNavigationBar from "../../components/UnNavigationBar";
-import CalendarPage from "../CalendarPage";
-import ReadAlbumContainer from "../../containers/album/ReadAlbumContainer";
-import ChatContainer from "../../containers/chat/ChatContainer";
-import LikeReadAlbumContainer from "../../containers/album/LikeReadAlbumContainer";
-import SettingPage from "./SettingPage";
+import UnNavigationBar from '../../components/UnNavigationBar';
+import CalendarPage from '../CalendarPage';
+import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
+import ChatContainer from '../../containers/chat/ChatContainer';
+import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer';
+import SettingPage from './SettingPage';
+
+import io from 'socket.io-client';
 
 const CustomContainer = styled.div`
   width: 100%;
   height: 100%;
   .col-sidebar {
     min-width: 120px;
-    ${(props) => (props.windowMatches ? "" : "display: none;")}
+    ${(props) => (props.windowMatches ? '' : 'display: none;')}
   }
   .header {
     width: 100%;
@@ -49,7 +52,24 @@ const CustomContainer = styled.div`
 `;
 
 const MainService = () => {
+  const socketRef = useRef();
   const windowMatches = useWindowMatches();
+
+  const { member } = useSelector(({ member }) => ({ member: member.member }));
+
+  useEffect(() => {
+    if (member) {
+      console.log('소켓 연결하는 유이펙');
+      socketRef.current = io.connect('/');
+      socketRef.current.emit('joinRoom', member.coupleShareCode);
+    }
+    //2nwWsze-h2KL2KsAAAD
+    // 방 입장 이벤트 받음
+    socketRef.current.on('new message', () => {
+      console.log('메시지 왔는디요?');
+    });
+  }, []);
+
   return (
     <CustomContainer windowMatches={windowMatches}>
       <Container fluid className="w-100 h-100 m-0 p-0">
@@ -72,16 +92,20 @@ const MainService = () => {
               component={AlbumContainer}
             />
             <Route
-              path={["/kkiri/albums/:idx", "/"]}
+              path={['/kkiri/albums/:idx', '/']}
               exact={true}
               component={ReadAlbumContainer}
             />
             <Route
-              path={["/kkiri/albums/like/:idx", "/"]}
+              path={['/kkiri/albums/like/:idx', '/']}
               exact={true}
               component={LikeReadAlbumContainer}
             />
-            <Route path="/kkiri/chatting" component={ChatContainer} exact />
+            <Route
+              path="/kkiri/chatting"
+              render={() => <ChatContainer socketRef={socketRef} />}
+              exact
+            />
             <Route
               path="/kkiri/setting/"
               exact={true}
@@ -89,7 +113,7 @@ const MainService = () => {
             />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
-                <Col className="m-0 p-0" style={{ backgroundColor: "red" }}>
+                <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
                   <UnNavigationBar />
                 </Col>
               </Row>

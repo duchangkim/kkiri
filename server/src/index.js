@@ -6,9 +6,10 @@ import mongoose from 'mongoose';
 import cors from 'koa-cors';
 import koaBody from 'koa-body';
 import api from './api';
+import jwt from 'jsonwebtoken';
 import jwtMiddleware from './lib/jwtMiddleware';
 
-import socket from 'socket.io';
+import socketIO from 'socket.io';
 import http from 'http';
 dotenv.config();
 
@@ -31,6 +32,48 @@ mongoose
 
 const app = new Koa();
 
+app.server = http.createServer(app.callback());
+app.io = socketIO(app.server, {});
+
+console.dir(app.io);
+
+app.io
+  .use((socket, next) => {
+    let error = null;
+
+    try {
+      let ctx = app.createContext(socket.request, new http.OutgoingMessage());
+      socket.cookies = ctx.cookies;
+    } catch (e) {
+      error = e;
+      console.log(e);
+    }
+    return next(error);
+  })
+  .on('connection', (socket) => {
+    console.log('소켓 커넥션');
+    const token = socket.cookies.get('access_token');
+
+    if (!token) return;
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (app.io.socket.adapter.rooms.has(decoded.coupleShareCode)) {
+      console.log(`${decoded.coupleShareCode} 로 방 입장!`);
+      socket.join(decoded.coupleShareCode);
+    } else {
+      socket.join(decoded.coupleShareCode);
+    }
+
+    socket.on('send message', async (messageObj) => {
+      app.io.to(messageObj.coupleShareCode).emit('message', messageObj);
+    });
+
+    socket.on('new message', () => {
+      console.log('뉴 메시지 입니다');
+    });
+  });
+
 // const dir1 = path.resolve( __dirname, '../../src/auploads/');
 // app.use(serve(dir1));
 app.use(koaBody({ multipart: true }));
@@ -44,30 +87,13 @@ app.use(jwtMiddleware);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const server = http.createServer(app.callback());
-const io = socket(server);
-io.on('connection', (socket) => {
-  socket.emit('your id', socket.id);
-  // console.log(socket);
-  console.log(socket.id);
-  // 방 나갈때
-  socket.on('leaveRoom', (roomId) => {
-    socket.leave(roomId, () => {
-      console.log('방 나감');
-    });
-  });
-  // 방 들어올때
-  socket.on('joinRoom', (roomId) => {
-    socket.join(roomId, () => {
-      console.log(`${roomId}에 입장`);
-    });
-  });
-  // 방에 있는 사용자들에게만 메시지보냄
-  socket.on('send message', async (messageObj) => {
-    io.to(messageObj.coupleShareCode).emit('message', messageObj);
-  });
-});
+// const server = http.createServer(app.callback());
 
-server.listen(SERVER_PORT, () => {
+app.listen = (...args) => {
+  app.server.listen.call(app.server, ...args);
+  return app.server;
+};
+
+app.listen(SERVER_PORT, () => {
   console.log(`server is running on port chat: ${SERVER_PORT}`);
 });

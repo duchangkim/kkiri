@@ -66,7 +66,7 @@ const ChatContainer = ({ history }) => {
     try {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -82,6 +82,7 @@ const ChatContainer = ({ history }) => {
       };
       setMessage('');
       socketRef.current.emit('send message', messageObject);
+      socketRef.current.emit('new message', messageObject);
       console.log('메시지 보냄');
       console.log(messageObject);
     }
