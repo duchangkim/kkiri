@@ -1,6 +1,6 @@
-import React from 'react';
-import AuthTemplate from '../components/Auth/AuthTemplate';
-import FindResultForm from '../containers/Auth/FindResultForm';
+import React from "react";
+import AuthTemplate from "../components/Auth/AuthTemplate";
+import FindResultForm from "../containers/Auth/FindResultForm";
 
 const FindResultPage = () => {
   return (
