@@ -84,17 +84,17 @@ const WelcomeCss = styled.div`
 const Backco = styled.div`
   .container {
     margin-top: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
   }
   .titleimg {
-    float: left;
-    width: 300px;
-    height: 500px;
   }
   .titleBox {
-    padding-top: 200px;
-    padding-left: 18px;
     overflow: hidden;
     width: 450px;
+    padding-top: 200px;
+    padding-left: 18px;
+    display: table-cell;
   }
   h2 {
     font-size: 24px;

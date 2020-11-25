@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const AuthTemplateBlock = styled.div`
   position: absolute;
@@ -30,14 +30,14 @@ const WhiteBox = styled.div`
     margin-top: 50px;
     font-family: MaplestoryOTFBold;
     font-size: 2.5rem;
-    color: #f58cb4;
+    color: rgba(255, 131, 141, 1);
     text-decoration: none;
   }
 
   @font-face {
-    font-family: 'MaplestoryOTFBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-      format('woff');
+    font-family: "MaplestoryOTFBold";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
+      format("woff");
     font-weight: normal;
     font-style: normal;
   }
