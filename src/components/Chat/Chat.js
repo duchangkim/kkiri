@@ -74,6 +74,12 @@ const ChattingBox = styled.div`
   .emoji-search {
     display: none;
   }
+  .Profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 
   @media ${(props) => props.theme.middle} {
     .chatting-send form input {
@@ -224,6 +230,7 @@ const Chat = ({
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
+  console.log("채팅 이미지 호출 " + member.mainSetting.coupleProfile1);
 
   return (
     <ChattingBox>
@@ -253,7 +260,18 @@ const Chat = ({
             return message.sender === member._id ? (
               <MessageLine key={index} myMessage>
                 <MessageBlock myMessage>
-                  <Profile></Profile>
+                  <Profile>
+                    <img
+                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`}
+                      // className="Profile-img"
+                      src={
+                        member.mainSetting.coupleProfile1
+                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
+                          : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
+                      }
+                      className="Profile-img"
+                    />
+                  </Profile>
                   <Name myMessage>{message.name}</Name>
                   <Message myMessage>
                     {message.text}
@@ -264,7 +282,18 @@ const Chat = ({
             ) : (
               <MessageLine key={index}>
                 <MessageBlock>
-                  <Profile></Profile>
+                  <Profile>
+                    <img
+                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`}
+                      // className="Profile-img"
+                      src={
+                        member.mainSetting.coupleProfile2
+                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
+                          : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
+                      }
+                      className="Profile-img"
+                    />
+                  </Profile>
                   <Name>{message.name}</Name>
                   <Message>
                     {message.text}

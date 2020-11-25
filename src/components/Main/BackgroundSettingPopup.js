@@ -167,7 +167,10 @@ const Popups = styled.div`
 
 class BackgroundSettingPopup extends Component {
   state = {
-    imgBase64: `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
+    imgBase64:
+      `${this.props.member.mainSetting.coupleBackground}` == ''
+        ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
+        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
     files: '',
     value: '',
   };
@@ -211,7 +214,9 @@ class BackgroundSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        'https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg',
+        `${this.props.member.mainSetting.coupleBackground}` == ''
+          ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
+          : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
       files: '',
       value: '',
     });
@@ -219,6 +224,8 @@ class BackgroundSettingPopup extends Component {
 
   render() {
     console.log(this.props.member + 'ㅎㅎㅎㅎ멤버');
+    console.log('1231 -==> ' + this.props.member.mainSetting);
+    console.dir(this.props.member.mainSetting);
     return (
       <>
         <div style={OVERLAY_STYLES} />

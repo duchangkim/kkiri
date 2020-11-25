@@ -115,7 +115,7 @@ const LeftMain = ({
             src={
               member.mainSetting.coupleBackground
                 ? `http://localhost:3000/uploads/${member.coupleShareCode}/${file}`
-                : `https://cdn.pixabay.com/photo/2012/04/13/01/23/moon-31665_960_720.png`
+                : `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
             }
             alt="배경화면"
             className="background-Img"
@@ -161,7 +161,7 @@ const LeftMain = ({
                     src={
                       member.mainSetting.coupleProfile1
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
-                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                        : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                     }
                     alt="좌측 프로필 사진"
                   />
@@ -188,7 +188,7 @@ const LeftMain = ({
                     src={
                       member.mainSetting.coupleProfile2
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
-                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                        : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                     }
                     alt="우측 프로필 사진"
                   />
@@ -234,22 +234,24 @@ const LeftMain = ({
               </div>
             </div>
           </div>
-          <div className="Link_To_SideBar">
-            <ul>
-              <li>
-                <BsImageFill
-                  className="Link_To_Img"
-                  onClick={handleBackgroundSettingOpenClick}
-                />
-              </li>
-              <li>
-                <BsPeopleCircle
-                  className="Link_To_Img"
-                  onClick={handleProfileSettingPopupOpenClick}
-                />
-              </li>
-            </ul>
-          </div>
+          {member.getTogetherDate !== null ? (
+            <div className="Link_To_SideBar">
+              <ul>
+                <li>
+                  <BsImageFill
+                    className="Link_To_Img"
+                    onClick={handleBackgroundSettingOpenClick}
+                  />
+                </li>
+                <li>
+                  <BsPeopleCircle
+                    className="Link_To_Img"
+                    onClick={handleProfileSettingPopupOpenClick}
+                  />
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </LeftMainBlock>
