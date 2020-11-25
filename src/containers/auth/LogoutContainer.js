@@ -6,24 +6,19 @@ import { logout } from '../../modules/member';
 
 const LogoutContainer = ({ history }) => {
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth, member }) => {
-    console.log(member);
-    return {
-      form: auth.registercouple,
-      auth: auth.auth,
-      coupleCodeError: auth.registercouple.error,
-      otherMember: auth.registercouple.otherMember,
-      isSuccess: auth.registercouple.isSuccess,
-      member: auth.auth,
-    };
-  });
+  // const { form } = useSelector(({ auth, member }) => {
+  //   console.log(member);
+  //   return {
+  //     form: auth.registercouple,
+  //   };
+  // });
 
   const onLogout = () => {
     dispatch(logout());
     history.push('/');
   };
 
-  return <LogoutForm form={form} onLogout={onLogout} />;
+  return <LogoutForm onLogout={onLogout} />;
 };
 
 export default withRouter(LogoutContainer);
