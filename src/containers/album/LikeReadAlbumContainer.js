@@ -10,9 +10,10 @@ const LikeReadAlbumContainer = ({ match }) => {
   console.log(match);
   // console.log(albumIdx);
   const dispatch = useDispatch();
-  const { album, error, loading } = useSelector(({ album, loading }) => {
+  const { album, error, loading, member } = useSelector(({ album, loading, member }) => {
     return({
       album: album.album,
+      member: member.member,
       error: album.error,
       loading: loading['album/READ_ALBUM']
     })
@@ -28,6 +29,9 @@ const LikeReadAlbumContainer = ({ match }) => {
     }
   }, [dispatch, albumIdx]);
 
+  const coupleShareCode = member.coupleShareCode;
+  console.log(coupleShareCode);
+
   
   return (
     <LikeReadAlbum    
@@ -35,6 +39,7 @@ const LikeReadAlbumContainer = ({ match }) => {
       loading={loading}
       error={error}
       albumIdx={albumIdx}
+      coupleShareCode={coupleShareCode}
     />
   );
 };
