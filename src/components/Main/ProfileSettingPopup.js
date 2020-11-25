@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import styled from "styled-components";
 import axios from "axios";
-import member from "../../modules/member";
 
 const MODAL_STYLES = {
   position: "relative",
@@ -205,7 +204,7 @@ const ProfilePopups = styled.div`
 
 class ProfileSettingPopup extends Component {
   state = {
-    imgBase64: this.props.member.mainSetting.coupleBackground,
+    imgBase64: `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: "",
     value: "",
   };

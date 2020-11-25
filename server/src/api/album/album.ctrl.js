@@ -49,10 +49,13 @@ export const fileupload = async (ctx) => {
     const savefile = `${uploadfile.name}`;
     console.log("2323 -> " + savefile.split(".").pop().toLowerCase());
     const renamefile = rd + "." + savefile.split(".").pop().toLowerCase();
+    const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
     console.log("renamefile -> " + renamefile);
     const readStream = fs.createReadStream(uploadfile.path);
 
-    const writeStream = fs.createWriteStream(path.join("./public/uploads/", renamefile));
+    const writeStream = fs.createWriteStream(
+      path.join(`./public/uploads/${coupleShareCode}`, renamefile)
+    );
 
     await promisePipe(
       readStream.on(" err", () => {
@@ -75,7 +78,6 @@ export const fileupload = async (ctx) => {
     const keyid = Math.floor(Number(today) / 1000);
     const publishedDate = today.toLocaleString();
     const filename = rd + "." + savefile.split(".").pop().toLowerCase();
-    const coupleShareCode = ctx.state.member.coupleShareCode; //로그인 정보에서 가져옴
 
     console.log("mememmmmmmmmmmm" + ctx.state.member.coupleShareCode);
     const check = await Album.findOne({ coupleShareCode: `${coupleShareCode}` });

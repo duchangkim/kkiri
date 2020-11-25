@@ -6,10 +6,11 @@ import Album from '../../components/Album/Album';
 
 const AlbumContainer = () => {
   const dispatch = useDispatch();
-  const { albums, album, error, loading } = useSelector(({ albums, album, loading }) => {
+  const { albums, album, error, loading, member } = useSelector(({ albums, album, loading, member }) => {
     return({
     albums: albums.albums,
     album: albums.album,
+    member: member.member,
     error: albums.error,
     loading: loading['albums/ALBUM_LISTS']
   })})
@@ -21,12 +22,15 @@ const AlbumContainer = () => {
     dispatch(listAlbums());
   }, [dispatch])
 
+  const coupleShareCode = member.coupleShareCode;
+
   return (
     <Album 
       albums={albums}
       album={album} 
       error={error}
       loading={loading}
+      coupleShareCode={coupleShareCode}
     />
   );
 };

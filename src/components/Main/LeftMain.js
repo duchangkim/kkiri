@@ -80,8 +80,11 @@ const LeftMain = ({
 
   console.log("lf컨테이너");
   const file = member.mainSetting.coupleBackground;
+  console.log(file + "배경이미지");
   const coupleImg1 = member.mainSetting.coupleProfile1;
+  console.log(coupleImg1 + "프로필1");
   const coupleImg2 = member.mainSetting.coupleProfile2;
+  console.log(coupleImg2 + "프로필2");
 
   return (
     <LeftMainBlock>
@@ -91,6 +94,7 @@ const LeftMain = ({
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
               handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
+              member={member}
             />
           ) : null}
           {/* 프로필 설정 팝업 */}
@@ -103,17 +107,15 @@ const LeftMain = ({
             />
           ) : null}
           <img
-            src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
+            src={
+              member.mainSetting.coupleBackground
+                ? `http://localhost:3000/uploads/${member.coupleShareCode}/${file}`
+                : `https://cdn.pixabay.com/photo/2012/04/13/01/23/moon-31665_960_720.png`
+            }
             alt="배경화면"
             className="background-Img"
           />
           <div className="Date-Love">
-            {/* <img
-              src={require("../../images/hamburger.png")}
-              alt="배경화면 설정"
-              id="Background-Option"
-              onClick={handleBackgroundSettingOpenClick}
-            /> */}
             {member.getTogetherDate !== null ? (
               <>
                 <div className="Love-Text">우리 함께한지</div>
@@ -146,7 +148,11 @@ const LeftMain = ({
               <div className="L-Face">
                 <div className="Face">
                   <img
-                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
+                    src={
+                      member.mainSetting.coupleProfile1
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
+                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                    }
                     alt="좌측 프로필 사진"
                   />
                 </div>
@@ -169,7 +175,11 @@ const LeftMain = ({
               <div className="R-Face">
                 <div className="Face">
                   <img
-                    src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
+                    src={
+                      member.mainSetting.coupleProfile2
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
+                        : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
+                    }
                     alt="우측 프로필 사진"
                   />
                 </div>

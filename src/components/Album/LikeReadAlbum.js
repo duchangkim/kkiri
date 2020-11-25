@@ -100,7 +100,7 @@ const HomeButton = styled.button`
     }
 `
 
-function LikeReadAlbum({ album, error, loading, albumIdx }) {  
+function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {  
     let abc = Number(albumIdx);
     console.log('################# -> ' + abc);
     if(error) {
@@ -181,7 +181,7 @@ function LikeReadAlbum({ album, error, loading, albumIdx }) {
             </ArrowForwardBox>
             <ItemBox>
                 <BoxBody>
-                <img src={`http://localhost:3000/uploads/${arr1[albumIdx].filename}`} alt={arr1[albumIdx].filename}/>
+                <img src={`http://localhost:3000/uploads/${coupleShareCode}/${arr1[albumIdx].filename}`} alt={arr1[albumIdx].filename}/>
                 </BoxBody>
             </ItemBox>
             <ArrowBackBox>

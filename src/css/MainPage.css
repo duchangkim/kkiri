@@ -26,18 +26,6 @@
   cursor: pointer;
 }
 
-/* --------------------------------- */
-/* #Background-Option {
-  position: relative;
-  top: -10px;
-  left: 45%;
-  width: 80px;
-  height: 80px;
-}
-#Background-Option:hover {
-  cursor: pointer;
-} */
-
 /* 커플 사진 이미지 사이즈 */
 .Krikri-Love .background-Img {
   width: 100%;
@@ -53,6 +41,8 @@
 }
 /* 우리함께한지 부분 */
 .Love-Text {
+  position: relative;
+  left: 2%;
   margin-top: 10%;
   font-size: 1.5rem;
   margin-bottom: 10px;
@@ -61,6 +51,7 @@
 /* 커플 사진 하트 부분 */
 .Date-Love .Love {
   position: relative;
+  left: 2%;
   top: -65%;
   width: 50px;
   height: 50px;
@@ -68,6 +59,8 @@
 }
 /* 몇일 사귄 날짜 */
 .Date {
+  position: relative;
+  left: 2%;
   margin: 10px;
   font-size: 2rem;
   font-weight: bold;
@@ -300,7 +293,7 @@
     position: relative;
     top: 0%;
     width: 200px;
-    left: 11%;
+    left: 13%;
     margin: 0 auto;
     font-weight: bold;
   }
@@ -308,7 +301,7 @@
     position: relative;
     top: 35%;
     width: 200px;
-    left: -8%;
+    left: -5.5%;
     font-weight: bold;
   }
   .Love2 {
@@ -326,7 +319,7 @@
   }
   .LeftName {
     position: relative;
-    left: 400%;
+    left: 110%;
     top: -23%;
     width: 100%;
     height: 30px;
@@ -334,7 +327,7 @@
   }
   .RightName {
     position: relative;
-    right: 400%;
+    right: 110%;
     top: -23%;
     width: 100%;
     height: 30px;
