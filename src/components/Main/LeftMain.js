@@ -94,6 +94,7 @@ const LeftMain = ({
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
               handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
+              member={member}
             />
           ) : null}
           {/* 프로필 설정 팝업 */}
@@ -111,17 +112,10 @@ const LeftMain = ({
                 ? `http://localhost:3000/uploads/${member.coupleShareCode}/${file}`
                 : `https://cdn.pixabay.com/photo/2012/04/13/01/23/moon-31665_960_720.png`
             }
-            // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${file}`}
             alt="배경화면"
             className="background-Img"
           />
           <div className="Date-Love">
-            {/* <img
-              src={require("../../images/hamburger.png")}
-              alt="배경화면 설정"
-              id="Background-Option"
-              onClick={handleBackgroundSettingOpenClick}
-            /> */}
             {member.getTogetherDate !== null ? (
               <>
                 <div className="Love-Text">우리 함께한지</div>
@@ -154,9 +148,8 @@ const LeftMain = ({
               <div className="L-Face">
                 <div className="Face">
                   <img
-                    // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`}
                     src={
-                      member.mainSetting.coupleBackground
+                      member.mainSetting.coupleProfile1
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
                         : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
                     }
@@ -182,9 +175,8 @@ const LeftMain = ({
               <div className="R-Face">
                 <div className="Face">
                   <img
-                    // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`}
                     src={
-                      member.mainSetting.coupleBackground
+                      member.mainSetting.coupleProfile2
                         ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
                         : `https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png`
                     }

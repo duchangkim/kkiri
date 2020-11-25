@@ -51,14 +51,16 @@ export const fileupload = async (ctx) => {
   }
 
   try {
+    const rd = Math.floor(Math.random() * 99999999);
     const uploadfile = ctx.request.files.files; // 리액트에서 보낸 파일이름
     const savefile = `${uploadfile.name}`; // 저장하는이름
+    const renamefile = rd + "." + savefile.split(".").pop().toLowerCase();
     console.log(savefile + " : 파일이름 나오나요?");
     console.log(`./public/uploads/${mem.coupleShareCode}/` + " : 쉐어코드");
 
     const readStream = fs.createReadStream(uploadfile.path);
     const writeStream = fs.createWriteStream(
-      path.join(`./public/uploads/${mem.coupleShareCode}/`, savefile)
+      path.join(`./public/uploads/${mem.coupleShareCode}/`, renamefile)
     );
 
     await promisePipe(
@@ -89,11 +91,11 @@ export const fileupload = async (ctx) => {
     console.log(check.mainSetting + " : check.mainsetting입니다.");
     console.log(check + "Member호출");
 
-    await check.setProfileImg(filename);
+    await check.setProfileImg(renamefile);
     await check.save();
 
     const otherCheck = await Member.findById(mem.coupleId);
-    await otherCheck.setCoupleProfileImg(filename);
+    await otherCheck.setCoupleProfileImg(renamefile);
     await otherCheck.save();
   } catch (e) {
     ctx.throw(500, e);
