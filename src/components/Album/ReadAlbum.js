@@ -83,7 +83,7 @@ const HomeButton = styled.button`
   }
 `;
 
-function ReadAlbum({ album, error, loading, albumIdx }) {
+function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
   // const dispatch = useDispatch();
   // console.log('555555555');
   // console.log(albumIdx)
@@ -141,6 +141,8 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
       });
   };
 
+  console.log("coupleShareCode -> " + coupleShareCode)
+
   return (
     <>
       <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes} />
@@ -154,7 +156,7 @@ function ReadAlbum({ album, error, loading, albumIdx }) {
         </ArrowForwardBox>
         <ItemBox>
           <BoxBody>
-            <img src={`http://localhost:3000/uploads/${filename}`} alt={filename} />
+            <img src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} />
           </BoxBody>
         </ItemBox>
         <ArrowBackBox>

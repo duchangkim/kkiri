@@ -10,15 +10,18 @@ const ReadAlbumContainer = ({ match }) => {
   console.log(match);
   console.log(albumIdx);
   const dispatch = useDispatch();
-  const { album, error, loading } = useSelector(({ album, loading }) => {
+  const { album, error, loading, member } = useSelector(({ album, loading, member }) => {
     return({
       album: album.album,
+      member: member.member,
       error: album.error,
       loading: loading['album/READ_ALBUM']
     })
   });
   // console.log('44444444');
   // console.dir(album);
+  const coupleShareCode = member.coupleShareCode;
+  console.log(coupleShareCode);
 
   useEffect(() => {
     console.log('readalbum girit~~')
@@ -34,6 +37,7 @@ const ReadAlbumContainer = ({ match }) => {
       loading={loading}
       error={error}
       albumIdx={albumIdx}
+      coupleShareCode={coupleShareCode}
     />
   );
 };
