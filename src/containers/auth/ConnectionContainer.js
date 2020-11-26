@@ -42,7 +42,15 @@ const ConnectionContainer = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(findOtherMember(form.otherUserCode));
+    // console.log(member.userCode)
+    // console.log(Number(form.otherUserCode))
+
+    if(member.userCode === Number(form.otherUserCode)) {
+      console.log('혼자서는 연애할 수 없다')
+      setErrorMessage('본인 고유번호는 입력하실 수 없습니다')
+    } else {
+      dispatch(findOtherMember(form.otherUserCode));
+    }
   };
 
   useEffect(() => {

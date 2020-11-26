@@ -263,8 +263,6 @@ const Chat = ({
                 <MessageBlock myMessage>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile1
                           ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
@@ -287,8 +285,6 @@ const Chat = ({
                 <MessageBlock>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile2
                           ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
