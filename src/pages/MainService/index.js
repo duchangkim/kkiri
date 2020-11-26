@@ -19,6 +19,7 @@ import SettingPage from './SettingPage';
 
 import io from 'socket.io-client';
 import { newMessage } from '../../modules/chat';
+import { connectionSocket } from '../../modules/socket';
 
 const CustomContainer = styled.div`
   width: 100%;
@@ -57,26 +58,29 @@ const MainService = () => {
   const socketRef = useRef();
   const windowMatches = useWindowMatches();
 
+  const state = useSelector((state) => ({ state }));
+  console.log(state);
   const { member } = useSelector(({ member }) => ({ member: member.member }));
+  const { socket } = useSelector(({ socket }) => ({ socket: socket.socket }));
 
   useEffect(() => {
-    console.log(
-      '----------------------------------어이어이 항상 나와야하는거 아니냐구'
-    );
-    console.log(member);
     if (member) {
+      if(!socket) {
+        console.log('소켓 없어서 연결하게씀둥');
+        dispatch(connectionSocket());
+        return
+      }
       console.log('소켓 연결하는 유이펙');
-      socketRef.current = io.connect('/');
-      socketRef.current.emit('joinRoom', member.coupleShareCode);
+      socket.emit('joinRoom', member.coupleShareCode);
     }
 
-    socketRef.current.on('notification', (coupleId) => {
+    socket.on('notification', (coupleId) => {
       if (coupleId === member._id) {
         console.log('메시지 왔는디요?');
         dispatch(newMessage());
       }
     });
-  }, []);
+  }, [member, dispatch]);
 
   return (
     <CustomContainer windowMatches={windowMatches}>
@@ -84,10 +88,7 @@ const MainService = () => {
         <Row className="h-100 m-0 p-0">
           {/*height: 100vh*/}
           <Col xl={1} md={1} className="h-100 m-0 p-0 col-sidebar">
-            <NavigationBarContainer
-              windowMatches={windowMatches}
-              newMessage={newMessage}
-            />
+            <NavigationBarContainer windowMatches={windowMatches} />
           </Col>
           <Col className="h-100 m-0 p-0">
             {windowMatches ? (
@@ -114,7 +115,7 @@ const MainService = () => {
             />
             <Route
               path="/kkiri/chatting"
-              render={() => <ChatContainer />}
+              render={() => <ChatContainer socket={socketRef.current}/>}
               exact
             />
             <Route
@@ -136,4 +137,4 @@ const MainService = () => {
   );
 };
 
-export default MainService;
+export default React.memo(MainService);
