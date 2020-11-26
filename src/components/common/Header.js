@@ -166,7 +166,7 @@ const Header = ({ member, onLogout, children }) => {
                     <UserInfo>{member.email}</UserInfo>
                     <MainButton onClick={onLogout}>로그아웃</MainButton>
                     {member.coupleShareCode ? null : (
-                      <Button to="/registercouple">코드입력</Button>
+                      <Button to="/connection">코드입력</Button>
                     )}
                   </div>
                 ) : (

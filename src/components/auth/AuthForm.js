@@ -77,33 +77,6 @@ const AuthFormBlock = styled.div`
     color: transparent;
   }
 
-  // 커플코드 입력
-  h1 {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  p {
-    text-align: center;
-    font-size: 16px;
-  }
-  .as {
-    color: ${palette.gray[6]};
-  }
-
-  .logoutbtn {
-    float: right;
-    text-decoration: underline;
-    color: ${palette.gray[6]};
-    margin-top: 2rem;
-    &:hover {
-      color: ${palette.gray[9]};
-    }
-  }
-  .sendEmail {
-    margin-top: 0.2px;
-    margin-bottom: 0.2px;
-  }
   .btn-primary {
     color: #fff;
     background-color: rgba(255, 131, 141, 1);
@@ -117,23 +90,7 @@ const AuthFormBlock = styled.div`
     box-shadow: 0 0 0 0.2rem rgb(255 131 141 / 38%) !important;
   }
 `;
-const Hrsect = styled.div`
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  font-size: 15px;
-  margin: 8px 0px;
 
-  &:before,
-  &:after {
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-  }
-`;
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
@@ -195,7 +152,7 @@ const AuthForm = ({
                 placeholder="아이디 (이메일)"
               />
 
-              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+              <span className="content_name pl-1 pr-1">아이디 (이메일)</span>
             </Form.Group>
             {type === "register" && (
               <>
@@ -219,7 +176,9 @@ const AuthForm = ({
                     placeholder="이메일 인증번호"
                   />
 
-                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                  <span className="content_name pl-1 pr-1">
+                    이메일 인증번호
+                  </span>
                 </Form.Group>
               </>
             )}
@@ -233,7 +192,7 @@ const AuthForm = ({
                 placeholder="비밀번호"
               />
 
-              <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+              <span className="content_name pl-1 pr-1">비밀번호</span>
             </Form.Group>
             {type === "register" && (
               <>
@@ -247,7 +206,7 @@ const AuthForm = ({
                     placeholder="비밀번호 확인"
                   />
 
-                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                  <span className="content_name pl-1 pr-1">비밀번호 확인</span>
                 </Form.Group>
                 <Form.Group className="login_form">
                   <Input
@@ -257,8 +216,7 @@ const AuthForm = ({
                     required
                     placeholder="이름"
                   />
-
-                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                  <span className="content_name pl-1 pr-1">이름</span>
                 </Form.Group>
                 <Form.Group className="login_form">
                   <Input
@@ -269,8 +227,9 @@ const AuthForm = ({
                     required
                     placeholder="생년월일 (yyyy-mm-dd)"
                   />
-
-                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                  <span className="content_name pl-1 pr-1">
+                    생년월일 (yyyy-mm-dd)
+                  </span>
                 </Form.Group>
                 <Form.Group className="login_form">
                   <Input
@@ -281,11 +240,10 @@ const AuthForm = ({
                     placeholder="전화번호 (010-xxxx-xxxx)"
                   />
 
-                  <span className="content_name pl-1 pr-1">아이디(이메일)</span>
+                  <span className="content_name pl-1 pr-1">
+                    전화번호 (010-xxxx-xxxx)
+                  </span>
                 </Form.Group>
-                {authErrorMessage && (
-                  <Alert variant="danger">{authErrorMessage}</Alert>
-                )}
               </>
             )}
             {authErrorMessage && (
