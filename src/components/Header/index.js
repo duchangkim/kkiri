@@ -151,6 +151,24 @@ const HeaderRight = styled.div`
   }
 `;
 
+// 검색
+//   const Searching = Search.prototype;
+//   function Search() {
+//     this.keyword = document.querySelector('input[name = "search"]');
+//     this.button = document.querySelector(".img-button");
+//     this.form = document.querySelector(".Search");
+//     this.Engine();
+//   }
+//   Searching.Engine = function () {
+//     this.form.addEventListener("submit", (e) => {
+//       e.preventDefault();
+//       let keyword = this.keyword.value;
+//       window.open("https:///www.google.co.kr/search?q=" + keyword);
+//     });
+//   };
+//   new Search();
+// };
+
 function Header() {
   const date = new Date();
   const year = date.getFullYear();
@@ -160,6 +178,7 @@ function Header() {
 
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
   const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
   const handleProfileSettingPopupOpenClick = () =>
@@ -174,6 +193,39 @@ function Header() {
   useEffect(() => {
     getPosition(dispatch, getMyWeather);
   }, [dispatch]);
+
+  // const Searching = Search.prototype;
+  // function Search() {
+  //   this.keyword = document.querySelector('input[name = "search"]');
+  //   this.button = document.querySelector(".img-button");
+  //   this.form = document.querySelector(".Search");
+  //   this.value = document.querySelector('input[type="text"]');
+  //   this.Engine();
+  // }
+
+  // Searching.Engine = function () {
+  //   console.log("Searching.Engine으로 들어오니?");
+  //   window.addEventListener("submit", (e) => {
+  //     e.preventDefault();
+
+  //     let keyword = searchValue;
+  //     console.dir(keyword + "에에에에에");
+  //     window.open("https:///www.google.co.kr/search?q=" + keyword);
+  //     console.log("새로운 창 생겨라");
+  //   });
+  // };
+  // new Search();
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearchValue(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    window.open("https:///www.google.co.kr/search?q=" + searchValue);
+  };
 
   return (
     <>
@@ -194,11 +246,12 @@ function Header() {
             />
           ) : null}
           <div className="Krikri-Select" id="Krikri-Select">
-            <form className="Search" id="Search">
+            <form className="Search" id="Search" onSubmit={handleSubmit}>
               <button className="Img-Button" id="Img-Button" type="submit" name="click" value="">
                 <BsSearch />
               </button>
               <input
+                onChange={handleChange}
                 className="Search-Keyword"
                 type="text"
                 name="search"
