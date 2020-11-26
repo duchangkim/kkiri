@@ -137,7 +137,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                             src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
                             className="img_place"
                             alt={album.keyid}
-                            controls
+                            autoPlay
                           />                        
                         </li>
                       </Link> 
