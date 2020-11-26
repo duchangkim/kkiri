@@ -46,9 +46,10 @@ const LeftMainContainer = () => {
       dispatch(getCouple(member.coupleId));
     }
     if (!myWeather) {
+      console.log('없으면 불러오세여')
+      getPosition(dispatch, getMyWeather);
       if (member.coupleId) {
         dispatch(getCouple(member.coupleId));
-        getPosition(dispatch, getMyWeather);
       }
     }
   }, [dispatch, member, myWeather]);

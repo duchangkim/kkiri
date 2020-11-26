@@ -31,4 +31,4 @@ const NavigationBarContainer = ({ windowMatches, history }) => {
   );
 };
 
-export default withRouter(NavigationBarContainer);
+export default withRouter(React.memo(NavigationBarContainer));

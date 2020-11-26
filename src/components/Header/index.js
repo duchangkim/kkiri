@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Col from 'react-bootstrap/Col';
-import styled from 'styled-components';
-import BackgroundSettingPopup from '../Main/BackgroundSettingPopup';
-import ProfileSettingPopup from '../Main/ProfileSettingPopup';
-import { BsSearch, BsPeopleCircle, BsImage } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
-import getPosition from '../../lib/getPosition';
-import { getMyWeather } from '../../modules/weather';
-import { getCouple } from '../../modules/couple';
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Col from "react-bootstrap/Col";
+import styled from "styled-components";
+import BackgroundSettingPopup from "../Main/BackgroundSettingPopup";
+import ProfileSettingPopup from "../Main/ProfileSettingPopup";
+import { BsSearch, BsPeopleCircle, BsImage } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import getPosition from "../../lib/getPosition";
+import { getMyWeather } from "../../modules/weather";
+import { getCouple } from "../../modules/couple";
 
 const HeaderLeft = styled.div`
   width: 100%;
@@ -151,18 +151,36 @@ const HeaderRight = styled.div`
   }
 `;
 
+// 검색
+//   const Searching = Search.prototype;
+//   function Search() {
+//     this.keyword = document.querySelector('input[name = "search"]');
+//     this.button = document.querySelector(".img-button");
+//     this.form = document.querySelector(".Search");
+//     this.Engine();
+//   }
+//   Searching.Engine = function () {
+//     this.form.addEventListener("submit", (e) => {
+//       e.preventDefault();
+//       let keyword = this.keyword.value;
+//       window.open("https:///www.google.co.kr/search?q=" + keyword);
+//     });
+//   };
+//   new Search();
+// };
+
 function Header() {
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const today = year + '년 ' + month + '월 ' + day + '일';
+  const today = year + "년 " + month + "월 " + day + "일";
 
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
   const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
-  const handleBackgroundSettingOpenClick = () =>
-    setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
   const handleProfileSettingPopupOpenClick = () =>
     setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
 
@@ -176,6 +194,17 @@ function Header() {
     getPosition(dispatch, getMyWeather);
   }, [dispatch]);
 
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearchValue(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    window.open("https:///www.google.co.kr/search?q=" + searchValue);
+  };
+
   return (
     <>
       <Col md={5} className="m-0 p-0">
@@ -183,33 +212,24 @@ function Header() {
           {/* 배경화면 설정 팝업 */}
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
-              handleBackgroundSettingOpenClick={
-                handleBackgroundSettingOpenClick
-              }
+              handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
               member={member}
             />
           ) : null}
           {ProfileSettingPopupOpen ? (
             <ProfileSettingPopup
-              handleProfileSettingPopupOpenClick={
-                handleProfileSettingPopupOpenClick
-              }
+              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
               myWeather={myWeather}
               member={member}
             />
           ) : null}
           <div className="Krikri-Select" id="Krikri-Select">
-            <form className="Search" id="Search">
-              <button
-                className="Img-Button"
-                id="Img-Button"
-                type="submit"
-                name="click"
-                value=""
-              >
+            <form className="Search" id="Search" onSubmit={handleSubmit}>
+              <button className="Img-Button" id="Img-Button" type="submit" name="click" value="">
                 <BsSearch />
               </button>
               <input
+                onChange={handleChange}
                 className="Search-Keyword"
                 type="text"
                 name="search"

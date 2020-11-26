@@ -125,6 +125,7 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
             await removeFile(albumIdx).then(res => {
                 console.log('삭제성공!');              
                 window.location.href=`http://localhost:3000/kkiri/albums/${abc < len-1 ? abc : (abc-1)}`;
+                
             }).catch(err => {
                 console.log(err);
             });

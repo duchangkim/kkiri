@@ -103,7 +103,7 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
 
   const { fileData } = album;
   const len = fileData.files.length;
-  // console.log(len);
+  console.log(typeof len);
   // console.log(typeof len);
   const filename = fileData.files[albumIdx].filename;
   // console.log(abc < len ? abc : (abc-1));
@@ -115,9 +115,10 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
       await removeFile(albumIdx)
         .then((res) => {
           console.log("삭제성공!");
-          window.location.href = `http://localhost:3000/kkiri/albums/${
+          
+          len > 1 ? window.location.href = `http://localhost:3000/kkiri/albums/${
             abc < len - 1 ? abc : abc - 1
-          }`;
+          }` : window.location.href =  `http://localhost:3000/kkiri/albums`;
         })
         .catch((err) => {
           console.log(err);
@@ -142,6 +143,8 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
   };
 
   console.log("coupleShareCode -> " + coupleShareCode)
+  console.log(filename.split('.').pop().toLowerCase());
+  const extens = filename.split('.').pop().toLowerCase();
 
   return (
     <>
@@ -156,7 +159,11 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
         </ArrowForwardBox>
         <ItemBox>
           <BoxBody>
-            <img src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} />
+            {(extens == 'mp4' | extens == 'm4v' | extens == 'avi' | extens == 'flv' | extens == 'mkv' | extens == 'mov') ? 
+              <video src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} style={{width: "100%", height: "300px"}} controls/> :
+            
+              <img src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} />
+            }
           </BoxBody>
         </ItemBox>
         <ArrowBackBox>

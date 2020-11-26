@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -98,7 +99,10 @@ const New = styled.div`
   }
 `;
 
-const UnNavigationBar = ({ newMessage }) => {
+const UnNavigationBar = () => {
+  const { newMessage } = useSelector(({ chat }) => ({
+    newMessage: chat.newMessage,
+  }));
   return (
     <Styles>
       <Navbar>
