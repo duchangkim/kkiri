@@ -127,7 +127,6 @@ const RegisterForm = ({ history }) => {
     return;
   }, [emailError]);
 
-
   useEffect(() => {
     if (isSuccess) {
       console.log("check API 성공");
@@ -141,7 +140,7 @@ const RegisterForm = ({ history }) => {
       }
     }
     setError("");
-  }, [history,dispatch, isSuccess, member]);
+  }, [history, dispatch, isSuccess, member]);
 
   console.log("여기가 레지스터폼");
   console.log(form);
