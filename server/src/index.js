@@ -59,15 +59,23 @@ app.io
     const token = socket.cookies.get('access_token');
     if (!token) return; // 토큰이 없음
 
+    console.log(`컨넥션 했습니다 누가? ${socket.id}`);
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     if (app.io.sockets.adapter.rooms.has(decoded.coupleShareCode)) {
-      console.log(`방 만드셨나요? / ${decoded.coupleShareCode}`);
+      console.log(
+        `방 만드셨나요? / ${decoded.coupleShareCode} / ${decoded._id}`
+      );
       socket.join(decoded.coupleShareCode);
     } else {
       const createRoomId = decoded.coupleShareCode;
       socket.join(createRoomId);
     }
+    // 방 퇴장
+    socket.on('disconnect', () => {
+      console.log(`나감`);
+    });
 
     // 방 입장
     socket.on('joinRoom', (coupleShareCode) => {
@@ -77,11 +85,13 @@ app.io
 
     // 메시지 전송
     socket.on('send message', async (messageObj) => {
+      console.log(`센드 메시지 몇번인데?`);
+      console.log(`${socket.id}`);
       app.io.to(messageObj.coupleShareCode).emit('message', messageObj);
 
       try {
         const room = await Room.findCoupleCode(messageObj.coupleShareCode);
-        console.log(room);
+        // console.log(room);
         await room.pushMessageData(messageObj);
         room.save();
       } catch (e) {

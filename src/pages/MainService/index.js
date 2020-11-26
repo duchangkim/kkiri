@@ -6,10 +6,8 @@ import { useWindowMatches } from '../../customHooks/hooks';
 import NavigationBarContainer from '../../containers/common/NavigationBarContainer';
 import Header from '../../components/Header';
 import { Route } from 'react-router';
-// import Main from './Main';
 import MainPage from '../MainPage';
 import AlbumContainer from '../../containers/album/AlbumContainer';
-// import Chatting from './chatting';
 import UnNavigationBar from '../../components/UnNavigationBar';
 import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
@@ -17,7 +15,6 @@ import ChatContainer from '../../containers/chat/ChatContainer';
 import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer';
 import SettingPage from './SettingPage';
 
-import io from 'socket.io-client';
 import { newMessage } from '../../modules/chat';
 import { connectionSocket } from '../../modules/socket';
 
@@ -65,13 +62,12 @@ const MainService = () => {
 
   useEffect(() => {
     if (member) {
-      if(!socket) {
+      if (!socket) {
         console.log('소켓 없어서 연결하게씀둥');
-        dispatch(connectionSocket());
-        return
+        dispatch(connectionSocket(member.coupleShareCode));
+        return;
       }
       console.log('소켓 연결하는 유이펙');
-      socket.emit('joinRoom', member.coupleShareCode);
     }
 
     socket.on('notification', (coupleId) => {
@@ -80,7 +76,7 @@ const MainService = () => {
         dispatch(newMessage());
       }
     });
-  }, [member, dispatch]);
+  }, [member, dispatch, socket]);
 
   return (
     <CustomContainer windowMatches={windowMatches}>
@@ -115,7 +111,7 @@ const MainService = () => {
             />
             <Route
               path="/kkiri/chatting"
-              render={() => <ChatContainer socket={socketRef.current}/>}
+              render={() => <ChatContainer socket={socketRef.current} />}
               exact
             />
             <Route
