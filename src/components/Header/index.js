@@ -194,28 +194,6 @@ function Header() {
     getPosition(dispatch, getMyWeather);
   }, [dispatch]);
 
-  // const Searching = Search.prototype;
-  // function Search() {
-  //   this.keyword = document.querySelector('input[name = "search"]');
-  //   this.button = document.querySelector(".img-button");
-  //   this.form = document.querySelector(".Search");
-  //   this.value = document.querySelector('input[type="text"]');
-  //   this.Engine();
-  // }
-
-  // Searching.Engine = function () {
-  //   console.log("Searching.Engine으로 들어오니?");
-  //   window.addEventListener("submit", (e) => {
-  //     e.preventDefault();
-
-  //     let keyword = searchValue;
-  //     console.dir(keyword + "에에에에에");
-  //     window.open("https:///www.google.co.kr/search?q=" + keyword);
-  //     console.log("새로운 창 생겨라");
-  //   });
-  // };
-  // new Search();
-
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchValue(value);

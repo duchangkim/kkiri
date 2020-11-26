@@ -10,6 +10,7 @@ const initialState = {
   messageList: [],
   messageListError: null,
   insertMessageListResult: false,
+  newMessage: false,
 };
 
 // 액션 타입 정의
@@ -24,6 +25,8 @@ const [
   INSERT_MESSAGE_LIST_SUCCESS,
   INSERT_MESSAGE_LIST_FAILURE,
 ] = createRequestActionTypes('chat/INSERT_MESSAGE_LIST');
+const NEW_MESSAGE = 'chat/NEW_MESSAGE';
+const NEW_MESSAGE_Off = 'chat/NEW_MESSAGE_Off';
 
 // 액션 생성함수 정의
 export const initialize = createAction(INITIALIZE);
@@ -34,7 +37,9 @@ export const insertMessageList = createAction(
   INSERT_MESSAGE_LIST,
   (messageList) => messageList
 );
-console.log(insertMessageList([1, 2, 3]));
+export const newMessage = createAction(NEW_MESSAGE);
+export const newMessageOff = createAction(NEW_MESSAGE_Off);
+// console.log(insertMessageList([1, 2, 3]));
 
 // 리듀서
 const chat = handleActions(
@@ -59,6 +64,14 @@ const chat = handleActions(
     [INSERT_MESSAGE_LIST_FAILURE]: (state) => ({
       ...state,
       insertMessageListResult: false,
+    }),
+    [NEW_MESSAGE]: (state) => ({
+      ...state,
+      newMessage: true,
+    }),
+    [NEW_MESSAGE_Off]: (state) => ({
+      ...state,
+      newMessage: false,
     }),
   },
   initialState

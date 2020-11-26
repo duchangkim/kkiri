@@ -1,11 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NavigationBar from '../../components/common/NavigationBar';
 import { logout } from '../../modules/member';
 
 const NavigationBarContainer = ({ windowMatches, history }) => {
   const dispatch = useDispatch();
+  const { newMessage } = useSelector(({ chat }) => ({
+    newMessage: chat.newMessage,
+  }));
+
   const onLogout = async (e) => {
     e.preventDefault();
     try {
@@ -18,7 +22,13 @@ const NavigationBarContainer = ({ windowMatches, history }) => {
     history.push('/');
   };
 
-  return <NavigationBar onLogout={onLogout} windowMatches={windowMatches} />;
+  return (
+    <NavigationBar
+      onLogout={onLogout}
+      windowMatches={windowMatches}
+      newMessage={newMessage}
+    />
+  );
 };
 
-export default withRouter(NavigationBarContainer);
+export default withRouter(React.memo(NavigationBarContainer));

@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import SideMenu from "react-sidebar";
-import { KkiriLogo, Navigation } from "./SideBarItems";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import SideMenu from 'react-sidebar';
+import { KkiriLogo, Navigation } from './SideBarItems';
+import { Link } from 'react-router-dom';
 
 const Styles = styled.div`
   position: fixed;
@@ -31,7 +31,7 @@ const Styles = styled.div`
     box-shadow: none;
   }
 `;
-const NavigationBar = ({ windowMatches, onLogout }) => {
+const NavigationBar = ({ windowMatches, onLogout, newMessage }) => {
   return (
     <Styles>
       <SideMenu
@@ -39,7 +39,7 @@ const NavigationBar = ({ windowMatches, onLogout }) => {
         sidebar={
           <>
             <KkiriLogo />
-            <Navigation />
+            <Navigation newMessage={newMessage} />
             <Link onClick={onLogout} to="/" className="btn btn-link">
               Logout
             </Link>

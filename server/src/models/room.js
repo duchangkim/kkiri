@@ -38,7 +38,6 @@ RoomSchema.statics.findCoupleCode = async function (code) {
   });
 };
 
-//  룸 코드를 받아야함
 RoomSchema.methods.pushMessageData = async function (chattingData) {
   await this.chattingData.push(chattingData);
 };

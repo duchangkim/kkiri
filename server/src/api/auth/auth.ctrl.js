@@ -4,7 +4,7 @@ import createRandomCode from '../../lib/createRandomCode';
 
 export const register = async (ctx) => {
   console.log('회원가입 불럿냐?');
-  console.log(ctx.request.body);
+  // console.log(ctx.request.body);
 
   const schema = Joi.object().keys({
     email: Joi.string().required(),
@@ -16,7 +16,7 @@ export const register = async (ctx) => {
   });
   const result = schema.validate(ctx.request.body);
   if (result.error) {
-    console.log(result);
+    // console.log(result);
     ctx.status = 400;
     ctx.body = result.error;
     return;
@@ -62,7 +62,7 @@ export const login = async (ctx) => {
 
   try {
     const member = await Member.findByEmail(email);
-    console.log(member);
+    // console.log(member);
     if (!member) {
       ctx.status = 401;
       ctx.body = { error: 'not found email' };
@@ -97,7 +97,7 @@ export const logout = (ctx) => {
 export const check = async (ctx) => {
   const { member } = ctx.state;
   console.log('이거불러라');
-  console.log(member);
+  // console.log(member);
   if (!member) {
     console.log('왜없냐');
   }

@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { AiOutlinePlus } from "react-icons/ai";
-import axios from "axios";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { AiOutlinePlus } from 'react-icons/ai';
+import axios from 'axios';
 
 const MODAL_STYLES = {
-  position: "relative",
+  position: 'relative',
   top: `0`,
   left: `0`,
-  fransform: "translate(-50%, -50%)",
-  backgroundColor: "#FFF",
+  fransform: 'translate(-50%, -50%)',
+  backgroundColor: '#FFF',
   zIndex: 1500,
   borderRadius: 10,
 };
 const OVERLAY_STYLES = {
-  position: "fixed",
+  position: 'fixed',
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.25)",
+  backgroundColor: 'rgba(0, 0, 0, 0.25)',
   zIndex: 1500,
 };
 const Popups = styled.div`
@@ -107,7 +107,7 @@ const Popups = styled.div`
     width: 50%;
     height: 100%;
   }
-  .Choice-File-Button input[type="file"] {
+  .Choice-File-Button input[type='file'] {
     position: relative;
     left: 10%;
     width: 100%;
@@ -168,11 +168,11 @@ const Popups = styled.div`
 class BackgroundSettingPopup extends Component {
   state = {
     imgBase64:
-      `${this.props.member.mainSetting.coupleBackground}` == ""
+      `${this.props.member.mainSetting.coupleBackground}` == ''
         ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
         : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
-    files: "",
-    value: "",
+    files: '',
+    value: '',
   };
 
   handleChange = (event) => {
@@ -196,13 +196,13 @@ class BackgroundSettingPopup extends Component {
   };
 
   handlePost = () => {
-    console.log(this.state.files + "핸들포스트");
+    console.log(this.state.files + '핸들포스트');
     const formData = new FormData();
-    formData.append("files", this.state.files, this.state.files.name);
+    formData.append('files', this.state.files, this.state.files.name);
     console.log(formData);
 
     axios
-      .post("/api/backgroundsetting/fileupload", formData)
+      .post('/api/backgroundsetting/fileupload', formData)
       .then((res) => {
         console.log(res);
       })
@@ -214,17 +214,17 @@ class BackgroundSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        `${this.props.member.mainSetting.coupleBackground}` == ""
+        `${this.props.member.mainSetting.coupleBackground}` == ''
           ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
           : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
-      files: "",
-      value: "",
+      files: '',
+      value: '',
     });
   };
 
   render() {
-    console.log(this.props.member + "ㅎㅎㅎㅎ멤버");
-    console.log("1231 -==> " + this.props.member.mainSetting);
+    console.log(this.props.member + 'ㅎㅎㅎㅎ멤버');
+    console.log('1231 -==> ' + this.props.member.mainSetting);
     console.dir(this.props.member.mainSetting);
     return (
       <>
@@ -241,7 +241,10 @@ class BackgroundSettingPopup extends Component {
               </div>
               <div className="Background-Choice-Image">
                 <h4>배경이미지</h4>
-                <div className="Background-Choice-Image-Size" id="image_container">
+                <div
+                  className="Background-Choice-Image-Size"
+                  id="image_container"
+                >
                   {this.state.imgBase64 ? (
                     <img
                       src={this.state.imgBase64}

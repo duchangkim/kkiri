@@ -14,7 +14,7 @@ export const saveMessage = async (ctx) => {
       return;
     }
 
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
 
     ctx.body = room.pushMessageData({
       sender: _id,
@@ -51,13 +51,13 @@ export const messageList = async (ctx) => {
   const { limit } = ctx.params;
   console.log(limit);
   // console.log(member);
-  console.log(member.coupleShareCode);
+  // console.log(member.coupleShareCode);
   try {
     const room = await Room.findCoupleCode(Number(member.coupleShareCode));
     // console.log(room);
     const messageList = await room.getSortedMessageList(limit);
 
-    console.log('asdfasdfasdfasdfad');
+    // console.log('asdfasdfasdfasdfad');
     // console.log(messageList);
 
     ctx.body = messageList;

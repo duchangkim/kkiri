@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Chat from '../../components/Chat/Chat';
 import { Row, Col } from 'react-bootstrap';
-import io from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMessageList, insertMessageList } from '../../modules/chat';
+import {
+  getMessageList,
+  insertMessageList,
+  newMessageOff,
+} from '../../modules/chat';
 import LoadingPage from '../../pages/LoadingPage';
+import { connectionSocket } from '../../modules/socket';
 
 const ChatContainer = ({ history }) => {
   const dispatch = useDispatch();
   // ref
-  const socketRef = useRef();
+  // const socketRef = useRef();
   const messagesRef = useRef();
   const newMessagesTemp = useRef([]);
 
@@ -21,9 +25,10 @@ const ChatContainer = ({ history }) => {
     messageListError: chat.messageListError,
   }));
   const { loading } = useSelector(({ loading }) => ({ loading }));
-  const state = useSelector((state) => ({ state }));
-  console.log(state);
-  console.log(loading);
+//   const state = useSelector((state) => ({ state }));
+//   console.log(state);
+  const { socket } = useSelector(({ socket }) => ({ socket: socket.socket }));
+//  console.log(socket)
 
   // state
   const [messages, setMessages] = useState([]);
@@ -32,6 +37,7 @@ const ChatContainer = ({ history }) => {
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [messageListLoad, setMessageListLoad] = useState(false);
+  const [inPage, setInPage] = useState(true);
 
   const receivedMessage = async (message) => {
     // console.log('리시브 메시시');
@@ -66,7 +72,7 @@ const ChatContainer = ({ history }) => {
     try {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -81,9 +87,10 @@ const ChatContainer = ({ history }) => {
         sendDate: new Date(),
       };
       setMessage('');
-      socketRef.current.emit('send message', messageObject);
-      console.log('메시지 보냄');
-      console.log(messageObject);
+      socket.emit('send message', messageObject);
+      socket.emit('new message', member.coupleId);
+      // console.log('메시지 보냄');
+      // console.log(messageObject);
     }
   };
 
@@ -98,7 +105,7 @@ const ChatContainer = ({ history }) => {
   };
 
   const handleMoreButtonClick = (e) => {
-    console.log('더보기 버튼 눌렀다');
+    // console.log('더보기 버튼 눌렀다');
     e.preventDefault();
     dispatch(getMessageList(messagePageNum));
     // receivedMessage(messageList);
@@ -112,39 +119,61 @@ const ChatContainer = ({ history }) => {
   };
 
   useEffect(() => {
-    if (member) {
-      console.log('소켓 연결하는 유이펙');
-      socketRef.current = io.connect('/');
-      socketRef.current.emit('joinRoom', member.coupleShareCode);
-      socketRef.current.on('message', (message) => {
-        console.log('메시지받음');
+    if (inPage) {
+      setTimeout(() => {
+        // console.log('끄라고이거');
+        dispatch(newMessageOff());
+      }, 300);
+    }
+
+    return () => {
+      setInPage(false);
+      dispatch(newMessageOff());
+    };
+  }, [messages]);
+
+  useEffect(() => {
+    if(!socket) {
+      // console.log('없어서 연결했음')
+      dispatch(connectionSocket())
+    }
+
+    return () => {
+      dispatch(connectionSocket())
+    }
+  }, [])
+
+  useEffect(() => {
+    if (member && socket) {
+      dispatch(newMessageOff());
+      // console.log('소켓 연결하는 유이펙');
+      // socket.emit('joinRoom', member.coupleShareCode);
+      socket.on('message', (message) => {
+        // console.log('메시지받음');
         receivedMessage(message);
       });
       setVisitTime(new Date());
     }
-  }, []);
-
-  useEffect(() => {
     return () => {
-      console.log('페이지에서 나가셨구먼유');
-      console.log(messages);
+      // console.log('페이지에서 나가셨구먼유');
+      // console.log(messages);
       const newMessages = newMessagesTemp.current.filter(
         (message) => new Date(message.sendDate) >= visitTime
       );
-      console.log(newMessages);
+      // console.log(newMessages);
 
       dispatch(insertMessageList(newMessages));
       setMessages([]);
       newMessagesTemp.current = [];
       setMessageListLoad(false);
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
-    console.log('리스너 유이펙');
+    // console.log('리스너 유이펙');
     window.addEventListener('beforeunload', () => {
-      socketRef.current.emit('leaveRoom', member.coupleShareCode);
-      socketRef.current.disconnect();
+      // socket.emit('leaveRoom', member.coupleShareCode);
+      socket.disconnect();
 
       const newMessages = newMessagesTemp.current.filter(
         (message) => new Date(message.sendDate) >= visitTime
@@ -163,7 +192,7 @@ const ChatContainer = ({ history }) => {
 
   useEffect(() => {
     if (messageList.length === 0 && messagePageNum !== 1) {
-      console.log('불러올것이 더이상 없다.');
+      // console.log('불러올것이 더이상 없다.');
       setMessageListLoad(true);
       return;
     }
@@ -172,7 +201,7 @@ const ChatContainer = ({ history }) => {
 
   useEffect(() => {
     if (!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
-      console.log('메시지 로딩 끝?');
+      // console.log('메시지 로딩 끝?');
       if (!messagesRef) {
         return;
       }
@@ -193,7 +222,7 @@ const ChatContainer = ({ history }) => {
   }, [messages]);
 
   if (messagePageNum === 0) {
-    console.log('최초로딩 시 디스퍁치 - 이전 채팅 가져오기');
+    // console.log('최초로딩 시 디스퍁치 - 이전 채팅 가져오기');
     dispatch(getMessageList(messagePageNum));
     setMessagePageNum((prev) => prev + 1);
   }
@@ -233,4 +262,4 @@ const ChatContainer = ({ history }) => {
   );
 };
 
-export default withRouter(ChatContainer);
+export default withRouter(React.memo(ChatContainer));

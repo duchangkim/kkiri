@@ -69,6 +69,20 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   }
   console.log('111111111111' + albums);
   console.log(albums);
+  
+  let arr2 = [];
+  albums.map((file, index) => {
+    const extens = file.filename.split('.').pop().toLowerCase();
+    if(extens == 'png' | extens == 'jpg' | extens == 'jfif' | extens == 'gif'
+    | extens == 'bmp' | extens == 'jpeg' | extens == 'tiff') {
+      arr2 = arr2.concat({
+        id: index,
+        keyid: file.keyid,
+        filename: file.filename,
+        like: file.like,
+      })
+    }
+  })
 
   return (
     <RightMainBlock>
@@ -238,12 +252,12 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.slice(0, 5).map(
-              (album, index) =>
-                album.filename && (
-                  <div className="price" key={album.keyid}>
+            {arr2.slice(0, 5).map(
+              (ar) =>
+                ar.filename && (
+                  <div className="price" key={ar.keyid}>
                     <img
-                      src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
+                      src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
                     />
                   </div>
                 )
@@ -256,3 +270,4 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
 };
 
 export default RightMain;
+  

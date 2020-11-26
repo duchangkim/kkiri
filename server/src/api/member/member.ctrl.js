@@ -4,8 +4,8 @@ import Calendar from '../../models/calendar';
 export const getMyCouple = async (ctx) => {
   const { coupleId } = ctx.params;
 
-  console.log('여기 이거밑에꺼가 커플아이디여'.concat());
-  console.log(coupleId);
+  // console.log('여기 이거밑에꺼가 커플아이디여'.concat());
+  // console.log(coupleId);
 
   try {
     const member = await Member.findById({ _id: coupleId });
@@ -21,7 +21,7 @@ export const insertPosition = async (ctx) => {
   const { _id } = ctx.state.member;
   const { latitude, longitude } = ctx.request.body;
 
-  console.log(ctx.request.body);
+  // console.log(ctx.request.body);
   try {
     const member = await Member.findById({ _id });
     await member.insertPosition({
@@ -42,8 +42,8 @@ export const insertGetTogetherDate = async (ctx) => {
   const { getTogetherDate } = ctx.request.body;
   const getTogetherDateObj = new Date(getTogetherDate);
   // console.log(ctx.request.body);
-  console.log('아이디 값 있냐');
-  console.log(_id);
+  // console.log('아이디 값 있냐');
+  // console.log(_id);
   const getTogetherDday = {
     id: 'l',
     calendarId: 'dday',
