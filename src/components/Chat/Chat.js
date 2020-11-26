@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import * as _date from "../../lib/_date";
-import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
-import { Button } from "react-bootstrap";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import * as _date from '../../lib/_date';
+import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import { Button } from 'react-bootstrap';
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -135,7 +135,8 @@ const MessageLine = styled.div`
   position: relative;
   margin-top: -30px;
   display: flex;
-  justify-content: ${({ myMessage }) => (myMessage ? `flex-end` : `flex-start`)};
+  justify-content: ${({ myMessage }) =>
+    myMessage ? `flex-end` : `flex-start`};
 `;
 const MessageBlock = styled.div`
   display: flex;
@@ -230,7 +231,7 @@ const Chat = ({
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
-  console.log("채팅 이미지 호출 " + member.mainSetting.coupleProfile1);
+  // console.log("채팅 이미지 호출 " + member.mainSetting.coupleProfile1);
 
   return (
     <ChattingBox>
@@ -275,7 +276,9 @@ const Chat = ({
                   <Name myMessage>{message.name}</Name>
                   <Message myMessage>
                     {message.text}
-                    <div className="time">{_date.dateFormat(message.sendDate)}</div>
+                    <div className="time">
+                      {_date.dateFormat(message.sendDate)}
+                    </div>
                   </Message>
                 </MessageBlock>
               </MessageLine>
@@ -297,7 +300,9 @@ const Chat = ({
                   <Name>{message.name}</Name>
                   <Message>
                     {message.text}
-                    <div className="time">{_date.dateFormat(message.sendDate)}</div>
+                    <div className="time">
+                      {_date.dateFormat(message.sendDate)}
+                    </div>
                   </Message>
                 </MessageBlock>
               </MessageLine>

@@ -113,7 +113,7 @@ const ProfilePopups = styled.div`
   }
   .ProfileIMG {
     width: 120px;
-    height: 100px;
+    height: 120px;
     position: relative;
     top: 10%;
     left: 5%;
