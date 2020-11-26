@@ -36,6 +36,7 @@ const ChatContainer = ({ history }) => {
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [messageListLoad, setMessageListLoad] = useState(false);
+  const [inPage, setInPage] = useState(true);
 
   const receivedMessage = async (message) => {
     // console.log('리시브 메시시');
@@ -117,13 +118,25 @@ const ChatContainer = ({ history }) => {
   };
 
   useEffect(() => {
+    if (inPage) {
+      setTimeout(() => {
+        console.log('끄라고이거');
+        dispatch(newMessageOff());
+      }, 300);
+    }
+
+    return () => {
+      setInPage(false);
+      dispatch(newMessageOff());
+    };
+  }, [messages]);
+
+  useEffect(() => {
     if (member) {
       dispatch(newMessageOff());
 
       console.log('소켓 연결하는 유이펙');
-      socketRef.current = io.connect('/', {
-        query: `CustomId = ${member._id}`,
-      });
+      socketRef.current = io.connect('/');
       socketRef.current.emit('joinRoom', member.coupleShareCode);
       socketRef.current.on('message', (message) => {
         console.log('메시지받음');

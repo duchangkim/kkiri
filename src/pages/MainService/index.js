@@ -60,10 +60,6 @@ const MainService = () => {
   const { member } = useSelector(({ member }) => ({ member: member.member }));
 
   useEffect(() => {
-    console.log(
-      '----------------------------------어이어이 항상 나와야하는거 아니냐구'
-    );
-    console.log(member);
     if (member) {
       console.log('소켓 연결하는 유이펙');
       socketRef.current = io.connect('/');
@@ -84,10 +80,7 @@ const MainService = () => {
         <Row className="h-100 m-0 p-0">
           {/*height: 100vh*/}
           <Col xl={1} md={1} className="h-100 m-0 p-0 col-sidebar">
-            <NavigationBarContainer
-              windowMatches={windowMatches}
-              newMessage={newMessage}
-            />
+            <NavigationBarContainer windowMatches={windowMatches} />
           </Col>
           <Col className="h-100 m-0 p-0">
             {windowMatches ? (
