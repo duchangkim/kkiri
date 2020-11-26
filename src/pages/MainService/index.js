@@ -72,7 +72,7 @@ const MainService = () => {
         dispatch(newMessage());
       }
     });
-  }, []);
+  }, [member, dispatch]);
 
   return (
     <CustomContainer windowMatches={windowMatches}>
