@@ -132,8 +132,8 @@ const Container = styled.div`
   }
 `;
 const MessageLine = styled.div`
-  position: relative;
-  margin-top: -30px;
+  // position: relative;
+  // margin-top: -30px;
   display: flex;
   justify-content: ${({ myMessage }) =>
     myMessage ? `flex-end` : `flex-start`};
@@ -181,7 +181,6 @@ const Message = styled.div`
   background-color: lightblue;
   z-index: -1;
   line-height: 1.6rem;
-  /* word-break: keep-all; */
   word-wrap: break-word; /* IE 5.5-7 */
   white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
   white-space: pre-wrap; /* current browsers */
@@ -250,6 +249,9 @@ const Chat = ({
             } else {
               nextSendDate = messages[index + 1].sendDate.substring(0, 10);
             }
+            // console.log(message.sendDate.substring(0, 10));
+            // console.log(`${currentSendDate} / ${nextSendDate}`);
+
             if (currentSendDate !== nextSendDate) {
               const _date = new Date(nextSendDate);
               return (
@@ -263,14 +265,13 @@ const Chat = ({
                 <MessageBlock myMessage>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile1
                           ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"
+                      alt="my profile"
                     />
                   </Profile>
                   <Name myMessage>{message.name}</Name>
@@ -287,14 +288,13 @@ const Chat = ({
                 <MessageBlock>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile2
                           ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"
+                      alt="you profile"
                     />
                   </Profile>
                   <Name>{message.name}</Name>

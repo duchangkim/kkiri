@@ -20,8 +20,14 @@ class UploadButton extends Component {
     formData.append("files", this.state.files, this.state.files.name);
     console.log(formData);
 
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
+
     axios
-      .post("/api/albums/fileupload", formData, {
+      .post("/api/albums/fileupload", formData, config, {
         onUploadProgress: (progressEvent) => {
           console.log(
             "Upload Progress: " +

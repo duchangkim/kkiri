@@ -42,7 +42,7 @@ export const fileupload = async (ctx) => {
     ctx.body = result.error;
     return;
   }
-
+  console.log('111111111들어왓지?')
   try {
     const rd = Math.floor(Math.random() * 99999999);
     const uploadfile = ctx.request.files.files;
@@ -69,7 +69,7 @@ export const fileupload = async (ctx) => {
         });
       })
     );
-
+    console.log('22222222222들어왓지?')
     ctx.body = {
       message: 'file upload success',
     };
@@ -78,8 +78,6 @@ export const fileupload = async (ctx) => {
     const keyid = Math.floor(Number(today) / 1000);
     const publishedDate = today.toLocaleString();
     const filename = rd + '.' + savefile.split('.').pop().toLowerCase();
-
-    console.log('mememmmmmmmmmmm' + ctx.state.member.coupleShareCode);
     const check = await Album.findOne({
       coupleShareCode: `${coupleShareCode}`,
     });
@@ -95,6 +93,7 @@ export const fileupload = async (ctx) => {
   } catch (e) {
     ctx.throw(500, e);
   }
+  console.log('333333들어왓지?')
 };
 
 export const getAlbumById = async (ctx, next) => {

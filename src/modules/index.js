@@ -14,6 +14,8 @@ import weather, { weatherSaga } from './weather';
 import setup, { setupSaga } from './setUp';
 import setting, { settingSaga } from './setting';
 import chat, { chatSaga } from './chat';
+import socket from './socket';
+import message from './message';
 
 const rootReducer = combineReducers({
   auth,
@@ -30,7 +32,8 @@ const rootReducer = combineReducers({
   setup,
   setting,
   chat,
-  // _auth,
+  socket,
+  message,
 });
 
 export function* rootSaga() {

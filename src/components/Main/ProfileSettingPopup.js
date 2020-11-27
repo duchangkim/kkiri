@@ -205,7 +205,7 @@ const ProfilePopups = styled.div`
 class ProfileSettingPopup extends Component {
   state = {
     imgBase64:
-      `${this.props.member.mainSetting.coupleProfile1}` == ''
+      `${this.props.member.mainSetting.coupleProfile1}` === ''
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
         : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: '',
@@ -251,7 +251,7 @@ class ProfileSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        `${this.props.member.mainSetting.coupleProfile1}` == ''
+        `${this.props.member.mainSetting.coupleProfile1}` === ''
           ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
           : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
       files: '',
@@ -270,7 +270,7 @@ class ProfileSettingPopup extends Component {
           <ProfilePopups>
             <div className="Profile-Choice" id="Profile-Choice">
               <div className="Profile-Choice-Title">
-                <h4>프로필 설정 화면</h4>
+                <h4>프로필 수정</h4>
                 <AiOutlinePlus
                   className="Profile_Close"
                   onClick={this.props.handleProfileSettingPopupOpenClick}

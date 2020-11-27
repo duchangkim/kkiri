@@ -70,6 +70,27 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   console.log('111111111111' + albums);
   console.log(albums);
 
+  let arr2 = [];
+  albums.map((file, index) => {
+    const extens = file.filename.split('.').pop().toLowerCase();
+    if (
+      (extens === 'png') |
+      (extens === 'jpg') |
+      (extens === 'jfif') |
+      (extens === 'gif') |
+      (extens === 'bmp') |
+      (extens === 'jpeg') |
+      (extens === 'tiff')
+    ) {
+      arr2 = arr2.concat({
+        id: index,
+        keyid: file.keyid,
+        filename: file.filename,
+        like: file.like,
+      });
+    }
+  });
+
   return (
     <RightMainBlock>
       <div className="Right-Main" id="Right-Main">
@@ -120,6 +141,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://adventure.lotteworld.com/kor/main/index.do"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img
                     src={require('../../images/lotte.jpg')}
@@ -138,6 +160,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://www.everland.com/web/everland/main.html"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={require('../../images/ever.jpg')} alt="애버랜드" />
                 </a>
@@ -152,6 +175,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <div className="datePlace">
                 <a
                   href="https://korean.visitseoul.net/attractions/%EB%B6%81%EC%95%85%EC%8A%A4%EC%B9%B4%EC%9D%B4%EC%9B%A8%EC%9D%B4-%ED%8C%94%EA%B0%81%EC%A0%95_/11117"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
@@ -169,7 +193,11 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 </div>
               </div>
               <div className="datePlace">
-                <a href="https://namisum.com/" target="_blank">
+                <a
+                  href="https://namisum.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src={require('../../images/nami.png')} alt="남이섬" />
                 </a>
                 <div className="caption">
@@ -185,6 +213,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://www.siheung.go.kr/portal/treasureMap/list.do?mId=0801020000"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img
                     src={require('../../images/oi.jpg')}
@@ -238,12 +267,13 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.slice(0, 5).map(
-              (album, index) =>
-                album.filename && (
-                  <div className="price" key={album.keyid}>
+            {arr2.slice(0, 5).map(
+              (ar) =>
+                ar.filename && (
+                  <div className="price" key={ar.keyid}>
                     <img
-                      src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
+                      src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                      alt={`${ar.filename}`}
                     />
                   </div>
                 )
@@ -256,4 +286,3 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
 };
 
 export default RightMain;
-  
