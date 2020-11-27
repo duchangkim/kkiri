@@ -233,7 +233,7 @@ class BackgroundSettingPopup extends Component {
           <Popups>
             <div className="Background-Choice" id="Background-Choice">
               <div className="Background-Choice-Title">
-                <h4>배경 화면</h4>
+                <h4>배경 화면 수정</h4>
                 <AiOutlinePlus
                   className="Choice-Popup_Close"
                   onClick={this.props.handleBackgroundSettingOpenClick}

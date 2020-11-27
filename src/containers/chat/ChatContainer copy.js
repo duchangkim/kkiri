@@ -3,7 +3,11 @@ import Chat from '../../components/Chat/Chat';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMessageList, newMessageOff } from '../../modules/chat';
+import {
+  getMessageList,
+  insertMessageList,
+  newMessageOff,
+} from '../../modules/chat';
 import LoadingPage from '../../pages/LoadingPage';
 import { connectionSocket } from '../../modules/socket';
 import { setMessages, initialize } from '../../modules/message';
@@ -39,12 +43,41 @@ const ChatContainer = ({ history }) => {
   const [inPage, setInPage] = useState(true);
 
   const receivedMessage = async (message) => {
-    // console.log('리시브 메시시');
+    console.log('리시브 메시시');
+    // console.log(Array.isArray(message));
+    // console.log(message);
+    // if (Array.isArray(message)) {
+    //   dispatch(setMessage(message));
+    // setMessages((oldMessages) => {
+    //   // console.log(oldMessages);
+    //   // console.log([...oldMessages, ...message]);
+    //   return [...oldMessages, ...message]
+    //     .filter((item, index) => {
+    //       return (
+    //         [...oldMessages, ...message].findIndex((item2, index2) => {
+    //           return (
+    //             new Date(item.sendDate).getTime() ===
+    //             new Date(item2.sendDate).getTime()
+    //           );
+    //         }) === index
+    //       );
+    //     })
+    //     .sort((a, b) => {
+    //       const aDate = new Date(a.sendDate);
+    //       const bDate = new Date(b.sendDate);
+    //       return aDate - bDate;
+    //     });
+    // });
+    // console.log(messages);
+    // return;
+    // }
+
+    // setMessages((oldMessages) => [...oldMessages, message]);
     dispatch(setMessages(message));
     try {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -56,15 +89,15 @@ const ChatContainer = ({ history }) => {
         sender: member._id,
         name: member.name,
         text: message,
-        sendDate: new Date(Date.now()),
+        sendDate: new Date(),
       };
       setMessage('');
       socket.emit('send message', messageObject);
       socket.emit('new message', member.coupleId);
-      // console.log('================================');
-      // console.log('메시지 보냄');
+      console.log('================================');
+      console.log('메시지 보냄');
       console.log(messageObject);
-      // console.log('================================');
+      console.log('================================');
     }
   };
 
@@ -110,47 +143,39 @@ const ChatContainer = ({ history }) => {
     if (member && socket) {
       dispatch(newMessageOff());
       // console.log('소켓 연결하는 유이펙');
-      dispatch(connectionSocket(member.coupleShareCode));
+      // socket.emit('joinRoom', member.coupleShareCode);
       socket.on('message', (message) => {
-        // console.log('메시지받음');
+        console.log('메시지받음');
         receivedMessage(message);
       });
       setVisitTime(new Date());
     }
     return () => {
       // console.log('페이지에서 나가셨구먼유');
-      if (socket) {
-        // console.log(socket);
-        socket.close();
-        socket.disconnect();
-        return;
-      }
-
       // console.log(messages);
-      // const newMessages = newMessagesTemp.current.filter(
-      //   (message) => new Date(message.sendDate) >= visitTime
-      // );
+      const newMessages = newMessagesTemp.current.filter(
+        (message) => new Date(message.sendDate) >= visitTime
+      );
       // console.log(newMessages);
 
-      // dispatch(insertMessageList(newMessages));
+      dispatch(insertMessageList(newMessages));
       dispatch(initialize());
       newMessagesTemp.current = [];
       setMessageListLoad(false);
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     // console.log('리스너 유이펙');
     window.addEventListener('beforeunload', () => {
       // socket.emit('leaveRoom', member.coupleShareCode);
-      socket.close();
       socket.disconnect();
 
-      // const newMessages = newMessagesTemp.current.filter(
-      //   (message) => new Date(message.sendDate) >= visitTime
-      // );
+      const newMessages = newMessagesTemp.current.filter(
+        (message) => new Date(message.sendDate) >= visitTime
+      );
 
-      // dispatch(insertMessageList(newMessages));
+      dispatch(insertMessageList(newMessages));
       dispatch(initialize());
       newMessagesTemp.current = [];
       setMessageListLoad(false);
@@ -167,6 +192,7 @@ const ChatContainer = ({ history }) => {
       setMessageListLoad(true);
       return;
     }
+    console.log('이새끼가 리시브 호출한다.');
     receivedMessage(messageList);
   }, [messageList]);
 
@@ -232,4 +258,4 @@ const ChatContainer = ({ history }) => {
   );
 };
 
-export default withRouter(ChatContainer);
+export default withRouter(React.memo(ChatContainer));

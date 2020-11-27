@@ -74,13 +74,13 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   albums.map((file, index) => {
     const extens = file.filename.split(".").pop().toLowerCase();
     if (
-      (extens == "png") |
-      (extens == "jpg") |
-      (extens == "jfif") |
-      (extens == "gif") |
-      (extens == "bmp") |
-      (extens == "jpeg") |
-      (extens == "tiff")
+      (extens === "png") |
+      (extens === "jpg") |
+      (extens === "jfif") |
+      (extens === "gif") |
+      (extens === "bmp") |
+      (extens === "jpeg") |
+      (extens === "tiff")
     ) {
       arr2 = arr2.concat({
         id: index,
@@ -141,7 +141,11 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
             <h4>데이트 추천장소</h4>
             <div id="wrapper">
               <div className="datePlace">
-                <a href="https://adventure.lotteworld.com/kor/main/index.do" target="_blank">
+                <a
+                  href="https://adventure.lotteworld.com/kor/main/index.do"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src={require("../../images/lotte.jpg")} alt="롯데월드 어드벤쳐" />
                 </a>
                 <div className="caption">
@@ -153,7 +157,11 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 </div>
               </div>
               <div className="datePlace">
-                <a href="https://www.everland.com/web/everland/main.html" target="_blank">
+                <a
+                  href="https://www.everland.com/web/everland/main.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src={require("../../images/ever.jpg")} alt="애버랜드" />
                 </a>
                 <div className="caption">
@@ -167,6 +175,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <div className="datePlace">
                 <a
                   href="https://korean.visitseoul.net/attractions/%EB%B6%81%EC%95%85%EC%8A%A4%EC%B9%B4%EC%9D%B4%EC%9B%A8%EC%9D%B4-%ED%8C%94%EA%B0%81%EC%A0%95_/11117"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img src={require("../../images/bugak.jpg")} alt="북악스카이웨이" />
@@ -180,7 +189,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 </div>
               </div>
               <div className="datePlace">
-                <a href="https://namisum.com/" target="_blank">
+                <a href="https://namisum.com/" target="_blank" rel="noopener noreferrer">
                   <img src={require("../../images/nami.png")} alt="남이섬" />
                 </a>
                 <div className="caption">
@@ -195,6 +204,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://www.siheung.go.kr/portal/treasureMap/list.do?mId=0801020000"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={require("../../images/oi.jpg")} alt="오이도 빨간등대" />
                 </a>
@@ -249,7 +259,10 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               (ar) =>
                 ar.filename && (
                   <div className="price" key={ar.keyid}>
-                    <img src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`} />
+                    <img
+                      src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                      alt={`${ar.filename}`}
+                    />
                   </div>
                 )
             )}
