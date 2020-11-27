@@ -14,6 +14,7 @@ const mailPoster = nodeMailer.createTransport({
     pass: MAILER_PASSWORD,
   },
 });
+// console.log(mailPoster);
 
 const mailOpt = (email, contents) => {
   const mailOptions = {

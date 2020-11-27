@@ -151,24 +151,6 @@ const HeaderRight = styled.div`
   }
 `;
 
-// 검색
-//   const Searching = Search.prototype;
-//   function Search() {
-//     this.keyword = document.querySelector('input[name = "search"]');
-//     this.button = document.querySelector(".img-button");
-//     this.form = document.querySelector(".Search");
-//     this.Engine();
-//   }
-//   Searching.Engine = function () {
-//     this.form.addEventListener("submit", (e) => {
-//       e.preventDefault();
-//       let keyword = this.keyword.value;
-//       window.open("https:///www.google.co.kr/search?q=" + keyword);
-//     });
-//   };
-//   new Search();
-// };
-
 function Header() {
   const date = new Date();
   const year = date.getFullYear();
