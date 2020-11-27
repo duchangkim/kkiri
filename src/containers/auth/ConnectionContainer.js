@@ -10,12 +10,10 @@ import {
   superInitialize,
 } from '../../modules/auth';
 import Connection from '../../components/Auth/Connection';
-import LoadingPage from '../../pages/LoadingPage';
 
 const ConnectionContainer = ({ history }) => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false);
   const { form, otherMember, otherMemberError, auth } = useSelector(
     ({ auth }) => ({
       form: auth.connection,
@@ -51,7 +49,6 @@ const ConnectionContainer = ({ history }) => {
       // console.log('혼자서는 연애할 수 없다')
       setErrorMessage('본인 고유번호는 입력하실 수 없습니다');
     } else {
-      setLoading(true);
       dispatch(findOtherMember(form.otherUserCode));
     }
   };
@@ -66,7 +63,6 @@ const ConnectionContainer = ({ history }) => {
     dispatch(initializeForm('connection'));
 
     return () => {
-      setLoading(false);
       dispatch(initializeForm('connection'));
       setErrorMessage('');
     };
@@ -104,7 +100,6 @@ const ConnectionContainer = ({ history }) => {
 
   if (member) {
     if (member.userCode === null || !member.userCode) {
-      // setLoading(false);
       history.push('/kkiri/home');
     }
   }
