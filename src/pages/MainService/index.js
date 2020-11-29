@@ -13,6 +13,7 @@ import CalendarPage from '../CalendarPage';
 import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
 import ChatContainer from '../../containers/chat/ChatContainer';
 import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer';
+import VideoReadAlbumContainer from '../../containers/album/VideoReadAlbumContainer';
 import SettingPage from './SettingPage';
 
 import { newMessage } from '../../modules/chat';
@@ -108,6 +109,11 @@ const MainService = () => {
               path={['/kkiri/albums/like/:idx', '/']}
               exact={true}
               component={LikeReadAlbumContainer}
+            />
+            <Route
+              path={['/kkiri/albums/video/:idx', '/']}
+              exact={true}
+              component={VideoReadAlbumContainer}
             />
             <Route
               path="/kkiri/chatting"

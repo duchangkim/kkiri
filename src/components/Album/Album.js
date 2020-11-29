@@ -75,7 +75,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
           // why: 'why',
         });
       }
-      if(extens == 'mp4' | extens == 'm4v' | extens == 'avi' | extens == 'flv' | extens == 'mkv' | extens == 'mov') {
+      if(extens === 'mp4' | extens === 'm4v' | extens === 'avi' | extens === 'flv' | extens === 'mkv' | extens === 'mov') {
         arr2 = arr2.concat({
           id: index,
           keyid: file.keyid,
@@ -117,10 +117,10 @@ function Album({ albums, loading, error, coupleShareCode }) {
                 {albums.map(
                   (album, index) => 
                     album.filename && (
-                      (album.filename.split('.').pop().toLowerCase() == 'png' | album.filename.split('.').pop().toLowerCase() == 'jpg' | 
-                      album.filename.split('.').pop().toLowerCase() == 'jfif' | album.filename.split('.').pop().toLowerCase() == 'gif' | 
-                      album.filename.split('.').pop().toLowerCase() == 'bmp' | album.filename.split('.').pop().toLowerCase() == 'jpeg' | 
-                      album.filename.split('.').pop().toLowerCase() == 'tiff') ? (
+                      (album.filename.split('.').pop().toLowerCase() === 'png' | album.filename.split('.').pop().toLowerCase() === 'jpg' | 
+                      album.filename.split('.').pop().toLowerCase() === 'jfif' | album.filename.split('.').pop().toLowerCase() === 'gif' | 
+                      album.filename.split('.').pop().toLowerCase() === 'bmp' | album.filename.split('.').pop().toLowerCase() === 'jpeg' | 
+                      album.filename.split('.').pop().toLowerCase() === 'tiff') ? (
                       <Link to={`albums/${num-Number(index)}`} key={album.keyid}>
                         <li>
                           <img
@@ -137,7 +137,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                             src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
                             className="img_place"
                             alt={album.keyid}
-                            autoPlay
+                            // autoPlay
                           />                        
                         </li>
                       </Link> 
@@ -154,7 +154,11 @@ function Album({ albums, loading, error, coupleShareCode }) {
               <ul className="a-items">
                 {arr1.map(
                   (ar, index) =>
-                    (
+                  ar.filename && (
+                    (ar.filename.split('.').pop().toLowerCase() === 'png' | ar.filename.split('.').pop().toLowerCase() === 'jpg' | 
+                    ar.filename.split('.').pop().toLowerCase() === 'jfif' | ar.filename.split('.').pop().toLowerCase() === 'gif' | 
+                    ar.filename.split('.').pop().toLowerCase() === 'bmp' | ar.filename.split('.').pop().toLowerCase() === 'jpeg' | 
+                    ar.filename.split('.').pop().toLowerCase() === 'tiff') ? (
                       <Link to={`albums/like/${index}`} key={ar.keyid}>
                         <li>
                           <img
@@ -164,8 +168,19 @@ function Album({ albums, loading, error, coupleShareCode }) {
                           />                        
                         </li>
                       </Link>
+                    ) : (
+                      <Link to={`albums/${num-Number(index)}`} key={ar.keyid}>
+                        <li>
+                          <video
+                            src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                            className="img_place"
+                            alt={ar.keyid}
+                            // autoPlay
+                          />                        
+                        </li>
+                      </Link> 
                     )
-                )}
+                  ))}
               </ul>
             )}
           </div>
@@ -178,13 +193,13 @@ function Album({ albums, loading, error, coupleShareCode }) {
                 {arr2.map(
                   (ar, index) =>
                     (
-                      <Link to={`albums/like/${index}`} key={ar.keyid}>
+                      <Link to={`albums/video/${index}`} key={ar.keyid}>
                         <li>
                           <video
                             src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
                             className="img_place"
                             alt={ar.keyid}
-                            autoPlay
+                            // autoPlay
                           />                        
                         </li>
                       </Link>

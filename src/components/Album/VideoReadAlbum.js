@@ -117,23 +117,6 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
     
     const { fileData } = album;
     const len = fileData.files.length;
-    // const likes = fileData.files[albumIdx].like;   
-    
-    // const onRemove = async () => {
-    //     try {   
-    //         console.log(albumIdx);  
-    //         await removeFile(albumIdx).then(res => {
-    //             console.log('삭제성공!');              
-    //             window.location.href=`http://localhost:3000/kkiri/albums/${abc < len-1 ? abc : (abc-1)}`;
-                
-    //         }).catch(err => {
-    //             console.log(err);
-    //         });
-            
-    //     }catch(e) {
-    //         console.log(e);
-    //     }
-    // }
     const keyid = fileData.files[albumIdx].keyid;
     
     const onEdit = async () => {
@@ -145,32 +128,32 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
     }
     
     console.log('여긴 likereadalbum');
-    let arr1 = [];
+    let arr2 = [];
     console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
     console.log(album)
     album.fileData.files.reverse().map((file, index) => {
-        if(file.like === true) {
-            console.log(index);
-            arr1 = arr1.concat({
-            index: index,
-            keyid: file.keyid,
-            filename: file.filename,
-            likes: file.like
-            });
-        }
+      const extens = file.filename.split('.').pop().toLowerCase();
+      if(extens === 'mp4' | extens === 'm4v' | extens === 'avi' | extens === 'flv' | extens === 'mkv' | extens === 'mov') {
+        arr2 = arr2.concat({
+          id: index,
+          keyid: file.keyid,
+          filename: file.filename,
+          like: file.like,
+        })
+      }
     })
-    console.log(arr1);
-    const len2 = arr1.length;
+    console.log(arr2);
+    const len2 = arr2.length;
     console.log(len2);
     console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
     console.log('likereadalbum~~~~~~~~~~~~')
-    const extens = arr1[albumIdx].filename.split('.').pop().toLowerCase();
+    const extens = arr2[albumIdx].filename.split('.').pop().toLowerCase();
     return (
         <>
         {/* <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/> */}
         <TitleBlock>
             <div>
-                즐찾이에용~
+                동영상이에용~
             </div>
         </TitleBlock>
         <ReadBlock>
@@ -183,10 +166,10 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
             </ArrowForwardBox>
             <ItemBox>
                 <BoxBody>
-                {(extens == 'mp4' | extens == 'm4v' | extens == 'avi' | extens == 'flv' | extens == 'mkv' | extens == 'mov') ? 
-                <video src={`http://localhost:3000/uploads/${coupleShareCode}/${arr1[albumIdx].filename}`} alt={arr1[albumIdx].filename} style={{width: "100%", height: "300px"}} controls/> :
-                <img src={`http://localhost:3000/uploads/${coupleShareCode}/${arr1[albumIdx].filename}`} alt={arr1[albumIdx].filename}/>
-                }
+                {(extens == 'mp4' | extens == 'm4v' | extens == 'avi' | extens == 'flv' | extens == 'mkv' | extens == 'mov') && (
+                <video src={`http://localhost:3000/uploads/${coupleShareCode}/${arr2[albumIdx].filename}`} alt={arr2[albumIdx].filename} style={{width: "100%", height: "300px"}} controls/>
+
+                )}
                 </BoxBody>
             </ItemBox>
             <ArrowBackBox>
