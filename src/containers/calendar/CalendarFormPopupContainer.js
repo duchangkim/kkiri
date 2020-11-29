@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import CalendarFormPopup from '../../components/Calendar/CalendarFormPopup';
+import React, { useState, useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import CalendarFormPopup from "../../components/Calendar/CalendarFormPopup";
 import {
   initializeForm,
   changeField,
   createCalendar,
   modifyCalendar,
-} from '../../modules/calendar';
-import { togglePopup } from '../../modules/tuiCalendar';
+} from "../../modules/calendar";
+import { togglePopup } from "../../modules/tuiCalendar";
 
 const CalendarFormPopupContainer = () => {
   const [displayTextColorPicker, setDisplayTextColorPicker] = useState(false);
   const [displayBgColorPicker, setDisplayBgColorPicker] = useState(false);
   const [color, setColor] = useState({
-    text: '#ffffff',
-    bg: '#ffffff',
+    text: "#ffffff",
+    bg: "#ffffff",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const { isOpen, type } = useSelector(
     ({ tuiCalendar }) => ({
@@ -60,7 +60,7 @@ const CalendarFormPopupContainer = () => {
   const handleTextColorChange = (color, event) => {
     dispatch(
       changeField({
-        name: 'color',
+        name: "color",
         value: color.hex,
       })
     );
@@ -69,7 +69,7 @@ const CalendarFormPopupContainer = () => {
   const handleBgColorChange = (color, event) => {
     dispatch(
       changeField({
-        name: 'bgColor',
+        name: "bgColor",
         value: color.hex,
       })
     );
@@ -91,13 +91,13 @@ const CalendarFormPopupContainer = () => {
     const type = e.target.id;
     console.dir(type);
     const { name, color, bgColor, id } = form;
-    if ([name, color, bgColor].includes('')) {
-      setError('빈칸을 모두 채워주세요!');
+    if ([name, color, bgColor].includes("")) {
+      setError("빈칸을 모두 채워주세요!");
       return;
     }
-    setError('');
+    setError("");
 
-    if (type === 'create') {
+    if (type === "create") {
       dispatch(
         createCalendar({
           name,
@@ -109,8 +109,8 @@ const CalendarFormPopupContainer = () => {
       dispatch(initializeForm());
       return;
     }
-    if (type === 'modify') {
-      console.log('modi');
+    if (type === "modify") {
+      console.log("modi");
       dispatch(
         modifyCalendar({
           name,
@@ -128,10 +128,10 @@ const CalendarFormPopupContainer = () => {
   useEffect(() => {
     if (!isOpen) {
       console.log(type);
-      setError('');
+      setError("");
     }
     // type이 수정일 때는 초기화 하지 않음
-    if (type === 'modify') {
+    if (type === "modify") {
       return;
     }
     dispatch(initializeForm());

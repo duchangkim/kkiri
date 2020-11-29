@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Chat from '../../components/Chat/Chat';
-import { Row, Col } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { getMessageList, newMessageOff } from '../../modules/chat';
-import LoadingPage from '../../pages/LoadingPage';
-import { connectionSocket } from '../../modules/socket';
-import { setMessages, initialize } from '../../modules/message';
+import React, { useState, useEffect, useRef } from "react";
+import Chat from "../../components/Chat/Chat";
+import { Row, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getMessageList, newMessageOff } from "../../modules/chat";
+import LoadingPage from "../../pages/LoadingPage";
+import { connectionSocket } from "../../modules/socket";
+import { setMessages, initialize } from "../../modules/message";
 
 const ChatContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const ChatContainer = ({ history }) => {
 
   // state
   // const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [messagePageNum, setMessagePageNum] = useState(0);
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -50,7 +50,7 @@ const ChatContainer = ({ history }) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    if (message !== '') {
+    if (message !== "") {
       const messageObject = {
         coupleShareCode: member.coupleShareCode,
         sender: member._id,
@@ -58,9 +58,9 @@ const ChatContainer = ({ history }) => {
         text: message,
         sendDate: new Date(Date.now()),
       };
-      setMessage('');
-      socket.emit('send message', messageObject);
-      socket.emit('new message', member.coupleId);
+      setMessage("");
+      socket.emit("send message", messageObject);
+      socket.emit("new message", member.coupleId);
       // console.log('================================');
       // console.log('메시지 보냄');
       console.log(messageObject);
@@ -73,7 +73,7 @@ const ChatContainer = ({ history }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       sendMessage(e);
     }
   };
@@ -111,7 +111,7 @@ const ChatContainer = ({ history }) => {
       dispatch(newMessageOff());
       // console.log('소켓 연결하는 유이펙');
       dispatch(connectionSocket(member.coupleShareCode));
-      socket.on('message', (message) => {
+      socket.on("message", (message) => {
         // console.log('메시지받음');
         receivedMessage(message);
       });
@@ -141,7 +141,7 @@ const ChatContainer = ({ history }) => {
 
   useEffect(() => {
     // console.log('리스너 유이펙');
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       // socket.emit('leaveRoom', member.coupleShareCode);
       socket.close();
       socket.disconnect();
@@ -157,7 +157,7 @@ const ChatContainer = ({ history }) => {
     });
 
     return () => {
-      window.removeEventListener('beforeunload', () => {});
+      window.removeEventListener("beforeunload", () => {});
     };
   }, [dispatch, socket, visitTime]);
 
@@ -171,7 +171,7 @@ const ChatContainer = ({ history }) => {
   }, [messageList]);
 
   useEffect(() => {
-    if (!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
+    if (!loading["chat/GET_MESSAGE_LIST"] && messagePageNum !== 1) {
       if (!messagesRef) {
         return;
       }
@@ -201,7 +201,7 @@ const ChatContainer = ({ history }) => {
   // console.log(messages);
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <LoadingPage />;
   }
   if (messageListError) {

@@ -1,13 +1,13 @@
 const getPosition = (dispatch, getWeather) => {
-  console.log('getPostion call');
-  const API_KEY = '8838396b78d2bd1ab29b19d58374f16c';
+  console.log("getPostion call");
+  const API_KEY = "8838396b78d2bd1ab29b19d58374f16c";
   // console.dir(getWeather());
 
   const handleGeoSuccess = (position) => {
-    console.log('handleGeoSuccess call');
+    console.log("handleGeoSuccess call");
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    
+
     // const API_KEY = '7281a145274b52a5338769d114cc3464';
 
     dispatch(
@@ -20,7 +20,7 @@ const getPosition = (dispatch, getWeather) => {
   };
 
   const handleGeoError = (e) => {
-    if(e.code === 1) {
+    if (e.code === 1) {
       dispatch(
         getWeather({
           latitude: 37.499764,
@@ -34,7 +34,7 @@ const getPosition = (dispatch, getWeather) => {
   };
 
   const askForCoords = () => {
-    console.log('askForCoords call');
+    console.log("askForCoords call");
     navigator.geolocation.getCurrentPosition(handleGeoSuccess, handleGeoError);
   };
 

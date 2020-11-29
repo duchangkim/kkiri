@@ -1,22 +1,22 @@
-import React, { useEffect, useCallback, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useCallback, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getScheduleList,
   createSchedule,
   deleteSchedule,
   modifySchedule,
-} from '../../modules/schedule';
-import serializeSchedule from '../../lib/serializeSchedule';
+} from "../../modules/schedule";
+import serializeSchedule from "../../lib/serializeSchedule";
 
-import TUICalendar from '@toast-ui/react-calendar';
-import 'tui-calendar/dist/tui-calendar.css';
-import 'tui-date-picker/dist/tui-date-picker.css';
-import 'tui-time-picker/dist/tui-time-picker.css';
-import styled from 'styled-components';
-import CalendarHeaderContainer from './CalendarHeaderContainer';
-import CalenderSideContainer from './CalendarSideContainer';
-import CalendarFormPopupContainer from '../../containers/calendar/CalendarFormPopupContainer';
-import { getCalendarList } from '../../modules/calendar';
+import TUICalendar from "@toast-ui/react-calendar";
+import "tui-calendar/dist/tui-calendar.css";
+import "tui-date-picker/dist/tui-date-picker.css";
+import "tui-time-picker/dist/tui-time-picker.css";
+import styled from "styled-components";
+import CalendarHeaderContainer from "./CalendarHeaderContainer";
+import CalenderSideContainer from "./CalendarSideContainer";
+import CalendarFormPopupContainer from "../../containers/calendar/CalendarFormPopupContainer";
+import { getCalendarList } from "../../modules/calendar";
 
 const Styles = styled.div`
   display: flex;
@@ -138,7 +138,7 @@ const CalendarContainer = () => {
     }
     if (schedule.isPrivate) {
       html.push('<sapn class="calendar-font-icon ic-lock-b"></sapn>');
-      html.push(' Private');
+      html.push(" Private");
     } else {
       if (schedule.isReadOnly) {
         html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
@@ -149,9 +149,9 @@ const CalendarContainer = () => {
       } else if (schedule.location) {
         html.push('<span class="calendar-font-icon ic-location-b"></span>');
       }
-      html.push(' ' + schedule.title);
+      html.push(" " + schedule.title);
     }
-    return html.join('');
+    return html.join("");
   };
 
   const template = {

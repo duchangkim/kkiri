@@ -1,8 +1,8 @@
-import { createAction, handleActions } from 'redux-actions';
+import { createAction, handleActions } from "redux-actions";
 
 //액션타입 정의
-const START_LOADING = 'loading/START_LOADING';
-const FINISH_LOADING = 'loading/FINISH_LOADING';
+const START_LOADING = "loading/START_LOADING";
+const FINISH_LOADING = "loading/FINISH_LOADING";
 
 //createAtcion(액션타입, payload생성함수)
 export const startLoading = createAction(

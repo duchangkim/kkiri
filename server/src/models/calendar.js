@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
 const CalendarSchema = new Schema({
   // 커플 연결 성공시 주어지는 코드 - 채팅방룸id 캘린더 앨범 아이디로 사용
@@ -14,28 +14,28 @@ const CalendarSchema = new Schema({
       type: Array,
       default: [
         {
-          id: 'dday',
-          name: 'D-Day',
-          color: '#ffffff',
-          bgColor: '#B291FF',
-          dragBgColor: '#B291FF',
-          borderColor: '#B291FF',
+          id: "dday",
+          name: "D-Day",
+          color: "#ffffff",
+          bgColor: "#B291FF",
+          dragBgColor: "#B291FF",
+          borderColor: "#B291FF",
         },
         {
           id: 0,
-          name: '기념일',
-          color: '#ffffff',
-          bgColor: '#ff838d',
-          dragBgColor: '#ff838d',
-          borderColor: '#ff838d',
+          name: "기념일",
+          color: "#ffffff",
+          bgColor: "#ff838d",
+          dragBgColor: "#ff838d",
+          borderColor: "#ff838d",
         },
         {
           id: 1,
-          name: '데이트',
-          color: '#ffffff',
-          bgColor: '#00a9ff',
-          dragBgColor: '#00a9ff',
-          borderColor: '#00a9ff',
+          name: "데이트",
+          color: "#ffffff",
+          bgColor: "#00a9ff",
+          dragBgColor: "#00a9ff",
+          borderColor: "#00a9ff",
         },
       ],
     },
@@ -83,7 +83,7 @@ CalendarSchema.methods.createCalendarData = async function (
       Number(
         this.calendarData[calendarData][
           this.calendarData[calendarData].length - 1
-        ].id === 'l'
+        ].id === "l"
           ? this.calendarData[calendarData][
               this.calendarData[calendarData].length - 2
             ].id
@@ -160,6 +160,6 @@ CalendarSchema.methods.insertGetTogetherDday = function (dDay) {
   this.calendarData.schedules.push(dDay);
 };
 
-const Calendar = mongoose.model('Calendar', CalendarSchema);
+const Calendar = mongoose.model("Calendar", CalendarSchema);
 
 export default Calendar;

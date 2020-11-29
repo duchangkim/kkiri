@@ -29,7 +29,8 @@ const LoadingPageBlock = styled.div`
     }
   }
   .ldio-ckfywe494jw > div {
-    animation: ldio-ckfywe494jw 1.2987012987012987s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation: ldio-ckfywe494jw 1.2987012987012987s infinite
+      cubic-bezier(0.215, 0.61, 0.355, 1);
     transform-origin: 100px 100px;
   }
   .ldio-ckfywe494jw > div div {

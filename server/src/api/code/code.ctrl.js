@@ -1,9 +1,9 @@
-import createRandomCode from '../../lib/createRandomCode';
-import Member from '../../models/member';
-import Room from '../../models/room';
-import Calendar from '../../models/calendar';
-import Album from '../../models/album';
-import fs from 'fs';
+import createRandomCode from "../../lib/createRandomCode";
+import Member from "../../models/member";
+import Room from "../../models/room";
+import Calendar from "../../models/calendar";
+import Album from "../../models/album";
+import fs from "fs";
 
 export const checkCode = async (ctx) => {
   const { code } = ctx.params;
@@ -78,7 +78,7 @@ export const createCoupleSet = async (ctx) => {
     }
 
     const token = firstMember.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });

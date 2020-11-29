@@ -14,7 +14,7 @@ function HomeContainer({ history }) {
       form: auth.login,
       auth: auth.auth,
       authError: auth.authError,
-      member: member.member
+      member: member.member,
     };
   });
 

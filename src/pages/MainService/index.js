@@ -1,30 +1,30 @@
-import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useWindowMatches } from '../../customHooks/hooks';
-import NavigationBarContainer from '../../containers/common/NavigationBarContainer';
-import Header from '../../components/Header';
-import { Route } from 'react-router';
-import MainPage from '../MainPage';
-import AlbumContainer from '../../containers/album/AlbumContainer';
-import UnNavigationBar from '../../components/UnNavigationBar';
-import CalendarPage from '../CalendarPage';
-import ReadAlbumContainer from '../../containers/album/ReadAlbumContainer';
-import ChatContainer from '../../containers/chat/ChatContainer';
-import LikeReadAlbumContainer from '../../containers/album/LikeReadAlbumContainer';
-import VideoReadAlbumContainer from '../../containers/album/VideoReadAlbumContainer';
-import SettingPage from './SettingPage';
+import React, { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+import { useWindowMatches } from "../../customHooks/hooks";
+import NavigationBarContainer from "../../containers/common/NavigationBarContainer";
+import Header from "../../components/Header";
+import { Route } from "react-router";
+import MainPage from "../MainPage";
+import AlbumContainer from "../../containers/album/AlbumContainer";
+import UnNavigationBar from "../../components/UnNavigationBar";
+import CalendarPage from "../CalendarPage";
+import ReadAlbumContainer from "../../containers/album/ReadAlbumContainer";
+import ChatContainer from "../../containers/chat/ChatContainer";
+import LikeReadAlbumContainer from "../../containers/album/LikeReadAlbumContainer";
+import VideoReadAlbumContainer from "../../containers/album/VideoReadAlbumContainer";
+import SettingPage from "./SettingPage";
 
-import { newMessage } from '../../modules/chat';
-import { connectionSocket } from '../../modules/socket';
+import { newMessage } from "../../modules/chat";
+import { connectionSocket } from "../../modules/socket";
 
 const CustomContainer = styled.div`
   width: 100%;
   height: 100%;
   .col-sidebar {
     min-width: 120px;
-    ${(props) => (props.windowMatches ? '' : 'display: none;')}
+    ${(props) => (props.windowMatches ? "" : "display: none;")}
   }
   .header {
     width: 100%;
@@ -64,16 +64,16 @@ const MainService = () => {
   useEffect(() => {
     if (member) {
       if (!socket) {
-        console.log('소켓 없어서 연결하게씀둥');
+        console.log("소켓 없어서 연결하게씀둥");
         dispatch(connectionSocket(member.coupleShareCode));
         return;
       }
-      console.log('소켓 연결하는 유이펙');
+      console.log("소켓 연결하는 유이펙");
     }
 
-    socket.on('notification', (coupleId) => {
+    socket.on("notification", (coupleId) => {
       if (coupleId === member._id) {
-        console.log('메시지 왔는디요?');
+        console.log("메시지 왔는디요?");
         dispatch(newMessage());
       }
     });
@@ -101,17 +101,17 @@ const MainService = () => {
               component={AlbumContainer}
             />
             <Route
-              path={['/kkiri/albums/:idx', '/']}
+              path={["/kkiri/albums/:idx", "/"]}
               exact={true}
               component={ReadAlbumContainer}
             />
             <Route
-              path={['/kkiri/albums/like/:idx', '/']}
+              path={["/kkiri/albums/like/:idx", "/"]}
               exact={true}
               component={LikeReadAlbumContainer}
             />
             <Route
-              path={['/kkiri/albums/video/:idx', '/']}
+              path={["/kkiri/albums/video/:idx", "/"]}
               exact={true}
               component={VideoReadAlbumContainer}
             />
@@ -127,7 +127,7 @@ const MainService = () => {
             />
             {!windowMatches ? (
               <Row className="un_sidebar m-0 p-0">
-                <Col className="m-0 p-0" style={{ backgroundColor: 'red' }}>
+                <Col className="m-0 p-0" style={{ backgroundColor: "red" }}>
                   <UnNavigationBar />
                 </Col>
               </Row>

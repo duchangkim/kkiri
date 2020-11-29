@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { MdRefresh } from 'react-icons/md';
-import calculateDday from '../../lib/calculateDday';
+import React from "react";
+import styled from "styled-components";
+import { MdRefresh } from "react-icons/md";
+import calculateDday from "../../lib/calculateDday";
 
 //color picker적용
 //모바일 사이즈 사이드바 제작
@@ -211,7 +211,7 @@ const CalendarSide = ({
         <ListBlock>
           <BlockHeader>캘린더 필터</BlockHeader>
           {calendars.map((calendar) => {
-            if (calendar.id === 'dday') {
+            if (calendar.id === "dday") {
               return null;
             }
             return (

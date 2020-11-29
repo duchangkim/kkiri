@@ -22,8 +22,8 @@ class UploadButton extends Component {
 
     const config = {
       headers: {
-        "content-type": "multipart/form-data"
-      }
+        "content-type": "multipart/form-data",
+      },
     };
 
     axios

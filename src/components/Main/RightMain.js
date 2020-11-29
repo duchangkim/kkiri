@@ -104,7 +104,10 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <input type="radio" name="radio-btn" id="radio4" />
               <div className="slide first">
                 <a href="https://www.chanel.com/ko_KR/" target="_blank">
-                  <img src={require("../../images/chanel.png")} alt="새로운 이슈 첫번째 슬라이드" />
+                  <img
+                    src={require("../../images/chanel.png")}
+                    alt="새로운 이슈 첫번째 슬라이드"
+                  />
                   <p>CHANNEL</p>
                 </a>
               </div>
@@ -113,19 +116,28 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   href="https://duckyworld.co.kr/?NaPm=ct%3Dkhzsfbe2%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3Da044d2a54f5d3c3dfe138243b9c110871defaf30"
                   target="_blank"
                 >
-                  <img src={require("../../images/duki.jpg")} alt="새로운 이슈 두번째 슬라이드" />
+                  <img
+                    src={require("../../images/duki.jpg")}
+                    alt="새로운 이슈 두번째 슬라이드"
+                  />
                   <p>DUCKY WORLD</p>
                 </a>
               </div>
               <div className="slide">
                 <a href="https://www.hermes.com/kr/ko/" target="_blank">
-                  <img src={require("../../images/hermes.jpg")} alt="새로운 이슈 세번째 슬라이드" />
+                  <img
+                    src={require("../../images/hermes.jpg")}
+                    alt="새로운 이슈 세번째 슬라이드"
+                  />
                   <p>HERMES</p>
                 </a>
               </div>
               <div className="slide">
                 <a href="https://www.ysl.com/ko-kr/" target="_blank">
-                  <img src={require("../../images/ysl.jpg")} alt="새로운 이슈 첫번째 슬라이드" />
+                  <img
+                    src={require("../../images/ysl.jpg")}
+                    alt="새로운 이슈 첫번째 슬라이드"
+                  />
                   <p>Yves Saint Laurent</p>
                 </a>
               </div>
@@ -146,13 +158,16 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={require("../../images/lotte.jpg")} alt="롯데월드 어드벤쳐" />
+                  <img
+                    src={require("../../images/lotte.jpg")}
+                    alt="롯데월드 어드벤쳐"
+                  />
                 </a>
                 <div className="caption">
                   <h2>LOTTE WORLD ADVENTURE</h2>
                   <p>
-                    놀이기구, 물미끄럼틀, 해양생물 전시관을 한 곳에서 즐길 수 있는 가족형 어드벤처
-                    파크입니다.
+                    놀이기구, 물미끄럼틀, 해양생물 전시관을 한 곳에서 즐길 수
+                    있는 가족형 어드벤처 파크입니다.
                   </p>
                 </div>
               </div>
@@ -167,8 +182,8 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <div className="caption">
                   <h2>EVERLAND</h2>
                   <p>
-                    동물원을 비롯하여 놀이기구, 쇼, 상점, 식당, 테마존 등이 있는 인기
-                    놀이공원입니다.
+                    동물원을 비롯하여 놀이기구, 쇼, 상점, 식당, 테마존 등이 있는
+                    인기 놀이공원입니다.
                   </p>
                 </div>
               </div>
@@ -178,25 +193,34 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <img src={require("../../images/bugak.jpg")} alt="북악스카이웨이" />
+                  <img
+                    src={require("../../images/bugak.jpg")}
+                    alt="북악스카이웨이"
+                  />
                 </a>
                 <div className="caption">
                   <h2>BUGAK SKYWAY</h2>
                   <p>
-                    연인들의 데이트 코스로 손꼽히는 북악스카이웨이는 남산서울타워와는 또 다른 각도로
-                    서울 전체를 볼 수 있는 곳이다.
+                    연인들의 데이트 코스로 손꼽히는 북악스카이웨이는
+                    남산서울타워와는 또 다른 각도로 서울 전체를 볼 수 있는
+                    곳이다.
                   </p>
                 </div>
               </div>
               <div className="datePlace">
-                <a href="https://namisum.com/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://namisum.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src={require("../../images/nami.png")} alt="남이섬" />
                 </a>
                 <div className="caption">
                   <h2>NAMISUM</h2>
                   <p>
-                    유람선, 메타세콰이어길, 번지점프, 짚와이어, 짚라인, 가족여행, 경치, 가을여행,
-                    단풍여행, 기차여행을 이용할 수 있는 곳이다.
+                    유람선, 메타세콰이어길, 번지점프, 짚와이어, 짚라인,
+                    가족여행, 경치, 가을여행, 단풍여행, 기차여행을 이용할 수
+                    있는 곳이다.
                   </p>
                 </div>
               </div>
@@ -206,13 +230,16 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={require("../../images/oi.jpg")} alt="오이도 빨간등대" />
+                  <img
+                    src={require("../../images/oi.jpg")}
+                    alt="오이도 빨간등대"
+                  />
                 </a>
                 <div className="caption">
                   <h2>OIDO(ISLAND)</h2>
                   <p>
-                    인기토픽은 조개찜, 전망대, 조개구이, 드라이브, 칼국수이고, 찾는목적은 갯벌체험,
-                    나들이, 경치, 데이트, 비오는날이다.
+                    인기토픽은 조개찜, 전망대, 조개구이, 드라이브, 칼국수이고,
+                    찾는목적은 갯벌체험, 나들이, 경치, 데이트, 비오는날이다.
                   </p>
                 </div>
               </div>

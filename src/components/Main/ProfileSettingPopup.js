@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
-import styled from 'styled-components';
-import axios from 'axios';
+import React, { Component } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import styled from "styled-components";
+import axios from "axios";
 
 const MODAL_STYLES = {
-  position: 'relative',
+  position: "relative",
   top: `0`,
   left: `0`,
-  fransform: 'translate(-50%, -50%)',
-  backgroundColor: '#FFF',
+  fransform: "translate(-50%, -50%)",
+  backgroundColor: "#FFF",
   zIndex: 1500,
   borderRadius: 10,
 };
 const OVERLAY_STYLES = {
-  position: 'fixed',
+  position: "fixed",
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  backgroundColor: "rgba(0, 0, 0, 0.25)",
   zIndex: 1500,
 };
 
@@ -205,11 +205,11 @@ const ProfilePopups = styled.div`
 class ProfileSettingPopup extends Component {
   state = {
     imgBase64:
-      `${this.props.member.mainSetting.coupleProfile1}` === ''
+      `${this.props.member.mainSetting.coupleProfile1}` === ""
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
         : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
-    files: '',
-    value: '',
+    files: "",
+    value: "",
   };
 
   handleChange = (event) => {
@@ -233,13 +233,13 @@ class ProfileSettingPopup extends Component {
   };
 
   handlePost = () => {
-    console.log(this.state.files + '핸들포스트');
+    console.log(this.state.files + "핸들포스트");
     const formData = new FormData();
-    formData.append('files', this.state.files, this.state.files.name);
+    formData.append("files", this.state.files, this.state.files.name);
     console.log(formData);
 
     axios
-      .post('/api/profilesetting/fileupload', formData)
+      .post("/api/profilesetting/fileupload", formData)
       .then((res) => {
         console.log(res);
       })
@@ -251,11 +251,11 @@ class ProfileSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        `${this.props.member.mainSetting.coupleProfile1}` === ''
+        `${this.props.member.mainSetting.coupleProfile1}` === ""
           ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
           : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
-      files: '',
-      value: '',
+      files: "",
+      value: "",
     });
   };
 

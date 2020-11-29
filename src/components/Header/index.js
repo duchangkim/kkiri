@@ -162,7 +162,8 @@ function Header() {
   const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  const handleBackgroundSettingOpenClick = () => setbackgroundSettingOpen(!backgroundSettingOpen);
+  const handleBackgroundSettingOpenClick = () =>
+    setbackgroundSettingOpen(!backgroundSettingOpen);
   const handleProfileSettingPopupOpenClick = () =>
     setProfileSettingPopupOpen(!ProfileSettingPopupOpen);
 
@@ -194,20 +195,30 @@ function Header() {
           {/* 배경화면 설정 팝업 */}
           {backgroundSettingOpen ? (
             <BackgroundSettingPopup
-              handleBackgroundSettingOpenClick={handleBackgroundSettingOpenClick}
+              handleBackgroundSettingOpenClick={
+                handleBackgroundSettingOpenClick
+              }
               member={member}
             />
           ) : null}
           {ProfileSettingPopupOpen ? (
             <ProfileSettingPopup
-              handleProfileSettingPopupOpenClick={handleProfileSettingPopupOpenClick}
+              handleProfileSettingPopupOpenClick={
+                handleProfileSettingPopupOpenClick
+              }
               myWeather={myWeather}
               member={member}
             />
           ) : null}
           <div className="Krikri-Select" id="Krikri-Select">
             <form className="Search" id="Search" onSubmit={handleSubmit}>
-              <button className="Img-Button" id="Img-Button" type="submit" name="click" value="">
+              <button
+                className="Img-Button"
+                id="Img-Button"
+                type="submit"
+                name="click"
+                value=""
+              >
                 <BsSearch />
               </button>
               <input

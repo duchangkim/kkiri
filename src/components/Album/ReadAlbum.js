@@ -115,10 +115,12 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
       await removeFile(albumIdx)
         .then((res) => {
           console.log("삭제성공!");
-          
-          len > 1 ? window.location.href = `http://localhost:3000/kkiri/albums/${
-            abc < len - 1 ? abc : abc - 1
-          }` : window.location.href =  `http://localhost:3000/kkiri/albums`;
+
+          len > 1
+            ? (window.location.href = `http://localhost:3000/kkiri/albums/${
+                abc < len - 1 ? abc : abc - 1
+              }`)
+            : (window.location.href = `http://localhost:3000/kkiri/albums`);
         })
         .catch((err) => {
           console.log(err);
@@ -142,9 +144,9 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
       });
   };
 
-  console.log("coupleShareCode -> " + coupleShareCode)
-  console.log(filename.split('.').pop().toLowerCase());
-  const extens = filename.split('.').pop().toLowerCase();
+  console.log("coupleShareCode -> " + coupleShareCode);
+  console.log(filename.split(".").pop().toLowerCase());
+  const extens = filename.split(".").pop().toLowerCase();
 
   return (
     <>
@@ -159,11 +161,24 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
         </ArrowForwardBox>
         <ItemBox>
           <BoxBody>
-            {(extens == 'mp4' | extens == 'm4v' | extens == 'avi' | extens == 'flv' | extens == 'mkv' | extens == 'mov') ? 
-              <video src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} style={{width: "100%", height: "300px"}} controls/> :
-            
-              <img src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`} alt={filename} />
-            }
+            {(extens == "mp4") |
+            (extens == "m4v") |
+            (extens == "avi") |
+            (extens == "flv") |
+            (extens == "mkv") |
+            (extens == "mov") ? (
+              <video
+                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
+                alt={filename}
+                style={{ width: "100%", height: "300px" }}
+                controls
+              />
+            ) : (
+              <img
+                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
+                alt={filename}
+              />
+            )}
           </BoxBody>
         </ItemBox>
         <ArrowBackBox>

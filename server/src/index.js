@@ -1,18 +1,18 @@
-import dotenv from 'dotenv';
-import Koa from 'koa';
-import Router from 'koa-router';
-import bodyParser from 'koa-bodyparser';
-import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
-import cors from 'koa-cors';
-import koaBody from 'koa-body';
+import dotenv from "dotenv";
+import Koa from "koa";
+import Router from "koa-router";
+import bodyParser from "koa-bodyparser";
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import cors from "koa-cors";
+import koaBody from "koa-body";
 
-import http from 'http';
-import socketIO from 'socket.io';
+import http from "http";
+import socketIO from "socket.io";
 
-import api from './api';
-import jwtMiddleware from './lib/jwtMiddleware';
-import Room from './models/room';
+import api from "./api";
+import jwtMiddleware from "./lib/jwtMiddleware";
+import Room from "./models/room";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ const authData = {
 mongoose
   .connect(MONGODB_URI, authData)
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log("Connected to MongoDB");
   })
   .catch((e) => {
     console.error(e);
@@ -55,8 +55,8 @@ app.io
     }
     return next(error);
   })
-  .on('connection', function (socket) {
-    const token = socket.cookies.get('access_token');
+  .on("connection", function (socket) {
+    const token = socket.cookies.get("access_token");
     if (!token) return; // 토큰이 없음
 
     console.log(`컨넥션 했습니다 누가? ${socket.id}`);
@@ -73,21 +73,21 @@ app.io
       socket.join(createRoomId);
     }
     // 방 퇴장
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       console.log(`나감`);
     });
 
     // 방 입장
-    socket.on('joinRoom', (coupleShareCode) => {
+    socket.on("joinRoom", (coupleShareCode) => {
       console.log(`아이디뭐여 / ${socket.id}`);
       console.log(`방 입장 이벤트 받음 / ${coupleShareCode}`);
     });
 
     // 메시지 전송
-    socket.on('send message', async (messageObj) => {
+    socket.on("send message", async (messageObj) => {
       console.log(`센드 메시지 몇번인데?`);
       console.log(`${socket.id}`);
-      app.io.to(messageObj.coupleShareCode).emit('message', messageObj);
+      app.io.to(messageObj.coupleShareCode).emit("message", messageObj);
 
       try {
         const room = await Room.findCoupleCode(messageObj.coupleShareCode);
@@ -100,15 +100,15 @@ app.io
     });
 
     // 알림에 쓰일것
-    socket.on('new message', (coupleId) => {
-      console.log('뉴 메시지 입니다');
-      app.io.to(decoded.coupleShareCode).emit('notification', coupleId);
+    socket.on("new message", (coupleId) => {
+      console.log("뉴 메시지 입니다");
+      app.io.to(decoded.coupleShareCode).emit("notification", coupleId);
     });
   });
 
 // 라우터 설정
-router.use('/api', api.routes()); // api 라우트 적용
-router.use('/', socketRouter.routes());
+router.use("/api", api.routes()); // api 라우트 적용
+router.use("/", socketRouter.routes());
 // 라우터 적용 전에 bodyParser 적용
 app.use(koaBody({ multipart: true }));
 app.use(cors());

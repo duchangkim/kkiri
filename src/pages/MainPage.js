@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import LeftMainContainer from '../containers/main/LeftMainContainer';
-import RightMainContainer from '../containers/main/RightMainContainer';
-import { Row, Col } from 'react-bootstrap';
-import '../css/MainPage.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { check } from '../modules/member';
+import React, { useEffect } from "react";
+import LeftMainContainer from "../containers/main/LeftMainContainer";
+import RightMainContainer from "../containers/main/RightMainContainer";
+import { Row, Col } from "react-bootstrap";
+import "../css/MainPage.css";
+import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { check } from "../modules/member";
 
 const MainPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const MainPage = ({ history }) => {
   }, [dispatch]);
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <h1>No Contents</h1>;
   }
 

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Alert, Form } from 'react-bootstrap';
-import { BlockPicker } from 'react-color';
+import React from "react";
+import styled from "styled-components";
+import { Alert, Form } from "react-bootstrap";
+import { BlockPicker } from "react-color";
 
 const CalendarFormPopupBlock = styled.div`
   border: 1px solid #eaeaea;
@@ -50,15 +50,15 @@ const Button = styled.button`
   }
 `;
 const colors = [
-  '#F15A5A',
-  '#F0C419',
-  '#4EBA6F',
-  '#2D95BF',
-  '#955BA5',
-  '#F28A2E',
-  '#282828',
-  '#5A5A5A',
-  '#FFFFFF',
+  "#F15A5A",
+  "#F0C419",
+  "#4EBA6F",
+  "#2D95BF",
+  "#955BA5",
+  "#F28A2E",
+  "#282828",
+  "#5A5A5A",
+  "#FFFFFF",
 ];
 
 const CalendarFormPopup = ({
@@ -80,8 +80,8 @@ const CalendarFormPopup = ({
   onBgColorChangeComplete,
 }) => {
   const textMap = {
-    create: '추가',
-    modify: '수정',
+    create: "추가",
+    modify: "수정",
   };
   // const isOpen = true;
   // console.log(form);
@@ -144,7 +144,7 @@ const CalendarFormPopup = ({
               ) : null}
             </Form.Group>
             {error ? <Alert variant="danger">{error}</Alert> : null}
-            {type === 'create' ? (
+            {type === "create" ? (
               <Button className="btn btn-primary" onClick={null}>
                 {textMap[type]}
               </Button>

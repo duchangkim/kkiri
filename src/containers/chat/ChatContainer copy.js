@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Chat from '../../components/Chat/Chat';
-import { Row, Col } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import Chat from "../../components/Chat/Chat";
+import { Row, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   getMessageList,
   insertMessageList,
   newMessageOff,
-} from '../../modules/chat';
-import LoadingPage from '../../pages/LoadingPage';
-import { connectionSocket } from '../../modules/socket';
-import { setMessages, initialize } from '../../modules/message';
+} from "../../modules/chat";
+import LoadingPage from "../../pages/LoadingPage";
+import { connectionSocket } from "../../modules/socket";
+import { setMessages, initialize } from "../../modules/message";
 
 const ChatContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ChatContainer = ({ history }) => {
 
   // state
   // const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [messagePageNum, setMessagePageNum] = useState(0);
   const [visitTime, setVisitTime] = useState(new Date());
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -43,7 +43,7 @@ const ChatContainer = ({ history }) => {
   const [inPage, setInPage] = useState(true);
 
   const receivedMessage = async (message) => {
-    console.log('리시브 메시시');
+    console.log("리시브 메시시");
     // console.log(Array.isArray(message));
     // console.log(message);
     // if (Array.isArray(message)) {
@@ -83,7 +83,7 @@ const ChatContainer = ({ history }) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    if (message !== '') {
+    if (message !== "") {
       const messageObject = {
         coupleShareCode: member.coupleShareCode,
         sender: member._id,
@@ -91,13 +91,13 @@ const ChatContainer = ({ history }) => {
         text: message,
         sendDate: new Date(),
       };
-      setMessage('');
-      socket.emit('send message', messageObject);
-      socket.emit('new message', member.coupleId);
-      console.log('================================');
-      console.log('메시지 보냄');
+      setMessage("");
+      socket.emit("send message", messageObject);
+      socket.emit("new message", member.coupleId);
+      console.log("================================");
+      console.log("메시지 보냄");
       console.log(messageObject);
-      console.log('================================');
+      console.log("================================");
     }
   };
 
@@ -106,7 +106,7 @@ const ChatContainer = ({ history }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       sendMessage(e);
     }
   };
@@ -144,8 +144,8 @@ const ChatContainer = ({ history }) => {
       dispatch(newMessageOff());
       // console.log('소켓 연결하는 유이펙');
       // socket.emit('joinRoom', member.coupleShareCode);
-      socket.on('message', (message) => {
-        console.log('메시지받음');
+      socket.on("message", (message) => {
+        console.log("메시지받음");
         receivedMessage(message);
       });
       setVisitTime(new Date());
@@ -167,7 +167,7 @@ const ChatContainer = ({ history }) => {
 
   useEffect(() => {
     // console.log('리스너 유이펙');
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       // socket.emit('leaveRoom', member.coupleShareCode);
       socket.disconnect();
 
@@ -182,7 +182,7 @@ const ChatContainer = ({ history }) => {
     });
 
     return () => {
-      window.removeEventListener('beforeunload', () => {});
+      window.removeEventListener("beforeunload", () => {});
     };
   }, [dispatch, socket, visitTime]);
 
@@ -192,12 +192,12 @@ const ChatContainer = ({ history }) => {
       setMessageListLoad(true);
       return;
     }
-    console.log('이새끼가 리시브 호출한다.');
+    console.log("이새끼가 리시브 호출한다.");
     receivedMessage(messageList);
   }, [messageList]);
 
   useEffect(() => {
-    if (!loading['chat/GET_MESSAGE_LIST'] && messagePageNum !== 1) {
+    if (!loading["chat/GET_MESSAGE_LIST"] && messagePageNum !== 1) {
       if (!messagesRef) {
         return;
       }
@@ -227,7 +227,7 @@ const ChatContainer = ({ history }) => {
   // console.log(messages);
 
   if (!member) {
-    history.push('/');
+    history.push("/");
     return <LoadingPage />;
   }
   if (messageListError) {

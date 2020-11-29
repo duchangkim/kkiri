@@ -1,9 +1,9 @@
-import Joi from '@hapi/joi';
-import Member from '../../models/member';
-import createRandomCode from '../../lib/createRandomCode';
+import Joi from "@hapi/joi";
+import Member from "../../models/member";
+import createRandomCode from "../../lib/createRandomCode";
 
 export const register = async (ctx) => {
-  console.log('회원가입 불럿냐?');
+  console.log("회원가입 불럿냐?");
   // console.log(ctx.request.body);
 
   const schema = Joi.object().keys({
@@ -41,7 +41,7 @@ export const register = async (ctx) => {
     ctx.body = member.serialize();
 
     const token = member.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -65,13 +65,13 @@ export const login = async (ctx) => {
     // console.log(member);
     if (!member) {
       ctx.status = 401;
-      ctx.body = { error: 'not found email' };
+      ctx.body = { error: "not found email" };
       return;
     }
     const valid = await member.checkPassword(password);
     if (!valid) {
       ctx.status = 401;
-      ctx.body = { error: 'wrong password' };
+      ctx.body = { error: "wrong password" };
       return;
     }
 
@@ -80,7 +80,7 @@ export const login = async (ctx) => {
     ctx.body = serializedMember;
 
     const token = member.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -90,16 +90,16 @@ export const login = async (ctx) => {
 };
 
 export const logout = (ctx) => {
-  ctx.cookies.set('access_token');
+  ctx.cookies.set("access_token");
   ctx.status = 204;
 };
 
 export const check = async (ctx) => {
   const { member } = ctx.state;
-  console.log('이거불러라');
+  console.log("이거불러라");
   // console.log(member);
   if (!member) {
-    console.log('왜없냐');
+    console.log("왜없냐");
   }
   if (!member) {
     ctx.status = 401;
@@ -113,7 +113,7 @@ export const check = async (ctx) => {
   ctx.body = await fromDBMember.serialize();
 
   const token = fromDBMember.generateToken();
-  ctx.cookies.set('access_token', token, {
+  ctx.cookies.set("access_token", token, {
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
   });

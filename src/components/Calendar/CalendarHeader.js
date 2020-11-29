@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   MdAdd,
-} from 'react-icons/md';
+} from "react-icons/md";
 
 const ButtonsBlock = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const TodayButton = styled(Button)`
   margin: 5px 0;
   border-radius: 10px;
   font-size: 1.4rem;
-  color: ${(props) => (props.isToday ? '#ff838d' : '#919191')};
+  color: ${(props) => (props.isToday ? "#ff838d" : "#919191")};
   &:hover {
     background: #ff838da0;
     color: #fff;
@@ -48,7 +48,7 @@ const CurrentRange = styled.h2`
   text-align: center;
   font-size: 1.8rem;
   cursor: context-menu;
-  color: ${(props) => (props.isToday ? '#ff838d' : '#919191')};
+  color: ${(props) => (props.isToday ? "#ff838d" : "#919191")};
 
   @media ${(props) => props.theme.middle} {
     font-size: 1.3rem;
