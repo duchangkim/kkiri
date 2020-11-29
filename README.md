@@ -1,0 +1,80 @@
+# 프로젝트 기획 배경
+
+<br/>
+
+> 우리가 주로 사용하는 메신저인 카카오톡은 기능도 훌륭하고, 빠르고 좋습니다. 하지만 커플 전용으로 사용하기엔 실수가 생길 수 있습니다.<br/><br/>
+> 애교섞인 대화 내용을 연인과의 대화방이 아닌 공적인 대화방에 보내는 실수, 사진을 잘못 보내는 실수 등등 상상만 해도 소름이 돋는 실수입니다. 또한 연인사이에 찍은 사진들을 관리하다가 날려버리는 실수, 연인의 생일, 기념일을 까먹고 넘어가는 실수 등 이러한 실수를 방지하고, 연인사이에 필요한 기능을 가진 웹사이트를 만들어보면 어떨까 하는 생각에 끼리 웹사이트를 기획하고, 제작했습니다.
+
+<br/>
+<br/>
+
+
+# Kkiri 실행
+
+- 백엔드 서버 실행
+```
+  $ npm start:dev
+  or
+  $ yarn start:dev
+```
+- 클라이언트 서버 실행
+```
+  $ npm start
+  or
+  $ yarn start
+```
+
+<br/>
+<br/>
+
+# Kkiri 프로젝트 간단 설명
+
+#### Back-end 서버
+- API server [API 명세서](https://github.com/Kim-Duchang/kkiri/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
+- Node.js
+- Koa
+- RESTful(하게 구현 하려고 최대한 노력했습니다..)
+- JWT로 로그인 기능구현
+- socket.io 사용
+- MongoDB 사용
+
+<br/>
+
+#### Front-end 서버
+- ReactJS
+- 함수형 컴포넌트
+- Container / Component 구분
+- redux 패턴
+- redux-saga로 비동기 API 서버 통신
+- styled-components로 css스타일링
+
+<br/>
+<br/>
+
+# Kkiri 프로젝트 기능 설명
+
++  `회원`
+- 회원가입
+  
+- 로그인
+- 코드입력
+- 아이디 찾기
+- 비밀번호 찾기
+- 배경화면 수정
+- 프로필 사진 수정
+- 로그아웃
+- 회원탈퇴
++  `앨범`
+- Create
+- Read
+- Update
+- Delete
++  `캘린더`
+- Create
+- Read
+- Update
+- Delete
++  `채팅`
+- 채팅 실시간 알림
+- 개인 채팅기능
+- 채팅 내용 저장
