@@ -28,6 +28,8 @@ export const checkObjectId = async (ctx, next) => {
 // 파일 업로드
 // localhost:4000/api/albums/fileupload
 export const fileupload = async (ctx) => {
+  // server.timeout = 1000 * 60 * 10; // 10 mins
+  console.log('업로드들어옴');
   const schema = Joi.object().keys({
     coupleShareCode: Joi.string(),
     filename: Joi.array(),
