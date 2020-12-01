@@ -114,7 +114,8 @@ router.use("/", socketRouter.routes());
 // 라우터 적용 전에 bodyParser 적용
 app.use(koaBody({ multipart: true }));
 app.use(cors());
-// app.use(bodyParser());
+
+
 app.use(jwtMiddleware);
 
 // app 인스턴스에 라우터 적용
