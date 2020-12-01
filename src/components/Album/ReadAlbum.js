@@ -117,10 +117,10 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
           console.log("삭제성공!");
 
           len > 1
-            ? (window.location.href = `http://localhost:3000/kkiri/albums/${
+            ? (window.location.href = `http://192.168.5.22:3000/kkiri/albums/${
                 abc < len - 1 ? abc : abc - 1
               }`)
-            : (window.location.href = `http://localhost:3000/kkiri/albums`);
+            : (window.location.href = `http://192.168.5.22:3000/kkiri/albums`);
         })
         .catch((err) => {
           console.log(err);
@@ -168,14 +168,14 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
             (extens == "mkv") |
             (extens == "mov") ? (
               <video
-                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
+                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${filename}`}
                 alt={filename}
                 style={{ width: "100%", height: "300px" }}
                 controls
               />
             ) : (
               <img
-                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
+                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${filename}`}
                 alt={filename}
               />
             )}

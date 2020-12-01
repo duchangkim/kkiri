@@ -18,7 +18,6 @@ const Fullscreen = styled.div`
 const AskModalBlock = styled.div`
   position: fixed;
   top: 262px;
-  width: 60%;
   height: 200px;
   background: white;
   padding: 1.5rem;
@@ -27,6 +26,8 @@ const AskModalBlock = styled.div`
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
   p {
     margin-bottom: 3rem;

@@ -149,7 +149,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                           >
                             <li>
                               <img
-                                src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
+                                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${album.filename}`}
                                 className="img_place"
                                 alt={album.keyid}
                               />
@@ -162,7 +162,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                           >
                             <li>
                               <video
-                                src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
+                                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${album.filename}`}
                                 className="img_place"
                                 alt={album.keyid}
                                 // autoPlay
@@ -199,7 +199,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                           <Link to={`albums/like/${index}`} key={ar.keyid}>
                             <li>
                               <img
-                                src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
                                 className="img_place"
                                 alt={ar.keyid}
                               />
@@ -212,7 +212,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                           >
                             <li>
                               <video
-                                src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
                                 className="img_place"
                                 alt={ar.keyid}
                                 // autoPlay
@@ -236,7 +236,7 @@ function Album({ albums, loading, error, coupleShareCode }) {
                       <Link to={`albums/video/${index}`} key={ar.keyid}>
                         <li>
                           <video
-                            src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                            src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
                             className="img_place"
                             alt={ar.keyid}
                             // autoPlay

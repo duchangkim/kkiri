@@ -2,24 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import UploadButton from "./UploadButton";
 
-const MODAL_STYLES = {
-  position: "relative",
-  top: `0`,
-  left: `0`,
-  fransform: "translate(-50%, -50%)",
-  backgroundColor: "#FFF",
-  zIndex: 1500,
-  borderRadius: 10,
-};
-const OVERLAY_STYLES = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.25)",
-  zIndex: 1500,
-};
+const MODAL_STYLES = styled.div`
+  position: relative;
+  top: 0;
+  left: 0;
+  fransform: translate(-50%, -50%);
+  background: #FFF;
+  z-index: 1500;
+  border-radius: 10px;
+  width: 30%;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  
+`;
+
+const  OVERLAY_STYLES= styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1500;
+`;
 
 const ModalStyle = styled.div`
   .title {
@@ -33,10 +41,10 @@ const ModalStyle = styled.div`
     padding: 10px 0 10px 0;
   }
   .pt1 {
-    width: 90%;
+    width: 100%;
     font-weight: bold;
     font-size: 22px;
-    padding-left: 10%;
+    padding-left: 13%;
   }
   .pt2 {
     width: 10%;
@@ -65,7 +73,8 @@ const ModalStyle = styled.div`
   }
   .middle input {
     height: 36px;
-    width: 250px;
+    width: 63%;
+    margin-right: -1%;
   }
   .middle input[type="file"] {
     position: absolute;
@@ -111,8 +120,8 @@ export default function Modal({ open, children, onClose }) {
 
   return (
     <>
-      <div style={OVERLAY_STYLES} />
-      <div style={MODAL_STYLES}>
+      <OVERLAY_STYLES/>
+      <MODAL_STYLES>
         <ModalStyle>
           <div className="title">
             <div className="pt1">사진추가</div>
@@ -127,7 +136,7 @@ export default function Modal({ open, children, onClose }) {
           <UploadButton />
         </ModalStyle>
         {children}
-      </div>
+      </MODAL_STYLES>
     </>
   );
 }

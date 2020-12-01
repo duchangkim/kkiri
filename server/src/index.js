@@ -42,6 +42,8 @@ const socketRouter = new Router();
 app.server = http.createServer(app.callback());
 app.io = socketIO(app.server, {});
 
+
+
 app.io
   .use((socket, next) => {
     let error = null;
@@ -112,7 +114,7 @@ router.use("/", socketRouter.routes());
 // 라우터 적용 전에 bodyParser 적용
 app.use(koaBody({ multipart: true }));
 app.use(cors());
-app.use(bodyParser());
+// app.use(bodyParser());
 app.use(jwtMiddleware);
 
 // app 인스턴스에 라우터 적용
@@ -129,3 +131,6 @@ const port = SERVER_PORT || 4000;
 app.listen(port, () => {
   console.log(`server is running on port chat: ${port}`);
 });
+
+app.timeout = 1000 * 60 * 60 * 2;
+app.server.timeout = 1000 * 60 * 60 * 2;

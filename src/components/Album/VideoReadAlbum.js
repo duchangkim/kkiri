@@ -183,7 +183,7 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
               (extens == "mkv") |
               (extens == "mov") && (
               <video
-                src={`http://localhost:3000/uploads/${coupleShareCode}/${arr2[albumIdx].filename}`}
+                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${arr2[albumIdx].filename}`}
                 alt={arr2[albumIdx].filename}
                 style={{ width: "100%", height: "300px" }}
                 controls

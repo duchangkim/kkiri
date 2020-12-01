@@ -14,7 +14,8 @@ class UploadButton extends Component {
     });
   };
 
-  handlePost = () => {
+  handlePost = (e) => {
+    e.preventDefault();
     // console.log(this.state.files);
     const formData = new FormData();
     formData.append("files", this.state.files, this.state.files.name);
@@ -38,6 +39,7 @@ class UploadButton extends Component {
       })
       .then((res) => {
         console.log(res);
+        window.location.href = `http://192.168.5.22:3000/kkiri/albums`;
       })
       .catch((err) => {
         console.log(err);

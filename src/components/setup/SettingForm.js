@@ -8,7 +8,7 @@ function SettingForm({ setting, email, history }) {
     try {
       console.log(email);
       await removeMember(email);
-      window.location.href = `http://localhost:3000`;
+      window.location.href = `http://192.168.5.22:3000`;
     } catch (e) {
       console.log(e);
     }

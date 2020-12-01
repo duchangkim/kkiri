@@ -287,7 +287,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 ar.filename && (
                   <div className="price" key={ar.keyid}>
                     <img
-                      src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                      src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
                       alt={`${ar.filename}`}
                     />
                   </div>

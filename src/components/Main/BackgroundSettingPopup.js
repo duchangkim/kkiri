@@ -170,7 +170,7 @@ class BackgroundSettingPopup extends Component {
     imgBase64:
       `${this.props.member.mainSetting.coupleBackground}` == ""
         ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
-        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
+        : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
     files: "",
     value: "",
   };
@@ -216,7 +216,7 @@ class BackgroundSettingPopup extends Component {
       imgBase64:
         `${this.props.member.mainSetting.coupleBackground}` == ""
           ? `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
-          : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
+          : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleBackground}`,
       files: "",
       value: "",
     });

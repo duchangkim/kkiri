@@ -87,7 +87,7 @@ const ProfilePopups = styled.div`
       position: absolute;
       z-index: 1000;
       top: 300px;
-      left: 20%;
+      left: 10%;
       transform: translateY(-40%);
       width: 400px;
       height: 450px;
@@ -102,7 +102,7 @@ class ChatProfile1 extends Component {
     imgBase64:
       `${this.props.member.mainSetting.coupleProfile1}` === ""
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
-        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+        : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: "",
     value: "",
   };
