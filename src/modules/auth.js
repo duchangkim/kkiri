@@ -1,42 +1,42 @@
-import { createAction, handleActions } from "redux-actions";
-import produce from "immer";
+import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as authAPI from "../lib/api/auth";
-import { all, takeLatest } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as authAPI from '../lib/api/auth';
+import { all, takeLatest } from 'redux-saga/effects';
 
 // 초기 상태 정의
 const initialState = {
   login: {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   },
   register: {
-    email: "",
-    emailAuthenticationCode: "",
-    password: "",
-    passwordConfirm: "",
-    name: "",
-    birthday: "",
-    hp: "",
+    email: '',
+    emailAuthenticationCode: '',
+    password: '',
+    passwordConfirm: '',
+    name: '',
+    birthday: '',
+    hp: '',
   },
   connection: {
-    otherUserCode: "",
+    otherUserCode: '',
   },
   findid: {
-    birthday: "",
-    name: "",
-    hp: "",
+    birthday: '',
+    name: '',
+    hp: '',
     isSuccess: false,
-    findEmail: "",
+    findEmail: '',
   },
   findpw: {
-    birthday: "",
-    email: "",
-    hp: "",
+    birthday: '',
+    email: '',
+    hp: '',
     isSuccess: false,
-    findEmail: "",
+    findEmail: '',
   },
   auth: null,
   authError: null,
@@ -47,36 +47,36 @@ const initialState = {
 };
 
 // 액션 타입 정의
-const INITIALIZE_ALL = "auth/INITIALIZE_ALL";
-const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
-const SUPER_INITIALIZE = "auth/SUPER_INITIALIZE";
-const CHANGE_FIELD = "auth/CHANGE_FIELD";
+const INITIALIZE_ALL = 'auth/INITIALIZE_ALL';
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+const SUPER_INITIALIZE = 'auth/SUPER_INITIALIZE';
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  "auth/LOGIN"
+  'auth/LOGIN'
 );
 const [
   SEND_EMAIL_AUTHENTICATION_CODE,
   SEND_EMAIL_AUTHENTICATION_CODE_SUCCESS,
   SEND_EMAIL_AUTHENTICATION_CODE_FAILURE,
-] = createRequestActionTypes("auth/SEND_EMAIL_AUTHENTICATION_CODE");
+] = createRequestActionTypes('auth/SEND_EMAIL_AUTHENTICATION_CODE');
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
-  "auth/REGISTER"
+  'auth/REGISTER'
 );
 const [
   FIND_OTHER_MEMBER,
   FIND_OTHER_MEMBER_SUCCESS,
   FIND_OTHER_MEMBER_FAILURE,
-] = createRequestActionTypes("auth/FIND_OTHER_MEMBER");
+] = createRequestActionTypes('auth/FIND_OTHER_MEMBER');
 const [
   CREATE_COUPLE_SET1,
   CREATE_COUPLE_SET1_SUCCESS,
   CREATE_COUPLE_SET1_FAILURE,
-] = createRequestActionTypes("auth/CREATE_COUPLE_SET");
+] = createRequestActionTypes('auth/CREATE_COUPLE_SET');
 const [FINDID, FINDID_SUCCESS, FINDID_FAILURE] = createRequestActionTypes(
-  "auth/FINDID"
+  'auth/FINDID'
 );
 const [FINDPW, FINDPW_SUCCESS, FINDPW_FAILURE] = createRequestActionTypes(
-  "auth/FINDPW"
+  'auth/FINDPW'
 );
 
 // 액션 생성함수 정의

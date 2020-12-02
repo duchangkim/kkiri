@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import React from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
 import {
   AiOutlineHome,
   AiOutlineCalendar,
   AiOutlinePicture,
   AiOutlineSetting,
-} from "react-icons/ai";
-import { BsChatDots } from "react-icons/bs";
+} from 'react-icons/ai';
+import { BsChatDots } from 'react-icons/bs';
 
 const Styles = styled.div`
   height: 70%;
@@ -94,9 +94,9 @@ const New = styled.div`
 `;
 
 const activeStyle = {
-  outline: "none",
-  color: "#ff838d",
-  borderRight: "6px solid #ff838d",
+  outline: 'none',
+  color: '#ff838d',
+  borderRight: '6px solid #ff838d',
 };
 export const KkiriLogo = () => {
   return <StyledHeading>Kkiri</StyledHeading>;

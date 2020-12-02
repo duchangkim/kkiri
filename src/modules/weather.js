@@ -1,9 +1,9 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as weatherAPI from "../lib/api/weather";
-import { takeLatest, all } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as weatherAPI from '../lib/api/weather';
+import { takeLatest } from 'redux-saga/effects';
 
 const initialState = {
   myWeather: null,
@@ -16,12 +16,12 @@ const [
   GET_MY_WEATHER,
   GET_MY_WEATHER_SUCCESS,
   GET_MY_WEATHER_FAILURE,
-] = createRequestActionTypes("weather/GET_MY_WEATHER");
+] = createRequestActionTypes('weather/GET_MY_WEATHER');
 const [
   GET_YOUR_WEATHER,
   GET_YOUR_WEATHER_SUCCESS,
   GET_YOUR_WEATHER_FAILURE,
-] = createRequestActionTypes("weather/GET_YOUR_WEATHER");
+] = createRequestActionTypes('weather/GET_YOUR_WEATHER');
 
 // 액션 생성함수
 export const getMyWeather = createAction(
@@ -37,7 +37,6 @@ export const getYourWeather = createAction(
 const weather = handleActions(
   {
     [GET_MY_WEATHER_SUCCESS]: (state, { payload: myWeather }) => {
-      console.log(myWeather);
       return {
         ...state,
         myWeather,

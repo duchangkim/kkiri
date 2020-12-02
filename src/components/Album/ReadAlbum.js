@@ -1,11 +1,10 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import styled from "styled-components";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
-import ActionButtons from "./ActionButtons";
-import { removeFile, editFile } from "../../lib/api/album";
-import Button from "../common/Button";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import ActionButtons from './ActionButtons';
+import { removeFile, editFile } from '../../lib/api/album';
 
 const ReadBlock = styled.div`
   width: 70%;
@@ -33,7 +32,6 @@ const ArrowForwardBox = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const ItemBox = styled.div`
   width: 90%;
   padding: 0;
@@ -41,7 +39,6 @@ const ItemBox = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const BoxBody = styled.div`
   width: 100%;
   // height:90%;
@@ -84,12 +81,7 @@ const HomeButton = styled.button`
 `;
 
 function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
-  // const dispatch = useDispatch();
-  // console.log('555555555');
-  // console.log(albumIdx)
-  // console.log(typeof albumIdx);
   let abc = Number(albumIdx);
-  // console.log(typeof abc);
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>;
@@ -103,50 +95,40 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
 
   const { fileData } = album;
   const len = fileData.files.length;
-  console.log(typeof len);
-  // console.log(typeof len);
   const filename = fileData.files[albumIdx].filename;
-  // console.log(abc < len ? abc : (abc-1));
   const likes = fileData.files[albumIdx].like;
 
   const onRemove = async () => {
     try {
-      console.log(albumIdx);
       await removeFile(albumIdx)
         .then((res) => {
-          console.log("삭제성공!");
-
           len > 1
-            ? (window.location.href = `http://192.168.5.22:3000/kkiri/albums/${
+            ? (window.location.href = `http://localhost:3000/kkiri/albums/${
                 abc < len - 1 ? abc : abc - 1
               }`)
-            : (window.location.href = `http://192.168.5.22:3000/kkiri/albums`);
+            : (window.location.href = `http://localhost:3000/kkiri/albums`);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
-  const asd = Date.now();
-  console.log(typeof asd);
   const keyid = fileData.files[albumIdx].keyid;
 
   const onEdit = async () => {
     await editFile(keyid)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
-  console.log("coupleShareCode -> " + coupleShareCode);
-  console.log(filename.split(".").pop().toLowerCase());
-  const extens = filename.split(".").pop().toLowerCase();
+  const extens = filename.split('.').pop().toLowerCase();
 
   return (
     <>
@@ -161,21 +143,21 @@ function ReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
         </ArrowForwardBox>
         <ItemBox>
           <BoxBody>
-            {(extens == "mp4") |
-            (extens == "m4v") |
-            (extens == "avi") |
-            (extens == "flv") |
-            (extens == "mkv") |
-            (extens == "mov") ? (
+            {(extens === 'mp4') |
+            (extens === 'm4v') |
+            (extens === 'avi') |
+            (extens === 'flv') |
+            (extens === 'mkv') |
+            (extens === 'mov') ? (
               <video
-                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${filename}`}
+                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
                 alt={filename}
-                style={{ width: "100%", height: "300px" }}
+                style={{ width: '100%', height: '300px' }}
                 controls
               />
             ) : (
               <img
-                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${filename}`}
+                src={`http://localhost:3000/uploads/${coupleShareCode}/${filename}`}
                 alt={filename}
               />
             )}

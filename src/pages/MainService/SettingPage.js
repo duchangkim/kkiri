@@ -1,8 +1,8 @@
-import React from "react";
-import MemberDeleteContainer from "../../containers/setup/MemberDeleteContainer";
-import LogoutContainer from "../../containers/Auth/LogoutContainer";
+import React from 'react';
+import MemberDeleteContainer from '../../containers/setup/MemberDeleteContainer';
+import LogoutContainer from '../../containers/Auth/LogoutContainer';
 
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 
 const SettingPage = () => {
   return (

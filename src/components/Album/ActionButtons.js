@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import AskRemoveModal from "./AskRemoveModal";
-import { BsHeartFill } from "react-icons/bs";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import AskRemoveModal from './AskRemoveModal';
+import { BsHeartFill } from 'react-icons/bs';
 
 const UpdBlock = styled.div`
   width: 70%;
@@ -9,7 +9,6 @@ const UpdBlock = styled.div`
   text-align: center;
   margin: 0 auto;
 `;
-
 const ActionButton = styled.button`
   border: none;
   border-radius: 4px;
@@ -35,10 +34,8 @@ const ActionButtons = ({ onRemove, onEdit, likes }) => {
   const [modal, setModal] = useState(false);
 
   const [like, setLike] = useState(likes ? true : false);
-  console.log("!!!!!!!!!!!!" + likes);
 
   const onChangeText = () => {
-    console.log("here!");
     setLike(!like);
   };
 
@@ -53,7 +50,6 @@ const ActionButtons = ({ onRemove, onEdit, likes }) => {
     onRemove();
   };
 
-  console.log("ㅇㄴㄹㄴㅇㄹ여깅기이기~~ : " + likes);
   return (
     <>
       <UpdBlock>

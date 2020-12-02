@@ -1,15 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import { AiFillHome } from "react-icons/ai";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Navbar } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { AiFillHome } from 'react-icons/ai';
 import {
   BsFillChatDotsFill,
   BsImages,
   BsGearFill,
   BsCalendarFill,
-} from "react-icons/bs";
+} from 'react-icons/bs';
 
 const Styles = styled.div`
   border-top: 1px solid #a9a9a9;

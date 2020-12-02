@@ -1,6 +1,5 @@
-import React from "react";
-import HeaderContainer from "../containers/common/HeaderContainer";
-// import WelcomebodyForm from "../components/wlecom/WelcomebodyForm";
+import React from 'react';
+import HeaderContainer from '../containers/common/HeaderContainer';
 
 const WelcomPage = () => {
   return (

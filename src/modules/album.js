@@ -1,20 +1,19 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as albumsAPI from "../lib/api/album";
-import { takeLatest } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as albumsAPI from '../lib/api/album';
+import { takeLatest } from 'redux-saga/effects';
 
 const [
   READ_ALBUM,
   READ_ALBUM_SUCCESS,
   READ_ALBUM_FAILURE,
-] = createRequestActionTypes("album/READ_ALBUM");
-const UNLOAD_ALBUM = "album/UNLOAD_ALBUM";
-const SET_ORIGINAL_ALBUM = "album/SET_ORIGINAL_ALBUM";
+] = createRequestActionTypes('album/READ_ALBUM');
+const UNLOAD_ALBUM = 'album/UNLOAD_ALBUM';
+const SET_ORIGINAL_ALBUM = 'album/SET_ORIGINAL_ALBUM';
 
 export const readAlbum = createAction(READ_ALBUM, (id, idx) => (id, idx));
-console.log("2222222module/album");
 export const unloadAlbum = createAction(UNLOAD_ALBUM);
 
 export const setOriginalAlbum = createAction(SET_ORIGINAL_ALBUM, (idx) => idx);

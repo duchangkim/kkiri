@@ -1,27 +1,27 @@
-import { createAction, handleActions } from "redux-actions";
-import { all, call, takeLatest } from "redux-saga/effects";
-import * as authAPI from "../lib/api/auth";
-import * as memberAPI from "../lib/api/member";
+import { createAction, handleActions } from 'redux-actions';
+import { all, call, takeLatest } from 'redux-saga/effects';
+import * as authAPI from '../lib/api/auth';
+import * as memberAPI from '../lib/api/member';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
+} from '../lib/createRequestSaga';
 
 //  액션 타입 정의
-const TEMP_SET_MEMBER = "member/TEMP_SET_MEMBER";
+const TEMP_SET_MEMBER = 'member/TEMP_SET_MEMBER';
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
-  "member/CHECK"
+  'member/CHECK'
 );
-const LOGOUT = "member/LOGOUT";
+const LOGOUT = 'member/LOGOUT';
 const [
   INSERT_POSITION,
   INSERT_POSITION_SUCCESS,
   INSERT_POSITION_FAILURE,
-] = createRequestActionTypes("member/INSERT_POSITION");
+] = createRequestActionTypes('member/INSERT_POSITION');
 const [
   INSERT_TOGETHERDATE,
   INSERT_TOGETHERDATE_SUCCESS,
   INSERT_TOGETHERDATE_FAILURE,
-] = createRequestActionTypes("member/INSERT_TOGETHERDATE");
+] = createRequestActionTypes('member/INSERT_TOGETHERDATE');
 
 // 액션 생성함수
 export const tempSetMember = createAction(TEMP_SET_MEMBER, (member) => member);
@@ -40,9 +40,9 @@ export const insertGetTogetherDate = createAction(
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
 const checkFailureSaga = () => {
   try {
-    localStorage.removeItem("member");
+    localStorage.removeItem('member');
   } catch (e) {
-    console.log("localStorage error!");
+    console.log('localStorage error!');
   }
 };
 const insertPositionSaga = createRequestSaga(
@@ -57,7 +57,7 @@ const insertGetTogetherDateSaga = createRequestSaga(
 function* logoutSaga() {
   try {
     yield call(authAPI.logout);
-    localStorage.removeItem("member");
+    localStorage.removeItem('member');
   } catch (e) {
     console.log(e);
   }

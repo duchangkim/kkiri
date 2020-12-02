@@ -1,9 +1,9 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as memberAPI from "../lib/api/member";
-import { takeLatest } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as memberAPI from '../lib/api/member';
+import { takeLatest } from 'redux-saga/effects';
 
 // 초기상태 정의
 const initialState = {
@@ -16,11 +16,10 @@ const [
   GET_COUPLE,
   GET_COUPLE_SUCCESS,
   GET_COUPLE_FAILURE,
-] = createRequestActionTypes("couple/GET_COUPLE");
+] = createRequestActionTypes('couple/GET_COUPLE');
 
 // 액션 생성함수
 export const getCouple = createAction(GET_COUPLE, (coupleId) => ({ coupleId }));
-// console.log(getCouple(12312312));
 
 // 리듀서
 const couple = handleActions(

@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import palette from "../../lib/styles/palette";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "../common/Button";
-import { Container, Form, Alert } from "react-bootstrap";
-import { Input } from "reactstrap";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from '../common/Button';
+import { Container, Form, Alert } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 const FindFormBlock = styled.div`
   text-align: center;
@@ -94,8 +94,8 @@ const Footer = styled.div`
 `;
 
 const textMap = {
-  findid: "아이디 찾기",
-  findpw: "비밀번호 찾기",
+  findid: '아이디 찾기',
+  findpw: '비밀번호 찾기',
 };
 
 const NaviMessage = styled.div`
@@ -107,7 +107,7 @@ const NaviMessage = styled.div`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -117,8 +117,6 @@ const NaviMessage = styled.div`
 `;
 
 const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
-  // console.log('~~~~파인드 폼 이메일');
-  // console.log(myEmail);
   const text = textMap[type];
   return (
     <Container>
@@ -127,7 +125,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
           <span className="m-3">{textMap[type]}</span>
         </NaviMessage>
         <form onSubmit={onSubmit}>
-          {type === "findpw" && (
+          {type === 'findpw' && (
             <>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
@@ -162,7 +160,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
             </>
           )}
-          {type === "registercode" && (
+          {type === 'registercode' && (
             <Form.Group controlId="formBasicEmail" className="login_form">
               <Input
                 name="emailcode"
@@ -174,7 +172,7 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               <span className="content_name pl-1 pr-1">이메일 인증 번호</span>
             </Form.Group>
           )}
-          {type === "findid" && (
+          {type === 'findid' && (
             <>
               <Form.Group controlId="formBasicEmail" className="login_form">
                 <Input
@@ -210,14 +208,14 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
             </>
           )}
           {error && <Alert>{error}</Alert>}
-          {type === "findresult" ? null : (
+          {type === 'findresult' ? null : (
             <Button cyan fullWidth>
               {text}
             </Button>
           )}
         </form>
 
-        {type === "findresult" && (
+        {type === 'findresult' && (
           <>
             <p>회원님의 아이디는</p>
             <h1>{myEmail}</h1>
@@ -233,17 +231,17 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
           </>
         )}
         <Footer>
-          {type === "findid" && (
+          {type === 'findid' && (
             <Link to="/findpw">
               <span className="ma_ra">비밀번호 찾기</span>
             </Link>
           )}
-          {type === "findpw" && (
+          {type === 'findpw' && (
             <Link to="/findid">
               <span className="ma_ra">아이디 찾기</span>
             </Link>
           )}
-          {type === "findresult" ? null : (
+          {type === 'findresult' ? null : (
             <Link to="/login">
               <span className="ma_le">로그인</span>
             </Link>

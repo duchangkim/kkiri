@@ -1,19 +1,17 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as albumsAPI from "../lib/api/album";
-import { takeLatest } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as albumsAPI from '../lib/api/album';
+import { takeLatest } from 'redux-saga/effects';
 
 const [
   LIST_ALBUMS,
   LIST_ALBUMS_SUCCESS,
   LIST_ALBUMS_FAILURE,
-] = createRequestActionTypes("albums/LIST_ALBUMS");
+] = createRequestActionTypes('albums/LIST_ALBUMS');
 
 export const listAlbums = createAction(LIST_ALBUMS);
-
-console.log("11111111module/albums 먼저들어오고");
 
 const listAlbumsSaga = createRequestSaga(LIST_ALBUMS, albumsAPI.listAlbums);
 export function* albumsSaga() {

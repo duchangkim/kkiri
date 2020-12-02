@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import palette from "../../lib/styles/palette";
-import Button from "../common/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Container, Form } from "react-bootstrap";
-import { Input } from "reactstrap";
+import { Container, Form } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 const SetUpFormBlock = styled.div`
   h3 {
@@ -88,7 +88,7 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  changepassword: "비밀번호 변경",
+  changepassword: '비밀번호 변경',
 };
 
 const ErrorMessage = styled.div`
@@ -129,7 +129,7 @@ const PasswordForm = ({ type, form, onChange, onSubmit, error }) => {
             <span className="content_name pl-1 pr-1">비밀번호 확인</span>
           </Form.Group>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem " }}>
+          <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem ' }}>
             {text}
           </ButtonWithMarginTop>
         </form>

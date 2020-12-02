@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../lib/styles/palette";
-import { Link } from "react-router-dom";
-import { Container, Form, Button, Alert } from "react-bootstrap";
-import { Input } from "reactstrap";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 const NaviMessage = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const NaviMessage = styled.div`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: rgba(0, 0, 0, 0.35);
     height: 1px;
@@ -90,7 +90,6 @@ const AuthFormBlock = styled.div`
     box-shadow: 0 0 0 0.2rem rgb(255 131 141 / 38%) !important;
   }
 `;
-
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
@@ -119,9 +118,9 @@ const Footer = styled.div`
 `;
 
 const textMap = {
-  login: "로그인",
-  register: "회원 가입",
-  registercouple: "커플코드 확인",
+  login: '로그인',
+  register: '회원 가입',
+  registercouple: '커플코드 확인',
 };
 
 const AuthForm = ({
@@ -134,7 +133,6 @@ const AuthForm = ({
   emailSendMessage,
   authErrorMessage,
 }) => {
-  console.log(authErrorMessage);
   return (
     <>
       <Container>
@@ -154,7 +152,7 @@ const AuthForm = ({
 
               <span className="content_name pl-1 pr-1">아이디 (이메일)</span>
             </Form.Group>
-            {type === "register" && (
+            {type === 'register' && (
               <>
                 <Form.Group>
                   <Button variant="primary" block onClick={onSendButtonClick}>
@@ -194,7 +192,7 @@ const AuthForm = ({
 
               <span className="content_name pl-1 pr-1">비밀번호</span>
             </Form.Group>
-            {type === "register" && (
+            {type === 'register' && (
               <>
                 <Form.Group className="login_form">
                   <Input
@@ -255,7 +253,7 @@ const AuthForm = ({
           </AuthFormBlock>
         </form>
         <Footer>
-          {type === "login" ? (
+          {type === 'login' ? (
             <>
               <Link to="/findid">
                 <span className="ma_ra">아이디 / 비밀번호 찾기</span>
@@ -264,7 +262,7 @@ const AuthForm = ({
                 <span className="ma_le">회원가입</span>
               </Link>
             </>
-          ) : type === "registercouple" ? null : (
+          ) : type === 'registercouple' ? null : (
             <Link to="/login">
               <span className="ma_le">로그인</span>
             </Link>

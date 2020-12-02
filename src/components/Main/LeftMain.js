@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FcLike } from "react-icons/fc";
-import { BsPeopleCircle, BsImageFill } from "react-icons/bs";
-import { withRouter } from "react-router-dom";
-import { Button, FormControl, InputGroup } from "react-bootstrap";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { FcLike } from 'react-icons/fc';
+import { BsPeopleCircle, BsImageFill } from 'react-icons/bs';
+import { withRouter } from 'react-router-dom';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
-import ProfileSettingPopup from "./ProfileSettingPopup";
-import BackgroundSettingPopup from "./BackgroundSettingPopup";
-import calculateDday from "../../lib/calculateDday";
+import ProfileSettingPopup from './ProfileSettingPopup';
+import BackgroundSettingPopup from './BackgroundSettingPopup';
+import calculateDday from '../../lib/calculateDday';
 
 const LeftMainBlock = styled.div`
   width: 100%;
@@ -79,13 +79,9 @@ const LeftMain = ({
     return <h1>Loading...</h1>;
   }
 
-  console.log("lf컨테이너");
   const file = member.mainSetting.coupleBackground;
-  console.log(file + "배경이미지");
   const coupleImg1 = member.mainSetting.coupleProfile1;
-  console.log(coupleImg1 + "프로필1");
   const coupleImg2 = member.mainSetting.coupleProfile2;
-  console.log(coupleImg2 + "프로필2");
 
   return (
     <LeftMainBlock>
@@ -101,7 +97,6 @@ const LeftMain = ({
             />
           ) : null}
           {/* 프로필 설정 팝업 */}
-          {/* <ProfileSettingPopup /> */}
           {ProfileSettingPopupOpen ? (
             <ProfileSettingPopup
               handleProfileSettingPopupOpenClick={
@@ -114,7 +109,7 @@ const LeftMain = ({
           <img
             src={
               member.mainSetting.coupleBackground
-                ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${file}`
+                ? `http://localhost:3000/uploads/${member.coupleShareCode}/${file}`
                 : `https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_960_720.png`
             }
             alt="배경화면"
@@ -160,7 +155,7 @@ const LeftMain = ({
                   <img
                     src={
                       member.mainSetting.coupleProfile1
-                        ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg1}`
                         : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                     }
                     alt="좌측 프로필 사진"
@@ -187,7 +182,7 @@ const LeftMain = ({
                   <img
                     src={
                       member.mainSetting.coupleProfile2
-                        ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
+                        ? `http://localhost:3000/uploads/${member.coupleShareCode}/${coupleImg2}`
                         : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                     }
                     alt="우측 프로필 사진"

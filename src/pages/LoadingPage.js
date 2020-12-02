@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const LoadingPageBlock = styled.div`
   width: 100%;
@@ -44,7 +44,7 @@ const LoadingPageBlock = styled.div`
   }
   .ldio-ckfywe494jw > div div:after,
   .ldio-ckfywe494jw > div div:before {
-    content: " ";
+    content: ' ';
     position: absolute;
     display: block;
     width: 70px;

@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../lib/styles/palette";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 const PostActionButtonsBlock = styled.div`
   margin-top: 3rem;
   h2 {

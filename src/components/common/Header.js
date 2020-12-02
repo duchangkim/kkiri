@@ -1,15 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Responsive from "./Responsive";
-import Button from "./Button";
-import Carousel from "nuka-carousel";
-import img3 from "./images/welcome_image.jpg";
-import titleimg1 from "./images/titleimg1.png";
-import titleimg2 from "./images/titleimg2.png";
-import titleimg3 from "./images/titleimg3.png";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Responsive from './Responsive';
+import Button from './Button';
+import Carousel from 'nuka-carousel';
+import img3 from './images/welcome_image.jpg';
+import titleimg1 from './images/titleimg1.png';
+import titleimg2 from './images/titleimg2.png';
+import titleimg3 from './images/titleimg3.png';
 
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 
 const WelcomeCss = styled.div`
   .slider-frame {
@@ -35,7 +35,7 @@ const WelcomeCss = styled.div`
     background: transparent !important;
   }
   .slider-control-centerright button:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 4px;
     width: 20px;
@@ -45,7 +45,7 @@ const WelcomeCss = styled.div`
     transform: rotate(135deg);
   }
   .slider-control-centerright button:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 5px;
     width: 20px;
@@ -60,7 +60,7 @@ const WelcomeCss = styled.div`
     background: transparent !important;
   }
   .slider-control-centerleft button:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 4px;
     width: 20px;
@@ -70,7 +70,7 @@ const WelcomeCss = styled.div`
     transform: rotate(45deg);
   }
   .slider-control-centerleft button:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 5px;
     width: 20px;
@@ -180,7 +180,6 @@ const UserInfo = styled.div`
 `;
 
 const Header = ({ member, onLogout, children }) => {
-  console.log(member);
   return (
     <>
       <WelcomeCss>

@@ -1,6 +1,6 @@
-const MOVE_TO_NEXT_RANGE = "MOVE_TO_NEXT_RANGE";
-const MOVE_TO_PREV_RANGE = "MOVE_TO_PREV_RANGE";
-const MOVE_TO_TODAY = "MOVE_TO_TODAY";
+const MOVE_TO_NEXT_RANGE = 'MOVE_TO_NEXT_RANGE';
+const MOVE_TO_PREV_RANGE = 'MOVE_TO_PREV_RANGE';
+const MOVE_TO_TODAY = 'MOVE_TO_TODAY';
 
 export const moveToNextRange = (currentCalendar) => ({
   type: MOVE_TO_NEXT_RANGE,

@@ -1,9 +1,9 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as chatAPI from "../lib/api/chat";
-import { takeLatest, all } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as chatAPI from '../lib/api/chat';
+import { takeLatest, all } from 'redux-saga/effects';
 
 // 상태 초기값
 const initialState = {
@@ -14,19 +14,19 @@ const initialState = {
 };
 
 // 액션 타입 정의
-const INITIALIZE = "chat/INITIALIZE";
+const INITIALIZE = 'chat/INITIALIZE';
 const [
   GET_MESSAGE_LIST,
   GET_MESSAGE_LIST_SUCCESS,
   GET_MESSAGE_LIST_FAILURE,
-] = createRequestActionTypes("chat/GET_MESSAGE_LIST");
+] = createRequestActionTypes('chat/GET_MESSAGE_LIST');
 const [
   INSERT_MESSAGE_LIST,
   INSERT_MESSAGE_LIST_SUCCESS,
   INSERT_MESSAGE_LIST_FAILURE,
-] = createRequestActionTypes("chat/INSERT_MESSAGE_LIST");
-const NEW_MESSAGE = "chat/NEW_MESSAGE";
-const NEW_MESSAGE_Off = "chat/NEW_MESSAGE_Off";
+] = createRequestActionTypes('chat/INSERT_MESSAGE_LIST');
+const NEW_MESSAGE = 'chat/NEW_MESSAGE';
+const NEW_MESSAGE_Off = 'chat/NEW_MESSAGE_Off';
 
 // 액션 생성함수 정의
 export const initialize = createAction(INITIALIZE);
@@ -39,7 +39,6 @@ export const insertMessageList = createAction(
 );
 export const newMessage = createAction(NEW_MESSAGE);
 export const newMessageOff = createAction(NEW_MESSAGE_Off);
-// console.log(insertMessageList([1, 2, 3]));
 
 // 리듀서
 const chat = handleActions(

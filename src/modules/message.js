@@ -1,4 +1,4 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 
 // 상태 초기값
 const initialState = {
@@ -7,8 +7,8 @@ const initialState = {
 };
 
 // 액션 타입 정의
-const INITIALIZE = "message/INITIALIZE";
-const SET_MESSAGES = "message/SET_MESSAGES";
+const INITIALIZE = 'message/INITIALIZE';
+const SET_MESSAGES = 'message/SET_MESSAGES';
 
 // 액션 생성함수 정의
 export const setMessages = createAction(SET_MESSAGES, (message) => message);
@@ -22,8 +22,6 @@ const message = handleActions(
       messages: [],
     }),
     [SET_MESSAGES]: (state, { payload: message }) => {
-      console.log(message);
-
       if (Array.isArray(message)) {
         return {
           ...state,

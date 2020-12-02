@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const LoginBlock = styled.div`
   width: 800px;
@@ -32,7 +32,6 @@ const ErrorMsg = styled.div`
 `;
 
 function Home({ form, onChange, onSubmit, error }) {
-  // console.log(form);
   return (
     <>
       <LoginBlock>

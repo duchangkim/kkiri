@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import calculateDday from "../../lib/calculateDday";
-import LoadingPage from "../../pages/LoadingPage";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import calculateDday from '../../lib/calculateDday';
+import LoadingPage from '../../pages/LoadingPage';
 
 const RightMainBlock = styled.div`
   height: 100%;
@@ -67,20 +67,18 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   if (!schedules || !dDays || !albums) {
     return <LoadingPage />;
   }
-  console.log("111111111111" + albums);
-  console.log(albums);
 
   let arr2 = [];
   albums.map((file, index) => {
-    const extens = file.filename.split(".").pop().toLowerCase();
+    const extens = file.filename.split('.').pop().toLowerCase();
     if (
-      (extens === "png") |
-      (extens === "jpg") |
-      (extens === "jfif") |
-      (extens === "gif") |
-      (extens === "bmp") |
-      (extens === "jpeg") |
-      (extens === "tiff")
+      (extens === 'png') |
+      (extens === 'jpg') |
+      (extens === 'jfif') |
+      (extens === 'gif') |
+      (extens === 'bmp') |
+      (extens === 'jpeg') |
+      (extens === 'tiff')
     ) {
       arr2 = arr2.concat({
         id: index,
@@ -103,9 +101,13 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <input type="radio" name="radio-btn" id="radio3" />
               <input type="radio" name="radio-btn" id="radio4" />
               <div className="slide first">
-                <a href="https://www.chanel.com/ko_KR/" target="_blank">
+                <a
+                  href="https://www.chanel.com/ko_KR/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
-                    src={require("../../images/chanel.png")}
+                    src={require('../../images/chanel.png')}
                     alt="새로운 이슈 첫번째 슬라이드"
                   />
                   <p>CHANNEL</p>
@@ -115,27 +117,36 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://duckyworld.co.kr/?NaPm=ct%3Dkhzsfbe2%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3Da044d2a54f5d3c3dfe138243b9c110871defaf30"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img
-                    src={require("../../images/duki.jpg")}
+                    src={require('../../images/duki.jpg')}
                     alt="새로운 이슈 두번째 슬라이드"
                   />
                   <p>DUCKY WORLD</p>
                 </a>
               </div>
               <div className="slide">
-                <a href="https://www.hermes.com/kr/ko/" target="_blank">
+                <a
+                  href="https://www.hermes.com/kr/ko/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
-                    src={require("../../images/hermes.jpg")}
+                    src={require('../../images/hermes.jpg')}
                     alt="새로운 이슈 세번째 슬라이드"
                   />
                   <p>HERMES</p>
                 </a>
               </div>
               <div className="slide">
-                <a href="https://www.ysl.com/ko-kr/" target="_blank">
+                <a
+                  href="https://www.ysl.com/ko-kr/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
-                    src={require("../../images/ysl.jpg")}
+                    src={require('../../images/ysl.jpg')}
                     alt="새로운 이슈 첫번째 슬라이드"
                   />
                   <p>Yves Saint Laurent</p>
@@ -159,7 +170,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   rel="noopener noreferrer"
                 >
                   <img
-                    src={require("../../images/lotte.jpg")}
+                    src={require('../../images/lotte.jpg')}
                     alt="롯데월드 어드벤쳐"
                   />
                 </a>
@@ -177,7 +188,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={require("../../images/ever.jpg")} alt="애버랜드" />
+                  <img src={require('../../images/ever.jpg')} alt="애버랜드" />
                 </a>
                 <div className="caption">
                   <h2>EVERLAND</h2>
@@ -194,7 +205,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   target="_blank"
                 >
                   <img
-                    src={require("../../images/bugak.jpg")}
+                    src={require('../../images/bugak.jpg')}
                     alt="북악스카이웨이"
                   />
                 </a>
@@ -213,7 +224,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={require("../../images/nami.png")} alt="남이섬" />
+                  <img src={require('../../images/nami.png')} alt="남이섬" />
                 </a>
                 <div className="caption">
                   <h2>NAMISUM</h2>
@@ -231,7 +242,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                   rel="noopener noreferrer"
                 >
                   <img
-                    src={require("../../images/oi.jpg")}
+                    src={require('../../images/oi.jpg')}
                     alt="오이도 빨간등대"
                   />
                 </a>
@@ -256,8 +267,8 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 {schedules.map((schedule, index) => (
                   <ScheduleItem key={schedule.id}>
                     <div>
-                      {new Date(schedule.start).getFullYear()}년{" "}
-                      {new Date(schedule.start).getMonth() + 1}월{" "}
+                      {new Date(schedule.start).getFullYear()}년{' '}
+                      {new Date(schedule.start).getMonth() + 1}월{' '}
                       {new Date(schedule.start).getDate()}일
                     </div>
                     <ScheduleTitle>{schedule.title}</ScheduleTitle>
@@ -287,7 +298,7 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 ar.filename && (
                   <div className="price" key={ar.keyid}>
                     <img
-                      src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                      src={`http://localhost:3000/uploads/${coupleShareCode}/${ar.filename}`}
                       alt={`${ar.filename}`}
                     />
                   </div>

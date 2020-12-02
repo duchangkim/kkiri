@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import styled from 'styled-components';
 
 const MODAL_STYLES = {
-  position: "relative",
+  position: 'relative',
   top: `0`,
   left: `0`,
-  fransform: "translate(-50%, -50%)",
-  backgroundColor: "#FFF",
+  fransform: 'translate(-50%, -50%)',
+  backgroundColor: '#FFF',
   zIndex: 1500,
   borderRadius: 10,
 };
 const OVERLAY_STYLES = {
-  position: "fixed",
+  position: 'fixed',
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.25)",
+  backgroundColor: 'rgba(0, 0, 0, 0.25)',
   zIndex: 1500,
 };
 
@@ -100,16 +100,14 @@ const ProfilePopups = styled.div`
 class ChatProfile1 extends Component {
   state = {
     imgBase64:
-      `${this.props.member.mainSetting.coupleProfile1}` === ""
+      `${this.props.member.mainSetting.coupleProfile1}` === ''
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
-        : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
-    files: "",
-    value: "",
+        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+    files: '',
+    value: '',
   };
 
   render() {
-    console.log(this.props);
-    console.log(this.props.member.name + "네임");
     return (
       <>
         <div style={OVERLAY_STYLES} />

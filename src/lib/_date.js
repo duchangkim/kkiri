@@ -1,5 +1,4 @@
 export const dateFormat = (sendDate) => {
-  // console.log(sendDate);
   const hh = new Date(sendDate).getHours();
   const mm =
     new Date(sendDate).getMinutes() < 10

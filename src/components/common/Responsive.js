@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 const ResponsiveBlock = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;

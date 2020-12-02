@@ -1,46 +1,46 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as calendarAPI from "../lib/api/calendar";
-import { takeLatest, all } from "redux-saga/effects";
+} from '../lib/createRequestSaga';
+import * as calendarAPI from '../lib/api/calendar';
+import { takeLatest, all } from 'redux-saga/effects';
 
 // 초기 상태 정의
 const initialState = {
   calendars: [],
   calendarsError: null,
   calendarForm: {
-    name: "",
-    color: "",
-    bgColor: "",
-    id: "",
+    name: '',
+    color: '',
+    bgColor: '',
+    id: '',
   },
 };
 
 // 액션 타입 정의
-const CHANGE_FILED = "calendar/CHANGE_FILED";
-const INITIALIZE_FORM = "calendar/INITIALIZE_FORM";
+const CHANGE_FILED = 'calendar/CHANGE_FILED';
+const INITIALIZE_FORM = 'calendar/INITIALIZE_FORM';
 const [
   CREATE_CALENDAR,
   CREATE_CALENDAR_SUCCESS,
   CREATE_CALENDAR_FAILURE,
-] = createRequestActionTypes("calendar/CREATE_CALENDAR");
+] = createRequestActionTypes('calendar/CREATE_CALENDAR');
 const [
   GET_CALENDAR_LIST,
   GET_CALENDAR_LIST_SUCCESS,
   GET_CALENDAR_LIST_FAILURE,
-] = createRequestActionTypes("calendar/GET_CALENDAR_LIST");
+] = createRequestActionTypes('calendar/GET_CALENDAR_LIST');
 const [
   MODIFY_CALENDAR,
   MODIFY_CALENDAR_SUCCESS,
   MODIFY_CALENDAR_FAILURE,
-] = createRequestActionTypes("calendar/MODIFY_CALENDAR");
+] = createRequestActionTypes('calendar/MODIFY_CALENDAR');
 const [
   DELETE_CALENDAR,
   DELETE_CALENDAR_SUCCESS,
   DELETE_CALENDAR_FAILURE,
-] = createRequestActionTypes("calendar/DELETE_CALENDAR");
-const SET_FIELD = "calendar/SET_FIELD";
+] = createRequestActionTypes('calendar/DELETE_CALENDAR');
+const SET_FIELD = 'calendar/SET_FIELD';
 
 // 액션 생성함수 정의
 export const changeField = createAction(CHANGE_FILED, ({ name, value }) => ({
@@ -112,7 +112,6 @@ const calendar = handleActions(
       calendarsError: error,
     }),
     [MODIFY_CALENDAR_SUCCESS]: (state, { payload: calendars }) => {
-      console.log(calendars);
       return {
         ...state,
         calendars,

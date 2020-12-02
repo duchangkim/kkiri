@@ -1,6 +1,6 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import CalendarContainer from "../containers/calendar/CalendarContainer";
+import React from 'react';
+import { Row, Col } from 'react-bootstrap';
+import CalendarContainer from '../containers/calendar/CalendarContainer';
 
 const CalendarPage = () => {
   return (

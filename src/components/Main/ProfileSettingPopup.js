@@ -207,7 +207,7 @@ class ProfileSettingPopup extends Component {
     imgBase64:
       `${this.props.member.mainSetting.coupleProfile1}` === ''
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
-        : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+        : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: '',
     value: '',
   };
@@ -241,10 +241,10 @@ class ProfileSettingPopup extends Component {
     axios
       .post('/api/profilesetting/fileupload', formData)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -253,14 +253,13 @@ class ProfileSettingPopup extends Component {
       imgBase64:
         `${this.props.member.mainSetting.coupleProfile1}` === ''
           ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
-          : `http://192.168.5.22:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
+          : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
       files: '',
       value: '',
     });
   };
 
   render() {
-    console.log(this.props);
     const myWeatherIconSrc = `http://openweathermap.org/img/wn/${this.props.myWeather.weather[0].icon}.png`;
 
     return (

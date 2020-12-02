@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../lib/styles/palette";
-import { Container, Form, Alert } from "react-bootstrap";
-import { Input } from "reactstrap";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { Container, Form, Alert } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 const ConnectionForm = styled.div`
   text-align: center;

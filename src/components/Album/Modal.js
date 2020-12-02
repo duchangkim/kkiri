@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import UploadButton from "./UploadButton";
+import React from 'react';
+import styled from 'styled-components';
+import UploadButton from './UploadButton';
 
 const MODAL_STYLES = styled.div`
   position: relative;
   top: 0;
   left: 0;
   fransform: translate(-50%, -50%);
-  background: #FFF;
+  background: #fff;
   z-index: 1500;
   border-radius: 10px;
   width: 30%;
@@ -16,10 +16,8 @@ const MODAL_STYLES = styled.div`
   @media (max-width: 768px) {
     width: 90%;
   }
-  
 `;
-
-const  OVERLAY_STYLES= styled.div`
+const OVERLAY_STYLES = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +26,6 @@ const  OVERLAY_STYLES= styled.div`
   background: rgba(0, 0, 0, 0.25);
   z-index: 1500;
 `;
-
 const ModalStyle = styled.div`
   .title {
     width: 100%;
@@ -76,7 +73,7 @@ const ModalStyle = styled.div`
     width: 63%;
     margin-right: -1%;
   }
-  .middle input[type="file"] {
+  .middle input[type='file'] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -120,14 +117,14 @@ export default function Modal({ open, children, onClose }) {
 
   return (
     <>
-      <OVERLAY_STYLES/>
+      <OVERLAY_STYLES />
       <MODAL_STYLES>
         <ModalStyle>
           <div className="title">
             <div className="pt1">사진추가</div>
             <div className="pt2" onClick={onClose}>
               <img
-                src={require("../../images/KakaoTalk_20200923_2021304122.png")}
+                src={require('../../images/KakaoTalk_20200923_2021304122.png')}
                 alt="exit"
                 className="img1"
               />

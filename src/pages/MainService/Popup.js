@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import { AiOutlinePlus } from "react-icons/ai";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const Popups = styled.div`
   /* 배경화면 설정 팝업창 */
@@ -57,7 +56,7 @@ const Popups = styled.div`
     width: 50%;
     height: 80%;
     border: 1px solid rgba(132, 132, 132, 1);
-    background: url("../images/aaa.png") no-repeat center;
+    background: url('../images/aaa.png') no-repeat center;
   }
   .Background-Choice-Image-Size img {
     width: 100%;
@@ -83,7 +82,7 @@ const Popups = styled.div`
     width: 50%;
     height: 100%;
   }
-  .Choice-File-Button input[type="file"] {
+  .Choice-File-Button input[type='file'] {
     position: relative;
     left: 10%;
     width: 100%;
@@ -117,8 +116,8 @@ const Popups = styled.div`
 class Popup extends Component {
   state = {
     imgBase64:
-      "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg", // 파일 base64
-    imgFile: "", // 이미지파일
+      'https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg', // 파일 base64
+    imgFile: '', // 이미지파일
   };
   handleChangeFile = (event) => {
     let reader = new FileReader();
@@ -139,16 +138,15 @@ class Popup extends Component {
     }
   };
   handleSubmit = (event) => {
-    alert("저장하기 눌리냐?");
-    console.log("저장하기 눌리나요?");
+    alert('저장하기 눌리냐?');
     event.preventDefault();
     const formData = new FormData();
-    formData.append("file", event.target.file.files[0]);
+    formData.append('file', event.target.file.files[0]);
     this.register(formData);
   };
   register = (regiInfo) => {
-    fetch("http://localhost:4000/api/fileupload", {
-      method: "post",
+    fetch('http://localhost:4000/api/fileupload', {
+      method: 'post',
       body: regiInfo,
     })
       .then((res) => res.json())
@@ -157,14 +155,14 @@ class Popup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        "https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg",
+        'https://cdn.pixabay.com/photo/2018/08/31/18/17/fantasy-3645263_1280.jpg',
       imgFile: null,
     });
   };
 
   render() {
     function Popup_Close() {
-      document.getElementById("Background-Choice").style.display = "none";
+      document.getElementById('Background-Choice').style.display = 'none';
     }
     return (
       <Popups>
@@ -183,6 +181,7 @@ class Popup extends Component {
                 <img
                   src={this.state.imgBase64}
                   onClick={this.handleRemove}
+                  alt=""
                 ></img>
               ) : (
                 <div></div>

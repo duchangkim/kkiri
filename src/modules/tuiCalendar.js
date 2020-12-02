@@ -1,4 +1,4 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 
 const start = new Date();
 
@@ -10,18 +10,18 @@ const initialState = {
     isToday: true,
   },
   calendarDataFormPopup: {
-    type: "",
+    type: '',
     isOpen: false,
   },
 };
 
 // 액션타입 정의
-const RENDER_CALENDAR = "tuiCalendar/RENDER_CALENDAR";
-const MOVE_TO_NEXT_RANGE = "tuiCalendar/MOVE_TO_NEXT_RANGE";
-const MOVE_TO_PREV_RANGE = "tuiCalendar/MOVE_TO_PREV_RANGE";
-const MOVE_TO_TODAY = "tuiCalendar/MOVE_TO_TODAY";
-const TOGGLE_POPUP = "tuiCalendar/TOGGLE_POPUP";
-const CHANGE_TYPE = "tuiCalendar/CHANGE_TYPE";
+const RENDER_CALENDAR = 'tuiCalendar/RENDER_CALENDAR';
+const MOVE_TO_NEXT_RANGE = 'tuiCalendar/MOVE_TO_NEXT_RANGE';
+const MOVE_TO_PREV_RANGE = 'tuiCalendar/MOVE_TO_PREV_RANGE';
+const MOVE_TO_TODAY = 'tuiCalendar/MOVE_TO_TODAY';
+const TOGGLE_POPUP = 'tuiCalendar/TOGGLE_POPUP';
+const CHANGE_TYPE = 'tuiCalendar/CHANGE_TYPE';
 
 // 액션 생성함수
 export const renderCalendar = createAction(RENDER_CALENDAR, (date) => date);
@@ -61,13 +61,8 @@ const calendar = handleActions(
       },
     }),
     [MOVE_TO_NEXT_RANGE]: (state, { payload: currentCalendar }) => {
-      // console.log(state);
-      // console.log(currentCalendar);
-      // console.log("is in?");
       currentCalendar.calendarInst.next();
       const nextDate = currentCalendar.calendarInst.getDate()._date;
-      console.dir(start);
-      console.dir(nextDate);
       return {
         ...state,
         currentRange: {
@@ -116,7 +111,6 @@ const calendar = handleActions(
       },
     }),
     [CHANGE_TYPE]: (state, { payload: type }) => {
-      console.log(type);
       return {
         ...state,
         calendarDataFormPopup: {

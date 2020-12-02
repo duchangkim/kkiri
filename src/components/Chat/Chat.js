@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import * as _date from "../../lib/_date";
-import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
-import { Button } from "react-bootstrap";
-import ChatProfile1 from "./ChatProfile1";
-import ChatProfile2 from "./ChatProfile2";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import * as _date from '../../lib/_date';
+import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import { Button } from 'react-bootstrap';
+import ChatProfile1 from './ChatProfile1';
+import ChatProfile2 from './ChatProfile2';
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -235,7 +235,6 @@ const Chat = ({
 }) => {
   const [emojiNationOpen, setemojiNationOpen] = useState(false);
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
-  // console.log("채팅 이미지 호출 " + member.mainSetting.coupleProfile1);
 
   const [ChatProfile1Open, setChatProfile1Open] = useState(false);
   const [ChatProfile2Open, setChatProfile2Open] = useState(false);
@@ -273,8 +272,6 @@ const Chat = ({
             } else {
               nextSendDate = messages[index + 1].sendDate.substring(0, 10);
             }
-            // console.log(message.sendDate.substring(0, 10));
-            // console.log(`${currentSendDate} / ${nextSendDate}`);
 
             if (currentSendDate !== nextSendDate) {
               const _date = new Date(nextSendDate);
@@ -291,7 +288,7 @@ const Chat = ({
                     <img
                       src={
                         member.mainSetting.coupleProfile1
-                          ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
+                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"
@@ -315,7 +312,7 @@ const Chat = ({
                     <img
                       src={
                         member.mainSetting.coupleProfile2
-                          ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
+                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"

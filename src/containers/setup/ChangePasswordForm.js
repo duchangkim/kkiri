@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   changeField,
   initializeForm,
   changepassword,
-} from "../../modules/setUp";
-import PasswordForm from "../../components/setup/PasswordForm";
-import { withRouter } from "react-router-dom";
+} from '../../modules/setUp';
+import PasswordForm from '../../components/setup/PasswordForm';
+import { withRouter } from 'react-router-dom';
 
 const ChangePasswordForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -23,13 +23,11 @@ const ChangePasswordForm = ({ history }) => {
     }
   );
 
-  console.log("findEmailfindEmail" + findEmail);
-
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: "changepassword",
+        form: 'changepassword',
         key: name,
         value,
       })
@@ -39,23 +37,19 @@ const ChangePasswordForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = form;
-    const email1 = findEmail;
-    console.log("여기 폼뷰뷴");
-    console.log(email1);
-    console.log(form);
     const password_check = /^[A-Za-z0-9]{6,12}$/;
 
-    if ([password, passwordConfirm].includes("")) {
-      setError("빈 칸을 모두 입력하세요.");
+    if ([password, passwordConfirm].includes('')) {
+      setError('빈 칸을 모두 입력하세요.');
       return;
     }
     if (!password.match(password_check)) {
-      return setError("비밀번호 6~12자리을 입력해주세요.");
+      return setError('비밀번호 6~12자리을 입력해주세요.');
     } else if (password !== passwordConfirm) {
-      setError("비밀번호가 일치하지 않습니다.");
-      dispatch(changeField({ form: "register", key: "password", value: "" }));
+      setError('비밀번호가 일치하지 않습니다.');
+      dispatch(changeField({ form: 'register', key: 'password', value: '' }));
       dispatch(
-        changeField({ form: "register", key: "passwordConfirm", value: "" })
+        changeField({ form: 'register', key: 'passwordConfirm', value: '' })
       );
       return;
     }
@@ -65,26 +59,21 @@ const ChangePasswordForm = ({ history }) => {
   useEffect(() => {
     if (authError) {
       if (authError.response.status === 409) {
-        setError("이미 존재하는 계정명입니다.");
+        setError('이미 존재하는 계정명입니다.');
         return;
       }
-      console.log(`error!`);
-      console.log(authError);
-      // setError("회원가입 실패");
       return;
     }
   }, [setup, authError, dispatch, error]);
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(`success`);
-      console.log(isSuccess);
-      history.push("/");
+      history.push('/');
     }
   }, [isSuccess, history]);
 
   useEffect(() => {
-    dispatch(initializeForm("changepassword"));
+    dispatch(initializeForm('changepassword'));
   }, [dispatch]);
 
   return (

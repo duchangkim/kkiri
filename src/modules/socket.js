@@ -1,5 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
-import io from "socket.io-client";
+import { createAction, handleActions } from 'redux-actions';
+import io from 'socket.io-client';
 
 // 상태 초기값
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 // 액션 타입 정의
-const CONNECTION_SOCKET = "socket/CONNECTION_SOCKET";
+const CONNECTION_SOCKET = 'socket/CONNECTION_SOCKET';
 
 // 액션 생성함수 정의
 export const connectionSocket = createAction(
@@ -22,7 +22,7 @@ const socket = handleActions(
     [CONNECTION_SOCKET]: (state, { payload: coupleShareCode }) => {
       return {
         ...state,
-        socket: io.connect("/").emit("joinRoom", coupleShareCode),
+        socket: io.connect('/').emit('joinRoom', coupleShareCode),
       };
     },
   },

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import palette from "../../lib/styles/palette";
-import AskRemoveModal from "./AskRemoveModal";
-import { Container } from "react-bootstrap";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import AskRemoveModal from './AskRemoveModal';
+import { Container } from 'react-bootstrap';
 
 const PostActionButtonsBlock = styled.div`
   margin-top: 3rem;
@@ -40,7 +40,6 @@ const MemberDeleteButtons = ({ onRemove }) => {
   const onConfirm = () => {
     setModal(false);
     onRemove();
-    console.log("여기엔 드러와?");
   };
 
   return (

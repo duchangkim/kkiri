@@ -1,20 +1,20 @@
-import { createAction, handleActions } from "redux-actions";
-import { takeLatest } from "redux-saga/effects";
-import produce from "immer";
+import { createAction, handleActions } from 'redux-actions';
+import { takeLatest } from 'redux-saga/effects';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as setUpAPI from "../lib/api/setUp";
+} from '../lib/createRequestSaga';
+import * as setUpAPI from '../lib/api/setUp';
 
 // 액션타입 정의
-const CHANGE_FIELD = "setup/CHANGE_FIELD";
-const INITIALIZE_FORM = "setup/INITIALIZE_FORM";
+const CHANGE_FIELD = 'setup/CHANGE_FIELD';
+const INITIALIZE_FORM = 'setup/INITIALIZE_FORM';
 
 const [
   CHANGEPASSWORD,
   CHANGEPASSWORD_SUCCESS,
   CHANGEPASSWORD_FAILURE,
-] = createRequestActionTypes("setup/CHANGEPASSWORD");
+] = createRequestActionTypes('setup/CHANGEPASSWORD');
 
 // 액션 생성함수
 export const changeField = createAction(
@@ -48,9 +48,9 @@ export function* setupSaga() {
 
 const initialState = {
   changepassword: {
-    password: "",
-    passwordConfirm: "",
-    findEmail: "",
+    password: '',
+    passwordConfirm: '',
+    findEmail: '',
     isSuccess: false,
   },
 };

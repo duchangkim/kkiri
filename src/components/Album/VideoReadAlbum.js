@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import styled from "styled-components";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { removeFile, editFile } from "../../lib/api/album";
-import ActionButtons from "./ActionButtons";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const TitleBlock = styled.div`
   width: 70%;
@@ -49,7 +47,6 @@ const ArrowForwardBox = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const ItemBox = styled.div`
   width: 90%;
   padding: 0;
@@ -57,7 +54,6 @@ const ItemBox = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const BoxBody = styled.div`
   width: 100%;
   // height:90%;
@@ -100,8 +96,6 @@ const HomeButton = styled.button`
 `;
 
 function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
-  let abc = Number(albumIdx);
-  console.log("################# -> " + abc);
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ReadBlock>존재하지 않는 포스트입니다.</ReadBlock>;
@@ -112,37 +106,17 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
   if (loading || !album) {
     return null; // 그냥넘어가~
   }
-  // console.log(album);
 
-  const { fileData } = album;
-  const len = fileData.files.length;
-  const keyid = fileData.files[albumIdx].keyid;
-
-  const onEdit = async () => {
-    await editFile(keyid)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  console.log("여긴 likereadalbum");
   let arr2 = [];
-  console.log(
-    "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-  );
-  console.log(album);
   album.fileData.files.reverse().map((file, index) => {
-    const extens = file.filename.split(".").pop().toLowerCase();
+    const extens = file.filename.split('.').pop().toLowerCase();
     if (
-      (extens === "mp4") |
-      (extens === "m4v") |
-      (extens === "avi") |
-      (extens === "flv") |
-      (extens === "mkv") |
-      (extens === "mov")
+      (extens === 'mp4') |
+      (extens === 'm4v') |
+      (extens === 'avi') |
+      (extens === 'flv') |
+      (extens === 'mkv') |
+      (extens === 'mov')
     ) {
       arr2 = arr2.concat({
         id: index,
@@ -152,17 +126,10 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
       });
     }
   });
-  console.log(arr2);
   const len2 = arr2.length;
-  console.log(len2);
-  console.log(
-    "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-  );
-  console.log("likereadalbum~~~~~~~~~~~~");
-  const extens = arr2[albumIdx].filename.split(".").pop().toLowerCase();
+  const extens = arr2[albumIdx].filename.split('.').pop().toLowerCase();
   return (
     <>
-      {/* <ActionButtons onEdit={onEdit} onRemove={onRemove} likes={likes}/> */}
       <TitleBlock>
         <div>동영상이에용~</div>
       </TitleBlock>
@@ -176,16 +143,16 @@ function LikeReadAlbum({ album, error, loading, albumIdx, coupleShareCode }) {
         </ArrowForwardBox>
         <ItemBox>
           <BoxBody>
-            {(extens == "mp4") |
-              (extens == "m4v") |
-              (extens == "avi") |
-              (extens == "flv") |
-              (extens == "mkv") |
-              (extens == "mov") && (
+            {(extens === 'mp4') |
+              (extens === 'm4v') |
+              (extens === 'avi') |
+              (extens === 'flv') |
+              (extens === 'mkv') |
+              (extens === 'mov') && (
               <video
-                src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${arr2[albumIdx].filename}`}
+                src={`http://localhost:3000/uploads/${coupleShareCode}/${arr2[albumIdx].filename}`}
                 alt={arr2[albumIdx].filename}
-                style={{ width: "100%", height: "300px" }}
+                style={{ width: '100%', height: '300px' }}
                 controls
               />
             )}
