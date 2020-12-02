@@ -1,3 +1,15 @@
+# 프로젝트 미리보기
+![메인페이지](https://user-images.githubusercontent.com/68454100/100830928-149e4980-34a8-11eb-9ff9-971f9a33690b.png)
+
+![캘린더](https://user-images.githubusercontent.com/68454100/100831301-d35a6980-34a8-11eb-9f96-9b32acc633f0.png)
+
+![앨범](https://user-images.githubusercontent.com/68454100/100831304-d5bcc380-34a8-11eb-9b3d-44fa8f3410e2.png)
+
+![채팅](https://user-images.githubusercontent.com/68454100/100831345-f2f19200-34a8-11eb-81ad-f21a3bce7614.png)
+
+<br/>
+<br/>
+
 # 프로젝트 기획 배경
 
 <br/>
