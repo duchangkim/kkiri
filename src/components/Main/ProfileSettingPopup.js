@@ -205,7 +205,7 @@ const ProfilePopups = styled.div`
 class ProfileSettingPopup extends Component {
   state = {
     imgBase64:
-      `${this.props.member.mainSetting.coupleProfile1}` == ''
+      `${this.props.member.mainSetting.coupleProfile1}` === ''
         ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
         : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
     files: '',
@@ -251,7 +251,7 @@ class ProfileSettingPopup extends Component {
   handleRemove = () => {
     this.setState({
       imgBase64:
-        `${this.props.member.mainSetting.coupleProfile1}` == ''
+        `${this.props.member.mainSetting.coupleProfile1}` === ''
           ? `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
           : `http://localhost:3000/uploads/${this.props.member.coupleShareCode}/${this.props.member.mainSetting.coupleProfile1}`,
       files: '',
