@@ -1,19 +1,17 @@
-import Router from "koa-router";
-import * as codeCtrl from "./code.ctrl";
-import checkLoggedIn from "../../lib/checkLoggedIn";
-import checkMatchedCouple from "../../lib/checkMatchedCouple";
+import Router from 'koa-router';
+import * as codeCtrl from './code.ctrl';
+import checkLoggedIn from '../../lib/checkLoggedIn';
+import checkMatchedCouple from '../../lib/checkMatchedCouple';
 
 // localhost:4000/api/code
 const code = new Router();
 
-// code.get("/", codeCtrl.list);
-
-code.get("/:code", checkLoggedIn, codeCtrl.checkCode);
+code.get('/:code', checkLoggedIn, codeCtrl.checkCode);
 code.post(
-  "/create",
-  checkLoggedIn, // 로그인 했나?
-  checkMatchedCouple, // 솔로냐?
-  codeCtrl.createCoupleSet // 그럼 맹글어줘
+  '/create',
+  checkLoggedIn,
+  checkMatchedCouple,
+  codeCtrl.createCoupleSet
 );
 /*
   고유의 코드는 둘다 줌

@@ -1,13 +1,12 @@
-import createRandomCode from "../../lib/createRandomCode";
-import Member from "../../models/member";
-import Room from "../../models/room";
-import Calendar from "../../models/calendar";
-import Album from "../../models/album";
-import fs from "fs";
+import createRandomCode from '../../lib/createRandomCode';
+import Member from '../../models/member';
+import Room from '../../models/room';
+import Calendar from '../../models/calendar';
+import Album from '../../models/album';
+import fs from 'fs';
 
 export const checkCode = async (ctx) => {
   const { code } = ctx.params;
-  // console.log(code);
 
   try {
     const result = await Member.findUserCode(parseInt(code, 10));
@@ -21,15 +20,10 @@ export const checkCode = async (ctx) => {
 
 //CoupleSet === chattingRoom, calendar, album
 export const createCoupleSet = async (ctx) => {
-  // console.log('call create couple set');
-  // console.log('dsasdadsasdsadssdaadsadsadsads');
-  // console.log(ctx.request.body);
-  // console.log('dsasdadsasdsadssdaadsadsadsads');
   // 코드 등록을 시도한 사용자의 id와 member (커플1)firstMember
   const firstMemberId = ctx.state.member._id;
   // 코드 등록을 당한 사용자의 id와 member (커플2)secondMember
   const secondMemberId = ctx.request.body._id;
-  // console.log(`1: ${firstMemberId}, 2: ${secondMemberId}`);
   if (!firstMemberId || !secondMemberId) {
     ctx.status = 401;
     return;
@@ -78,7 +72,7 @@ export const createCoupleSet = async (ctx) => {
     }
 
     const token = firstMember.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });

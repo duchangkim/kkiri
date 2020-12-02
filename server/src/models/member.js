@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const MemberSchema = new Schema({
   email: {
@@ -25,11 +25,11 @@ const MemberSchema = new Schema({
   },
   updated_at: {
     type: Date,
-    default: "",
+    default: '',
   },
   coupleId: {
     type: String,
-    default: "",
+    default: '',
   },
   userCode: {},
   coupleShareCode: {
@@ -50,9 +50,9 @@ const MemberSchema = new Schema({
   mainSetting: {
     type: Object,
     default: {
-      coupleBackground: "",
-      coupleProfile1: "",
-      coupleProfile2: "",
+      coupleBackground: '',
+      coupleProfile1: '',
+      coupleProfile2: '',
     },
   },
   // 간편로그인 회원정보
@@ -103,26 +103,24 @@ MemberSchema.methods.checkPassword = async function (password) {
 
 // 커플 공동 코드 insert해주는 메소드
 MemberSchema.methods.insertCoupleShareCode = function (code) {
-  // console.log("이새기의 this는 혹시 아이디로 찾은 member객체?");
-  // console.log(this);
   this.coupleShareCode = code;
 };
 MemberSchema.methods.setCoupleBackground = async function (image) {
-  console.log("백그라운드 메소드 - 이미지 이름 호출 : " + image);
+  console.log('백그라운드 메소드 - 이미지 이름 호출 : ' + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleBackground: image,
   };
 };
 MemberSchema.methods.setProfileImg = async function (image) {
-  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
+  console.log('프로필 메소드 = 이미지 이름 호출 : ' + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleProfile1: image,
   };
 };
 MemberSchema.methods.setCoupleProfileImg = async function (image) {
-  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
+  console.log('프로필 메소드 = 이미지 이름 호출 : ' + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleProfile2: image,
@@ -140,7 +138,6 @@ MemberSchema.methods.deleteUserCode = function () {
 //스키마에 serialize()라는 메소드 추가
 MemberSchema.methods.serialize = function () {
   // JSON으로 뿌려줄 정보들을 골라서 뿌려주세요 싹다 뿌릴 필요는 없음.
-  // console.log(this);
   const data = this.toJSON(); //this는 스키마를 가리킴 그걸 JSON형식으로 만들고
   delete data.hashedPassword; //비밀번호는 지우고
   return data; // 리턴해줌
@@ -167,7 +164,7 @@ MemberSchema.methods.generateToken = function () {
       naver: this.naver,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: '7d' }
   );
   return token;
 };
@@ -184,6 +181,6 @@ MemberSchema.methods.insertGetTogetherDate = function (getTogetherDate) {
   this.getTogetherDate = getTogetherDate;
 };
 
-const Member = mongoose.model("Member", MemberSchema);
+const Member = mongoose.model('Member', MemberSchema);
 
 export default Member;

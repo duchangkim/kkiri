@@ -1,9 +1,8 @@
-import Joi from "joi";
-import Calendar from "../../models/calendar";
+import Joi from 'joi';
+import Calendar from '../../models/calendar';
 
 // 캘린더(필터) CRUD
 export const createCalendars = async (ctx) => {
-  console.log("create cal call");
   const { coupleShareCode } = ctx.state.member; //로그인 정보에서 가져옴
   const validateCalendar = Joi.object().keys({
     name: Joi.string().required(),
@@ -23,7 +22,7 @@ export const createCalendars = async (ctx) => {
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    const result = await calendar.createCalendarData("calendars", {
+    const result = await calendar.createCalendarData('calendars', {
       name,
       color,
       bgColor,
@@ -44,23 +43,11 @@ export const createCalendars = async (ctx) => {
 
 export const getCalendarsList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
-  // console.log('===============================');
-  // console.log(coupleShareCode);
-  // console.log(ctx.state.member);
-  // console.log('===============================');
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
-    console.log(calendar);
     const calendars = calendar.calendarData.calendars;
 
-    console.log("``````````````요기가 캘린더리스트");
-    console.log(
-      calendars.map((calendar) => ({
-        ...calendar,
-        id: calendar.id.toString(),
-      }))
-    );
     ctx.body = calendars.map((calendar) => ({
       ...calendar,
       id: calendar.id.toString(),
@@ -70,7 +57,6 @@ export const getCalendarsList = async (ctx) => {
   }
 };
 
-// ---------------------------------------
 export const getCalendars = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { calendarsId } = ctx.params;
@@ -78,7 +64,7 @@ export const getCalendars = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const findResult = await calendar.getCaledarDataByTargetId(
-      "calendars",
+      'calendars',
       calendarsId
     );
 
@@ -100,7 +86,7 @@ export const deleteCalendars = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
-      "calendars",
+      'calendars',
       calendarsId
     );
 
@@ -155,7 +141,7 @@ export const modifyCalendars = async (ctx) => {
     };
 
     const result = await calendar.modifyCalendarDataByTargetId(
-      "calendars",
+      'calendars',
       calendarsId,
       modifiedCalendars
     );

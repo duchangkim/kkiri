@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const fileuploadSchema = new Schema({
   CoupleCode: {
@@ -9,6 +9,6 @@ const fileuploadSchema = new Schema({
   },
 });
 
-const FileUpload = mongoose.model("backgroundImg", fileuploadSchema);
+const FileUpload = mongoose.model('backgroundImg', fileuploadSchema);
 
 export default FileUpload;

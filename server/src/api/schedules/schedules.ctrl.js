@@ -1,9 +1,8 @@
-import Joi from "joi";
-import Calendar from "../../models/calendar";
+import Joi from 'joi';
+import Calendar from '../../models/calendar';
 
 // 스케쥴 CRUD
 export const createSchedule = async (ctx) => {
-  // console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const validateSchedule = Joi.object().keys({
     calendarId: Joi.required(),
@@ -12,7 +11,7 @@ export const createSchedule = async (ctx) => {
     start: Joi.required(),
     end: Joi.required(),
     category: Joi.string(),
-    location: Joi.string().allow(""),
+    location: Joi.string().allow(''),
     raw: Joi.object().required(),
     state: Joi.string(),
   });
@@ -36,13 +35,11 @@ export const createSchedule = async (ctx) => {
     raw,
     state,
   } = ctx.request.body;
-  // console.log('123123123123123');
-  // console.log(typeof calendarId);
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
 
-    const result = await calendar.createCalendarData("schedules", {
+    const result = await calendar.createCalendarData('schedules', {
       calendarId,
       title,
       isAllDay,
@@ -63,13 +60,7 @@ export const createSchedule = async (ctx) => {
 };
 
 export const getSchduleList = async (ctx) => {
-  // console.log('=========================');
-  // console.log(ctx.state.member.coupleShareCode);
-  // console.log(ctx.state.member);
-  // console.log('=========================');
-
   const { coupleShareCode } = ctx.state.member;
-  // console.log(coupleShareCode);
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
@@ -84,12 +75,11 @@ export const getSchduleList = async (ctx) => {
 export const getSchdule = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
-  //Number("123원") > NaN, parseInt("123원") > 123
 
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.getCaledarDataByTargetId(
-      "schedules",
+      'schedules',
       scheduleId
     );
 
@@ -111,7 +101,7 @@ export const deleteSchedule = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
-      "schedules",
+      'schedules',
       scheduleId
     );
 
@@ -124,7 +114,6 @@ export const deleteSchedule = async (ctx) => {
 };
 
 export const modifySchedule = async (ctx) => {
-  console.log(ctx.request.body);
   const { coupleShareCode } = ctx.state.member;
   const { scheduleId } = ctx.params;
   const {
@@ -155,8 +144,8 @@ export const modifySchedule = async (ctx) => {
       category:
         isAllDay !== undefined
           ? isAllDay
-            ? "allday"
-            : "time"
+            ? 'allday'
+            : 'time'
           : currentSchedule.category,
       raw: raw ? raw : currentSchedule.raw,
       title: title ? title : currentSchedule.title,
@@ -166,7 +155,7 @@ export const modifySchedule = async (ctx) => {
       state: state ? state : currentSchedule.state,
     };
     const result = await calendar.modifyCalendarDataByTargetId(
-      "schedules",
+      'schedules',
       scheduleId,
       modifiedSchedule
     );

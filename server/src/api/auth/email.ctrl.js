@@ -1,26 +1,25 @@
-import dotenv from "dotenv";
-import Joi from "@hapi/joi";
-import Member from "../../models/member";
-import nodeMailer from "nodemailer";
+import dotenv from 'dotenv';
+import Joi from '@hapi/joi';
+import Member from '../../models/member';
+import nodeMailer from 'nodemailer';
 dotenv.config();
 
 const { MAILER_EMAIL, MAILER_PASSWORD } = process.env;
 
 // 메일 발송 서비스에 대한 환경 설정
 const mailPoster = nodeMailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
   auth: {
     user: MAILER_EMAIL,
     pass: MAILER_PASSWORD,
   },
 });
-// console.log(mailPoster);
 
 const mailOpt = (email, contents) => {
   const mailOptions = {
-    from: "Kkiri 서비스",
+    from: 'Kkiri 서비스',
     to: email,
-    subject: "kkiri 회원가입 인증번호입니다.",
+    subject: 'kkiri 회원가입 인증번호입니다.',
     text: contents,
   };
   console.log(mailOptions);
@@ -30,15 +29,15 @@ const mailOpt = (email, contents) => {
 const sendMail = (mailOption) => {
   mailPoster.sendMail(mailOption, function (error, info) {
     if (error) {
-      console.log("에러 " + error);
+      console.log('에러 ' + error);
     } else {
-      console.log("전송 완료 " + info.response);
+      console.log('전송 완료 ' + info.response);
     }
   });
 };
 
 const getRandomNumber = () => {
-  let number = "";
+  let number = '';
   let random = 0;
   for (let i = 0; i < 6; i++) {
     random = Math.trunc(Math.random() * (9 - 0) + 0);
@@ -53,9 +52,6 @@ const contents = (randomNumber) => {
 };
 
 export const sendEmailAuthenticationCode = async (ctx) => {
-  // console.log('이메일 보내냐ㅕ?');
-  // console.log(ctx.request.body);
-  // console.log(ctx.request.body.email);
   const requestData = Joi.object().keys({
     email: Joi.string().email().min(3).max(100).required(),
   });

@@ -1,12 +1,17 @@
-import Router from "koa-router";
-import * as backgroundSettingCtrl from "./backgroundsetting.ctrl";
-import checkLoggedIn from "../../lib/checkLoggedIn";
+import Router from 'koa-router';
+import * as backgroundSettingCtrl from './backgroundsetting.ctrl';
+import checkLoggedIn from '../../lib/checkLoggedIn';
 
 const backgroundsetting = new Router();
-backgroundsetting.get("/", backgroundSettingCtrl.list);
-backgroundsetting.post("/fileupload", backgroundSettingCtrl.fileupload);
+backgroundsetting.get('/', checkLoggedIn, backgroundSettingCtrl.list);
+backgroundsetting.post(
+  '/fileupload',
+  checkLoggedIn,
+  backgroundSettingCtrl.fileupload
+);
 backgroundsetting.get(
-  "/:idx",
+  '/:idx',
+  checkLoggedIn,
   backgroundSettingCtrl.getBackgroundSettingById,
   backgroundSettingCtrl.read
 );

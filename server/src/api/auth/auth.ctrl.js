@@ -1,11 +1,8 @@
-import Joi from "@hapi/joi";
-import Member from "../../models/member";
-import createRandomCode from "../../lib/createRandomCode";
+import Joi from '@hapi/joi';
+import Member from '../../models/member';
+import createRandomCode from '../../lib/createRandomCode';
 
 export const register = async (ctx) => {
-  console.log("회원가입 불럿냐?");
-  // console.log(ctx.request.body);
-
   const schema = Joi.object().keys({
     email: Joi.string().required(),
     emailAuthenticationCode: Joi.allow(),
@@ -16,7 +13,7 @@ export const register = async (ctx) => {
   });
   const result = schema.validate(ctx.request.body);
   if (result.error) {
-    // console.log(result);
+    console.log(result.error);
     ctx.status = 400;
     ctx.body = result.error;
     return;
@@ -41,7 +38,7 @@ export const register = async (ctx) => {
     ctx.body = member.serialize();
 
     const token = member.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -52,7 +49,6 @@ export const register = async (ctx) => {
 
 export const login = async (ctx) => {
   const { email, password } = ctx.request.body;
-  console.log(`email : ${email} / password : ${password}`);
 
   if (!email || !password) {
     //비인증 401(unauthenticated)
@@ -62,16 +58,15 @@ export const login = async (ctx) => {
 
   try {
     const member = await Member.findByEmail(email);
-    // console.log(member);
     if (!member) {
       ctx.status = 401;
-      ctx.body = { error: "not found email" };
+      ctx.body = { error: 'not found email' };
       return;
     }
     const valid = await member.checkPassword(password);
     if (!valid) {
       ctx.status = 401;
-      ctx.body = { error: "wrong password" };
+      ctx.body = { error: 'wrong password' };
       return;
     }
 
@@ -80,7 +75,7 @@ export const login = async (ctx) => {
     ctx.body = serializedMember;
 
     const token = member.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -90,16 +85,14 @@ export const login = async (ctx) => {
 };
 
 export const logout = (ctx) => {
-  ctx.cookies.set("access_token");
+  ctx.cookies.set('access_token');
   ctx.status = 204;
 };
 
 export const check = async (ctx) => {
   const { member } = ctx.state;
-  console.log("이거불러라");
-  // console.log(member);
   if (!member) {
-    console.log("왜없냐");
+    console.log('member not found');
   }
   if (!member) {
     ctx.status = 401;
@@ -113,7 +106,7 @@ export const check = async (ctx) => {
   ctx.body = await fromDBMember.serialize();
 
   const token = fromDBMember.generateToken();
-  ctx.cookies.set("access_token", token, {
+  ctx.cookies.set('access_token', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
   });

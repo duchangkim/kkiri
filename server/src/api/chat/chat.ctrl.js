@@ -1,4 +1,4 @@
-import Room from "../../models/room";
+import Room from '../../models/room';
 
 // 서버에 데이터를 보낼 양식
 export const saveMessage = async (ctx) => {
@@ -13,8 +13,6 @@ export const saveMessage = async (ctx) => {
       ctx.status = 409;
       return;
     }
-
-    // console.log(ctx.request.body);
 
     ctx.body = room.pushMessageData({
       sender: _id,
@@ -39,26 +37,17 @@ export const getMessageList = async (ctx) => {
     return;
   }
 
-  // console.log(room);
   const chattingData = room.chattingData;
   ctx.body = chattingData;
 };
 
 // 보이는 개수 제한
-// chat.get("/list/:limit", chatCtrl.messageList);
 export const messageList = async (ctx) => {
   const { member } = ctx.state;
   const { limit } = ctx.params;
-  console.log(limit);
-  // console.log(member);
-  // console.log(member.coupleShareCode);
   try {
     const room = await Room.findCoupleCode(Number(member.coupleShareCode));
-    // console.log(room);
     const messageList = await room.getSortedMessageList(limit);
-
-    // console.log('asdfasdfasdfasdfad');
-    // console.log(messageList);
 
     ctx.body = messageList;
   } catch (e) {
@@ -67,11 +56,8 @@ export const messageList = async (ctx) => {
 };
 
 export const insertMessageList = async (ctx) => {
-  console.log("여기가 인서트메시지리스트 입니다. 환영합니다.");
   const { member } = ctx.state;
   const newMessageList = ctx.request.body;
-  console.log(newMessageList);
-  console.log(Array.isArray(newMessageList));
 
   try {
     const room = await Room.findCoupleCode(member.coupleShareCode);

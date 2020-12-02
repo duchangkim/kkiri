@@ -1,11 +1,8 @@
-import Member from "../../models/member";
-import Calendar from "../../models/calendar";
+import Member from '../../models/member';
+import Calendar from '../../models/calendar';
 
 export const getMyCouple = async (ctx) => {
   const { coupleId } = ctx.params;
-
-  // console.log('여기 이거밑에꺼가 커플아이디여'.concat());
-  // console.log(coupleId);
 
   try {
     const member = await Member.findById({ _id: coupleId });
@@ -17,11 +14,9 @@ export const getMyCouple = async (ctx) => {
 };
 
 export const insertPosition = async (ctx) => {
-  console.log("insertPosition() call");
   const { _id } = ctx.state.member;
   const { latitude, longitude } = ctx.request.body;
 
-  // console.log(ctx.request.body);
   try {
     const member = await Member.findById({ _id });
     await member.insertPosition({
@@ -37,26 +32,22 @@ export const insertPosition = async (ctx) => {
 };
 
 export const insertGetTogetherDate = async (ctx) => {
-  // console.log('insertGetTogetherDate() call');
   const { _id, coupleId, coupleShareCode } = ctx.state.member;
   const { getTogetherDate } = ctx.request.body;
   const getTogetherDateObj = new Date(getTogetherDate);
-  // console.log(ctx.request.body);
-  // console.log('아이디 값 있냐');
-  // console.log(_id);
   const getTogetherDday = {
-    id: "l",
-    calendarId: "dday",
-    title: "우리 함께한지",
+    id: 'l',
+    calendarId: 'dday',
+    title: '우리 함께한지',
     isAllDay: true,
     start: getTogetherDateObj,
     end: getTogetherDateObj,
-    category: "allday",
-    location: "너 마음속",
+    category: 'allday',
+    location: '너 마음속',
     raw: {
-      class: "public",
+      class: 'public',
     },
-    state: "Free",
+    state: 'Free',
   };
 
   try {
