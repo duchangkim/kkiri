@@ -1,11 +1,11 @@
-import client from './client';
+import client from "./client";
 
 export const createCalendar = (calendar) => {
-  console.log('call c calendar');
-  return client.post('/api/calendars', calendar);
+  console.log("call c calendar");
+  return client.post("/api/calendars", calendar);
 };
 
-export const getCalendarList = () => client.get('/api/calendars');
+export const getCalendarList = () => client.get("/api/calendars");
 
 export const getCalendar = (calendarId) =>
   client.get(`/api/calendars/${calendarId}`);

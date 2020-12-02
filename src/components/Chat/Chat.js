@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import * as _date from '../../lib/_date';
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
-import { Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import * as _date from "../../lib/_date";
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import { Button } from "react-bootstrap";
+import ChatProfile1 from "./ChatProfile1";
+import ChatProfile2 from "./ChatProfile2";
 
 const ChattingBox = styled.div`
   width: 100%;
@@ -80,6 +82,9 @@ const ChattingBox = styled.div`
     object-fit: cover;
     border-radius: 50%;
   }
+  .Profile-img:hover {
+    cursor: pointer;
+  }
 
   @media ${(props) => props.theme.middle} {
     .chatting-send form input {
@@ -132,8 +137,8 @@ const Container = styled.div`
   }
 `;
 const MessageLine = styled.div`
-  position: relative;
-  margin-top: -30px;
+  // position: relative;
+  // margin-top: -30px;
   display: flex;
   justify-content: ${({ myMessage }) =>
     myMessage ? `flex-end` : `flex-start`};
@@ -181,7 +186,6 @@ const Message = styled.div`
   background-color: lightblue;
   z-index: -1;
   line-height: 1.6rem;
-  /* word-break: keep-all; */
   word-wrap: break-word; /* IE 5.5-7 */
   white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
   white-space: pre-wrap; /* current browsers */
@@ -233,8 +237,27 @@ const Chat = ({
   const handleEmojiNationOpenClick = () => setemojiNationOpen(!emojiNationOpen);
   // console.log("채팅 이미지 호출 " + member.mainSetting.coupleProfile1);
 
+  const [ChatProfile1Open, setChatProfile1Open] = useState(false);
+  const [ChatProfile2Open, setChatProfile2Open] = useState(false);
+  const handleChatProfile1OpenClick = () =>
+    setChatProfile1Open(!ChatProfile1Open);
+  const handleChatProfile2OpenClick = () =>
+    setChatProfile2Open(!ChatProfile2Open);
+
   return (
     <ChattingBox>
+      {ChatProfile1Open ? (
+        <ChatProfile1
+          handleChatProfile1OpenClick={handleChatProfile1OpenClick}
+          member={member}
+        />
+      ) : null}
+      {ChatProfile2Open ? (
+        <ChatProfile2
+          handleChatProfile2OpenClick={handleChatProfile2OpenClick}
+          member={member}
+        />
+      ) : null}
       <div className="chatting-wrapper">
         <Container ref={messagesRef} messages={messages}>
           {messageListLoad ? null : (
@@ -250,6 +273,9 @@ const Chat = ({
             } else {
               nextSendDate = messages[index + 1].sendDate.substring(0, 10);
             }
+            // console.log(message.sendDate.substring(0, 10));
+            // console.log(`${currentSendDate} / ${nextSendDate}`);
+
             if (currentSendDate !== nextSendDate) {
               const _date = new Date(nextSendDate);
               return (
@@ -263,14 +289,14 @@ const Chat = ({
                 <MessageBlock myMessage>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile1
-                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
+                          ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile1}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"
+                      alt="my profile"
+                      onClick={handleChatProfile1OpenClick}
                     />
                   </Profile>
                   <Name myMessage>{message.name}</Name>
@@ -287,14 +313,14 @@ const Chat = ({
                 <MessageBlock>
                   <Profile>
                     <img
-                      // src={`http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`}
-                      // className="Profile-img"
                       src={
                         member.mainSetting.coupleProfile2
-                          ? `http://localhost:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
+                          ? `http://192.168.5.22:3000/uploads/${member.coupleShareCode}/${member.mainSetting.coupleProfile2}`
                           : `https://cdn0.iconfinder.com/data/icons/user-collection-4/512/user-128.png`
                       }
                       className="Profile-img"
+                      alt="you profile"
+                      onClick={handleChatProfile2OpenClick}
                     />
                   </Profile>
                   <Name>{message.name}</Name>

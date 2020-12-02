@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
 const MessageSchema = new Schema({
   coupleShareCode: {
@@ -18,7 +18,7 @@ const MessageSchema = new Schema({
   },
 });
 
-const Message = mongoose.model('messages', MessageSchema);
+const Message = mongoose.model("messages", MessageSchema);
 
 const RoomSchema = new Schema({
   // 커플 연결 성공시 주어지는 코드 - 채팅방룸id 캘린더 앨범 아이디로 사용
@@ -91,5 +91,5 @@ RoomSchema.methods.insertMessageList = async function (newMessageList) {
   );
 };
 
-const Room = mongoose.model('Room', RoomSchema);
+const Room = mongoose.model("Room", RoomSchema);
 export default Room;

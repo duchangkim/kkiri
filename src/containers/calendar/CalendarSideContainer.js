@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteCalendar, setField } from '../../modules/calendar';
-import CalendarSide from '../../components/Calendar/CalendarSide';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCalendar, setField } from "../../modules/calendar";
+import CalendarSide from "../../components/Calendar/CalendarSide";
 import {
   changeType,
   renderCalendar,
   togglePopup,
-} from '../../modules/tuiCalendar';
-import { getDdayList } from '../../modules/dDay';
+} from "../../modules/tuiCalendar";
+import { getDdayList } from "../../modules/dDay";
 
 const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const CalenderSideContainer = ({ calendars, calendarsError, cal }) => {
     // console.log(calendarId);
     // console.dir(typeof calendarId);
     dispatch(togglePopup());
-    dispatch(changeType('modify'));
+    dispatch(changeType("modify"));
     // console.log(calendars);
     const currentCalendar = calendars.find(
       (calendar) => calendar.id === calendarId

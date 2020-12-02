@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const NotFoundPageBlock = styled.div`
   width: 100%;
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
     <NotFoundPageBlock>
       <Link to="/kkiri/home">Kkiri 홈으로 돌아가기</Link>
       <img
-        src="http://localhost:3000/not_found_image.png"
+        src="http://192.168.5.22:3000/not_found_image.png"
         alt="not found 고양이"
       />
       <NotFoundMessage>404 Not Found</NotFoundMessage>

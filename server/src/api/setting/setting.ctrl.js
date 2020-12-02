@@ -1,4 +1,4 @@
-import Member from '../../models/member';
+import Member from "../../models/member";
 
 export const removeMember = async (ctx) => {
   // console.log("여디ㅣ잉니;ㅇㅁ나ㅓ임나ㅓ이ㅏㅁ너ㅏ이ㅓㅁ");

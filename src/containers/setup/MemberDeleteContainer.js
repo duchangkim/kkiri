@@ -14,10 +14,10 @@ const MemberDeleteContainer = ({ match, history }) => {
       loading: loading["setting/READ_SETTING"],
     })
   );
-  console.log("여앙");
-  console.log(member.email);
+  // console.log("여앙");
+  // console.log(member.email);
   const findemail = member.email;
-  console.log(findemail);
+  // console.log(findemail);
 
   useEffect(() => {
     dispatch(readSetting(findemail));

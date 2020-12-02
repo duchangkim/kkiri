@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from './Button';
+import React from "react";
+import styled from "styled-components";
+import Button from "./Button";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -13,12 +13,11 @@ const Fullscreen = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const AskModalBlock = styled.div`
   position: fixed;
   top: 262px;
-  width: 60%;
   height: 200px;
   background: white;
   padding: 1.5rem;
@@ -27,6 +26,8 @@ const AskModalBlock = styled.div`
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
   p {
     margin-bottom: 3rem;
@@ -45,13 +46,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-
 const AskModal = ({
   visible,
   title,
   description,
-  confirmText = '확인',
-  cancelText = '취소',
+  confirmText = "확인",
+  cancelText = "취소",
   onConfirm,
   onCancel,
 }) => {
@@ -61,17 +61,13 @@ const AskModal = ({
       <AskModalBlock>
         <h2>{title}</h2>
         <p>{description}</p>
-        <div className='buttons'>
+        <div className="buttons">
           <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton onClick={onConfirm}>
-            {confirmText}
-          </StyledButton>
+          <StyledButton onClick={onConfirm}>{confirmText}</StyledButton>
         </div>
       </AskModalBlock>
     </Fullscreen>
   );
 };
-
-
 
 export default AskModal;

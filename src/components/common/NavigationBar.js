@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import SideMenu from 'react-sidebar';
-import { KkiriLogo, Navigation } from './SideBarItems';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import SideMenu from "react-sidebar";
+import { KkiriLogo, Navigation } from "./SideBarItems";
+import { Link } from "react-router-dom";
 
 const Styles = styled.div`
   position: fixed;

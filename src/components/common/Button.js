@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 const buttonStyle = css`
   border: none;
   border-radius: 4px;
-  font-size: 1.15rem;
   font-weight: bold;
-  padding: 0.25rem 1rem;
   color: white;
   outline: none;
   cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
 
   &:hover {
     color: #000;
@@ -33,7 +34,10 @@ const buttonStyle = css`
     props.cyan &&
     css`
       background: rgba(255, 131, 141, 1);
-      padding: 0.5rem 0;
+      padding: 0.475rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 400;
       &:hover {
         background: rgb(255 131 141 / 42%);
         color: #fff;

@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import Calendar from '../../models/calendar';
+import Joi from "joi";
+import Calendar from "../../models/calendar";
 
 // 스케쥴 CRUD
 export const createSchedule = async (ctx) => {
@@ -12,7 +12,7 @@ export const createSchedule = async (ctx) => {
     start: Joi.required(),
     end: Joi.required(),
     category: Joi.string(),
-    location: Joi.string().allow(''),
+    location: Joi.string().allow(""),
     raw: Joi.object().required(),
     state: Joi.string(),
   });
@@ -42,7 +42,7 @@ export const createSchedule = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
 
-    const result = await calendar.createCalendarData('schedules', {
+    const result = await calendar.createCalendarData("schedules", {
       calendarId,
       title,
       isAllDay,
@@ -89,7 +89,7 @@ export const getSchdule = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.getCaledarDataByTargetId(
-      'schedules',
+      "schedules",
       scheduleId
     );
 
@@ -111,7 +111,7 @@ export const deleteSchedule = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const result = await calendar.deleteCalendarDataByTargetId(
-      'schedules',
+      "schedules",
       scheduleId
     );
 
@@ -155,8 +155,8 @@ export const modifySchedule = async (ctx) => {
       category:
         isAllDay !== undefined
           ? isAllDay
-            ? 'allday'
-            : 'time'
+            ? "allday"
+            : "time"
           : currentSchedule.category,
       raw: raw ? raw : currentSchedule.raw,
       title: title ? title : currentSchedule.title,
@@ -166,7 +166,7 @@ export const modifySchedule = async (ctx) => {
       state: state ? state : currentSchedule.state,
     };
     const result = await calendar.modifyCalendarDataByTargetId(
-      'schedules',
+      "schedules",
       scheduleId,
       modifiedSchedule
     );

@@ -13,34 +13,30 @@ class UploadButton extends Component {
       value: event.target.files[0].name,
     });
   };
-
-  handlePost = () => {
-    // console.log(this.state.files);
+  
+  handlePost = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("files", this.state.files, this.state.files.name);
     console.log(formData);
 
+        
     axios
-      .post("/api/albums/fileupload", formData, {
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            "Upload Progress: " +
-              Math.round(progressEvent.loaded / progressEvent.total) * 100 +
-              "%"
-          );
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .post("/api/albums/fileupload", formData, 
+    )
+    .then((res) => {
+      console.log(res);
+      window.location.href="http://localhost:3000/kkiri/albums";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   };
 
   render() {
     return (
-      <form onSubmit={this.handlePost} encType="multipart/form-data">
+      <form onSubmit={this.handlePost} encType="multipart/form-data" >
         <div className="middle">
           <input
             className="upload"
@@ -54,6 +50,7 @@ class UploadButton extends Component {
             className="upload"
             name="files"
             onChange={this.handleChange}
+            
           />
           <div className="txt" />
           <div className="btn" style={{ paddingBottom: "15px" }}>

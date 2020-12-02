@@ -1,4 +1,4 @@
-import Calendar from '../../models/calendar';
+import Calendar from "../../models/calendar";
 
 export const getDdayList = async (ctx) => {
   const { coupleShareCode } = ctx.state.member;
@@ -6,7 +6,7 @@ export const getDdayList = async (ctx) => {
   try {
     const calendar = await Calendar.findByCoupleShareCode(coupleShareCode);
     const dDay = calendar.calendarData.schedules.filter(
-      (calendar) => calendar.calendarId === 'dday'
+      (calendar) => calendar.calendarId === "dday"
     );
 
     ctx.body = dDay;

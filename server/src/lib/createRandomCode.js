@@ -1,7 +1,7 @@
-import Member from '../models/member';
+import Member from "../models/member";
 
 export default async () => {
-  console.log('randomcode() call');
+  console.log("randomcode() call");
   let randomCode = Math.floor(Math.random() * 9999999);
   let isDuplicateCode = true;
   while (isDuplicateCode) {
@@ -13,11 +13,11 @@ export default async () => {
       console.log(`couple: ${coupleCodeExists}`);
 
       if (userCodeExists || coupleCodeExists) {
-        console.log('중복임');
+        console.log("중복임");
         randomCode = Math.floor(Math.random() * 9999999);
       }
       if (!userCodeExists && !coupleCodeExists) {
-        console.log('중복아님');
+        console.log("중복아님");
         isDuplicateCode = false;
       }
     } catch (e) {

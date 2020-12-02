@@ -19,7 +19,9 @@ AlbumSchema.statics.findByCoupleShareCode = async function (coupleShareCode) {
 AlbumSchema.methods.deleteFile = async function (fileData, idx) {
   // console.log(this.fileData.files);
   // console.log(this.fileData[fileData]);
-  this.fileData[fileData] = await this.fileData[fileData].filter((x, index, item) => index !== idx);
+  this.fileData[fileData] = await this.fileData[fileData].filter(
+    (x, index, item) => index !== idx
+  );
 
   console.log("여기드러옴?");
   // console.log(idx);

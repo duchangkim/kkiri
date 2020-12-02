@@ -7,11 +7,13 @@ import LoadingPage from "../../pages/LoadingPage";
 
 const LeftMainContainer = () => {
   const dispatch = useDispatch();
-  const { scheduleList, albums, member } = useSelector(({ schedule, albums, member }) => ({
-    scheduleList: schedule.schedules,
-    albums: albums.albums,
-    member: member.member,
-  }));
+  const { scheduleList, albums, member } = useSelector(
+    ({ schedule, albums, member }) => ({
+      scheduleList: schedule.schedules,
+      albums: albums.albums,
+      member: member.member,
+    })
+  );
 
   useEffect(() => {
     dispatch(getScheduleList());
@@ -31,15 +33,27 @@ const LeftMainContainer = () => {
 
   const schedules = scheduleList
     .filter(
-      (schedule) => schedule.id !== "l" && schedule.id !== 0 && schedule.calendarId !== "dday"
+      (schedule) =>
+        schedule.id !== "l" &&
+        schedule.id !== 0 &&
+        schedule.calendarId !== "dday"
     )
     .slice(0, 5);
 
-  const dDays = scheduleList.filter((schedule) => schedule.calendarId === "dday").slice(0, 5);
+  const dDays = scheduleList
+    .filter((schedule) => schedule.calendarId === "dday")
+    .slice(0, 5);
   console.dir(albums);
   // console.log(albums.fileData.files);
 
-  return <RightMain schedules={schedules} dDays={dDays} albums={albums} coupleShareCode={coupleShareCode}/>;
+  return (
+    <RightMain
+      schedules={schedules}
+      dDays={dDays}
+      albums={albums}
+      coupleShareCode={coupleShareCode}
+    />
+  );
 };
 
 export default LeftMainContainer;

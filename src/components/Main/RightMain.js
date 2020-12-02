@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import calculateDday from '../../lib/calculateDday';
-import LoadingPage from '../../pages/LoadingPage';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import calculateDday from "../../lib/calculateDday";
+import LoadingPage from "../../pages/LoadingPage";
 
 const RightMainBlock = styled.div`
   height: 100%;
@@ -67,8 +67,29 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
   if (!schedules || !dDays || !albums) {
     return <LoadingPage />;
   }
-  console.log('111111111111' + albums);
+  console.log("111111111111" + albums);
   console.log(albums);
+
+  let arr2 = [];
+  albums.map((file, index) => {
+    const extens = file.filename.split(".").pop().toLowerCase();
+    if (
+      (extens === "png") |
+      (extens === "jpg") |
+      (extens === "jfif") |
+      (extens === "gif") |
+      (extens === "bmp") |
+      (extens === "jpeg") |
+      (extens === "tiff")
+    ) {
+      arr2 = arr2.concat({
+        id: index,
+        keyid: file.keyid,
+        filename: file.filename,
+        like: file.like,
+      });
+    }
+  });
 
   return (
     <RightMainBlock>
@@ -82,28 +103,43 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <input type="radio" name="radio-btn" id="radio3" />
               <input type="radio" name="radio-btn" id="radio4" />
               <div className="slide first">
-                <img
-                  src={require('../../images/issue1.jfif')}
-                  alt="새로운 이슈 첫번째 슬라이드"
-                />
+                <a href="https://www.chanel.com/ko_KR/" target="_blank">
+                  <img
+                    src={require("../../images/chanel.png")}
+                    alt="새로운 이슈 첫번째 슬라이드"
+                  />
+                  <p>CHANNEL</p>
+                </a>
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date1.jfif')}
-                  alt="새로운 이슈 두번째 슬라이드"
-                />
+                <a
+                  href="https://duckyworld.co.kr/?NaPm=ct%3Dkhzsfbe2%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3Da044d2a54f5d3c3dfe138243b9c110871defaf30"
+                  target="_blank"
+                >
+                  <img
+                    src={require("../../images/duki.jpg")}
+                    alt="새로운 이슈 두번째 슬라이드"
+                  />
+                  <p>DUCKY WORLD</p>
+                </a>
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date2.jfif')}
-                  alt="새로운 이슈 세번째 슬라이드"
-                />
+                <a href="https://www.hermes.com/kr/ko/" target="_blank">
+                  <img
+                    src={require("../../images/hermes.jpg")}
+                    alt="새로운 이슈 세번째 슬라이드"
+                  />
+                  <p>HERMES</p>
+                </a>
               </div>
               <div className="slide">
-                <img
-                  src={require('../../images/date3.jfif')}
-                  alt="새로운 이슈 네번째 슬라이드"
-                />
+                <a href="https://www.ysl.com/ko-kr/" target="_blank">
+                  <img
+                    src={require("../../images/ysl.jpg")}
+                    alt="새로운 이슈 첫번째 슬라이드"
+                  />
+                  <p>Yves Saint Laurent</p>
+                </a>
               </div>
             </div>
             <div className="navigation-manual">
@@ -120,9 +156,10 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://adventure.lotteworld.com/kor/main/index.do"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img
-                    src={require('../../images/lotte.jpg')}
+                    src={require("../../images/lotte.jpg")}
                     alt="롯데월드 어드벤쳐"
                   />
                 </a>
@@ -138,8 +175,9 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://www.everland.com/web/everland/main.html"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <img src={require('../../images/ever.jpg')} alt="애버랜드" />
+                  <img src={require("../../images/ever.jpg")} alt="애버랜드" />
                 </a>
                 <div className="caption">
                   <h2>EVERLAND</h2>
@@ -152,10 +190,11 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
               <div className="datePlace">
                 <a
                   href="https://korean.visitseoul.net/attractions/%EB%B6%81%EC%95%85%EC%8A%A4%EC%B9%B4%EC%9D%B4%EC%9B%A8%EC%9D%B4-%ED%8C%94%EA%B0%81%EC%A0%95_/11117"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
-                    src={require('../../images/bugak.jpg')}
+                    src={require("../../images/bugak.jpg")}
                     alt="북악스카이웨이"
                   />
                 </a>
@@ -169,8 +208,12 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 </div>
               </div>
               <div className="datePlace">
-                <a href="https://namisum.com/" target="_blank">
-                  <img src={require('../../images/nami.png')} alt="남이섬" />
+                <a
+                  href="https://namisum.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={require("../../images/nami.png")} alt="남이섬" />
                 </a>
                 <div className="caption">
                   <h2>NAMISUM</h2>
@@ -185,9 +228,10 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 <a
                   href="https://www.siheung.go.kr/portal/treasureMap/list.do?mId=0801020000"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img
-                    src={require('../../images/oi.jpg')}
+                    src={require("../../images/oi.jpg")}
                     alt="오이도 빨간등대"
                   />
                 </a>
@@ -212,8 +256,8 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
                 {schedules.map((schedule, index) => (
                   <ScheduleItem key={schedule.id}>
                     <div>
-                      {new Date(schedule.start).getFullYear()}년{' '}
-                      {new Date(schedule.start).getMonth() + 1}월{' '}
+                      {new Date(schedule.start).getFullYear()}년{" "}
+                      {new Date(schedule.start).getMonth() + 1}월{" "}
                       {new Date(schedule.start).getDate()}일
                     </div>
                     <ScheduleTitle>{schedule.title}</ScheduleTitle>
@@ -238,12 +282,13 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
             <h3>Album</h3>
           </Link>
           <AlbumItem>
-            {albums.slice(0, 5).map(
-              (album, index) =>
-                album.filename && (
-                  <div className="price" key={album.keyid}>
+            {arr2.slice(0, 5).map(
+              (ar) =>
+                ar.filename && (
+                  <div className="price" key={ar.keyid}>
                     <img
-                      src={`http://localhost:3000/uploads/${coupleShareCode}/${album.filename}`}
+                      src={`http://192.168.5.22:3000/uploads/${coupleShareCode}/${ar.filename}`}
+                      alt={`${ar.filename}`}
                     />
                   </div>
                 )
@@ -256,4 +301,3 @@ const RightMain = ({ schedules, dDays, albums, coupleShareCode }) => {
 };
 
 export default RightMain;
-  

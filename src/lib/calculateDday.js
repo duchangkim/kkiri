@@ -20,7 +20,7 @@ export default function calculateDday(dDayObj) {
   // console.log(`${dDayObj.title} : ${dd}`);
 
   if (dd === 0) {
-    return 'D-DAY';
+    return "D-DAY";
   }
   if (dd <= 0) {
     return `D+${dd * -1}`;

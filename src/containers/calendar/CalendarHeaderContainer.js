@@ -1,14 +1,14 @@
-import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   moveToNextRange,
   moveToPrevRange,
   moveToToday,
   togglePopup,
   changeType,
-} from '../../modules/tuiCalendar';
-import { initializeForm } from '../../modules/calendar';
-import CalendarHeader from '../../components/Calendar/CalendarHeader';
+} from "../../modules/tuiCalendar";
+import { initializeForm } from "../../modules/calendar";
+import CalendarHeader from "../../components/Calendar/CalendarHeader";
 
 const CalendarHeaderContainer = ({ cal }) => {
   const { year, month, isToday, isOpen } = useSelector(
@@ -35,9 +35,9 @@ const CalendarHeaderContainer = ({ cal }) => {
   // Props는 on접두사
   // function name에는 handle접두사
   const handleAddButtonClick = (e) => {
-    console.log('+btn click');
+    console.log("+btn click");
 
-    dispatch(changeType('create'));
+    dispatch(changeType("create"));
     dispatch(initializeForm());
     dispatch(togglePopup());
   };

@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const MemberSchema = new Schema({
   email: {
@@ -25,11 +25,11 @@ const MemberSchema = new Schema({
   },
   updated_at: {
     type: Date,
-    default: '',
+    default: "",
   },
   coupleId: {
     type: String,
-    default: '',
+    default: "",
   },
   userCode: {},
   coupleShareCode: {
@@ -50,9 +50,9 @@ const MemberSchema = new Schema({
   mainSetting: {
     type: Object,
     default: {
-      coupleBackground: '',
-      coupleProfile1: '',
-      coupleProfile2: '',
+      coupleBackground: "",
+      coupleProfile1: "",
+      coupleProfile2: "",
     },
   },
   // 간편로그인 회원정보
@@ -108,21 +108,21 @@ MemberSchema.methods.insertCoupleShareCode = function (code) {
   this.coupleShareCode = code;
 };
 MemberSchema.methods.setCoupleBackground = async function (image) {
-  console.log('백그라운드 메소드 - 이미지 이름 호출 : ' + image);
+  console.log("백그라운드 메소드 - 이미지 이름 호출 : " + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleBackground: image,
   };
 };
 MemberSchema.methods.setProfileImg = async function (image) {
-  console.log('프로필 메소드 = 이미지 이름 호출 : ' + image);
+  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleProfile1: image,
   };
 };
 MemberSchema.methods.setCoupleProfileImg = async function (image) {
-  console.log('프로필 메소드 = 이미지 이름 호출 : ' + image);
+  console.log("프로필 메소드 = 이미지 이름 호출 : " + image);
   this.mainSetting = {
     ...this.mainSetting,
     coupleProfile2: image,
@@ -167,7 +167,7 @@ MemberSchema.methods.generateToken = function () {
       naver: this.naver,
     },
     process.env.JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: "7d" }
   );
   return token;
 };
@@ -184,6 +184,6 @@ MemberSchema.methods.insertGetTogetherDate = function (getTogetherDate) {
   this.getTogetherDate = getTogetherDate;
 };
 
-const Member = mongoose.model('Member', MemberSchema);
+const Member = mongoose.model("Member", MemberSchema);
 
 export default Member;

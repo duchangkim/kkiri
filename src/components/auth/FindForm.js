@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import palette from "../../lib/styles/palette";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import { Container, Form, Button } from "react-bootstrap";
+import Button from "../common/Button";
+import { Container, Form, Alert } from "react-bootstrap";
 import { Input } from "reactstrap";
 
 const FindFormBlock = styled.div`
@@ -67,6 +67,11 @@ const FindFormBlock = styled.div`
     border-color: rgba(255, 131, 141, 1) !important;
     box-shadow: 0 0 0 0.2rem rgb(255 131 141 / 38%) !important;
   }
+  .alert {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
 `;
 
 const Footer = styled.div`
@@ -88,20 +93,27 @@ const Footer = styled.div`
   }
 `;
 
-const ButtonWithMarginTop = styled(Button)`
-  margin-top: 1rem;
-`;
-
 const textMap = {
   findid: "아이디 찾기",
   findpw: "비밀번호 찾기",
 };
 
-const ErrorMessage = styled.div`
-  color: red;
-  text-align: center;
-  font-size: 0.875rem;
-  margin-top: 1rem;
+const NaviMessage = styled.div`
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  font-size: 15px;
+  margin: 8px 0px;
+
+  &:before,
+  &:after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+  }
 `;
 
 const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
@@ -109,8 +121,11 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
   // console.log(myEmail);
   const text = textMap[type];
   return (
-    <FindFormBlock>
-      <Container>
+    <Container>
+      <FindFormBlock>
+        <NaviMessage>
+          <span className="m-3">{textMap[type]}</span>
+        </NaviMessage>
         <form onSubmit={onSubmit}>
           {type === "findpw" && (
             <>
@@ -194,9 +209,11 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
               </Form.Group>
             </>
           )}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {error && <Alert>{error}</Alert>}
           {type === "findresult" ? null : (
-            <Button className="btn btn-primary btn-block">{text}</Button>
+            <Button cyan fullWidth>
+              {text}
+            </Button>
           )}
         </form>
 
@@ -232,8 +249,8 @@ const FindForm = ({ type, form, onChange, onSubmit, error, myEmail }) => {
             </Link>
           )}
         </Footer>
-      </Container>
-    </FindFormBlock>
+      </FindFormBlock>
+    </Container>
   );
 };
 

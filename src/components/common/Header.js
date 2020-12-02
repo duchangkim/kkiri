@@ -5,6 +5,9 @@ import Responsive from "./Responsive";
 import Button from "./Button";
 import Carousel from "nuka-carousel";
 import img3 from "./images/welcome_image.jpg";
+import titleimg1 from "./images/titleimg1.png";
+import titleimg2 from "./images/titleimg2.png";
+import titleimg3 from "./images/titleimg3.png";
 
 import { Container } from "react-bootstrap";
 
@@ -16,7 +19,7 @@ const WelcomeCss = styled.div`
     height: 100% !important;
   }
   .slider-slide {
-    background-color: linear-gradient(#f9f9f9, #f3f3f3) !important;
+    background-color: #f7f5f2;
   }
   img {
     width: 100vw;
@@ -83,22 +86,50 @@ const WelcomeCss = styled.div`
 
 const Backco = styled.div`
   .container {
-    margin-top: 200px;
     padding-left: 30px;
     padding-right: 30px;
+    margin-top: 30vh;
   }
   .titleimg {
+    width: 35vw;
+    float: left;
+  }
+  img {
+    height: 100%;
+    width: 100%;
   }
   .titleBox {
     overflow: hidden;
-    width: 450px;
-    padding-top: 200px;
-    padding-left: 18px;
-    display: table-cell;
+    padding-top: 12%;
+    padding-left: 5%;
+    word-break: keep-all;
   }
   h2 {
     font-size: 24px;
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      padding-left: 70px;
+      padding-right: 70px;
+      margin-top: 10%;
+    }
+    .titleimg {
+      width: 70vw;
+      float: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      padding-left: 70px;
+      padding-right: 70px;
+      margin-top: 20vh;
+    }
+    .titleimg {
+      width: 100%;
+      float: none;
+    }
   }
 `;
 const HeaderBlock = styled.div`
@@ -166,7 +197,7 @@ const Header = ({ member, onLogout, children }) => {
                     <UserInfo>{member.email}</UserInfo>
                     <MainButton onClick={onLogout}>로그아웃</MainButton>
                     {member.coupleShareCode ? null : (
-                      <Button to="/registercouple">코드입력</Button>
+                      <Button to="/connection">코드입력</Button>
                     )}
                   </div>
                 ) : (
@@ -179,11 +210,13 @@ const Header = ({ member, onLogout, children }) => {
                 )}
               </Wrapper>
             </HeaderBlock>
-            <img src={img3} alt="" />
+            <img className="main1Img" src={img3} alt="" />
           </div>
           <Backco>
             <Container>
-              <div class="titleimg"></div>
+              <div class="titleimg">
+                <img src={titleimg1} alt="titleimg1" />
+              </div>
               <div class="titleBox">
                 <h2>언제 어디서나 둘만의 대화!</h2>
                 <p>
@@ -197,7 +230,9 @@ const Header = ({ member, onLogout, children }) => {
           </Backco>
           <Backco>
             <Container>
-              <div class="titleimg"></div>
+              <div class="titleimg">
+                <img src={titleimg2} alt="titleimg1" />
+              </div>
               <div class="titleBox">
                 <h2>기념일부터 스케줄까지 한 번에 확인하세요!</h2>
                 <p>
@@ -212,7 +247,9 @@ const Header = ({ member, onLogout, children }) => {
           </Backco>
           <Backco>
             <Container>
-              <div class="titleimg"></div>
+              <div class="titleimg">
+                <img src={titleimg3} alt="titleimg1" />
+              </div>
               <div class="titleBox">
                 <h2>소중한 추억을 손쉽게 저장하세요!</h2>
                 <p>

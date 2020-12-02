@@ -28,16 +28,16 @@ const initialState = {};
 const loading = handleActions(
   {
     [START_LOADING]: (state, action) => {
-      console.log(state);
-      console.log(action);
+      // console.log(state);
+      // console.log(action);
       return {
         ...state,
         [action.payload]: true,
       };
     },
     [FINISH_LOADING]: (state, action) => {
-      console.log(state);
-      console.log(action);
+      // console.log(state);
+      // console.log(action);
       return {
         ...state,
         [action.payload]: false,

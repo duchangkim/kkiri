@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import Member from '../models/member';
+import jwt from "jsonwebtoken";
+import Member from "../models/member";
 
 const jwtMiddleware = async (ctx, next) => {
-  const token = ctx.cookies.get('access_token');
+  const token = ctx.cookies.get("access_token");
 
   if (!token) return next();
 
@@ -28,7 +28,7 @@ const jwtMiddleware = async (ctx, next) => {
     if ((decoded.exp = now < 60 * 60 * 24 * 3.5)) {
       const member = await Member.findByEmail(decoded.email);
       const token = member.generateToken();
-      ctx.cookies.set('access_token', token, {
+      ctx.cookies.set("access_token", token, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
       });

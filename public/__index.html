@@ -62,11 +62,11 @@
 
     // 자동 슬라이드
     let counter = 1;
-    setInterval(function(){
-      document.querySelector('#auto-radio' + counter).checked = true;
+    setInterval(function () {
+      document.querySelector("#auto-radio" + counter).checked = true;
       counter++;
-      if(counter >  4){
-          counter = 1;
+      if (counter > 4) {
+        counter = 1;
       }
     }, 3000);
 
@@ -136,7 +136,7 @@
             place2: json.name,
             description2: json.weather[0].description,
             icon2: json.weather[0].icon,
-          }
+          };
           localStorage.setItem("weather", JSON.stringify(weathers));
 
           // // 날씨 이미지가 하나밖에 안보여 추가로 만듬

@@ -423,6 +423,38 @@
   width: 100%;
   height: 100%;
 }
+.slide p {
+  position: relative;
+  top: -42px;
+  background-color: black;
+  font-size: large;
+  width: 100%;
+  padding: 0 2%;
+  color: white;
+}
+
+@media (max-width: 1980px) {
+  .slide p {
+    position: relative;
+    top: -41px;
+    background-color: black;
+    font-size: large;
+    width: 100%;
+    padding: 0 2%;
+    color: white;
+  }
+}
+@media (max-width: 880px) {
+  .slide p {
+    position: relative;
+    top: -45px;
+    background-color: black;
+    font-size: large;
+    width: 100%;
+    padding: 0 2%;
+    color: white;
+  }
+}
 /* 좌측 클릭 슬라이더 부분 */
 .navigation-manual {
   position: relative;
@@ -438,7 +470,9 @@
   border-radius: 10px;
   cursor: pointer;
   transition: 1s;
+  margin-top: 4px;
 }
+
 /* 좌측 클릭 슬라이더 버튼 부분 */
 .manual-btn:not(:last-child) {
   margin-right: 10px;
@@ -454,6 +488,7 @@
 /* 좌측 클릭 슬라이더 버튼 체크 부분 */
 #radio1:checked ~ .first {
   margin-left: 0;
+  background: white;
 }
 #radio2:checked ~ .first {
   margin-left: -20%;
@@ -586,7 +621,7 @@
   overflow: hidden;
   position: absolute;
   top: 0;
-  left: -100%;
+  right: -100%;
   padding: 0;
 }
 a {
@@ -685,588 +720,588 @@ div.datePlace:nth-child(5) {
 
 @-webkit-keyframes slider {
   0% {
-    left: 0px;
+    right: 0px;
   }
   4% {
-    left: 0px;
+    right: 0px;
   }
   16% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   20% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   21% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   50% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   92% {
-    left: -100%;
+    right: -100%;
     z-index: 0;
   }
   96% {
-    left: -100%;
+    right: -100%;
   }
   100% {
-    left: 0px;
+    right: 0px;
   }
 }
 @-webkit-keyframes slider01 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   16% {
-    left: -100%;
+    right: -100%;
   }
   20% {
-    left: 0px;
+    right: 0px;
   }
   24% {
-    left: 0px;
+    right: 0px;
   }
   36% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   40% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   41% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-webkit-keyframes slider02 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   36% {
-    left: -100%;
+    right: -100%;
   }
   40% {
-    left: 0px;
+    right: 0px;
   }
   44% {
-    left: 0px;
+    right: 0px;
   }
   56% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   60% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   61% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-webkit-keyframes slider03 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   56% {
-    left: -100%;
+    right: -100%;
   }
   60% {
-    left: 0px;
+    right: 0px;
   }
   64% {
-    left: 0px;
+    right: 0px;
   }
   76% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   80% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   81% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-webkit-keyframes slider04 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   76% {
-    left: -100%;
+    right: -100%;
   }
   80% {
-    left: 0px;
+    right: 0px;
   }
   84% {
-    left: 0px;
+    right: 0px;
   }
   96% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   100% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
 }
 
 @-moz-keyframes slider {
   0% {
-    left: 0px;
+    right: 0px;
   }
   4% {
-    left: 0px;
+    right: 0px;
   }
   16% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   20% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   21% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   50% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   92% {
-    left: -100%;
+    right: -100%;
     z-index: 0;
   }
   96% {
-    left: -100%;
+    right: -100%;
   }
   100% {
-    left: 0px;
+    right: 0px;
   }
 }
 @-moz-keyframes slider01 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   16% {
-    left: -100%;
+    right: -100%;
   }
   20% {
-    left: 0px;
+    right: 0px;
   }
   24% {
-    left: 0px;
+    right: 0px;
   }
   36% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   40% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   41% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-moz-keyframes slider02 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   36% {
-    left: -100%;
+    right: -100%;
   }
   40% {
-    left: 0px;
+    right: 0px;
   }
   44% {
-    left: 0px;
+    right: 0px;
   }
   56% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   60% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   61% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-moz-keyframes slider03 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   56% {
-    left: -100%;
+    right: -100%;
   }
   60% {
-    left: 0px;
+    right: 0px;
   }
   64% {
-    left: 0px;
+    right: 0px;
   }
   76% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   80% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   81% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-moz-keyframes slider04 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   76% {
-    left: -100%;
+    right: -100%;
   }
   80% {
-    left: 0px;
+    right: 0px;
   }
   84% {
-    left: 0px;
+    right: 0px;
   }
   96% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   100% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
 }
 
 @-o-keyframes slider {
   0% {
-    left: 0px;
+    right: 0px;
   }
   4% {
-    left: 0px;
+    right: 0px;
   }
   16% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   20% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   21% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   50% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   92% {
-    left: -100%;
+    right: -100%;
     z-index: 0;
   }
   96% {
-    left: -100%;
+    right: -100%;
   }
   100% {
-    left: 0px;
+    right: 0px;
   }
 }
 @-o-keyframes slider01 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   16% {
-    left: -100%;
+    right: -100%;
   }
   20% {
-    left: 0px;
+    right: 0px;
   }
   24% {
-    left: 0px;
+    right: 0px;
   }
   36% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   40% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   41% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-o-keyframes slider02 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   36% {
-    left: -100%;
+    right: -100%;
   }
   40% {
-    left: 0px;
+    right: 0px;
   }
   44% {
-    left: 0px;
+    right: 0px;
   }
   56% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   60% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   61% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-o-keyframes slider03 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   56% {
-    left: -100%;
+    right: -100%;
   }
   60% {
-    left: 0px;
+    right: 0px;
   }
   64% {
-    left: 0px;
+    right: 0px;
   }
   76% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   80% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   81% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @-o-keyframes slider04 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   76% {
-    left: -100%;
+    right: -100%;
   }
   80% {
-    left: 0px;
+    right: 0px;
   }
   84% {
-    left: 0px;
+    right: 0px;
   }
   96% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   100% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
 }
 
 @keyframes slider {
   0% {
-    left: 0px;
+    right: 0px;
   }
   4% {
-    left: 0px;
+    right: 0px;
   }
   16% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   20% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   21% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   50% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   92% {
-    left: -100%;
+    right: -100%;
     z-index: 0;
   }
   96% {
-    left: -100%;
+    right: -100%;
   }
   100% {
-    left: 0px;
+    right: 0px;
   }
 }
 @keyframes slider01 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   16% {
-    left: -100%;
+    right: -100%;
   }
   20% {
-    left: 0px;
+    right: 0px;
   }
   24% {
-    left: 0px;
+    right: 0px;
   }
   36% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   40% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   41% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @keyframes slider02 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   36% {
-    left: -100%;
+    right: -100%;
   }
   40% {
-    left: 0px;
+    right: 0px;
   }
   44% {
-    left: 0px;
+    right: 0px;
   }
   56% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   60% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   61% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @keyframes slider03 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   56% {
-    left: -100%;
+    right: -100%;
   }
   60% {
-    left: 0px;
+    right: 0px;
   }
   64% {
-    left: 0px;
+    right: 0px;
   }
   76% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   80% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
   81% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
   100% {
-    left: -100%;
+    right: -100%;
     z-index: -1;
   }
 }
 @keyframes slider04 {
   0% {
-    left: -100%;
+    right: -100%;
   }
   76% {
-    left: -100%;
+    right: -100%;
   }
   80% {
-    left: 0px;
+    right: 0px;
   }
   84% {
-    left: 0px;
+    right: 0px;
   }
   96% {
-    left: 0px;
+    right: 0px;
     z-index: 0;
   }
   100% {
-    left: 100%;
+    right: 100%;
     z-index: 0;
   }
 }

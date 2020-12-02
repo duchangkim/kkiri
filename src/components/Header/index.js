@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Col from 'react-bootstrap/Col';
-import styled from 'styled-components';
-import BackgroundSettingPopup from '../Main/BackgroundSettingPopup';
-import ProfileSettingPopup from '../Main/ProfileSettingPopup';
-import { BsSearch, BsPeopleCircle, BsImage } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
-import getPosition from '../../lib/getPosition';
-import { getMyWeather } from '../../modules/weather';
-import { getCouple } from '../../modules/couple';
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Col from "react-bootstrap/Col";
+import styled from "styled-components";
+import BackgroundSettingPopup from "../Main/BackgroundSettingPopup";
+import ProfileSettingPopup from "../Main/ProfileSettingPopup";
+import { BsSearch, BsPeopleCircle, BsImage } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import getPosition from "../../lib/getPosition";
+import { getMyWeather } from "../../modules/weather";
+import { getCouple } from "../../modules/couple";
 
 const HeaderLeft = styled.div`
   width: 100%;
@@ -156,10 +156,11 @@ function Header() {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const today = year + '년 ' + month + '월 ' + day + '일';
+  const today = year + "년 " + month + "월 " + day + "일";
 
   const [backgroundSettingOpen, setbackgroundSettingOpen] = useState(false);
   const [ProfileSettingPopupOpen, setProfileSettingPopupOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const handleBackgroundSettingOpenClick = () =>
     setbackgroundSettingOpen(!backgroundSettingOpen);
@@ -175,6 +176,17 @@ function Header() {
   useEffect(() => {
     getPosition(dispatch, getMyWeather);
   }, [dispatch]);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearchValue(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    window.open("https:///www.google.co.kr/search?q=" + searchValue);
+  };
 
   return (
     <>
@@ -199,7 +211,7 @@ function Header() {
             />
           ) : null}
           <div className="Krikri-Select" id="Krikri-Select">
-            <form className="Search" id="Search">
+            <form className="Search" id="Search" onSubmit={handleSubmit}>
               <button
                 className="Img-Button"
                 id="Img-Button"
@@ -210,6 +222,7 @@ function Header() {
                 <BsSearch />
               </button>
               <input
+                onChange={handleChange}
                 className="Search-Keyword"
                 type="text"
                 name="search"
