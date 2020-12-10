@@ -1,6 +1,6 @@
 import React from 'react';
 import MemberDeleteContainer from '../../containers/setup/MemberDeleteContainer';
-import LogoutContainer from '../../containers/Auth/LogoutContainer';
+import LogoutContainer from '../../containers/auth/LogoutContainer';
 
 import { Container } from 'react-bootstrap';
 

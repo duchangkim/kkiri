@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthTemplate from '../components/Auth/AuthTemplate';
-import FindPwForm from '../containers/Auth/FindPwForm';
+import AuthTemplate from '../components/auth/AuthTemplate';
+import FindPwForm from '../containers/auth/FindPwForm';
 
 const FindPwPage = () => {
   return (

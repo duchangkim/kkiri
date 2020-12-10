@@ -9,7 +9,7 @@ import {
   createCoupleSet,
   superInitialize,
 } from '../../modules/auth';
-import Connection from '../../components/Auth/Connection';
+import Connection from '../../components/auth/Connection';
 
 const ConnectionContainer = ({ history }) => {
   const dispatch = useDispatch();

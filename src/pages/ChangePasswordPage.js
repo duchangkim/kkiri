@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthTemplate from '../components/Auth/AuthTemplate';
+import AuthTemplate from '../components/auth/AuthTemplate';
 import ChangePasswordForm from '../containers/setup/ChangePasswordForm';
 
 const ChangePasswordPage = () => {

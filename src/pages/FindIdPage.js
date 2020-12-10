@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthTemplate from '../components/Auth/AuthTemplate';
-import FindIdForm from '../containers/Auth/FindIdForm';
+import AuthTemplate from '../components/auth/AuthTemplate';
+import FindIdForm from '../containers/auth/FindIdForm';
 
 const FindIdPage = () => {
   return (

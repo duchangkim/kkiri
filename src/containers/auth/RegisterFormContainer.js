@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import AuthForm from '../../components/Auth/AuthForm';
+import AuthForm from '../../components/auth/AuthForm';
 import {
   changeField,
   initializeForm,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, findid } from '../../modules/auth';
-import FindForm from '../../components/Auth/FindForm';
+import FindForm from '../../components/auth/FindForm';
 import { withRouter } from 'react-router-dom';
 
 const FindIdForm = ({ history }) => {

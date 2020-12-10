@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthTemplate from '../components/Auth/AuthTemplate';
-import ConnectionContainer from '../containers/Auth/ConnectionContainer';
+import AuthTemplate from '../components/auth/AuthTemplate';
+import ConnectionContainer from '../containers/auth/ConnectionContainer';
 
 const ConnectionPage = () => {
   return (

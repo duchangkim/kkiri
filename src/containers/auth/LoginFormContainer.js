@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { check } from '../../modules/member';
-import AuthForm from '../../components/Auth/AuthForm';
+import AuthForm from '../../components/auth/AuthForm';
 import { changeField, initializeForm, login } from '../../modules/auth';
 
 const LoginFromContainer = ({ history }) => {

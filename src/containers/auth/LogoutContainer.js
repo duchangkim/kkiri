@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import LogoutForm from '../../components/Auth/LogoutForm';
+import LogoutForm from '../../components/auth/LogoutForm';
 import { withRouter } from 'react-router-dom';
 import { logout } from '../../modules/member';
 
