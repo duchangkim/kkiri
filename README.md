@@ -23,7 +23,7 @@
 # 프로젝트 팀원
 
 ### [김강현](https://github.com/rkdgus911) Kim Kanghyeon
-### [김두창](https://github.com/Kim-Duchang) Kim Duchang
+### [김두창](https://github.com/duchangkim) Kim Duchang
 ### [백교민](https://github.com/gyomin) Beak Gyomin 
 ### [홍성훈](https://github.com/sunghoon1) Hong Sunghoon
 
@@ -140,4 +140,4 @@
 <br />
 <br />
 
-###### README 작성자 [김두창](https://github.com/Kim-Duchang)
+###### README 작성자 [김두창](https://github.com/duchangkim)
